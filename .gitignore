@@ -6,3 +6,7 @@ IDE.log
 RemoteSystemsTempFiles/
 
 .analytics
+
+platform_aes/.log/
+
+platform_aes/logs/

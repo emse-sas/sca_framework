@@ -122,7 +122,7 @@ const static char CMD_allowed_options[CMD_COUNT_TYPE][CMD_MAX_OPTIONS] = {
     {CMD_NULL_OPTION},
     {'c', CMD_NULL_OPTION},
     {CMD_NULL_OPTION},
-    {'s', 'k', 'p', 'c', CMD_NULL_OPTION}};
+    {'h', 'k', 'p', 'c', CMD_NULL_OPTION}};
 
 /**
  * @brief allowed option value types for the given command

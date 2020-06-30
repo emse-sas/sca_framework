@@ -12,9 +12,14 @@
 #include "xil_printf.h"
 
 #define HEX_BYTES_SIZE 16
+#define HEX_WORDS_SIZE 4
 
-void HEX_parse_word(const char *word, uint8_t bytes[HEX_BYTES_SIZE]);
+void HEX_parse_chars(const char *word, uint8_t *bytes);
 
-void HEX_print_bytes(const uint8_t bytes[HEX_BYTES_SIZE]);
+void HEX_print_bytes(const uint8_t *bytes);
+
+void HEX_print_words(const uint32_t *words);
+
+void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words);
 
 #endif //SCA_FRAMEWORK_HEX_H

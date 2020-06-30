@@ -67,7 +67,7 @@ CMD_err_t CMD_get_opts(char **words, size_t len, CMD_opt_t **options)
             if (next_len > 2 && words[next_word][0] == '0' && words[next_word][1] == 'x')
             {
                 options[option_idx]->type = CMD_VAL_TYPE_HEXADECIMAL;
-                HEX_parse_word(words[next_word], options[option_idx]->value.bytes);
+                HEX_parse_chars(words[next_word], options[option_idx]->value.bytes);
             }
             else
             {

@@ -13,6 +13,7 @@
 
 #include "cmd.h"
 #include "aes.h"
+#include "aes_hw.h"
 
 typedef enum
 {
