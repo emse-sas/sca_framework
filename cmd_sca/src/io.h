@@ -9,7 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef enum {
+typedef enum
+{
     IO_SUCCESS = -1,
     IO_FAILURE = -2
 } IO_status_t;
@@ -23,5 +24,3 @@ IO_status_t IO_get_line(char *buffer, size_t len);
 size_t IO_get_words(char *line, char **words);
 
 #endif //SCA_FRAMEWORK_IO_H
-
-

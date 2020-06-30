@@ -14,7 +14,8 @@
 #include "cmd.h"
 #include "aes.h"
 
-typedef enum {
+typedef enum
+{
     RUN_SUCCESS = -1,
     RUN_FAILURE = -2
 } RUN_status_t;
