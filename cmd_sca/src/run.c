@@ -55,33 +55,40 @@ void RUN_help(const CMD_cmd_t *cmd)
 
 void RUN_quit()
 {
-    xil_printf("Exiting...\n\r");
+    xil_printf("*** Exiting ***\n\r");
 }
 
 void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx)
 {
     xil_printf("*** Start tiny AES ***\n\r");
     struct AES_ctx ctx;
+    uint8_t key[HEX_BYTES_SIZE], block[HEX_BYTES_SIZE];
+    memcpy(key, cmd->options[key_idx]->value.bytes, HEX_BYTES_SIZE);
+    xil_printf("Key: ");
+    HEX_print_bytes(key);
+    xil_printf("\n\r");
     if (plain_idx != CMD_ERR_NOT_FOUND)
     {
+        memcpy(block, cmd->options[plain_idx]->value.bytes, HEX_BYTES_SIZE);
         xil_printf("Plain: ");
-        HEX_print_bytes(cmd->options[plain_idx]->value.bytes);
+        HEX_print_bytes(block);
         xil_printf("\n\r");
-        AES_init_ctx(&ctx, cmd->options[key_idx]->value.bytes);
-        AES_ECB_encrypt(&ctx, cmd->options[plain_idx]->value.bytes);
+        AES_init_ctx(&ctx, key);
+        AES_ECB_encrypt(&ctx, block);
         xil_printf("Cipher: ");
-        HEX_print_bytes(cmd->options[plain_idx]->value.bytes);
+        HEX_print_bytes(block);
         xil_printf("\n\r");
     }
     else
     {
+        memcpy(block, cmd->options[cipher_idx]->value.bytes, HEX_BYTES_SIZE);
         xil_printf("Cipher: ");
-        HEX_print_bytes(cmd->options[cipher_idx]->value.bytes);
+        HEX_print_bytes(block);
         xil_printf("\n\r");
-        AES_init_ctx_iv(&ctx, cmd->options[key_idx]->value.bytes, cmd->options[cipher_idx]->value.bytes);
-        AES_ECB_decrypt(&ctx, cmd->options[cipher_idx]->value.bytes);
+        AES_init_ctx_iv(&ctx, key, block);
+        AES_ECB_decrypt(&ctx, block);
         xil_printf("Plain: ");
-        HEX_print_bytes(cmd->options[cipher_idx]->value.bytes);
+        HEX_print_bytes(block);
         xil_printf("\n\r");
     }
 }
@@ -89,7 +96,7 @@ void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_i
 void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx)
 {
     xil_printf("*** Start hardware AES ***\n\r");
-    uint32_t key[4], plain[4], cipher[4];
+    uint32_t key[HEX_WORDS_SIZE], block[HEX_WORDS_SIZE];
     HEX_bytes_to_words(cmd->options[key_idx]->value.bytes, key);
     AES_HW_write_key(key);
     AES_HW_read_key(key);
@@ -98,32 +105,32 @@ void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx
     xil_printf("\n\r");
     if (plain_idx != CMD_ERR_NOT_FOUND)
     {
+        HEX_bytes_to_words(cmd->options[plain_idx]->value.bytes, block);
         AES_HW_clear(AES_HW_ENCRYPT);
-        HEX_bytes_to_words(cmd->options[plain_idx]->value.bytes, plain);
-        AES_HW_write_input(plain);
-        AES_HW_read_input(plain);
+        AES_HW_write_input(block);
+        AES_HW_read_input(block);
         xil_printf("Plain: ");
-        HEX_print_words(plain);
+        HEX_print_words(block);
         xil_printf("\n\r");
         AES_HW_launch();
-        AES_HW_read_output(cipher);
+        AES_HW_read_output(block);
         xil_printf("Cipher: ");
-        HEX_print_words(cipher);
+        HEX_print_words(block);
         xil_printf("\n\r");
     }
     else
     {
+        HEX_bytes_to_words(cmd->options[cipher_idx]->value.bytes, block);
         AES_HW_clear(AES_HW_DECRYPT);
-        HEX_bytes_to_words(cmd->options[cipher_idx]->value.bytes, cipher);
-        AES_HW_write_input(cipher);
-        AES_HW_read_input(cipher);
+        AES_HW_write_input(block);
+        AES_HW_read_input(block);
         xil_printf("Cipher: ");
-        HEX_print_words(cipher);
+        HEX_print_words(block);
         xil_printf("\n\r");
         AES_HW_launch();
-        AES_HW_read_output(plain);
+        AES_HW_read_output(block);
         xil_printf("Plain: ");
-        HEX_print_words(plain);
+        HEX_print_words(block);
         xil_printf("\n\r");
     }
 }
