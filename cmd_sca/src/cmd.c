@@ -1,5 +1,5 @@
 //
-// Created by Sami Dahoux (sami.dahoux@etu.emse.fr) on 19/06/2020.
+// Created by Sami Dahoux (s.dahoux@emse.fr) on 19/06/2020.
 //
 
 #include "cmd.h"

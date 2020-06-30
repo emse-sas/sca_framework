@@ -1,6 +1,8 @@
-//
-// Created by Sami Dahoux (sami.dahoux@etu.emse.fr) on 26/06/2020.
-//
+/**
+ * @file io.h
+ * @author Sami Dahoux (s.dahoux@emse.fr)
+ * @brief Module to perform safe reading into stdin
+ */
 
 #ifndef SCA_FRAMEWORK_IO_H
 #define SCA_FRAMEWORK_IO_H
@@ -15,12 +17,32 @@ typedef enum
     IO_FAILURE = -2
 } IO_status_t;
 
+/**
+ * @brief Clears the first `len` chars of the given buffer by adding `'\0'` chars
+ * @param line buffer to be cleared
+ * @param len count of chars to clear, must not exceed the allocated size for `line`
+ */
 void IO_clear_line(char *line, size_t len);
 
+/**
+ * @brief Clears the given array of words
+ * @param words array of words ie. array of strings without ` ` chars
+ * @param len count of words contained in the array
+ */
 void IO_init_words(char **words, size_t len);
 
+/**
+ * @brief Get a line into stdin
+ * @param buffer line string
+ * @param len buffer length
+ */
 IO_status_t IO_get_line(char *buffer, size_t len);
 
+/**
+ * @brief Splits a string according to the ' ' delimiter char
+ * @param line line to split
+ * @param words words of the splitted line
+ */
 size_t IO_get_words(char *line, char **words);
 
 #endif //SCA_FRAMEWORK_IO_H

@@ -1,11 +1,14 @@
 #include "aes_hw.h"
 
-void AES_HW_clear(int encrypt)
+void AES_HW_clear(AES_HW_mode_t mode)
 {
-    uint32_t inv_mask = encrypt == AES_HW_DECRYPT ? AES_HW_STATUS_INV : 0;
-    Xil_Out32(AES_HW_ADDR(AES_HW_STATUS_POS_IN), AES_HW_STATUS_RESET | inv_mask);
-    usleep(100);
-    Xil_Out32(AES_HW_ADDR(AES_HW_STATUS_POS_IN), AES_HW_STATUS_NULL | inv_mask);
+    Xil_Out32(
+        AES_HW_ADDR(AES_HW_STATUS_POS_IN),
+        AES_HW_STATUS_SET_1(AES_HW_STATUS_RESET, mode == AES_HW_DECRYPT ? AES_HW_STATUS_INV : AES_HW_STATUS_NULL));
+    usleep(1);
+    Xil_Out32(
+        AES_HW_ADDR(AES_HW_STATUS_POS_IN),
+        AES_HW_STATUS_SET_0(AES_HW_STATUS_RESET, Xil_In32(AES_HW_ADDR(AES_HW_STATUS_POS_IN))));
 }
 
 void AES_HW_write_input(const uint32_t *bytes)
@@ -50,9 +53,13 @@ void AES_HW_read_output(uint32_t *bytes)
 
 void AES_HW_launch()
 {
-    Xil_Out32(AES_HW_ADDR(AES_HW_STATUS_POS_IN), Xil_In32(AES_HW_ADDR(AES_HW_STATUS_POS_IN)) | AES_HW_STATUS_START);
-    // while (!(Xil_In32(AES_HW_ADDR(AES_HW_STATUS_POS_OUT)) & AES_HW_STATUS_DONE))
+    Xil_Out32(
+        AES_HW_ADDR(AES_HW_STATUS_POS_IN),
+        AES_HW_STATUS_SET_1(AES_HW_STATUS_START, Xil_In32(AES_HW_ADDR(AES_HW_STATUS_POS_IN))));
+    // while (!AES_HW_STATUS_GET(AES_HW_STATUS_DONE, Xil_In32(AES_HW_ADDR(AES_HW_STATUS_POS_OUT))))
     // {
     // }
-    Xil_Out32(AES_HW_ADDR(AES_HW_STATUS_POS_IN), Xil_In32(AES_HW_ADDR(AES_HW_STATUS_POS_IN)) & ~AES_HW_STATUS_START);
+    Xil_Out32(
+        AES_HW_ADDR(AES_HW_STATUS_POS_IN),
+        AES_HW_STATUS_SET_0(AES_HW_STATUS_START, Xil_In32(AES_HW_ADDR(AES_HW_STATUS_POS_IN))));
 }

@@ -38,24 +38,54 @@
 #define AES_HW_STATUS_DONE 0x00000001
 
 #define AES_HW_ADDR(pos) (AES_HW_BASE_ADDR + AES_HW_WORD_SIZE * pos)
+#define AES_HW_STATUS_SET_1(status, status_reg) (status_reg | status)
+#define AES_HW_STATUS_SET_0(status, status_reg) (status_reg & ~status)
+#define AES_HW_STATUS_GET(status, status_reg) (status_reg & status)
 
 typedef enum {
     AES_HW_ENCRYPT,
     AES_HW_DECRYPT
 } AES_HW_mode_t;
 
-void AES_HW_clear(int encrypt);
+/**
+ * @brief Resets the hardware device and set mode
+ * @param mode set encryption or decryption
+ */
+void AES_HW_clear(AES_HW_mode_t mode);
 
+/**
+ * @brief Writes input block data
+ * @param bytes input block words
+ */
 void AES_HW_write_input(const uint32_t *bytes);
 
+/**
+ * @brief Writes key block data
+ * @param bytes key block words
+ */
 void AES_HW_write_key(const uint32_t *bytes);
 
+/**
+ * @brief Reads input block data
+ * @param bytes input block words
+ */
 void AES_HW_read_input(uint32_t *bytes);
 
+/**
+ * @brief Reads key block data
+ * @param bytes key block words
+ */
 void AES_HW_read_key(uint32_t *bytes);
 
+/**
+ * @brief Reads outpout block data
+ * @param bytes output block words
+ */
 void AES_HW_read_output(uint32_t *bytes);
 
+/**
+ * @brief Starts computing and wait until done
+ */
 void AES_HW_launch();
 
 #endif //SCA_FRAMEWORK_AES_HW_H

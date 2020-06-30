@@ -1,6 +1,8 @@
-//
-// Created by Sami Dahoux (sami.dahoux@etu.emse.fr) on 19/06/2020.
-//
+/**
+ * @file cmd.h
+ * @author Sami Dahoux (s.dahoux@emse.fr)
+ * @brief Command parsing module featuring options
+ */
 
 #ifndef SCA_FRAMEWORK_CMD_H
 #define SCA_FRAMEWORK_CMD_H
@@ -39,7 +41,7 @@ typedef enum
 } CMD_err_t;
 
 /**
- * @bbrief allowed commands
+ * @brief allowed commands
  */
 typedef enum
 {
@@ -50,9 +52,7 @@ typedef enum
 } CMD_type_t;
 
 /**
- * @bbrief allowed option value type
- *
- * The types decimal and hexadecimal both refers to an integer value but with different radix.
+ * @brief allowed option value type
  */
 typedef enum
 {
@@ -67,14 +67,15 @@ typedef enum
  * @brief variable type value for the option
  *
  * The members accessed must be compatible with the option type.
- * if the option type is numerical, access integer, not string.
+ * if the option type is decimal, access integer.
  * If the option type is a string, access string.
- * If the option type is nine, do not access this union.
+ * If the option type is a hexdecimal, access bytes.
+ * If the option type is none, do not access this union.
  */
 typedef union {
     char string[CMD_LINE_SIZE];   /** string component of the value */
     long long integer;            /** integer component of the value */
-    uint8_t bytes[CMD_LINE_SIZE]; /** raw bytes of the value*/
+    uint8_t bytes[CMD_LINE_SIZE]; /** bytes of the value*/
 } CMD_opt_val_t;
 
 /**
@@ -93,7 +94,7 @@ typedef struct
 typedef struct
 {
     CMD_type_t type;                     /** command type */
-    CMD_opt_t *options[CMD_MAX_OPTIONS]; /** command options */
+    CMD_opt_t *options[CMD_MAX_OPTIONS]; /** command nullable options */
 } CMD_cmd_t;
 
 /**
@@ -139,18 +140,54 @@ const static char *CMD_opt_type_labels[CMD_COUNT_VAL_TYPE] = {
     "[hexadecimal]",
     "[string]"};
 
+/**
+ * @brief Initializes the given command in `CMD_TYPE_NONE` state
+ */
 void CMD_init(CMD_cmd_t *command);
 
+/**
+ * @brief Resets the given command to `CMD_TYPE_NONE` state
+ */
 void CMD_clear(CMD_cmd_t *command);
 
+/**
+ * @brief Tries to parse the command type from the given word
+ * @param word string without ' '
+ * @param type parsed command type
+ * @return `CMD_ERR_NONE` on success
+ */
 CMD_err_t CMD_get_type(const char *word, CMD_type_t *type);
 
+/**
+ * @brief Tries to parse the command type from the given word
+ * @param words words forming the option string
+ * @param len count of words
+ * @param options parsed options
+ * @return `CMD_ERR_NONE` on success
+ */
 CMD_err_t CMD_get_opts(char **words, size_t len, CMD_opt_t **options);
 
+/**
+ * @brief Tries to parse line in order to get a valid command
+ * @param line line to be parsed
+ * @param cmd parsed command
+ * @return `CMD_ERR_NONE` on success else error (< 0) or option index
+ */
 int CMD_parse_line(char *line, CMD_cmd_t *cmd);
 
+/**
+ * @brief Checks if the command contains the right options and values types
+ * @param cmd command to be checked
+ * @return `CMD_ERR_NONE` on success else the index of the first invalid option
+ */
 int CMD_check_options(CMD_cmd_t cmd);
 
+/**
+ * @brief Finds an option into the given option array
+ * @param options option array to browse
+ * @param label option label to search
+ * @return `CMD_ERR_NONE` on success
+ */
 int CMD_find_option(const CMD_opt_t **options, char label);
 
 #endif //SCA_FRAMEWORK_CMD_H

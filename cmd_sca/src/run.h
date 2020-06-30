@@ -1,9 +1,12 @@
-//
-// Created by Sami Dahoux (sami.dahoux@etu.emse.fr) on 26/06/2020.
-//
+/**
+ * @file run.h
+ * @author Sami Dahoux (s.dahoux@emse.fr)
+ * @brief Module containing the functions that run each command defined in the module CMD and a command prompt
+ */
 
 #ifndef SCA_FRAMEWORK_RUN_H
 #define SCA_FRAMEWORK_RUN_H
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,23 +24,58 @@ typedef enum
     RUN_FAILURE = -2
 } RUN_status_t;
 
+
+/**
+ * @brief Prints the help message for all commands
+ */
 void RUN_all_help();
 
+/**
+ * @brief Prints the help for the given command
+ * @param type command as enumerated type
+ */
 void RUN_cmd_help(const CMD_type_t type);
 
+/**
+ * @brief Launches the help command
+ * @param cmd optional command
+ */
 void RUN_help(const CMD_cmd_t *cmd);
 
+/**
+ * @brief Launches the quit command
+ */
 void RUN_quit();
 
+/**
+ * @brief Launches AES computation using tiny-AES implementation and log results
+ * @param cmd command containing key and data
+ * @param plain_idx index of the plain data in the command options or CMD_ERROR_NOT_FOUND
+ * @param cipher_idx index of the cipher data in the command options or CMD_ERROR_NOT_FOUND
+ * @param key_idx index of the cipher data in the command options 
+ */
 void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx);
 
+/**
+ * @brief Launch AES computation using FPGA implementation of AES and log results
+ * @param cmd command containing key and data
+ * @param plain_idx index of the plain data in the command options or CMD_ERROR_NOT_FOUND
+ * @param cipher_idx index of the cipher data in the command options or CMD_ERROR_NOT_FOUND
+ * @param key_idx index of the cipher data in the command options 
+ */
 void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx);
 
+
+/**
+ * @brief Launches the aes command
+ * @param non-optional command
+ * @return `RUN_FAILURE` when the operation failed else `RUN_SUCCESS`
+ */
 RUN_status_t RUN_aes(const CMD_cmd_t *cmd);
 
 /**
- * @brief launch the cmd client loop
- * @return error code if the cmd was quit unexpectedly else 0
+ * @brief Launches the command prompts
+ * @return `RUN_FAILURE` when a fatal error occurs else `RUN_SUCCESS`
  */
 RUN_status_t RUN_cmd();
 

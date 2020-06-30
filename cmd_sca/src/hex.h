@@ -1,6 +1,8 @@
-//
-// Created by Sami Dahoux (sami.dahoux@etu.emse.fr) on 26/06/2020.
-//
+/**
+ * @file hex.h
+ * @author Sami Dahoux (s.dahoux@emse.fr)
+ * @brief Module to perform 8-bits and 32-bits raw arrays printing and conversions
+ */
 
 #ifndef SCA_FRAMEWORK_HEX_H
 #define SCA_FRAMEWORK_HEX_H
@@ -11,15 +13,25 @@
 
 #include "xil_printf.h"
 
-#define HEX_BYTES_SIZE 16
-#define HEX_WORDS_SIZE 4
+#define HEX_BYTES_SIZE 16 /** Size of the bytes arrays to process */
+#define HEX_WORDS_SIZE 4 /** Size of the words arrays to process */
 
+/**
+ * @brief Parse the string given in argument to get hexadecimal value bytes
+ * @param word string to parse, must be a hexadecimal string such as `FFE1`
+ * @param bytes parsed bytes
+ */
 void HEX_parse_chars(const char *word, uint8_t *bytes);
 
 void HEX_print_bytes(const uint8_t *bytes);
 
 void HEX_print_words(const uint32_t *words);
 
+/**
+ * @brief Copy the data contained in `bytes` into `words`
+ * @param bytes source bytes
+ * @param words destination words
+ */
 void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words);
 
 #endif //SCA_FRAMEWORK_HEX_H
