@@ -10,3 +10,5 @@ RemoteSystemsTempFiles/
 platform_aes/.log/
 
 platform_aes/logs/
+
+.vscode/
