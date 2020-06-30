@@ -4,17 +4,17 @@
 
 #include "run.h"
 
-void print_all_help()
+void RUN_all_help()
 {
     int option_idx = 0;
     int cmd_idx = 1;
-    xil_printf("Label\t\t Description\t\t\t Options\n\r");
+    xil_printf("Label\t\tDescription\t\t\tOptions\n\r");
     for (; cmd_idx < CMD_COUNT_TYPE; cmd_idx++)
     {
         xil_printf("%s\t\t%s\t\t", CMD_labels[cmd_idx], CMD_descriptions[cmd_idx]);
         for (option_idx = 0; CMD_allowed_options[cmd_idx][option_idx] != CMD_NULL_OPTION; option_idx++)
         {
-            xil_printf("-%c %s\t",
+            xil_printf("-%c %s ",
                        CMD_allowed_options[cmd_idx][option_idx],
                        CMD_opt_type_labels[CMD_allowed_types[cmd_idx][option_idx]]);
         }
@@ -22,15 +22,15 @@ void print_all_help()
     }
 }
 
-void print_cmd_help(const CMD_type_t type)
+void RUN_cmd_help(const CMD_type_t type)
 {
     size_t option_idx = 0;
-    xil_printf("Label\t\t Description\t\t\t Options\n\r");
+    xil_printf("Label\t\tDescription\t\t\tOptions\n\r");
     xil_printf("%s\t\t%s\t\t", CMD_labels[type], CMD_descriptions[type]);
 
     for (; CMD_allowed_options[type][option_idx] != CMD_NULL_OPTION; option_idx++)
     {
-        xil_printf("-%c %s\t",
+        xil_printf("-%c %s ",
                    CMD_allowed_options[type][option_idx],
                    CMD_opt_type_labels[CMD_allowed_types[type][option_idx]]);
     }
@@ -41,16 +41,16 @@ void RUN_help(const CMD_cmd_t *cmd)
 {
     if (cmd == NULL)
     {
-        print_all_help();
+        RUN_all_help();
         return;
     }
     size_t option_idx;
     CMD_type_t help_cmd_type;
     if ((option_idx = CMD_find_option((const CMD_opt_t **)cmd->options, 'c')) == CMD_ERR_NOT_FOUND ||
         (CMD_get_type(cmd->options[option_idx]->value.string, &help_cmd_type) == CMD_ERR_NOT_FOUND))
-        print_all_help();
+        RUN_all_help();
     else
-        print_cmd_help(help_cmd_type);
+        RUN_cmd_help(help_cmd_type);
 }
 
 void RUN_quit()
@@ -58,7 +58,7 @@ void RUN_quit()
     xil_printf("Exiting...\n\r");
 }
 
-RUN_status_t RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx)
+void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx)
 {
     xil_printf("*** Start tiny AES ***\n\r");
     struct AES_ctx ctx;
@@ -84,7 +84,6 @@ RUN_status_t RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, i
         HEX_print_bytes(cmd->options[cipher_idx]->value.bytes);
         xil_printf("\n\r");
     }
-    return RUN_SUCCESS;
 }
 
 void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx)

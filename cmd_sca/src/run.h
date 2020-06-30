@@ -21,16 +21,24 @@ typedef enum
     RUN_FAILURE = -2
 } RUN_status_t;
 
-/**
- * @brief launch the cmd client loop
- * @return error code if the cmd was quit unexpectedly else 0
- */
-RUN_status_t RUN_cmd();
+void RUN_all_help();
+
+void RUN_cmd_help(const CMD_type_t type);
 
 void RUN_help(const CMD_cmd_t *cmd);
 
 void RUN_quit();
 
+void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx);
+
+void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx);
+
 RUN_status_t RUN_aes(const CMD_cmd_t *cmd);
+
+/**
+ * @brief launch the cmd client loop
+ * @return error code if the cmd was quit unexpectedly else 0
+ */
+RUN_status_t RUN_cmd();
 
 #endif //SCA_FRAMEWORK_RUN_H

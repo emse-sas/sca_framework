@@ -112,7 +112,7 @@ const static char *CMD_descriptions[CMD_COUNT_TYPE] = {
     "",
     "print a helper message",
     "exit the software",
-    "encrypt/decrypt 128 bits using AES",
+    "AES encrypt/decrypt",
 };
 
 /**
