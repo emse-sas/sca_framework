@@ -17,7 +17,7 @@
 #define HEX_WORDS_SIZE 4 /** Size of the words arrays to process */
 
 /**
- * @brief Parse the string given in argument to get hexadecimal value bytes
+ * @brief Parse the string given in argument to get a hexadecimal value bytes
  * @param word string to parse, must be a hexadecimal string such as `FFE1`
  * @param bytes parsed bytes
  */
@@ -28,7 +28,7 @@ void HEX_print_bytes(const uint8_t *bytes);
 void HEX_print_words(const uint32_t *words);
 
 /**
- * @brief Copy the data contained in `bytes` into `words`
+ * @brief Copy `uint8_t` array to `uint32_t` array
  * @param bytes source bytes
  * @param words destination words
  */

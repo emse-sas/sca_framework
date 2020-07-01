@@ -2,6 +2,9 @@
  * @file cmd.h
  * @author Sami Dahoux (s.dahoux@emse.fr)
  * @brief Command parsing module featuring options
+ * 
+ * This command prompt takes command in the form `action -o value -p value -q -s value`
+ * Where value can be either a string, a base 10 integer value, a base 16 raw value or none.
  */
 
 #ifndef SCA_FRAMEWORK_CMD_H
@@ -41,7 +44,7 @@ typedef enum
 } CMD_err_t;
 
 /**
- * @brief allowed commands
+ * @brief handled commands
  */
 typedef enum
 {
@@ -52,25 +55,21 @@ typedef enum
 } CMD_type_t;
 
 /**
- * @brief allowed option value type
+ * @brief handled option value type
  */
 typedef enum
 {
     CMD_VAL_TYPE_NONE,
-    CMD_VAL_TYPE_DECIMAL,
-    CMD_VAL_TYPE_HEXADECIMAL,
-    CMD_VAL_TYPE_STRING,
+    CMD_VAL_TYPE_DECIMAL, /** base 10 `int` value */
+    CMD_VAL_TYPE_HEXADECIMAL, /** base 16 unconstrained integer value as bytes */
+    CMD_VAL_TYPE_STRING, /** string value */
     CMD_VAL_TYPE_END
 } CMD_opt_val_type_t;
 
 /**
  * @brief variable type value for the option
  *
- * The members accessed must be compatible with the option type.
- * if the option type is decimal, access integer.
- * If the option type is a string, access string.
- * If the option type is a hexdecimal, access bytes.
- * If the option type is none, do not access this union.
+ * The members accessed must be compatible with the option value type `CMD_opt_val_type_t`.
  */
 typedef union {
     char string[CMD_LINE_SIZE];   /** string component of the value */
@@ -84,12 +83,14 @@ typedef union {
 typedef struct
 {
     char label;              /** character labeling the option */
-    CMD_opt_val_t value;     /** value of the option */
-    CMD_opt_val_type_t type; /** expected type for the option value */
+    CMD_opt_val_t value;     /** value of the option argument */
+    CMD_opt_val_type_t type; /** type for the option argument */
 } CMD_opt_t;
 
 /**
  * @brief command handling structure
+ * 
+ * The options are optional, if the command does not takes option, the array `options` will be filt with `NULL` pointer
  */
 typedef struct
 {
@@ -98,7 +99,7 @@ typedef struct
 } CMD_cmd_t;
 
 /**
- * @brief label of the given command
+ * @brief name of the given command
  */
 const static char *CMD_labels[CMD_COUNT_TYPE] = {
     "",
@@ -141,12 +142,12 @@ const static char *CMD_opt_type_labels[CMD_COUNT_VAL_TYPE] = {
     "[string]"};
 
 /**
- * @brief Initializes the given command in `CMD_TYPE_NONE` state
+ * @brief Initializes the given command to the `CMD_TYPE_NONE` command
  */
 void CMD_init(CMD_cmd_t *command);
 
 /**
- * @brief Resets the given command to `CMD_TYPE_NONE` state
+ * @brief Resets the given command to the `CMD_TYPE_NONE` command
  */
 void CMD_clear(CMD_cmd_t *command);
 
@@ -159,7 +160,7 @@ void CMD_clear(CMD_cmd_t *command);
 CMD_err_t CMD_get_type(const char *word, CMD_type_t *type);
 
 /**
- * @brief Tries to parse the command type from the given word
+ * @brief Tries to parse the command options from the given words
  * @param words words forming the option string
  * @param len count of words
  * @param options parsed options
@@ -168,15 +169,15 @@ CMD_err_t CMD_get_type(const char *word, CMD_type_t *type);
 CMD_err_t CMD_get_opts(char **words, size_t len, CMD_opt_t **options);
 
 /**
- * @brief Tries to parse line in order to get a valid command
+ * @brief Tries to parse a line in order to get a valid command
  * @param line line to be parsed
  * @param cmd parsed command
- * @return `CMD_ERR_NONE` on success else error (< 0) or option index
+ * @return `CMD_ERR_NONE` on success else error (< 0) or the index of the first invalid option
  */
 int CMD_parse_line(char *line, CMD_cmd_t *cmd);
 
 /**
- * @brief Checks if the command contains the right options and values types
+ * @brief Checks if the command contains the valid options and with valid value types
  * @param cmd command to be checked
  * @return `CMD_ERR_NONE` on success else the index of the first invalid option
  */

@@ -1,3 +1,11 @@
+/**
+ * @file aes_hw.h
+ * @author Sami Dahoux (s.dahoux@emse.fr)
+ * @brief Driver for the AES IP contained in the test system vivado_aes
+ * 
+ * In all the following contents, a block refers to a 16-bytes array or a 4-words array, which is the data format for the AES algorithm.
+ * The driver API allows encryption and decryption, therefore, the input/ouput refers to either the plain text or the cipher text.
+ */
 
 #ifndef SCA_FRAMEWORK_AES_HW_H
 #define SCA_FRAMEWORK_AES_HW_H
@@ -48,7 +56,7 @@ typedef enum {
 } AES_HW_mode_t;
 
 /**
- * @brief Resets the hardware device and set mode
+ * @brief Resets the hardware device and set the encryption mode
  * @param mode set encryption or decryption
  */
 void AES_HW_clear(AES_HW_mode_t mode);
@@ -84,7 +92,7 @@ void AES_HW_read_key(uint32_t *bytes);
 void AES_HW_read_output(uint32_t *bytes);
 
 /**
- * @brief Starts computing and wait until done
+ * @brief Starts hardware AES computing and wait until done
  */
 void AES_HW_launch();
 

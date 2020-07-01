@@ -48,7 +48,7 @@ void RUN_help(const CMD_cmd_t *cmd);
 void RUN_quit();
 
 /**
- * @brief Launches AES computation using tiny-AES implementation and log results
+ * @brief Launches AES computation using tiny-AES implementation and displays results
  * @param cmd command containing key and data
  * @param plain_idx index of the plain data in the command options or CMD_ERROR_NOT_FOUND
  * @param cipher_idx index of the cipher data in the command options or CMD_ERROR_NOT_FOUND
@@ -57,7 +57,7 @@ void RUN_quit();
 void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx);
 
 /**
- * @brief Launch AES computation using FPGA implementation of AES and log results
+ * @brief Launch AES computation using FPGA implementation of AES and displays results
  * @param cmd command containing key and data
  * @param plain_idx index of the plain data in the command options or CMD_ERROR_NOT_FOUND
  * @param cipher_idx index of the cipher data in the command options or CMD_ERROR_NOT_FOUND
