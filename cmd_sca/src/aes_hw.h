@@ -1,7 +1,7 @@
 /**
  * @file aes_hw.h
  * @author Sami Dahoux (s.dahoux@emse.fr)
- * @brief Driver for the AES IP contained in the test system vivado_aes
+ * @brief Driver for the AES IP contained in the test system vivado_sca
  * 
  * In all the following contents, a block refers to a 16-bytes array or a 4-words array, which is the data format for the AES algorithm.
  * The driver API allows encryption and decryption, therefore, the input/ouput refers to either the plain text or the cipher text.
