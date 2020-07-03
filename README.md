@@ -7,9 +7,13 @@ FPGA devices are subject to a significant popularity increase especially thanks 
 
 Today, servers can embed FPGA based hardware accelerators. These are often cryptographic accelerators. This allows a better response time for server when establishing a secure connection with a client. 
 
+![sca servers fpga](media/img/sca_servers_fpga.png)  
+
 As the servers access are already shared among multiple users, shared FPGA fabric access are studied in order to allow the implementation of multiple accelerators into the same servers, improving the response time for all the client of a server.
 
 Although logical isolation can be perform into the FPGA fabric to forbid users access to each other logic (the same way it is done with containerization on servers), it is significantly more difficult to provide power isolation.
+
+![sca pdn](media/img/sca_pdn.png)
 
 In this context, we attempt to demonstrate that it is possible to perform a Side-Channel Attack (SCA) using Correlation Power Analysis (CPA).
 
