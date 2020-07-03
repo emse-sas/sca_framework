@@ -1,11 +1,12 @@
 # sca_cmd
-## Command prompt for attack configuration and run
+## Command prompt (CMD) for attack configuration and run
+
+Our driver application consist on a **simple** and **robust** command prompt.
 
 ## Features
-
-- User defined commands
-- User defined options of various types
 - Easily expandable code architecture
+- Documented commands
+- Options
 
 ## Usage
 
