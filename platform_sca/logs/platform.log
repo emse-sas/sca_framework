@@ -7196,3 +7196,638 @@ D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss|sy
 D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
 
 TRACE::2020-07-03.13:32:03::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:26:32::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:32::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:32::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:32::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:32::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:32::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:32::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_10
+TRACE::2020-07-03.16:26:32::SCWPlatform::Opened existing hwdb system_wrapper_10
+TRACE::2020-07-03.16:26:32::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:33::SCWPlatform::DSA given D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:33::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:33::SCWPlatform:: Platform location is D:/sca_framework/platform_sca/tempdsa
+TRACE::2020-07-03.16:26:33::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:33::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:49::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:49::SCWMssOS::Doing hw sync for the mss in domain: zynq_fsbl
+TRACE::2020-07-03.16:26:49::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:49::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:49::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_10
+TRACE::2020-07-03.16:26:49::SCWPlatform::Opened existing hwdb system_wrapper_10
+TRACE::2020-07-03.16:26:49::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:49::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:49::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:49::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_10
+TRACE::2020-07-03.16:26:49::SCWPlatform::Opened existing hwdb system_wrapper_10
+TRACE::2020-07-03.16:26:49::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:49::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:49::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_0||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:26:49::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:49::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform::DSA given D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform::DSA directory D:/sca_framework/platform_sca/tempdsa
+TRACE::2020-07-03.16:26:49::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:49::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:49::SCWPlatform::update - Opened existing hwdb system_wrapper_11
+TRACE::2020-07-03.16:26:49::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:50::SCWMssOS::Doing hw sync for the mss in domain: standalone_domain
+TRACE::2020-07-03.16:26:50::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:50::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:50::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_10
+TRACE::2020-07-03.16:26:50::SCWPlatform::Opened existing hwdb system_wrapper_10
+TRACE::2020-07-03.16:26:50::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:50::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:50::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:50::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_10
+TRACE::2020-07-03.16:26:50::SCWPlatform::Opened existing hwdb system_wrapper_10
+TRACE::2020-07-03.16:26:50::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:50::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:26:50::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_0||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:26:50::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:26:50::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform::DSA given D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform::DSA directory D:/sca_framework/platform_sca/tempdsa
+TRACE::2020-07-03.16:26:50::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/tempdsa/system_wrapper.xsa
+TRACE::2020-07-03.16:26:50::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:50::SCWPlatform::update - Opened existing hwdb system_wrapper_11
+TRACE::2020-07-03.16:26:50::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:50::SCWMssOS::Saving the mss changes D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:50::SCWMssOS::Found a swdesign opened with the mssfile.
+TRACE::2020-07-03.16:26:50::SCWMssOS::Completed writemss as part of save.
+TRACE::2020-07-03.16:26:50::SCWMssOS::Commit changes completed.
+TRACE::2020-07-03.16:26:50::SCWMssOS::Completed hw sync for the mss in domain: zynq_fsbl
+TRACE::2020-07-03.16:26:50::SCWMssOS::Removing the swdes entry for  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:50::SCWMssOS::Saving the mss changes D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:26:50::SCWMssOS::Found a swdesign opened with the mssfile.
+TRACE::2020-07-03.16:26:50::SCWMssOS::Completed writemss as part of save.
+TRACE::2020-07-03.16:26:50::SCWMssOS::Commit changes completed.
+TRACE::2020-07-03.16:26:50::SCWMssOS::Completed hw sync for the mss in domain: standalone_domain
+TRACE::2020-07-03.16:26:50::SCWMssOS::Removing the swdes entry for  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:26:51::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:51::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:51::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:51::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:51::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:51::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:51::SCWPlatform::Do not have an existing db opened. 
+TRACE::2020-07-03.16:26:56::SCWPlatform::Opened new HwDB with name system_wrapper_12
+TRACE::2020-07-03.16:26:56::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:56::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:56::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_12
+TRACE::2020-07-03.16:26:56::SCWPlatform::Opened existing hwdb system_wrapper_12
+TRACE::2020-07-03.16:26:56::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:56::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+
+TRACE::2020-07-03.16:26:56::SCWMssOS::No sw design opened at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWMssOS::mss exists loading the mss file  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWMssOS::Opened the sw design from mss  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWMssOS::Adding the swdes entry D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss with des name system
+TRACE::2020-07-03.16:26:56::SCWMssOS::updating the scw layer about changes
+TRACE::2020-07-03.16:26:56::SCWMssOS::Opened the sw design.  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWMssOS::Saving the mss changes D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWMssOS::Found a swdesign opened with the mssfile.
+TRACE::2020-07-03.16:26:56::SCWMssOS::Completed writemss as part of save.
+TRACE::2020-07-03.16:26:56::SCWMssOS::Commit changes completed.
+TRACE::2020-07-03.16:26:56::SCWMssOS::Saving the mss changes D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWMssOS::Adding the swdes entry, mss present, able to open swdb D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss with des name system_0
+TRACE::2020-07-03.16:26:56::SCWMssOS::Writing the mss file completed D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWMssOS::Commit changes completed.
+TRACE::2020-07-03.16:26:56::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:56::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:56::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_12
+TRACE::2020-07-03.16:26:56::SCWPlatform::Opened existing hwdb system_wrapper_12
+TRACE::2020-07-03.16:26:56::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:56::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_0||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:26:56::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:56::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:56::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:56::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_12
+TRACE::2020-07-03.16:26:56::SCWPlatform::Opened existing hwdb system_wrapper_12
+TRACE::2020-07-03.16:26:56::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:26:56::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_0||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:26:56::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:26:56::SCWWriter::formatted JSON is {
+	"platformName":	"platform_sca",
+	"sprVersion":	"2.0",
+	"mode":	"gui",
+	"dsaType":	"Fixed",
+	"platformDesc":	"platform_sca",
+	"platHandOff":	"D:/sca_framework/vivado_sca/system_wrapper.xsa",
+	"platIntHandOff":	"<platformDir>/hw/system_wrapper.xsa",
+	"deviceType":	"zynq",
+	"platIsPrebuiltAutogen":	"false",
+	"platIsNoBootBsp":	"false",
+	"hasFsblMakeHasChanges":	"false",
+	"hasPmufwMakeHasChanges":	"false",
+	"fsblExtraCompilerFlags":	"-MMD -MP       -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard ",
+	"platPreBuiltFlag":	false,
+	"platformSamplesDir":	"",
+	"platActiveSys":	"platform_sca",
+	"systems":	[{
+			"systemName":	"platform_sca",
+			"systemDesc":	"platform_sca",
+			"sysIsBootAutoGen":	"true",
+			"systemDispName":	"platform_sca",
+			"sysActiveDom":	"standalone_domain",
+			"sysDefaultDom":	"standalone_domain",
+			"domains":	[{
+					"domainName":	"zynq_fsbl",
+					"domainDispName":	"zynq_fsbl",
+					"domainDesc":	"FSBL Application BSP - Auto Generated.",
+					"processors":	"ps7_cortexa9_0",
+					"os":	"standalone",
+					"sdxOs":	"standalone",
+					"debugEnable":	"",
+					"domRuntimes":	["cpp"],
+					"swRepo":	"",
+					"mssOsVer":	"7.2",
+					"mssFile":	"",
+					"md5Digest":	"bfaef2a47c240e390db73cbb64aae40b",
+					"compatibleApp":	"zynq_fsbl",
+					"domType":	"bootDomain",
+					"appSettings":	{
+						"appCompilerFlags":	"",
+						"appLinkerFlags":	""
+					},
+					"addedLibs":	["xilffs:4.3", "xilrsa:1.6"],
+					"libOptions":	{
+						"libsContainingOptions":	[]
+					},
+					"prebuiltLibs":	{
+						"prebuiltIncPath":	[],
+						"prebuiltLibPath":	[]
+					},
+					"isolation":	{
+					}
+				}, {
+					"domainName":	"standalone_domain",
+					"domainDispName":	"standalone on ps7_cortexa9_0",
+					"domainDesc":	"standalone_domain",
+					"processors":	"ps7_cortexa9_0",
+					"os":	"standalone",
+					"sdxOs":	"standalone",
+					"qemuArgs":	"D:/Xilinx/Vitis/2020.1/data/emulation/platforms/zynq/qemu/qemu_args.txt",
+					"qemuData":	"D:/Xilinx/Vitis/2020.1/data/emulation/platforms/zynq/qemu/",
+					"debugEnable":	"False",
+					"domRuntimes":	["cpp"],
+					"swRepo":	"",
+					"mssOsVer":	"7.2",
+					"mssFile":	"",
+					"md5Digest":	"73de06e3871d1354d3a34353edee9e3d",
+					"compatibleApp":	"",
+					"domType":	"mssDomain",
+					"appSettings":	{
+						"appCompilerFlags":	"",
+						"appLinkerFlags":	""
+					},
+					"addedLibs":	[],
+					"libOptions":	{
+						"libsContainingOptions":	[]
+					},
+					"prebuiltLibs":	{
+						"prebuiltIncPath":	[],
+						"prebuiltLibPath":	[]
+					},
+					"isolation":	{
+					}
+				}]
+		}]
+}
+TRACE::2020-07-03.16:26:58::SCWPlatform::Clearing the existing platform
+TRACE::2020-07-03.16:26:58::SCWSystem::Clearing the existing sysconfig
+TRACE::2020-07-03.16:26:58::SCWBDomain::clearing the fsbl build
+TRACE::2020-07-03.16:26:58::SCWMssOS::Removing the swdes entry for  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:26:58::SCWMssOS::Removing the swdes entry for  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:26:58::SCWSystem::Clearing the domains completed.
+TRACE::2020-07-03.16:26:58::SCWPlatform::Clearing the opened hw db.
+TRACE::2020-07-03.16:26:58::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:58::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:58::SCWPlatform:: Platform location is D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:58::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:58::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:58::SCWPlatform::Removing the HwDB with name D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:58::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:58::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:58::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:58::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:26:58::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:26:58::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:26:58::SCWPlatform::Do not have an existing db opened. 
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened new HwDB with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWReader::Active system found as  platform_sca
+TRACE::2020-07-03.16:27:01::SCWReader::Handling sysconfig platform_sca
+TRACE::2020-07-03.16:27:01::SCWDomain::checking for install qemu data   : 
+TRACE::2020-07-03.16:27:01::SCWDomain:: Using the QEMU Data from install at  : D:/Xilinx/Vitis/2020.1/data/emulation/platforms/zynq/qemu/
+TRACE::2020-07-03.16:27:01::SCWDomain:: Using the QEMU args  from install at  : D:/Xilinx/Vitis/2020.1/data/emulation/platforms/zynq/qemu/qemu_args.txt
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWReader::Boot application domain added for zynq_fsbl
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+
+TRACE::2020-07-03.16:27:01::SCWMssOS::No sw design opened at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::mss exists loading the mss file  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::Opened the sw design from mss  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::Adding the swdes entry D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss with des name system
+TRACE::2020-07-03.16:27:01::SCWMssOS::updating the scw layer about changes
+TRACE::2020-07-03.16:27:01::SCWMssOS::Opened the sw design.  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:27:01::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS:: library already available in sw design:  xilffs:4.3
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:27:01::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS:: library already available in sw design:  xilrsa:1.6
+TRACE::2020-07-03.16:27:01::SCWMssOS::Saving the mss changes D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::Found a swdesign opened with the mssfile.
+TRACE::2020-07-03.16:27:01::SCWMssOS::Completed writemss as part of save.
+TRACE::2020-07-03.16:27:01::SCWMssOS::Commit changes completed.
+TRACE::2020-07-03.16:27:01::SCWReader::Adding prebuilt librarypaths as   
+TRACE::2020-07-03.16:27:01::SCWReader::Adding prebuilt incpaths  as   
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:27:01::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWReader::No isolation master present  
+TRACE::2020-07-03.16:27:01::SCWDomain::checking for install qemu data   : 
+TRACE::2020-07-03.16:27:01::SCWDomain:: Using the QEMU Data from install at  : D:/Xilinx/Vitis/2020.1/data/emulation/platforms/zynq/qemu/
+TRACE::2020-07-03.16:27:01::SCWDomain:: Using the QEMU args  from install at  : D:/Xilinx/Vitis/2020.1/data/emulation/platforms/zynq/qemu/qemu_args.txt
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:27:01::SCWMssOS::No sw design opened at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::mss exists loading the mss file  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::Opened the sw design from mss  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::Adding the swdes entry D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss with des name system_0
+TRACE::2020-07-03.16:27:01::SCWMssOS::updating the scw layer about changes
+TRACE::2020-07-03.16:27:01::SCWMssOS::Opened the sw design.  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::Saving the mss changes D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::Found a swdesign opened with the mssfile.
+TRACE::2020-07-03.16:27:01::SCWMssOS::Completed writemss as part of save.
+TRACE::2020-07-03.16:27:01::SCWMssOS::Commit changes completed.
+TRACE::2020-07-03.16:27:01::SCWReader::Adding prebuilt librarypaths as   
+TRACE::2020-07-03.16:27:01::SCWReader::Adding prebuilt incpaths  as   
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:01::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:01::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Opened existing hwdb system_wrapper_13
+TRACE::2020-07-03.16:27:01::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:01::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_0||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:27:01::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:01::SCWReader::No isolation master present  
+LOG::2020-07-03.16:27:20::SCWPlatform::Started generating the artifacts platform platform_sca
+TRACE::2020-07-03.16:27:20::SCWPlatform::Sanity checking of platform is completed
+LOG::2020-07-03.16:27:21::SCWPlatform::Started generating the artifacts for system configuration platform_sca
+LOG::2020-07-03.16:27:21::SCWSystem::Checking the domain zynq_fsbl
+LOG::2020-07-03.16:27:21::SCWSystem::Doing application build for :  zynq_fsbl
+TRACE::2020-07-03.16:27:21::SCWBDomain::Not a forced makefile updation, No changes are present. 
+TRACE::2020-07-03.16:27:21::SCWDomain::Skipping the build for domain :  zynq_fsbl
+LOG::2020-07-03.16:27:21::SCWSystem::Checking the domain standalone_domain
+LOG::2020-07-03.16:27:21::SCWSystem::Not a boot domain 
+LOG::2020-07-03.16:27:21::SCWSystem::Started Processing the domain standalone_domain
+TRACE::2020-07-03.16:27:21::SCWDomain::Generating domain artifcats
+TRACE::2020-07-03.16:27:21::SCWMssOS::Generating standalone artifcats
+TRACE::2020-07-03.16:27:21::SCWMssOS::Copying the qemu file from  D:/Xilinx/Vitis/2020.1/data/emulation/platforms/zynq/qemu/qemu_args.txt To D:/sca_framework/platform_sca/export/platform_sca/sw/platform_sca/qemu/
+TRACE::2020-07-03.16:27:21::SCWMssOS::Copying the qemu file from  D:/Xilinx/Vitis/2020.1/data/emulation/platforms/zynq/qemu/qemu_args.txt To D:/sca_framework/platform_sca/export/platform_sca/sw/platform_sca/standalone_domain/qemu/
+TRACE::2020-07-03.16:27:21::SCWMssOS:: Copying the user libraries. 
+TRACE::2020-07-03.16:27:21::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:21::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:21::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:21::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:21::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:21::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:21::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_13
+TRACE::2020-07-03.16:27:21::SCWPlatform::Could not get the HWDB from existing dbname
+TRACE::2020-07-03.16:27:21::SCWPlatform::Do not have an existing db opened. Attempting to open the hwDb. 
+TRACE::2020-07-03.16:27:21::SCWPlatform::Opened new HwDB with name system_wrapper_14
+TRACE::2020-07-03.16:27:21::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:21::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_0||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:27:21::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:21::SCWMssOS::Completed writing the mss file at D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp
+TRACE::2020-07-03.16:27:21::SCWMssOS::Mss edits present, copying mssfile into export location D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:21::SCWMssOS::bsp generated is upto date with the mss file. Skipping bsp generation.
+TRACE::2020-07-03.16:27:21::SCWMssOS::BSP is already built. skipping the bsp build ... 
+TRACE::2020-07-03.16:27:21::SCWDomain::Skipping the build for domain :  standalone_domain
+TRACE::2020-07-03.16:27:21::SCWMssOS::skipping the bsp build ... 
+TRACE::2020-07-03.16:27:21::SCWMssOS::Copying to export directory.
+TRACE::2020-07-03.16:27:23::SCWMssOS:: Checking if to create the Supporting Applications
+TRACE::2020-07-03.16:27:23::SCWMssOS:: No Linux domain exists, trying to generate FSBL 
+LOG::2020-07-03.16:27:23::SCWSystem::Completed Processing the domain standalone_domain
+LOG::2020-07-03.16:27:23::SCWSystem::Completed Processing the sysconfig platform_sca
+LOG::2020-07-03.16:27:23::SCWPlatform::Completed generating the artifacts for system configuration platform_sca
+TRACE::2020-07-03.16:27:23::SCWPlatform::Started preparing the platform 
+TRACE::2020-07-03.16:27:23::SCWSystem::Writing the bif file for system config platform_sca
+TRACE::2020-07-03.16:27:23::SCWSystem::dir created 
+TRACE::2020-07-03.16:27:23::SCWSystem::Writing the bif 
+TRACE::2020-07-03.16:27:23::SCWPlatform::Started writing the spfm file 
+TRACE::2020-07-03.16:27:23::SCWPlatform::Started writing the xpfm file 
+TRACE::2020-07-03.16:27:23::SCWPlatform::Completed generating the platform
+TRACE::2020-07-03.16:27:23::SCWMssOS::Saving the mss changes D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:23::SCWMssOS::Found a swdesign opened with the mssfile.
+TRACE::2020-07-03.16:27:23::SCWMssOS::Completed writemss as part of save.
+TRACE::2020-07-03.16:27:23::SCWMssOS::Commit changes completed.
+TRACE::2020-07-03.16:27:23::SCWMssOS::Saving the mss changes D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:23::SCWMssOS::Found a swdesign opened with the mssfile.
+TRACE::2020-07-03.16:27:23::SCWMssOS::Completed writemss as part of save.
+TRACE::2020-07-03.16:27:23::SCWMssOS::Commit changes completed.
+TRACE::2020-07-03.16:27:23::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:23::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:23::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:23::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:23::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:23::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:23::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_14
+TRACE::2020-07-03.16:27:23::SCWPlatform::Opened existing hwdb system_wrapper_14
+TRACE::2020-07-03.16:27:23::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:23::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:23::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_0||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:27:23::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2020-07-03.16:27:23::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:23::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:23::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:23::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:23::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:23::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:23::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_14
+TRACE::2020-07-03.16:27:23::SCWPlatform::Opened existing hwdb system_wrapper_14
+TRACE::2020-07-03.16:27:23::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:23::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:23::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_0||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:27:23::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:23::SCWWriter::formatted JSON is {
+	"platformName":	"platform_sca",
+	"sprVersion":	"2.0",
+	"mode":	"gui",
+	"dsaType":	"Fixed",
+	"platformDesc":	"platform_sca",
+	"platHandOff":	"D:/sca_framework/vivado_sca/system_wrapper.xsa",
+	"platIntHandOff":	"<platformDir>/hw/system_wrapper.xsa",
+	"deviceType":	"zynq",
+	"platIsPrebuiltAutogen":	"false",
+	"platIsNoBootBsp":	"false",
+	"hasFsblMakeHasChanges":	"false",
+	"hasPmufwMakeHasChanges":	"false",
+	"fsblExtraCompilerFlags":	"-MMD -MP       -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard ",
+	"platPreBuiltFlag":	false,
+	"platformSamplesDir":	"",
+	"platActiveSys":	"platform_sca",
+	"systems":	[{
+			"systemName":	"platform_sca",
+			"systemDesc":	"platform_sca",
+			"sysIsBootAutoGen":	"true",
+			"systemDispName":	"platform_sca",
+			"sysActiveDom":	"standalone_domain",
+			"sysDefaultDom":	"standalone_domain",
+			"domains":	[{
+					"domainName":	"zynq_fsbl",
+					"domainDispName":	"zynq_fsbl",
+					"domainDesc":	"FSBL Application BSP - Auto Generated.",
+					"processors":	"ps7_cortexa9_0",
+					"os":	"standalone",
+					"sdxOs":	"standalone",
+					"debugEnable":	"",
+					"domRuntimes":	["cpp"],
+					"swRepo":	"",
+					"mssOsVer":	"7.2",
+					"mssFile":	"",
+					"md5Digest":	"bfaef2a47c240e390db73cbb64aae40b",
+					"compatibleApp":	"zynq_fsbl",
+					"domType":	"bootDomain",
+					"appSettings":	{
+						"appCompilerFlags":	"",
+						"appLinkerFlags":	""
+					},
+					"addedLibs":	["xilffs:4.3", "xilrsa:1.6"],
+					"libOptions":	{
+						"libsContainingOptions":	[]
+					},
+					"prebuiltLibs":	{
+						"prebuiltIncPath":	[],
+						"prebuiltLibPath":	[]
+					},
+					"isolation":	{
+					}
+				}, {
+					"domainName":	"standalone_domain",
+					"domainDispName":	"standalone on ps7_cortexa9_0",
+					"domainDesc":	"standalone_domain",
+					"processors":	"ps7_cortexa9_0",
+					"os":	"standalone",
+					"sdxOs":	"standalone",
+					"qemuArgs":	"D:/Xilinx/Vitis/2020.1/data/emulation/platforms/zynq/qemu/qemu_args.txt",
+					"qemuData":	"D:/Xilinx/Vitis/2020.1/data/emulation/platforms/zynq/qemu/",
+					"debugEnable":	"False",
+					"domRuntimes":	["cpp"],
+					"swRepo":	"",
+					"mssOsVer":	"7.2",
+					"mssFile":	"",
+					"md5Digest":	"73de06e3871d1354d3a34353edee9e3d",
+					"compatibleApp":	"",
+					"domType":	"mssDomain",
+					"appSettings":	{
+						"appCompilerFlags":	"",
+						"appLinkerFlags":	""
+					},
+					"addedLibs":	[],
+					"libOptions":	{
+						"libsContainingOptions":	[]
+					},
+					"prebuiltLibs":	{
+						"prebuiltIncPath":	[],
+						"prebuiltLibPath":	[]
+					},
+					"isolation":	{
+					}
+				}]
+		}]
+}
+KEYINFO::2020-07-03.16:27:23::SCWPlatform::updated the xpfm file.
+TRACE::2020-07-03.16:27:24::SCWPlatform::Trying to open the hw design at D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:24::SCWPlatform::DSA given D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:24::SCWPlatform::DSA absoulate path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:24::SCWPlatform::DSA directory D:/sca_framework/platform_sca/hw
+TRACE::2020-07-03.16:27:24::SCWPlatform:: Platform Path D:/sca_framework/platform_sca/hw/system_wrapper.xsa
+TRACE::2020-07-03.16:27:24::SCWPlatform:: Unique name xilinx:zybo-z7-10::0.0
+TRACE::2020-07-03.16:27:24::SCWPlatform::Trying to set the existing hwdb with name system_wrapper_14
+TRACE::2020-07-03.16:27:24::SCWPlatform::Opened existing hwdb system_wrapper_14
+TRACE::2020-07-03.16:27:24::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2020-07-03.16:27:24::SCWMssOS::Checking the sw design at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2020-07-03.16:27:24::SCWMssOS::DEBUG:  swdes dump  D:/sca_framework/platform_aes/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_2||
+D:/sca_framework/platform_aes/zynq_fsbl/zynq_fsbl_bsp/system.mss|system_1||
+D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_0||
+D:/sca_framework/platform_sca/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2020-07-03.16:27:24::SCWMssOS::Sw design exists and opened at  D:/sca_framework/platform_sca/ps7_cortexa9_0/standalone_domain/bsp/system.mss
