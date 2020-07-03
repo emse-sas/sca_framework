@@ -165,12 +165,37 @@ RUN_status_t RUN_aes(const CMD_cmd_t *cmd)
     return RUN_SUCCESS;
 }
 
+RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
+{
+    if (cmd == NULL)
+    {
+        return RUN_FAILURE;
+    }
+    const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
+    int calibrate_idx = CMD_find_option(options_ptr, 'c');
+    int read_idx = CMD_find_option(options_ptr, 'r');
+    if ((read_idx != CMD_ERR_NOT_FOUND && calibrate_idx != CMD_ERR_NOT_FOUND) ||
+        (read_idx == CMD_ERR_NOT_FOUND && calibrate_idx == CMD_ERR_NOT_FOUND))
+    {
+        return RUN_FAILURE;
+    }
+
+    if(read_idx == CMD_ERR_NOT_FOUND)
+    {
+        printf("*** Start calibration ***\n\r");
+        printf("Best settings: 0x%08x\n\r", TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer));
+    }
+    printf("Current value: 0x%08x\n\r", TDC_HW_read());
+    return RUN_SUCCESS;
+}
+
 RUN_status_t RUN_cmd()
 {
     char line[CMD_LINE_SIZE], buffer[CMD_LINE_SIZE];
     CMD_cmd_t cmd;
-    CMD_err_t error_ret;
-    int error_idx;
+    CMD_err_t cmd_error;
+    RUN_status_t run_status;
+    int option_idx;
 
     CMD_init(&cmd);
     do
@@ -184,7 +209,7 @@ RUN_status_t RUN_cmd()
             return RUN_FAILURE;
         }
         strcpy(buffer, line);
-        switch ((error_ret = CMD_parse_line(buffer, &cmd)))
+        switch ((cmd_error = CMD_parse_line(buffer, &cmd)))
         {
         case CMD_ERR_NONE:
             break;
@@ -198,14 +223,15 @@ RUN_status_t RUN_cmd()
             fprintf(stderr, "Invalid format: %s\n\r", line);
             continue;
         default:
-            fprintf(stderr, "Unexpected error: %d\n\r", error_ret);
+            fprintf(stderr, "Unexpected error: %d\n\r", cmd_error);
             continue;
         }
-        if ((error_idx = CMD_check_options(cmd)) != CMD_ERR_NONE)
+        if ((option_idx = CMD_check_options(cmd)) != CMD_ERR_NONE)
         {
-            fprintf(stderr, "Invalid option: %c\n\r", cmd.options[error_idx]->label);
+            fprintf(stderr, "Invalid option: %c\n\r", cmd.options[option_idx]->label);
             continue;
         }
+        run_status = RUN_SUCCESS;
         switch (cmd.type)
         {
         case CMD_TYPE_NONE:
@@ -217,11 +243,19 @@ RUN_status_t RUN_cmd()
             RUN_quit();
             return RUN_SUCCESS;
         case CMD_TYPE_AES:
-            RUN_aes(&cmd);
+            run_status = RUN_aes(&cmd);
+            break;
+        case CMD_TYPE_TDC:
+            run_status = RUN_tdc(&cmd);
             break;
         default:
             fprintf(stderr, "Not implemented: %s\n\r", strtok(line, " "));
             break;
+        }
+        if (run_status != RUN_SUCCESS)
+        {
+            fprintf(stderr, "%s failed\n\r", CMD_labels[cmd.type]);
+            continue;
         }
     } while (1);
 }

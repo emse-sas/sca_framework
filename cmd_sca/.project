@@ -3,7 +3,7 @@
 	<name>cmd_sca</name>
 	<comment>Created by Vitis v2020.1</comment>
 	<projects>
-		<project>platform_aes</project>
+		<project>platform_sca</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -12,3 +12,9 @@ platform_aes/.log/
 platform_aes/logs/
 
 .vscode/
+
+.sdk/
+
+vivado_aes/
+
+platform_aes/

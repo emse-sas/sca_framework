@@ -1,0 +1,54 @@
+// Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+// --------------------------------------------------------------------------------
+// Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
+// Date        : Thu Jul  2 21:07:19 2020
+// Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode synth_stub
+//               d:/sca_framework/vivado_sca/vivado_sca.srcs/sources_1/bd/system/ip/system_fifo_controller_0_0/system_fifo_controller_0_0_stub.v
+// Design      : system_fifo_controller_0_0
+// Purpose     : Stub declaration of top-level module interface
+// Device      : xc7z010clg400-1
+// --------------------------------------------------------------------------------
+
+// This empty module with port declaration file causes synthesis tools to infer a black box for IP.
+// The synthesis directives are for Synopsys Synplify support to prevent IO buffer insertion.
+// Please paste the declaration into a Verilog source file or add the file as an additional source.
+(* x_core_info = "fifo_controller_v1_0,Vivado 2020.1" *)
+module system_fifo_controller_0_0(clock_wr_i, clock_rd_i, start_i, done_i, data_i, 
+  empty_i, full_i, clock_o, wr_en_o, rd_en_o, s_axi_aclk, s_axi_aresetn, s_axi_awaddr, 
+  s_axi_awprot, s_axi_awvalid, s_axi_awready, s_axi_wdata, s_axi_wstrb, s_axi_wvalid, 
+  s_axi_wready, s_axi_bresp, s_axi_bvalid, s_axi_bready, s_axi_araddr, s_axi_arprot, 
+  s_axi_arvalid, s_axi_arready, s_axi_rdata, s_axi_rresp, s_axi_rvalid, s_axi_rready)
+/* synthesis syn_black_box black_box_pad_pin="clock_wr_i,clock_rd_i,start_i,done_i,data_i[31:0],empty_i,full_i,clock_o,wr_en_o,rd_en_o,s_axi_aclk,s_axi_aresetn,s_axi_awaddr[3:0],s_axi_awprot[2:0],s_axi_awvalid,s_axi_awready,s_axi_wdata[31:0],s_axi_wstrb[3:0],s_axi_wvalid,s_axi_wready,s_axi_bresp[1:0],s_axi_bvalid,s_axi_bready,s_axi_araddr[3:0],s_axi_arprot[2:0],s_axi_arvalid,s_axi_arready,s_axi_rdata[31:0],s_axi_rresp[1:0],s_axi_rvalid,s_axi_rready" */;
+  input clock_wr_i;
+  input clock_rd_i;
+  input start_i;
+  input done_i;
+  input [31:0]data_i;
+  input empty_i;
+  input full_i;
+  output clock_o;
+  output wr_en_o;
+  output rd_en_o;
+  input s_axi_aclk;
+  input s_axi_aresetn;
+  input [3:0]s_axi_awaddr;
+  input [2:0]s_axi_awprot;
+  input s_axi_awvalid;
+  output s_axi_awready;
+  input [31:0]s_axi_wdata;
+  input [3:0]s_axi_wstrb;
+  input s_axi_wvalid;
+  output s_axi_wready;
+  output [1:0]s_axi_bresp;
+  output s_axi_bvalid;
+  input s_axi_bready;
+  input [3:0]s_axi_araddr;
+  input [2:0]s_axi_arprot;
+  input s_axi_arvalid;
+  output s_axi_arready;
+  output [31:0]s_axi_rdata;
+  output [1:0]s_axi_rresp;
+  output s_axi_rvalid;
+  input s_axi_rready;
+endmodule

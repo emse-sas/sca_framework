@@ -1,0 +1,49 @@
+vhdl xil_defaultlib  \
+"../../../bd/system/ip/system_rst_ps7_0_50M_0/sim/system_rst_ps7_0_50M_0.vhd" \
+
+vhdl lib_thirdparty  \
+"../../../bd/system/ipshared/469c/src/crypt_pack.vhd" \
+
+vhdl lib_round  \
+"../../../bd/system/ipshared/469c/src/add_roundkey.vhd" \
+
+vhdl lib_thirdparty  \
+"../../../bd/system/ipshared/469c/src/state_reg.vhd" \
+"../../../bd/system/ipshared/469c/src/mix_prod.vhd" \
+"../../../bd/system/ipshared/469c/src/round_counter.vhd" \
+"../../../bd/system/ipshared/469c/src/test_pack.vhd" \
+
+vhdl lib_round  \
+"../../../bd/system/ipshared/469c/src/mix_columns.vhd" \
+"../../../bd/system/ipshared/469c/src/sub_bytes.vhd" \
+"../../../bd/system/ipshared/469c/src/shift_rows.vhd" \
+
+vhdl lib_rtl  \
+"../../../bd/system/ipshared/469c/src/key_expander.vhd" \
+"../../../bd/system/ipshared/469c/src/key_expansion_fsm.vhd" \
+"../../../bd/system/ipshared/469c/src/key_expansion.vhd" \
+"../../../bd/system/ipshared/469c/src/aes_fsm.vhd" \
+"../../../bd/system/ipshared/469c/src/aes_round.vhd" \
+"../../../bd/system/ipshared/469c/src/aes.vhd" \
+
+vhdl xil_defaultlib  \
+"../../../bd/system/ipshared/469c/hdl/simple_aes_v1_0_S_AXI.vhd" \
+"../../../bd/system/ipshared/469c/hdl/simple_aes_v1_0.vhd" \
+"../../../bd/system/ip/system_simple_aes_0_0/sim/system_simple_aes_0_0.vhd" \
+"../../../bd/system/ipshared/2ddc/src/clock_mux.vhd" \
+"../../../bd/system/ipshared/2ddc/src/coarse_block.vhd" \
+"../../../bd/system/ipshared/2ddc/src/coarse_delay.vhd" \
+"../../../bd/system/ipshared/2ddc/src/delay_block.vhd" \
+"../../../bd/system/ipshared/2ddc/src/delay_line.vhd" \
+"../../../bd/system/ipshared/2ddc/src/fine_block.vhd" \
+"../../../bd/system/ipshared/2ddc/src/fine_delay.vhd" \
+"../../../bd/system/ipshared/2ddc/src/tdc.vhd" \
+"../../../bd/system/ipshared/2ddc/hdl/tdc_sensor_v1_0_S_AXI.vhd" \
+"../../../bd/system/ipshared/2ddc/hdl/tdc_sensor_v1_0.vhd" \
+"../../../bd/system/ip/system_tdc_sensor_0_0/sim/system_tdc_sensor_0_0.vhd" \
+"../../../bd/system/ipshared/5101/hdl/fifo_controller_v1_0_S_AXI.vhd" \
+"../../../bd/system/ipshared/5101/hdl/fifo_controller_v1_0.vhd" \
+"../../../bd/system/ip/system_fifo_controller_0_0/sim/system_fifo_controller_0_0.vhd" \
+"../../../bd/system/sim/system.vhd" \
+
+nosort

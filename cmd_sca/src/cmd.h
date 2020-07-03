@@ -23,7 +23,7 @@
 #define CMD_LINE_SIZE 512    /** maximum size of the line buffer */
 #define CMD_MAX_OPTIONS 10   /** maximum number of options in a command */
 #define CMD_NULL_OPTION 0    /** label code for the null option */
-#define CMD_COUNT_TYPE 4     /** count of available commands */
+#define CMD_COUNT_TYPE 5     /** count of available commands */
 #define CMD_COUNT_VAL_TYPE 4 /** count of available options value types */
 
 typedef enum
@@ -51,7 +51,8 @@ typedef enum
     CMD_TYPE_NONE,
     CMD_TYPE_HELP,
     CMD_TYPE_QUIT,
-    CMD_TYPE_AES
+    CMD_TYPE_AES,
+    CMD_TYPE_TDC
 } CMD_type_t;
 
 /**
@@ -105,7 +106,8 @@ const static char *CMD_labels[CMD_COUNT_TYPE] = {
     "",
     "help",
     "quit",
-    "aes"};
+    "aes",
+    "tdc"};
 
 /**
  * @brief description of the given command
@@ -115,6 +117,7 @@ const static char *CMD_descriptions[CMD_COUNT_TYPE] = {
     "print a helper message",
     "exit the software",
     "AES encrypt/decrypt",
+    "TDC operations"
 };
 
 /**
@@ -124,7 +127,8 @@ const static char CMD_allowed_options[CMD_COUNT_TYPE][CMD_MAX_OPTIONS] = {
     {CMD_NULL_OPTION},
     {'c', CMD_NULL_OPTION},
     {CMD_NULL_OPTION},
-    {'h', 'k', 'p', 'c', CMD_NULL_OPTION}};
+    {'h', 'k', 'p', 'c', CMD_NULL_OPTION},
+    {'c', 'r', CMD_NULL_OPTION}};
 
 /**
  * @brief allowed option value types for the given command
@@ -133,7 +137,8 @@ const static CMD_opt_val_type_t CMD_allowed_types[CMD_COUNT_TYPE][CMD_MAX_OPTION
     {CMD_VAL_TYPE_END},
     {CMD_VAL_TYPE_STRING, CMD_VAL_TYPE_END},
     {CMD_VAL_TYPE_END},
-    {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_END}};
+    {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_END},
+    {CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_END}};
 
 const static char *CMD_opt_type_labels[CMD_COUNT_VAL_TYPE] = {
     "",

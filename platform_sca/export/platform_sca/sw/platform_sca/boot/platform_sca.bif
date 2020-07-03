@@ -1,0 +1,7 @@
+/*platform_sca*/
+the_ROM_image:
+{
+  [bootloader]<platform_sca/boot/fsbl.elf>
+   <bitstream> 
+  <elf,ps7_cortexa9_0>
+}

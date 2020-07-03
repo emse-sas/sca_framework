@@ -17,6 +17,7 @@
 #include "cmd.h"
 #include "aes.h"
 #include "aes_hw.h"
+#include "tdc_hw.h"
 
 typedef enum
 {
@@ -72,6 +73,8 @@ void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx
  * @return `RUN_FAILURE` when the operation failed else `RUN_SUCCESS`
  */
 RUN_status_t RUN_aes(const CMD_cmd_t *cmd);
+
+RUN_status_t RUN_tdc(const CMD_cmd_t *cmd);
 
 /**
  * @brief Launches the command prompts
