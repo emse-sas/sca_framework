@@ -152,13 +152,15 @@ vcom -work xil_defaultlib  -93 \
 "../../../bd/system/ipshared/5101/hdl/fifo_controller_v1_0_S_AXI.vhd" \
 "../../../bd/system/ipshared/5101/hdl/fifo_controller_v1_0.vhd" \
 "../../../bd/system/ip/system_fifo_controller_0_0/sim/system_fifo_controller_0_0.vhd" \
-"../../../bd/system/sim/system.vhd" \
 
 vlog -work axi_protocol_converter_v2_1_21  "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/ec67/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/6b56/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/8b3d" "+incdir+D:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
 "../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/8dfa/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \
 
 vlog -work xil_defaultlib  "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/ec67/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/6b56/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/8b3d" "+incdir+D:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
 "../../../bd/system/ip/system_auto_pc_0/sim/system_auto_pc_0.v" \
+
+vcom -work xil_defaultlib  -93 \
+"../../../bd/system/sim/system.vhd" \
 
 vlog -work xil_defaultlib \
 "glbl.v"

@@ -1,10 +1,10 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Fri Jul  3 13:57:41 2020
+-- Date        : Fri Jul  3 13:57:40 2020
 -- Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               d:/sca_framework/vivado_sca/vivado_sca.srcs/sources_1/bd/system/ip/system_tdc_sensor_0_0/system_tdc_sensor_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top system_tdc_sensor_0_0 -prefix
+--               system_tdc_sensor_0_0_ system_tdc_sensor_0_0_sim_netlist.vhdl
 -- Design      : system_tdc_sensor_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -20,8 +20,6 @@ entity system_tdc_sensor_0_0_clock_mux is
     clocks_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_clock_mux : entity is "clock_mux";
 end system_tdc_sensor_0_0_clock_mux;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_clock_mux is
@@ -3187,8 +3185,6 @@ entity system_tdc_sensor_0_0_coarse_block is
     \delay_path[2].lut_i_0\ : out STD_LOGIC;
     delta_i : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block : entity is "coarse_block";
 end system_tdc_sensor_0_0_coarse_block;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block is
@@ -11029,8 +11025,6 @@ entity system_tdc_sensor_0_0_delay_block is
     delta_i : in STD_LOGIC;
     clock_i : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block : entity is "delay_block";
 end system_tdc_sensor_0_0_delay_block;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_delay_block is
@@ -11821,8 +11815,6 @@ entity system_tdc_sensor_0_0_fine_block is
     delta_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_fine_block : entity is "fine_block";
 end system_tdc_sensor_0_0_fine_block;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_fine_block is
@@ -12178,8 +12170,6 @@ entity system_tdc_sensor_0_0_coarse_delay is
     clock_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay : entity is "coarse_delay";
 end system_tdc_sensor_0_0_coarse_delay;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay is
@@ -13929,8 +13919,6 @@ entity system_tdc_sensor_0_0_delay_line is
     delta_i : in STD_LOGIC;
     clock_i : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_line : entity is "delay_line";
 end system_tdc_sensor_0_0_delay_line;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_delay_line is
@@ -14003,8 +13991,6 @@ entity system_tdc_sensor_0_0_fine_delay is
     delta_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 9 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_fine_delay : entity is "fine_delay";
 end system_tdc_sensor_0_0_fine_delay;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_fine_delay is
@@ -14071,8 +14057,6 @@ entity system_tdc_sensor_0_0_tdc is
     Q : in STD_LOGIC_VECTOR ( 31 downto 0 );
     clock_i : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_tdc : entity is "tdc";
 end system_tdc_sensor_0_0_tdc;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_tdc is
@@ -14765,8 +14749,6 @@ entity system_tdc_sensor_0_0_tdc_sensor_v1_0_S_AXI is
     s_axi_bready : in STD_LOGIC;
     s_axi_rready : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_tdc_sensor_v1_0_S_AXI : entity is "tdc_sensor_v1_0_S_AXI";
 end system_tdc_sensor_0_0_tdc_sensor_v1_0_S_AXI;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_tdc_sensor_v1_0_S_AXI is
@@ -15648,8 +15630,6 @@ entity system_tdc_sensor_0_0_tdc_sensor_v1_0 is
     s_axi_bready : in STD_LOGIC;
     s_axi_rready : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_tdc_sensor_v1_0 : entity is "tdc_sensor_v1_0";
 end system_tdc_sensor_0_0_tdc_sensor_v1_0;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_tdc_sensor_v1_0 is

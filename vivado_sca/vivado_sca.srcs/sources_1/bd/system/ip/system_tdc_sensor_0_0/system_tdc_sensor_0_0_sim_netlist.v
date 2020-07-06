@@ -1,10 +1,10 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-// Date        : Fri Jul  3 13:57:41 2020
+// Date        : Fri Jul  3 13:57:40 2020
 // Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               d:/sca_framework/vivado_sca/vivado_sca.srcs/sources_1/bd/system/ip/system_tdc_sensor_0_0/system_tdc_sensor_0_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top system_tdc_sensor_0_0 -prefix
+//               system_tdc_sensor_0_0_ system_tdc_sensor_0_0_sim_netlist.v
 // Design      : system_tdc_sensor_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -12,110 +12,6 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CHECK_LICENSE_TYPE = "system_tdc_sensor_0_0,tdc_sensor_v1_0,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "tdc_sensor_v1_0,Vivado 2020.1" *) 
-(* NotValidForBitStream *)
-module system_tdc_sensor_0_0
-   (clock_i,
-    clock_o,
-    data_o,
-    s_axi_aclk,
-    s_axi_aresetn,
-    s_axi_awaddr,
-    s_axi_awprot,
-    s_axi_awvalid,
-    s_axi_awready,
-    s_axi_wdata,
-    s_axi_wstrb,
-    s_axi_wvalid,
-    s_axi_wready,
-    s_axi_bresp,
-    s_axi_bvalid,
-    s_axi_bready,
-    s_axi_araddr,
-    s_axi_arprot,
-    s_axi_arvalid,
-    s_axi_arready,
-    s_axi_rdata,
-    s_axi_rresp,
-    s_axi_rvalid,
-    s_axi_rready);
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 clock_i CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME clock_i, FREQ_HZ 125000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN /clk_wiz_0_clk_out1, INSERT_VIP 0" *) input clock_i;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 clock_o CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME clock_o, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_tdc_sensor_0_0_clock_o, INSERT_VIP 0" *) output clock_o;
-  output [31:0]data_o;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 S_AXI_CLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_CLK, ASSOCIATED_BUSIF S_AXI, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input s_axi_aclk;
-  (* x_interface_info = "xilinx.com:signal:reset:1.0 S_AXI_RST RST" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input s_axi_aresetn;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI, WIZ_DATA_WIDTH 32, WIZ_NUM_REG 4, SUPPORTS_NARROW_BURST 0, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 50000000, ID_WIDTH 0, ADDR_WIDTH 4, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, NUM_READ_OUTSTANDING 2, NUM_WRITE_OUTSTANDING 2, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [3:0]s_axi_awaddr;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWPROT" *) input [2:0]s_axi_awprot;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWVALID" *) input s_axi_awvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWREADY" *) output s_axi_awready;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WDATA" *) input [31:0]s_axi_wdata;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WSTRB" *) input [3:0]s_axi_wstrb;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WVALID" *) input s_axi_wvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WREADY" *) output s_axi_wready;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BRESP" *) output [1:0]s_axi_bresp;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BVALID" *) output s_axi_bvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BREADY" *) input s_axi_bready;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARADDR" *) input [3:0]s_axi_araddr;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARPROT" *) input [2:0]s_axi_arprot;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARVALID" *) input s_axi_arvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARREADY" *) output s_axi_arready;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RDATA" *) output [31:0]s_axi_rdata;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RRESP" *) output [1:0]s_axi_rresp;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RVALID" *) output s_axi_rvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RREADY" *) input s_axi_rready;
-
-  wire \<const0> ;
-  wire clock_i;
-  wire clock_o;
-  wire [31:0]data_o;
-  wire s_axi_aclk;
-  wire [3:0]s_axi_araddr;
-  wire s_axi_aresetn;
-  wire s_axi_arready;
-  wire s_axi_arvalid;
-  wire [3:0]s_axi_awaddr;
-  wire s_axi_awready;
-  wire s_axi_awvalid;
-  wire s_axi_bready;
-  wire s_axi_bvalid;
-  wire [31:0]s_axi_rdata;
-  wire s_axi_rready;
-  wire s_axi_rvalid;
-  wire [31:0]s_axi_wdata;
-  wire s_axi_wready;
-  wire [3:0]s_axi_wstrb;
-  wire s_axi_wvalid;
-
-  assign s_axi_bresp[1] = \<const0> ;
-  assign s_axi_bresp[0] = \<const0> ;
-  assign s_axi_rresp[1] = \<const0> ;
-  assign s_axi_rresp[0] = \<const0> ;
-  GND GND
-       (.G(\<const0> ));
-  system_tdc_sensor_0_0_tdc_sensor_v1_0 U0
-       (.S_AXI_ARREADY(s_axi_arready),
-        .S_AXI_AWREADY(s_axi_awready),
-        .S_AXI_WREADY(s_axi_wready),
-        .clock_i(clock_i),
-        .clock_o(clock_o),
-        .data_o(data_o),
-        .s_axi_aclk(s_axi_aclk),
-        .s_axi_araddr(s_axi_araddr[3:2]),
-        .s_axi_aresetn(s_axi_aresetn),
-        .s_axi_arvalid(s_axi_arvalid),
-        .s_axi_awaddr(s_axi_awaddr[3:2]),
-        .s_axi_awvalid(s_axi_awvalid),
-        .s_axi_bready(s_axi_bready),
-        .s_axi_bvalid(s_axi_bvalid),
-        .s_axi_rdata(s_axi_rdata),
-        .s_axi_rready(s_axi_rready),
-        .s_axi_rvalid(s_axi_rvalid),
-        .s_axi_wdata(s_axi_wdata),
-        .s_axi_wstrb(s_axi_wstrb),
-        .s_axi_wvalid(s_axi_wvalid));
-endmodule
-
-(* ORIG_REF_NAME = "clock_mux" *) 
 module system_tdc_sensor_0_0_clock_mux
    (clock_o,
     clocks_i,
@@ -2491,7 +2387,6 @@ module system_tdc_sensor_0_0_clock_mux_97
         .S(Q[1]));
 endmodule
 
-(* ORIG_REF_NAME = "coarse_block" *) 
 module system_tdc_sensor_0_0_coarse_block
    (\delay_path[2].lut_i_0 ,
     delta_i);
@@ -7951,7 +7846,6 @@ module system_tdc_sensor_0_0_coarse_block_99
         .O(\delay_path[2].lut_i_0 ));
 endmodule
 
-(* ORIG_REF_NAME = "coarse_delay" *) 
 module system_tdc_sensor_0_0_coarse_delay
    (clock_o,
     clock_i,
@@ -9176,7 +9070,6 @@ module system_tdc_sensor_0_0_coarse_delay_9
         .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
 endmodule
 
-(* ORIG_REF_NAME = "delay_block" *) 
 module system_tdc_sensor_0_0_delay_block
    (delta_o,
     data_o,
@@ -9816,7 +9709,6 @@ module system_tdc_sensor_0_0_delay_block_40
         .Q(data_o[3]));
 endmodule
 
-(* ORIG_REF_NAME = "delay_line" *) 
 module system_tdc_sensor_0_0_delay_line
    (data_o,
     clock_o,
@@ -9875,7 +9767,6 @@ module system_tdc_sensor_0_0_delay_line
         .delta_i(delta_s[7]));
 endmodule
 
-(* ORIG_REF_NAME = "fine_block" *) 
 module system_tdc_sensor_0_0_fine_block
    (delta_o,
     clock_o,
@@ -10145,7 +10036,6 @@ module system_tdc_sensor_0_0_fine_block_43
         .S(Q[1]));
 endmodule
 
-(* ORIG_REF_NAME = "fine_delay" *) 
 module system_tdc_sensor_0_0_fine_delay
    (clock_o,
     delta_i,
@@ -10185,7 +10075,109 @@ module system_tdc_sensor_0_0_fine_delay
         .clocks_i(clocks_i));
 endmodule
 
-(* ORIG_REF_NAME = "tdc" *) 
+(* CHECK_LICENSE_TYPE = "system_tdc_sensor_0_0,tdc_sensor_v1_0,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "tdc_sensor_v1_0,Vivado 2020.1" *) 
+(* NotValidForBitStream *)
+module system_tdc_sensor_0_0
+   (clock_i,
+    clock_o,
+    data_o,
+    s_axi_aclk,
+    s_axi_aresetn,
+    s_axi_awaddr,
+    s_axi_awprot,
+    s_axi_awvalid,
+    s_axi_awready,
+    s_axi_wdata,
+    s_axi_wstrb,
+    s_axi_wvalid,
+    s_axi_wready,
+    s_axi_bresp,
+    s_axi_bvalid,
+    s_axi_bready,
+    s_axi_araddr,
+    s_axi_arprot,
+    s_axi_arvalid,
+    s_axi_arready,
+    s_axi_rdata,
+    s_axi_rresp,
+    s_axi_rvalid,
+    s_axi_rready);
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 clock_i CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME clock_i, FREQ_HZ 125000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN /clk_wiz_0_clk_out1, INSERT_VIP 0" *) input clock_i;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 clock_o CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME clock_o, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_tdc_sensor_0_0_clock_o, INSERT_VIP 0" *) output clock_o;
+  output [31:0]data_o;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 S_AXI_CLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_CLK, ASSOCIATED_BUSIF S_AXI, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input s_axi_aclk;
+  (* x_interface_info = "xilinx.com:signal:reset:1.0 S_AXI_RST RST" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input s_axi_aresetn;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI, WIZ_DATA_WIDTH 32, WIZ_NUM_REG 4, SUPPORTS_NARROW_BURST 0, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 50000000, ID_WIDTH 0, ADDR_WIDTH 4, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, NUM_READ_OUTSTANDING 2, NUM_WRITE_OUTSTANDING 2, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [3:0]s_axi_awaddr;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWPROT" *) input [2:0]s_axi_awprot;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWVALID" *) input s_axi_awvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWREADY" *) output s_axi_awready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WDATA" *) input [31:0]s_axi_wdata;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WSTRB" *) input [3:0]s_axi_wstrb;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WVALID" *) input s_axi_wvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WREADY" *) output s_axi_wready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BRESP" *) output [1:0]s_axi_bresp;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BVALID" *) output s_axi_bvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BREADY" *) input s_axi_bready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARADDR" *) input [3:0]s_axi_araddr;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARPROT" *) input [2:0]s_axi_arprot;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARVALID" *) input s_axi_arvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARREADY" *) output s_axi_arready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RDATA" *) output [31:0]s_axi_rdata;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RRESP" *) output [1:0]s_axi_rresp;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RVALID" *) output s_axi_rvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RREADY" *) input s_axi_rready;
+
+  wire \<const0> ;
+  wire clock_i;
+  wire clock_o;
+  wire [31:0]data_o;
+  wire s_axi_aclk;
+  wire [3:0]s_axi_araddr;
+  wire s_axi_aresetn;
+  wire s_axi_arready;
+  wire s_axi_arvalid;
+  wire [3:0]s_axi_awaddr;
+  wire s_axi_awready;
+  wire s_axi_awvalid;
+  wire s_axi_bready;
+  wire s_axi_bvalid;
+  wire [31:0]s_axi_rdata;
+  wire s_axi_rready;
+  wire s_axi_rvalid;
+  wire [31:0]s_axi_wdata;
+  wire s_axi_wready;
+  wire [3:0]s_axi_wstrb;
+  wire s_axi_wvalid;
+
+  assign s_axi_bresp[1] = \<const0> ;
+  assign s_axi_bresp[0] = \<const0> ;
+  assign s_axi_rresp[1] = \<const0> ;
+  assign s_axi_rresp[0] = \<const0> ;
+  GND GND
+       (.G(\<const0> ));
+  system_tdc_sensor_0_0_tdc_sensor_v1_0 U0
+       (.S_AXI_ARREADY(s_axi_arready),
+        .S_AXI_AWREADY(s_axi_awready),
+        .S_AXI_WREADY(s_axi_wready),
+        .clock_i(clock_i),
+        .clock_o(clock_o),
+        .data_o(data_o),
+        .s_axi_aclk(s_axi_aclk),
+        .s_axi_araddr(s_axi_araddr[3:2]),
+        .s_axi_aresetn(s_axi_aresetn),
+        .s_axi_arvalid(s_axi_arvalid),
+        .s_axi_awaddr(s_axi_awaddr[3:2]),
+        .s_axi_awvalid(s_axi_awvalid),
+        .s_axi_bready(s_axi_bready),
+        .s_axi_bvalid(s_axi_bvalid),
+        .s_axi_rdata(s_axi_rdata),
+        .s_axi_rready(s_axi_rready),
+        .s_axi_rvalid(s_axi_rvalid),
+        .s_axi_wdata(s_axi_wdata),
+        .s_axi_wstrb(s_axi_wstrb),
+        .s_axi_wvalid(s_axi_wvalid));
+endmodule
+
 module system_tdc_sensor_0_0_tdc
    (\s_axi_awaddr[3] ,
     \s_axi_awaddr[2] ,
@@ -10724,7 +10716,6 @@ module system_tdc_sensor_0_0_tdc
         .delta_i(fine_clock_s[1]));
 endmodule
 
-(* ORIG_REF_NAME = "tdc_sensor_v1_0" *) 
 module system_tdc_sensor_0_0_tdc_sensor_v1_0
    (data_o,
     clock_o,
@@ -10811,7 +10802,6 @@ module system_tdc_sensor_0_0_tdc_sensor_v1_0
         .s_axi_wvalid(s_axi_wvalid));
 endmodule
 
-(* ORIG_REF_NAME = "tdc_sensor_v1_0_S_AXI" *) 
 module system_tdc_sensor_0_0_tdc_sensor_v1_0_S_AXI
    (data_o,
     clock_o,

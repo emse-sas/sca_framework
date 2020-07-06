@@ -1,10 +1,10 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-// Date        : Fri Jul  3 13:21:56 2020
+// Date        : Fri Jul  3 13:57:40 2020
 // Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               d:/sca_framework/vivado_sca/vivado_sca.srcs/sources_1/bd/system/ip/system_tdc_sensor_0_0/system_tdc_sensor_0_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top system_tdc_sensor_0_0 -prefix
+//               system_tdc_sensor_0_0_ system_tdc_sensor_0_0_sim_netlist.v
 // Design      : system_tdc_sensor_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -12,110 +12,6 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CHECK_LICENSE_TYPE = "system_tdc_sensor_0_0,tdc_sensor_v1_0,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "tdc_sensor_v1_0,Vivado 2020.1" *) 
-(* NotValidForBitStream *)
-module system_tdc_sensor_0_0
-   (clock_i,
-    clock_o,
-    data_o,
-    s_axi_aclk,
-    s_axi_aresetn,
-    s_axi_awaddr,
-    s_axi_awprot,
-    s_axi_awvalid,
-    s_axi_awready,
-    s_axi_wdata,
-    s_axi_wstrb,
-    s_axi_wvalid,
-    s_axi_wready,
-    s_axi_bresp,
-    s_axi_bvalid,
-    s_axi_bready,
-    s_axi_araddr,
-    s_axi_arprot,
-    s_axi_arvalid,
-    s_axi_arready,
-    s_axi_rdata,
-    s_axi_rresp,
-    s_axi_rvalid,
-    s_axi_rready);
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 clock_i CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME clock_i, FREQ_HZ 125000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN /clk_wiz_0_clk_out1, INSERT_VIP 0" *) input clock_i;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 clock_o CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME clock_o, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_tdc_sensor_0_0_clock_o, INSERT_VIP 0" *) output clock_o;
-  output [31:0]data_o;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 S_AXI_CLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_CLK, ASSOCIATED_BUSIF S_AXI, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input s_axi_aclk;
-  (* x_interface_info = "xilinx.com:signal:reset:1.0 S_AXI_RST RST" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input s_axi_aresetn;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI, WIZ_DATA_WIDTH 32, WIZ_NUM_REG 4, SUPPORTS_NARROW_BURST 0, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 50000000, ID_WIDTH 0, ADDR_WIDTH 4, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, NUM_READ_OUTSTANDING 2, NUM_WRITE_OUTSTANDING 2, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [3:0]s_axi_awaddr;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWPROT" *) input [2:0]s_axi_awprot;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWVALID" *) input s_axi_awvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWREADY" *) output s_axi_awready;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WDATA" *) input [31:0]s_axi_wdata;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WSTRB" *) input [3:0]s_axi_wstrb;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WVALID" *) input s_axi_wvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WREADY" *) output s_axi_wready;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BRESP" *) output [1:0]s_axi_bresp;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BVALID" *) output s_axi_bvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BREADY" *) input s_axi_bready;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARADDR" *) input [3:0]s_axi_araddr;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARPROT" *) input [2:0]s_axi_arprot;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARVALID" *) input s_axi_arvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARREADY" *) output s_axi_arready;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RDATA" *) output [31:0]s_axi_rdata;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RRESP" *) output [1:0]s_axi_rresp;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RVALID" *) output s_axi_rvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RREADY" *) input s_axi_rready;
-
-  wire \<const0> ;
-  wire clock_i;
-  wire clock_o;
-  wire [31:0]data_o;
-  wire s_axi_aclk;
-  wire [3:0]s_axi_araddr;
-  wire s_axi_aresetn;
-  wire s_axi_arready;
-  wire s_axi_arvalid;
-  wire [3:0]s_axi_awaddr;
-  wire s_axi_awready;
-  wire s_axi_awvalid;
-  wire s_axi_bready;
-  wire s_axi_bvalid;
-  wire [31:0]s_axi_rdata;
-  wire s_axi_rready;
-  wire s_axi_rvalid;
-  wire [31:0]s_axi_wdata;
-  wire s_axi_wready;
-  wire [3:0]s_axi_wstrb;
-  wire s_axi_wvalid;
-
-  assign s_axi_bresp[1] = \<const0> ;
-  assign s_axi_bresp[0] = \<const0> ;
-  assign s_axi_rresp[1] = \<const0> ;
-  assign s_axi_rresp[0] = \<const0> ;
-  GND GND
-       (.G(\<const0> ));
-  system_tdc_sensor_0_0_tdc_sensor_v1_0 U0
-       (.S_AXI_ARREADY(s_axi_arready),
-        .S_AXI_AWREADY(s_axi_awready),
-        .S_AXI_WREADY(s_axi_wready),
-        .clock_i(clock_i),
-        .clock_o(clock_o),
-        .data_o(data_o),
-        .s_axi_aclk(s_axi_aclk),
-        .s_axi_araddr(s_axi_araddr[3:2]),
-        .s_axi_aresetn(s_axi_aresetn),
-        .s_axi_arvalid(s_axi_arvalid),
-        .s_axi_awaddr(s_axi_awaddr[3:2]),
-        .s_axi_awvalid(s_axi_awvalid),
-        .s_axi_bready(s_axi_bready),
-        .s_axi_bvalid(s_axi_bvalid),
-        .s_axi_rdata(s_axi_rdata),
-        .s_axi_rready(s_axi_rready),
-        .s_axi_rvalid(s_axi_rvalid),
-        .s_axi_wdata(s_axi_wdata),
-        .s_axi_wstrb(s_axi_wstrb),
-        .s_axi_wvalid(s_axi_wvalid));
-endmodule
-
-(* ORIG_REF_NAME = "clock_mux" *) 
 module system_tdc_sensor_0_0_clock_mux
    (clock_o,
     clocks_i,
@@ -1239,21 +1135,21 @@ endmodule
 
 (* ORIG_REF_NAME = "clock_mux" *) 
 module system_tdc_sensor_0_0_clock_mux_182
-   (\slv_reg3_reg[11] ,
+   (clock_o,
     clocks_i,
     Q);
-  output \slv_reg3_reg[11] ;
+  output clock_o;
   input [3:0]clocks_i;
   input [1:0]Q;
 
   wire I1;
   wire O;
   wire [1:0]Q;
+  wire clock_o;
   wire [3:0]clocks_i;
   wire \luts[2].lut_i_n_0 ;
   wire \luts[3].lut_i_n_0 ;
   wire [1:0]mux_s;
-  wire \slv_reg3_reg[11] ;
 
   (* DONT_TOUCH *) 
   (* box_type = "PRIMITIVE" *) 
@@ -1299,7 +1195,7 @@ module system_tdc_sensor_0_0_clock_mux_182
   MUXF7 out_mux
        (.I0(mux_s[0]),
         .I1(mux_s[1]),
-        .O(\slv_reg3_reg[11] ),
+        .O(clock_o),
         .S(Q[1]));
 endmodule
 
@@ -1370,7 +1266,337 @@ module system_tdc_sensor_0_0_clock_mux_187
 endmodule
 
 (* ORIG_REF_NAME = "clock_mux" *) 
-module system_tdc_sensor_0_0_clock_mux_42
+module system_tdc_sensor_0_0_clock_mux_192
+   (clock_o,
+    clocks_i,
+    Q);
+  output clock_o;
+  input [3:0]clocks_i;
+  input [1:0]Q;
+
+  wire I1;
+  wire O;
+  wire [1:0]Q;
+  wire clock_o;
+  wire [3:0]clocks_i;
+  wire \luts[2].lut_i_n_0 ;
+  wire \luts[3].lut_i_n_0 ;
+  wire [1:0]mux_s;
+
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[0].lut_i 
+       (.I0(clocks_i[0]),
+        .O(O));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[1].lut_i 
+       (.I0(clocks_i[1]),
+        .O(I1));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[2].lut_i 
+       (.I0(clocks_i[2]),
+        .O(\luts[2].lut_i_n_0 ));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[3].lut_i 
+       (.I0(clocks_i[3]),
+        .O(\luts[3].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 middle_mux_0
+       (.I0(O),
+        .I1(I1),
+        .O(mux_s[0]),
+        .S(Q[0]));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 middle_mux_1
+       (.I0(\luts[2].lut_i_n_0 ),
+        .I1(\luts[3].lut_i_n_0 ),
+        .O(mux_s[1]),
+        .S(Q[0]));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 out_mux
+       (.I0(mux_s[0]),
+        .I1(mux_s[1]),
+        .O(clock_o),
+        .S(Q[1]));
+endmodule
+
+(* ORIG_REF_NAME = "clock_mux" *) 
+module system_tdc_sensor_0_0_clock_mux_197
+   (clock_o,
+    clocks_i,
+    Q);
+  output clock_o;
+  input [3:0]clocks_i;
+  input [1:0]Q;
+
+  wire I1;
+  wire O;
+  wire [1:0]Q;
+  wire clock_o;
+  wire [3:0]clocks_i;
+  wire \luts[2].lut_i_n_0 ;
+  wire \luts[3].lut_i_n_0 ;
+  wire [1:0]mux_s;
+
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[0].lut_i 
+       (.I0(clocks_i[0]),
+        .O(O));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[1].lut_i 
+       (.I0(clocks_i[1]),
+        .O(I1));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[2].lut_i 
+       (.I0(clocks_i[2]),
+        .O(\luts[2].lut_i_n_0 ));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[3].lut_i 
+       (.I0(clocks_i[3]),
+        .O(\luts[3].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 middle_mux_0
+       (.I0(O),
+        .I1(I1),
+        .O(mux_s[0]),
+        .S(Q[0]));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 middle_mux_1
+       (.I0(\luts[2].lut_i_n_0 ),
+        .I1(\luts[3].lut_i_n_0 ),
+        .O(mux_s[1]),
+        .S(Q[0]));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 out_mux
+       (.I0(mux_s[0]),
+        .I1(mux_s[1]),
+        .O(clock_o),
+        .S(Q[1]));
+endmodule
+
+(* ORIG_REF_NAME = "clock_mux" *) 
+module system_tdc_sensor_0_0_clock_mux_202
+   (clock_o,
+    clocks_i,
+    Q);
+  output clock_o;
+  input [3:0]clocks_i;
+  input [1:0]Q;
+
+  wire I1;
+  wire O;
+  wire [1:0]Q;
+  wire clock_o;
+  wire [3:0]clocks_i;
+  wire \luts[2].lut_i_n_0 ;
+  wire \luts[3].lut_i_n_0 ;
+  wire [1:0]mux_s;
+
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[0].lut_i 
+       (.I0(clocks_i[0]),
+        .O(O));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[1].lut_i 
+       (.I0(clocks_i[1]),
+        .O(I1));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[2].lut_i 
+       (.I0(clocks_i[2]),
+        .O(\luts[2].lut_i_n_0 ));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[3].lut_i 
+       (.I0(clocks_i[3]),
+        .O(\luts[3].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 middle_mux_0
+       (.I0(O),
+        .I1(I1),
+        .O(mux_s[0]),
+        .S(Q[0]));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 middle_mux_1
+       (.I0(\luts[2].lut_i_n_0 ),
+        .I1(\luts[3].lut_i_n_0 ),
+        .O(mux_s[1]),
+        .S(Q[0]));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 out_mux
+       (.I0(mux_s[0]),
+        .I1(mux_s[1]),
+        .O(clock_o),
+        .S(Q[1]));
+endmodule
+
+(* ORIG_REF_NAME = "clock_mux" *) 
+module system_tdc_sensor_0_0_clock_mux_207
+   (clock_o,
+    clocks_i,
+    Q);
+  output clock_o;
+  input [3:0]clocks_i;
+  input [1:0]Q;
+
+  wire I1;
+  wire O;
+  wire [1:0]Q;
+  wire clock_o;
+  wire [3:0]clocks_i;
+  wire \luts[2].lut_i_n_0 ;
+  wire \luts[3].lut_i_n_0 ;
+  wire [1:0]mux_s;
+
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[0].lut_i 
+       (.I0(clocks_i[0]),
+        .O(O));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[1].lut_i 
+       (.I0(clocks_i[1]),
+        .O(I1));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[2].lut_i 
+       (.I0(clocks_i[2]),
+        .O(\luts[2].lut_i_n_0 ));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[3].lut_i 
+       (.I0(clocks_i[3]),
+        .O(\luts[3].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 middle_mux_0
+       (.I0(O),
+        .I1(I1),
+        .O(mux_s[0]),
+        .S(Q[0]));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 middle_mux_1
+       (.I0(\luts[2].lut_i_n_0 ),
+        .I1(\luts[3].lut_i_n_0 ),
+        .O(mux_s[1]),
+        .S(Q[0]));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 out_mux
+       (.I0(mux_s[0]),
+        .I1(mux_s[1]),
+        .O(clock_o),
+        .S(Q[1]));
+endmodule
+
+(* ORIG_REF_NAME = "clock_mux" *) 
+module system_tdc_sensor_0_0_clock_mux_212
+   (\slv_reg3_reg[11] ,
+    clocks_i,
+    Q);
+  output \slv_reg3_reg[11] ;
+  input [3:0]clocks_i;
+  input [1:0]Q;
+
+  wire I1;
+  wire O;
+  wire [1:0]Q;
+  wire [3:0]clocks_i;
+  wire \luts[2].lut_i_n_0 ;
+  wire \luts[3].lut_i_n_0 ;
+  wire [1:0]mux_s;
+  wire \slv_reg3_reg[11] ;
+
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[0].lut_i 
+       (.I0(clocks_i[0]),
+        .O(O));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[1].lut_i 
+       (.I0(clocks_i[1]),
+        .O(I1));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[2].lut_i 
+       (.I0(clocks_i[2]),
+        .O(\luts[2].lut_i_n_0 ));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \luts[3].lut_i 
+       (.I0(clocks_i[3]),
+        .O(\luts[3].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 middle_mux_0
+       (.I0(O),
+        .I1(I1),
+        .O(mux_s[0]),
+        .S(Q[0]));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 middle_mux_1
+       (.I0(\luts[2].lut_i_n_0 ),
+        .I1(\luts[3].lut_i_n_0 ),
+        .O(mux_s[1]),
+        .S(Q[0]));
+  (* box_type = "PRIMITIVE" *) 
+  MUXF7 out_mux
+       (.I0(mux_s[0]),
+        .I1(mux_s[1]),
+        .O(\slv_reg3_reg[11] ),
+        .S(Q[1]));
+endmodule
+
+(* ORIG_REF_NAME = "clock_mux" *) 
+module system_tdc_sensor_0_0_clock_mux_217
    (clock_o,
     clocks_i,
     Q);
@@ -2161,7 +2387,6 @@ module system_tdc_sensor_0_0_clock_mux_97
         .S(Q[1]));
 endmodule
 
-(* ORIG_REF_NAME = "coarse_block" *) 
 module system_tdc_sensor_0_0_coarse_block
    (\delay_path[2].lut_i_0 ,
     delta_i);
@@ -4620,14 +4845,14 @@ endmodule
 
 (* ORIG_REF_NAME = "coarse_block" *) 
 module system_tdc_sensor_0_0_coarse_block_178
-   (delta_i,
-    clock_o);
-  output delta_i;
-  input clock_o;
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
 
   wire O;
-  wire clock_o;
   wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
   wire \delay_path[2].lut_i_n_0 ;
   wire delta_i;
 
@@ -4635,7 +4860,7 @@ module system_tdc_sensor_0_0_coarse_block_178
   LUT1 #(
     .INIT(2'h2)) 
     \delay_path[0].lut_i 
-       (.I0(clock_o),
+       (.I0(delta_i),
         .O(O));
   (* box_type = "PRIMITIVE" *) 
   LUT1 #(
@@ -4654,7 +4879,7 @@ module system_tdc_sensor_0_0_coarse_block_178
     .INIT(2'h2)) 
     \delay_path[3].lut_i 
        (.I0(\delay_path[2].lut_i_n_0 ),
-        .O(delta_i));
+        .O(\delay_path[2].lut_i_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "coarse_block" *) 
@@ -4776,14 +5001,14 @@ endmodule
 
 (* ORIG_REF_NAME = "coarse_block" *) 
 module system_tdc_sensor_0_0_coarse_block_183
-   (delta_i,
-    clock_i);
-  output delta_i;
-  input clock_i;
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
 
   wire O;
-  wire clock_i;
   wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
   wire \delay_path[2].lut_i_n_0 ;
   wire delta_i;
 
@@ -4791,7 +5016,7 @@ module system_tdc_sensor_0_0_coarse_block_183
   LUT1 #(
     .INIT(2'h2)) 
     \delay_path[0].lut_i 
-       (.I0(clock_i),
+       (.I0(delta_i),
         .O(O));
   (* box_type = "PRIMITIVE" *) 
   LUT1 #(
@@ -4810,7 +5035,7 @@ module system_tdc_sensor_0_0_coarse_block_183
     .INIT(2'h2)) 
     \delay_path[3].lut_i 
        (.I0(\delay_path[2].lut_i_n_0 ),
-        .O(delta_i));
+        .O(\delay_path[2].lut_i_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "coarse_block" *) 
@@ -4931,7 +5156,7 @@ module system_tdc_sensor_0_0_coarse_block_186
 endmodule
 
 (* ORIG_REF_NAME = "coarse_block" *) 
-module system_tdc_sensor_0_0_coarse_block_39
+module system_tdc_sensor_0_0_coarse_block_188
    (\delay_path[2].lut_i_0 ,
     delta_i);
   output \delay_path[2].lut_i_0 ;
@@ -4970,7 +5195,7 @@ module system_tdc_sensor_0_0_coarse_block_39
 endmodule
 
 (* ORIG_REF_NAME = "coarse_block" *) 
-module system_tdc_sensor_0_0_coarse_block_40
+module system_tdc_sensor_0_0_coarse_block_189
    (\delay_path[2].lut_i_0 ,
     delta_i);
   output \delay_path[2].lut_i_0 ;
@@ -5009,7 +5234,46 @@ module system_tdc_sensor_0_0_coarse_block_40
 endmodule
 
 (* ORIG_REF_NAME = "coarse_block" *) 
-module system_tdc_sensor_0_0_coarse_block_41
+module system_tdc_sensor_0_0_coarse_block_190
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_191
    (clocks_i,
     delta_i);
   output [0:0]clocks_i;
@@ -5048,7 +5312,7 @@ module system_tdc_sensor_0_0_coarse_block_41
 endmodule
 
 (* ORIG_REF_NAME = "coarse_block" *) 
-module system_tdc_sensor_0_0_coarse_block_43
+module system_tdc_sensor_0_0_coarse_block_193
    (\delay_path[2].lut_i_0 ,
     delta_i);
   output \delay_path[2].lut_i_0 ;
@@ -5084,6 +5348,747 @@ module system_tdc_sensor_0_0_coarse_block_43
     \delay_path[3].lut_i 
        (.I0(\delay_path[2].lut_i_n_0 ),
         .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_194
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_195
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_196
+   (clocks_i,
+    delta_i);
+  output [0:0]clocks_i;
+  input delta_i;
+
+  wire O;
+  wire [0:0]clocks_i;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(clocks_i));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_198
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_199
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_200
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_201
+   (clocks_i,
+    delta_i);
+  output [0:0]clocks_i;
+  input delta_i;
+
+  wire O;
+  wire [0:0]clocks_i;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(clocks_i));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_203
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_204
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_205
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_206
+   (clocks_i,
+    delta_i);
+  output [0:0]clocks_i;
+  input delta_i;
+
+  wire O;
+  wire [0:0]clocks_i;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(clocks_i));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_208
+   (delta_i,
+    clock_o);
+  output delta_i;
+  input clock_o;
+
+  wire O;
+  wire clock_o;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(clock_o),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(delta_i));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_209
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_210
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_211
+   (clocks_i,
+    delta_i);
+  output [0:0]clocks_i;
+  input delta_i;
+
+  wire O;
+  wire [0:0]clocks_i;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(clocks_i));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_213
+   (delta_i,
+    clock_i);
+  output delta_i;
+  input clock_i;
+
+  wire O;
+  wire clock_i;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(clock_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(delta_i));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_214
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_215
+   (\delay_path[2].lut_i_0 ,
+    delta_i);
+  output \delay_path[2].lut_i_0 ;
+  input delta_i;
+
+  wire O;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_block" *) 
+module system_tdc_sensor_0_0_coarse_block_216
+   (clocks_i,
+    delta_i);
+  output [0:0]clocks_i;
+  input delta_i;
+
+  wire O;
+  wire [0:0]clocks_i;
+  wire \delay_path[1].lut_i_n_0 ;
+  wire \delay_path[2].lut_i_n_0 ;
+  wire delta_i;
+
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[0].lut_i 
+       (.I0(delta_i),
+        .O(O));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[1].lut_i 
+       (.I0(O),
+        .O(\delay_path[1].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[2].lut_i 
+       (.I0(\delay_path[1].lut_i_n_0 ),
+        .O(\delay_path[2].lut_i_n_0 ));
+  (* box_type = "PRIMITIVE" *) 
+  LUT1 #(
+    .INIT(2'h2)) 
+    \delay_path[3].lut_i 
+       (.I0(\delay_path[2].lut_i_n_0 ),
+        .O(clocks_i));
 endmodule
 
 (* ORIG_REF_NAME = "coarse_block" *) 
@@ -6841,7 +7846,6 @@ module system_tdc_sensor_0_0_coarse_block_99
         .O(\delay_path[2].lut_i_0 ));
 endmodule
 
-(* ORIG_REF_NAME = "coarse_delay" *) 
 module system_tdc_sensor_0_0_coarse_delay
    (clock_o,
     clock_i,
@@ -6858,19 +7862,19 @@ module system_tdc_sensor_0_0_coarse_delay
   wire clock_i;
   wire clock_o;
 
-  system_tdc_sensor_0_0_coarse_block_183 \blocks[0].block_i 
+  system_tdc_sensor_0_0_coarse_block_213 \blocks[0].block_i 
        (.clock_i(clock_i),
         .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_184 \blocks[1].block_i 
+  system_tdc_sensor_0_0_coarse_block_214 \blocks[1].block_i 
        (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
         .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_185 \blocks[2].block_i 
+  system_tdc_sensor_0_0_coarse_block_215 \blocks[2].block_i 
        (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
         .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_186 \blocks[3].block_i 
+  system_tdc_sensor_0_0_coarse_block_216 \blocks[3].block_i 
        (.clocks_i(\blocks[3].block_i_n_0 ),
         .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_187 mux
+  system_tdc_sensor_0_0_clock_mux_217 mux
        (.Q(Q),
         .clock_o(clock_o),
         .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
@@ -6893,19 +7897,19 @@ module system_tdc_sensor_0_0_coarse_delay_0
   wire clock_o;
   wire \slv_reg3_reg[11] ;
 
-  system_tdc_sensor_0_0_coarse_block_178 \blocks[0].block_i 
+  system_tdc_sensor_0_0_coarse_block_208 \blocks[0].block_i 
        (.clock_o(clock_o),
         .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_179 \blocks[1].block_i 
+  system_tdc_sensor_0_0_coarse_block_209 \blocks[1].block_i 
        (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
         .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_180 \blocks[2].block_i 
+  system_tdc_sensor_0_0_coarse_block_210 \blocks[2].block_i 
        (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
         .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_181 \blocks[3].block_i 
+  system_tdc_sensor_0_0_coarse_block_211 \blocks[3].block_i 
        (.clocks_i(\blocks[3].block_i_n_0 ),
         .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_182 mux
+  system_tdc_sensor_0_0_clock_mux_212 mux
        (.Q(Q),
         .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }),
         .\slv_reg3_reg[11] (\slv_reg3_reg[11] ));
@@ -6928,19 +7932,19 @@ module system_tdc_sensor_0_0_coarse_delay_1
   wire clock_o;
   wire delta_i;
 
-  system_tdc_sensor_0_0_coarse_block_173 \blocks[0].block_i 
+  system_tdc_sensor_0_0_coarse_block_203 \blocks[0].block_i 
        (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
         .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_174 \blocks[1].block_i 
+  system_tdc_sensor_0_0_coarse_block_204 \blocks[1].block_i 
        (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
         .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_175 \blocks[2].block_i 
+  system_tdc_sensor_0_0_coarse_block_205 \blocks[2].block_i 
        (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
         .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_176 \blocks[3].block_i 
+  system_tdc_sensor_0_0_coarse_block_206 \blocks[3].block_i 
        (.clocks_i(\blocks[3].block_i_n_0 ),
         .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_177 mux
+  system_tdc_sensor_0_0_clock_mux_207 mux
        (.Q(Q),
         .clock_o(clock_o),
         .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
@@ -6948,741 +7952,6 @@ endmodule
 
 (* ORIG_REF_NAME = "coarse_delay" *) 
 module system_tdc_sensor_0_0_coarse_delay_10
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_128 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_129 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_130 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_131 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_132 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_11
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_123 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_124 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_125 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_126 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_127 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_12
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_118 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_119 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_120 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_121 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_122 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_13
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_113 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_114 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_115 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_116 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_117 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_14
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_108 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_109 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_110 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_111 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_112 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_15
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_103 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_104 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_105 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_106 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_107 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_16
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_98 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_99 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_100 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_101 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_102 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_17
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_93 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_94 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_95 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_96 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_97 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_18
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_88 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_89 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_90 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_91 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_92 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_19
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_83 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_84 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_85 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_86 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_87 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_2
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_168 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_169 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_170 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_171 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_172 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_20
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_78 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_79 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_80 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_81 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_82 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_21
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_73 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_74 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_75 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_76 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_77 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_22
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_68 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_69 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_70 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_71 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_72 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_23
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_63 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_64 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_65 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_66 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_67 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_24
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_58 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_59 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_60 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_61 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_62 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_25
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_53 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_54 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_55 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_56 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_57 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_26
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_48 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_49 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_50 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_51 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_52 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_27
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_43 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_44 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_45 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_46 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_47 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_28
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_39 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_40 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_41 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_42 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_3
-   (clock_o,
-    delta_i,
-    Q);
-  output clock_o;
-  input delta_i;
-  input [1:0]Q;
-
-  wire [1:0]Q;
-  wire \blocks[0].block_i_n_0 ;
-  wire \blocks[1].block_i_n_0 ;
-  wire \blocks[2].block_i_n_0 ;
-  wire \blocks[3].block_i_n_0 ;
-  wire clock_o;
-  wire delta_i;
-
-  system_tdc_sensor_0_0_coarse_block_163 \blocks[0].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
-        .delta_i(delta_i));
-  system_tdc_sensor_0_0_coarse_block_164 \blocks[1].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
-        .delta_i(\blocks[0].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_165 \blocks[2].block_i 
-       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
-        .delta_i(\blocks[1].block_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_block_166 \blocks[3].block_i 
-       (.clocks_i(\blocks[3].block_i_n_0 ),
-        .delta_i(\blocks[2].block_i_n_0 ));
-  system_tdc_sensor_0_0_clock_mux_167 mux
-       (.Q(Q),
-        .clock_o(clock_o),
-        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
-endmodule
-
-(* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_4
    (clock_o,
     delta_i,
     Q);
@@ -7717,7 +7986,7 @@ module system_tdc_sensor_0_0_coarse_delay_4
 endmodule
 
 (* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_5
+module system_tdc_sensor_0_0_coarse_delay_11
    (clock_o,
     delta_i,
     Q);
@@ -7752,7 +8021,7 @@ module system_tdc_sensor_0_0_coarse_delay_5
 endmodule
 
 (* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_6
+module system_tdc_sensor_0_0_coarse_delay_12
    (clock_o,
     delta_i,
     Q);
@@ -7787,7 +8056,7 @@ module system_tdc_sensor_0_0_coarse_delay_6
 endmodule
 
 (* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_7
+module system_tdc_sensor_0_0_coarse_delay_13
    (clock_o,
     delta_i,
     Q);
@@ -7822,7 +8091,7 @@ module system_tdc_sensor_0_0_coarse_delay_7
 endmodule
 
 (* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_8
+module system_tdc_sensor_0_0_coarse_delay_14
    (clock_o,
     delta_i,
     Q);
@@ -7857,7 +8126,7 @@ module system_tdc_sensor_0_0_coarse_delay_8
 endmodule
 
 (* ORIG_REF_NAME = "coarse_delay" *) 
-module system_tdc_sensor_0_0_coarse_delay_9
+module system_tdc_sensor_0_0_coarse_delay_15
    (clock_o,
     delta_i,
     Q);
@@ -7891,408 +8160,917 @@ module system_tdc_sensor_0_0_coarse_delay_9
         .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
 endmodule
 
-(* ORIG_REF_NAME = "delay_block" *) 
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_16
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_128 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_129 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_130 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_131 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_132 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_17
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_123 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_124 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_125 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_126 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_127 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_18
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_118 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_119 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_120 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_121 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_122 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_19
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_113 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_114 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_115 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_116 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_117 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_2
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_198 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_199 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_200 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_201 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_202 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_20
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_108 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_109 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_110 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_111 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_112 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_21
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_103 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_104 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_105 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_106 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_107 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_22
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_98 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_99 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_100 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_101 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_102 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_23
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_93 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_94 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_95 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_96 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_97 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_24
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_88 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_89 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_90 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_91 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_92 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_25
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_83 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_84 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_85 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_86 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_87 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_26
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_78 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_79 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_80 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_81 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_82 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_27
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_73 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_74 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_75 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_76 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_77 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_28
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_68 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_69 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_70 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_71 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_72 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_29
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_63 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_64 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_65 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_66 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_67 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_3
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_193 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_194 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_195 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_196 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_197 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_30
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_58 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_59 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_60 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_61 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_62 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_31
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_53 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_54 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_55 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_56 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_57 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_32
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_48 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_49 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_50 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_51 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_52 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_33
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_44 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_45 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_46 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_47 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_4
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_188 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_189 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_190 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_191 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_192 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_5
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_183 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_184 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_185 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_186 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_187 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_6
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_178 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_179 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_180 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_181 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_182 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_7
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_173 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_174 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_175 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_176 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_177 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_8
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_168 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_169 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_170 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_171 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_172 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
+(* ORIG_REF_NAME = "coarse_delay" *) 
+module system_tdc_sensor_0_0_coarse_delay_9
+   (clock_o,
+    delta_i,
+    Q);
+  output clock_o;
+  input delta_i;
+  input [1:0]Q;
+
+  wire [1:0]Q;
+  wire \blocks[0].block_i_n_0 ;
+  wire \blocks[1].block_i_n_0 ;
+  wire \blocks[2].block_i_n_0 ;
+  wire \blocks[3].block_i_n_0 ;
+  wire clock_o;
+  wire delta_i;
+
+  system_tdc_sensor_0_0_coarse_block_163 \blocks[0].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[0].block_i_n_0 ),
+        .delta_i(delta_i));
+  system_tdc_sensor_0_0_coarse_block_164 \blocks[1].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[1].block_i_n_0 ),
+        .delta_i(\blocks[0].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_165 \blocks[2].block_i 
+       (.\delay_path[2].lut_i_0 (\blocks[2].block_i_n_0 ),
+        .delta_i(\blocks[1].block_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_block_166 \blocks[3].block_i 
+       (.clocks_i(\blocks[3].block_i_n_0 ),
+        .delta_i(\blocks[2].block_i_n_0 ));
+  system_tdc_sensor_0_0_clock_mux_167 mux
+       (.Q(Q),
+        .clock_o(clock_o),
+        .clocks_i({\blocks[3].block_i_n_0 ,\blocks[2].block_i_n_0 ,\blocks[1].block_i_n_0 ,\blocks[0].block_i_n_0 }));
+endmodule
+
 module system_tdc_sensor_0_0_delay_block
-   (delta_o,
-    data_o,
-    delta_i,
-    clock_i);
-  output delta_o;
-  output [3:0]data_o;
-  input delta_i;
-  input clock_i;
-
-  wire [2:0]carry_s;
-  wire clock_i;
-  wire [3:0]data_o;
-  wire delta_i;
-  wire delta_o;
-  wire [3:0]NLW_delay_path_O_UNCONNECTED;
-
-  (* box_type = "PRIMITIVE" *) 
-  CARRY4 delay_path
-       (.CI(delta_i),
-        .CO({delta_o,carry_s}),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(NLW_delay_path_O_UNCONNECTED[3:0]),
-        .S({1'b1,1'b1,1'b1,1'b1}));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[0].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[0]),
-        .Q(data_o[0]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[1].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[1]),
-        .Q(data_o[1]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[2].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[2]),
-        .Q(data_o[2]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[3].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(delta_o),
-        .Q(data_o[3]));
-endmodule
-
-(* ORIG_REF_NAME = "delay_block" *) 
-module system_tdc_sensor_0_0_delay_block_29
-   (delta_o,
-    data_o,
-    delta_i,
-    clock_i);
-  output delta_o;
-  output [3:0]data_o;
-  input delta_i;
-  input clock_i;
-
-  wire [2:0]carry_s;
-  wire clock_i;
-  wire [3:0]data_o;
-  wire delta_i;
-  wire delta_o;
-  wire [3:0]NLW_delay_path_O_UNCONNECTED;
-
-  (* box_type = "PRIMITIVE" *) 
-  CARRY4 delay_path
-       (.CI(delta_i),
-        .CO({delta_o,carry_s}),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(NLW_delay_path_O_UNCONNECTED[3:0]),
-        .S({1'b1,1'b1,1'b1,1'b1}));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[0].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[0]),
-        .Q(data_o[0]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[1].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[1]),
-        .Q(data_o[1]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[2].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[2]),
-        .Q(data_o[2]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[3].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(delta_o),
-        .Q(data_o[3]));
-endmodule
-
-(* ORIG_REF_NAME = "delay_block" *) 
-module system_tdc_sensor_0_0_delay_block_30
-   (delta_o,
-    data_o,
-    delta_i,
-    clock_i);
-  output delta_o;
-  output [3:0]data_o;
-  input delta_i;
-  input clock_i;
-
-  wire [2:0]carry_s;
-  wire clock_i;
-  wire [3:0]data_o;
-  wire delta_i;
-  wire delta_o;
-  wire [3:0]NLW_delay_path_O_UNCONNECTED;
-
-  (* box_type = "PRIMITIVE" *) 
-  CARRY4 delay_path
-       (.CI(delta_i),
-        .CO({delta_o,carry_s}),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(NLW_delay_path_O_UNCONNECTED[3:0]),
-        .S({1'b1,1'b1,1'b1,1'b1}));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[0].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[0]),
-        .Q(data_o[0]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[1].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[1]),
-        .Q(data_o[1]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[2].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[2]),
-        .Q(data_o[2]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[3].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(delta_o),
-        .Q(data_o[3]));
-endmodule
-
-(* ORIG_REF_NAME = "delay_block" *) 
-module system_tdc_sensor_0_0_delay_block_31
-   (delta_o,
-    data_o,
-    delta_i,
-    clock_i);
-  output delta_o;
-  output [3:0]data_o;
-  input delta_i;
-  input clock_i;
-
-  wire [2:0]carry_s;
-  wire clock_i;
-  wire [3:0]data_o;
-  wire delta_i;
-  wire delta_o;
-  wire [3:0]NLW_delay_path_O_UNCONNECTED;
-
-  (* box_type = "PRIMITIVE" *) 
-  CARRY4 delay_path
-       (.CI(delta_i),
-        .CO({delta_o,carry_s}),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(NLW_delay_path_O_UNCONNECTED[3:0]),
-        .S({1'b1,1'b1,1'b1,1'b1}));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[0].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[0]),
-        .Q(data_o[0]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[1].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[1]),
-        .Q(data_o[1]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[2].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[2]),
-        .Q(data_o[2]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[3].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(delta_o),
-        .Q(data_o[3]));
-endmodule
-
-(* ORIG_REF_NAME = "delay_block" *) 
-module system_tdc_sensor_0_0_delay_block_32
-   (delta_o,
-    data_o,
-    delta_i,
-    clock_i);
-  output delta_o;
-  output [3:0]data_o;
-  input delta_i;
-  input clock_i;
-
-  wire [2:0]carry_s;
-  wire clock_i;
-  wire [3:0]data_o;
-  wire delta_i;
-  wire delta_o;
-  wire [3:0]NLW_delay_path_O_UNCONNECTED;
-
-  (* box_type = "PRIMITIVE" *) 
-  CARRY4 delay_path
-       (.CI(delta_i),
-        .CO({delta_o,carry_s}),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(NLW_delay_path_O_UNCONNECTED[3:0]),
-        .S({1'b1,1'b1,1'b1,1'b1}));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[0].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[0]),
-        .Q(data_o[0]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[1].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[1]),
-        .Q(data_o[1]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[2].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(carry_s[2]),
-        .Q(data_o[2]));
-  (* DONT_TOUCH *) 
-  (* box_type = "PRIMITIVE" *) 
-  FDCE #(
-    .INIT(1'b0),
-    .IS_CLR_INVERTED(1'b0),
-    .IS_C_INVERTED(1'b0),
-    .IS_D_INVERTED(1'b0)) 
-    \regs[3].delay_reg 
-       (.C(clock_i),
-        .CE(1'b1),
-        .CLR(1'b0),
-        .D(delta_o),
-        .Q(data_o[3]));
-endmodule
-
-(* ORIG_REF_NAME = "delay_block" *) 
-module system_tdc_sensor_0_0_delay_block_33
    (delta_o,
     data_o,
     delta_i,
@@ -8453,6 +9231,406 @@ endmodule
 
 (* ORIG_REF_NAME = "delay_block" *) 
 module system_tdc_sensor_0_0_delay_block_35
+   (delta_o,
+    data_o,
+    delta_i,
+    clock_i);
+  output delta_o;
+  output [3:0]data_o;
+  input delta_i;
+  input clock_i;
+
+  wire [2:0]carry_s;
+  wire clock_i;
+  wire [3:0]data_o;
+  wire delta_i;
+  wire delta_o;
+  wire [3:0]NLW_delay_path_O_UNCONNECTED;
+
+  (* box_type = "PRIMITIVE" *) 
+  CARRY4 delay_path
+       (.CI(delta_i),
+        .CO({delta_o,carry_s}),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O(NLW_delay_path_O_UNCONNECTED[3:0]),
+        .S({1'b1,1'b1,1'b1,1'b1}));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[0].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[0]),
+        .Q(data_o[0]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[1].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[1]),
+        .Q(data_o[1]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[2].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[2]),
+        .Q(data_o[2]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[3].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(delta_o),
+        .Q(data_o[3]));
+endmodule
+
+(* ORIG_REF_NAME = "delay_block" *) 
+module system_tdc_sensor_0_0_delay_block_36
+   (delta_o,
+    data_o,
+    delta_i,
+    clock_i);
+  output delta_o;
+  output [3:0]data_o;
+  input delta_i;
+  input clock_i;
+
+  wire [2:0]carry_s;
+  wire clock_i;
+  wire [3:0]data_o;
+  wire delta_i;
+  wire delta_o;
+  wire [3:0]NLW_delay_path_O_UNCONNECTED;
+
+  (* box_type = "PRIMITIVE" *) 
+  CARRY4 delay_path
+       (.CI(delta_i),
+        .CO({delta_o,carry_s}),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O(NLW_delay_path_O_UNCONNECTED[3:0]),
+        .S({1'b1,1'b1,1'b1,1'b1}));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[0].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[0]),
+        .Q(data_o[0]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[1].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[1]),
+        .Q(data_o[1]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[2].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[2]),
+        .Q(data_o[2]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[3].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(delta_o),
+        .Q(data_o[3]));
+endmodule
+
+(* ORIG_REF_NAME = "delay_block" *) 
+module system_tdc_sensor_0_0_delay_block_37
+   (delta_o,
+    data_o,
+    delta_i,
+    clock_i);
+  output delta_o;
+  output [3:0]data_o;
+  input delta_i;
+  input clock_i;
+
+  wire [2:0]carry_s;
+  wire clock_i;
+  wire [3:0]data_o;
+  wire delta_i;
+  wire delta_o;
+  wire [3:0]NLW_delay_path_O_UNCONNECTED;
+
+  (* box_type = "PRIMITIVE" *) 
+  CARRY4 delay_path
+       (.CI(delta_i),
+        .CO({delta_o,carry_s}),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O(NLW_delay_path_O_UNCONNECTED[3:0]),
+        .S({1'b1,1'b1,1'b1,1'b1}));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[0].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[0]),
+        .Q(data_o[0]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[1].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[1]),
+        .Q(data_o[1]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[2].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[2]),
+        .Q(data_o[2]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[3].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(delta_o),
+        .Q(data_o[3]));
+endmodule
+
+(* ORIG_REF_NAME = "delay_block" *) 
+module system_tdc_sensor_0_0_delay_block_38
+   (delta_o,
+    data_o,
+    delta_i,
+    clock_i);
+  output delta_o;
+  output [3:0]data_o;
+  input delta_i;
+  input clock_i;
+
+  wire [2:0]carry_s;
+  wire clock_i;
+  wire [3:0]data_o;
+  wire delta_i;
+  wire delta_o;
+  wire [3:0]NLW_delay_path_O_UNCONNECTED;
+
+  (* box_type = "PRIMITIVE" *) 
+  CARRY4 delay_path
+       (.CI(delta_i),
+        .CO({delta_o,carry_s}),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O(NLW_delay_path_O_UNCONNECTED[3:0]),
+        .S({1'b1,1'b1,1'b1,1'b1}));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[0].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[0]),
+        .Q(data_o[0]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[1].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[1]),
+        .Q(data_o[1]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[2].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[2]),
+        .Q(data_o[2]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[3].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(delta_o),
+        .Q(data_o[3]));
+endmodule
+
+(* ORIG_REF_NAME = "delay_block" *) 
+module system_tdc_sensor_0_0_delay_block_39
+   (delta_o,
+    data_o,
+    delta_i,
+    clock_i);
+  output delta_o;
+  output [3:0]data_o;
+  input delta_i;
+  input clock_i;
+
+  wire [2:0]carry_s;
+  wire clock_i;
+  wire [3:0]data_o;
+  wire delta_i;
+  wire delta_o;
+  wire [3:0]NLW_delay_path_O_UNCONNECTED;
+
+  (* box_type = "PRIMITIVE" *) 
+  CARRY4 delay_path
+       (.CI(delta_i),
+        .CO({delta_o,carry_s}),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O(NLW_delay_path_O_UNCONNECTED[3:0]),
+        .S({1'b1,1'b1,1'b1,1'b1}));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[0].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[0]),
+        .Q(data_o[0]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[1].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[1]),
+        .Q(data_o[1]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[2].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(carry_s[2]),
+        .Q(data_o[2]));
+  (* DONT_TOUCH *) 
+  (* box_type = "PRIMITIVE" *) 
+  FDCE #(
+    .INIT(1'b0),
+    .IS_CLR_INVERTED(1'b0),
+    .IS_C_INVERTED(1'b0),
+    .IS_D_INVERTED(1'b0)) 
+    \regs[3].delay_reg 
+       (.C(clock_i),
+        .CE(1'b1),
+        .CLR(1'b0),
+        .D(delta_o),
+        .Q(data_o[3]));
+endmodule
+
+(* ORIG_REF_NAME = "delay_block" *) 
+module system_tdc_sensor_0_0_delay_block_40
    (clock_o,
     data_o,
     delta_i,
@@ -8531,7 +9709,6 @@ module system_tdc_sensor_0_0_delay_block_35
         .Q(data_o[3]));
 endmodule
 
-(* ORIG_REF_NAME = "delay_line" *) 
 module system_tdc_sensor_0_0_delay_line
    (data_o,
     clock_o,
@@ -8553,44 +9730,43 @@ module system_tdc_sensor_0_0_delay_line
         .data_o(data_o[3:0]),
         .delta_i(delta_i),
         .delta_o(delta_s[1]));
-  system_tdc_sensor_0_0_delay_block_29 \blocks[1].block_i 
+  system_tdc_sensor_0_0_delay_block_34 \blocks[1].block_i 
        (.clock_i(clock_i),
         .data_o(data_o[7:4]),
         .delta_i(delta_s[1]),
         .delta_o(delta_s[2]));
-  system_tdc_sensor_0_0_delay_block_30 \blocks[2].block_i 
+  system_tdc_sensor_0_0_delay_block_35 \blocks[2].block_i 
        (.clock_i(clock_i),
         .data_o(data_o[11:8]),
         .delta_i(delta_s[2]),
         .delta_o(delta_s[3]));
-  system_tdc_sensor_0_0_delay_block_31 \blocks[3].block_i 
+  system_tdc_sensor_0_0_delay_block_36 \blocks[3].block_i 
        (.clock_i(clock_i),
         .data_o(data_o[15:12]),
         .delta_i(delta_s[3]),
         .delta_o(delta_s[4]));
-  system_tdc_sensor_0_0_delay_block_32 \blocks[4].block_i 
+  system_tdc_sensor_0_0_delay_block_37 \blocks[4].block_i 
        (.clock_i(clock_i),
         .data_o(data_o[19:16]),
         .delta_i(delta_s[4]),
         .delta_o(delta_s[5]));
-  system_tdc_sensor_0_0_delay_block_33 \blocks[5].block_i 
+  system_tdc_sensor_0_0_delay_block_38 \blocks[5].block_i 
        (.clock_i(clock_i),
         .data_o(data_o[23:20]),
         .delta_i(delta_s[5]),
         .delta_o(delta_s[6]));
-  system_tdc_sensor_0_0_delay_block_34 \blocks[6].block_i 
+  system_tdc_sensor_0_0_delay_block_39 \blocks[6].block_i 
        (.clock_i(clock_i),
         .data_o(data_o[27:24]),
         .delta_i(delta_s[6]),
         .delta_o(delta_s[7]));
-  system_tdc_sensor_0_0_delay_block_35 \blocks[7].block_i 
+  system_tdc_sensor_0_0_delay_block_40 \blocks[7].block_i 
        (.clock_i(clock_i),
         .clock_o(clock_o),
         .data_o(data_o[31:28]),
         .delta_i(delta_s[7]));
 endmodule
 
-(* ORIG_REF_NAME = "fine_block" *) 
 module system_tdc_sensor_0_0_fine_block
    (delta_o,
     clock_o,
@@ -8659,7 +9835,7 @@ module system_tdc_sensor_0_0_fine_block
 endmodule
 
 (* ORIG_REF_NAME = "fine_block" *) 
-module system_tdc_sensor_0_0_fine_block_36
+module system_tdc_sensor_0_0_fine_block_41
    (delta_o,
     clock_o,
     delta_i,
@@ -8727,7 +9903,7 @@ module system_tdc_sensor_0_0_fine_block_36
 endmodule
 
 (* ORIG_REF_NAME = "fine_block" *) 
-module system_tdc_sensor_0_0_fine_block_37
+module system_tdc_sensor_0_0_fine_block_42
    (delta_o,
     clock_o,
     delta_i,
@@ -8795,7 +9971,7 @@ module system_tdc_sensor_0_0_fine_block_37
 endmodule
 
 (* ORIG_REF_NAME = "fine_block" *) 
-module system_tdc_sensor_0_0_fine_block_38
+module system_tdc_sensor_0_0_fine_block_43
    (clock_o,
     delta_i,
     Q);
@@ -8860,7 +10036,6 @@ module system_tdc_sensor_0_0_fine_block_38
         .S(Q[1]));
 endmodule
 
-(* ORIG_REF_NAME = "fine_delay" *) 
 module system_tdc_sensor_0_0_fine_delay
    (clock_o,
     delta_i,
@@ -8880,17 +10055,17 @@ module system_tdc_sensor_0_0_fine_delay
         .clock_o(clocks_i[0]),
         .delta_i(delta_i),
         .delta_o(delta_s[1]));
-  system_tdc_sensor_0_0_fine_block_36 \blocks[1].block_i 
+  system_tdc_sensor_0_0_fine_block_41 \blocks[1].block_i 
        (.Q(Q[3:2]),
         .clock_o(clocks_i[1]),
         .delta_i(delta_s[1]),
         .delta_o(delta_s[2]));
-  system_tdc_sensor_0_0_fine_block_37 \blocks[2].block_i 
+  system_tdc_sensor_0_0_fine_block_42 \blocks[2].block_i 
        (.Q(Q[5:4]),
         .clock_o(clocks_i[2]),
         .delta_i(delta_s[2]),
         .delta_o(delta_s[3]));
-  system_tdc_sensor_0_0_fine_block_38 \blocks[3].block_i 
+  system_tdc_sensor_0_0_fine_block_43 \blocks[3].block_i 
        (.Q(Q[7:6]),
         .clock_o(clocks_i[3]),
         .delta_i(delta_s[3]));
@@ -8900,7 +10075,109 @@ module system_tdc_sensor_0_0_fine_delay
         .clocks_i(clocks_i));
 endmodule
 
-(* ORIG_REF_NAME = "tdc" *) 
+(* CHECK_LICENSE_TYPE = "system_tdc_sensor_0_0,tdc_sensor_v1_0,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "tdc_sensor_v1_0,Vivado 2020.1" *) 
+(* NotValidForBitStream *)
+module system_tdc_sensor_0_0
+   (clock_i,
+    clock_o,
+    data_o,
+    s_axi_aclk,
+    s_axi_aresetn,
+    s_axi_awaddr,
+    s_axi_awprot,
+    s_axi_awvalid,
+    s_axi_awready,
+    s_axi_wdata,
+    s_axi_wstrb,
+    s_axi_wvalid,
+    s_axi_wready,
+    s_axi_bresp,
+    s_axi_bvalid,
+    s_axi_bready,
+    s_axi_araddr,
+    s_axi_arprot,
+    s_axi_arvalid,
+    s_axi_arready,
+    s_axi_rdata,
+    s_axi_rresp,
+    s_axi_rvalid,
+    s_axi_rready);
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 clock_i CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME clock_i, FREQ_HZ 125000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN /clk_wiz_0_clk_out1, INSERT_VIP 0" *) input clock_i;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 clock_o CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME clock_o, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_tdc_sensor_0_0_clock_o, INSERT_VIP 0" *) output clock_o;
+  output [31:0]data_o;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 S_AXI_CLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_CLK, ASSOCIATED_BUSIF S_AXI, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input s_axi_aclk;
+  (* x_interface_info = "xilinx.com:signal:reset:1.0 S_AXI_RST RST" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input s_axi_aresetn;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI, WIZ_DATA_WIDTH 32, WIZ_NUM_REG 4, SUPPORTS_NARROW_BURST 0, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 50000000, ID_WIDTH 0, ADDR_WIDTH 4, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, NUM_READ_OUTSTANDING 2, NUM_WRITE_OUTSTANDING 2, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [3:0]s_axi_awaddr;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWPROT" *) input [2:0]s_axi_awprot;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWVALID" *) input s_axi_awvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWREADY" *) output s_axi_awready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WDATA" *) input [31:0]s_axi_wdata;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WSTRB" *) input [3:0]s_axi_wstrb;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WVALID" *) input s_axi_wvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WREADY" *) output s_axi_wready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BRESP" *) output [1:0]s_axi_bresp;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BVALID" *) output s_axi_bvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI BREADY" *) input s_axi_bready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARADDR" *) input [3:0]s_axi_araddr;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARPROT" *) input [2:0]s_axi_arprot;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARVALID" *) input s_axi_arvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI ARREADY" *) output s_axi_arready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RDATA" *) output [31:0]s_axi_rdata;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RRESP" *) output [1:0]s_axi_rresp;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RVALID" *) output s_axi_rvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI RREADY" *) input s_axi_rready;
+
+  wire \<const0> ;
+  wire clock_i;
+  wire clock_o;
+  wire [31:0]data_o;
+  wire s_axi_aclk;
+  wire [3:0]s_axi_araddr;
+  wire s_axi_aresetn;
+  wire s_axi_arready;
+  wire s_axi_arvalid;
+  wire [3:0]s_axi_awaddr;
+  wire s_axi_awready;
+  wire s_axi_awvalid;
+  wire s_axi_bready;
+  wire s_axi_bvalid;
+  wire [31:0]s_axi_rdata;
+  wire s_axi_rready;
+  wire s_axi_rvalid;
+  wire [31:0]s_axi_wdata;
+  wire s_axi_wready;
+  wire [3:0]s_axi_wstrb;
+  wire s_axi_wvalid;
+
+  assign s_axi_bresp[1] = \<const0> ;
+  assign s_axi_bresp[0] = \<const0> ;
+  assign s_axi_rresp[1] = \<const0> ;
+  assign s_axi_rresp[0] = \<const0> ;
+  GND GND
+       (.G(\<const0> ));
+  system_tdc_sensor_0_0_tdc_sensor_v1_0 U0
+       (.S_AXI_ARREADY(s_axi_arready),
+        .S_AXI_AWREADY(s_axi_awready),
+        .S_AXI_WREADY(s_axi_wready),
+        .clock_i(clock_i),
+        .clock_o(clock_o),
+        .data_o(data_o),
+        .s_axi_aclk(s_axi_aclk),
+        .s_axi_araddr(s_axi_araddr[3:2]),
+        .s_axi_aresetn(s_axi_aresetn),
+        .s_axi_arvalid(s_axi_arvalid),
+        .s_axi_awaddr(s_axi_awaddr[3:2]),
+        .s_axi_awvalid(s_axi_awvalid),
+        .s_axi_bready(s_axi_bready),
+        .s_axi_bvalid(s_axi_bvalid),
+        .s_axi_rdata(s_axi_rdata),
+        .s_axi_rready(s_axi_rready),
+        .s_axi_rvalid(s_axi_rvalid),
+        .s_axi_wdata(s_axi_wdata),
+        .s_axi_wstrb(s_axi_wstrb),
+        .s_axi_wvalid(s_axi_wvalid));
+endmodule
+
 module system_tdc_sensor_0_0_tdc
    (\s_axi_awaddr[3] ,
     \s_axi_awaddr[2] ,
@@ -8970,7 +10247,12 @@ module system_tdc_sensor_0_0_tdc
   wire \coarse_line[26].delay_i_n_0 ;
   wire \coarse_line[27].delay_i_n_0 ;
   wire \coarse_line[28].delay_i_n_0 ;
+  wire \coarse_line[29].delay_i_n_0 ;
   wire \coarse_line[2].delay_i_n_0 ;
+  wire \coarse_line[30].delay_i_n_0 ;
+  wire \coarse_line[31].delay_i_n_0 ;
+  wire \coarse_line[32].delay_i_n_0 ;
+  wire \coarse_line[33].delay_i_n_0 ;
   wire \coarse_line[3].delay_i_n_0 ;
   wire \coarse_line[4].delay_i_n_0 ;
   wire \coarse_line[5].delay_i_n_0 ;
@@ -9369,37 +10651,57 @@ module system_tdc_sensor_0_0_tdc
         .delta_i(\coarse_line[27].delay_i_n_0 ));
   system_tdc_sensor_0_0_coarse_delay_20 \coarse_line[29].delay_i 
        (.Q(Q[11:10]),
-        .clock_o(fine_clock_s[0]),
+        .clock_o(\coarse_line[29].delay_i_n_0 ),
         .delta_i(\coarse_line[28].delay_i_n_0 ));
   system_tdc_sensor_0_0_coarse_delay_21 \coarse_line[2].delay_i 
        (.Q(Q[11:10]),
         .clock_o(\coarse_line[2].delay_i_n_0 ),
         .delta_i(\coarse_line[1].delay_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_delay_22 \coarse_line[3].delay_i 
+  system_tdc_sensor_0_0_coarse_delay_22 \coarse_line[30].delay_i 
+       (.Q(Q[11:10]),
+        .clock_o(\coarse_line[30].delay_i_n_0 ),
+        .delta_i(\coarse_line[29].delay_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_delay_23 \coarse_line[31].delay_i 
+       (.Q(Q[11:10]),
+        .clock_o(\coarse_line[31].delay_i_n_0 ),
+        .delta_i(\coarse_line[30].delay_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_delay_24 \coarse_line[32].delay_i 
+       (.Q(Q[11:10]),
+        .clock_o(\coarse_line[32].delay_i_n_0 ),
+        .delta_i(\coarse_line[31].delay_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_delay_25 \coarse_line[33].delay_i 
+       (.Q(Q[11:10]),
+        .clock_o(\coarse_line[33].delay_i_n_0 ),
+        .delta_i(\coarse_line[32].delay_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_delay_26 \coarse_line[34].delay_i 
+       (.Q(Q[11:10]),
+        .clock_o(fine_clock_s[0]),
+        .delta_i(\coarse_line[33].delay_i_n_0 ));
+  system_tdc_sensor_0_0_coarse_delay_27 \coarse_line[3].delay_i 
        (.Q(Q[11:10]),
         .clock_o(\coarse_line[3].delay_i_n_0 ),
         .delta_i(\coarse_line[2].delay_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_delay_23 \coarse_line[4].delay_i 
+  system_tdc_sensor_0_0_coarse_delay_28 \coarse_line[4].delay_i 
        (.Q(Q[11:10]),
         .clock_o(\coarse_line[4].delay_i_n_0 ),
         .delta_i(\coarse_line[3].delay_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_delay_24 \coarse_line[5].delay_i 
+  system_tdc_sensor_0_0_coarse_delay_29 \coarse_line[5].delay_i 
        (.Q(Q[11:10]),
         .clock_o(\coarse_line[5].delay_i_n_0 ),
         .delta_i(\coarse_line[4].delay_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_delay_25 \coarse_line[6].delay_i 
+  system_tdc_sensor_0_0_coarse_delay_30 \coarse_line[6].delay_i 
        (.Q(Q[11:10]),
         .clock_o(\coarse_line[6].delay_i_n_0 ),
         .delta_i(\coarse_line[5].delay_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_delay_26 \coarse_line[7].delay_i 
+  system_tdc_sensor_0_0_coarse_delay_31 \coarse_line[7].delay_i 
        (.Q(Q[11:10]),
         .clock_o(\coarse_line[7].delay_i_n_0 ),
         .delta_i(\coarse_line[6].delay_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_delay_27 \coarse_line[8].delay_i 
+  system_tdc_sensor_0_0_coarse_delay_32 \coarse_line[8].delay_i 
        (.Q(Q[11:10]),
         .clock_o(\coarse_line[8].delay_i_n_0 ),
         .delta_i(\coarse_line[7].delay_i_n_0 ));
-  system_tdc_sensor_0_0_coarse_delay_28 \coarse_line[9].delay_i 
+  system_tdc_sensor_0_0_coarse_delay_33 \coarse_line[9].delay_i 
        (.Q(Q[11:10]),
         .clock_o(\coarse_line[9].delay_i_n_0 ),
         .delta_i(\coarse_line[8].delay_i_n_0 ));
@@ -9414,7 +10716,6 @@ module system_tdc_sensor_0_0_tdc
         .delta_i(fine_clock_s[1]));
 endmodule
 
-(* ORIG_REF_NAME = "tdc_sensor_v1_0" *) 
 module system_tdc_sensor_0_0_tdc_sensor_v1_0
    (data_o,
     clock_o,
@@ -9501,7 +10802,6 @@ module system_tdc_sensor_0_0_tdc_sensor_v1_0
         .s_axi_wvalid(s_axi_wvalid));
 endmodule
 
-(* ORIG_REF_NAME = "tdc_sensor_v1_0_S_AXI" *) 
 module system_tdc_sensor_0_0_tdc_sensor_v1_0_S_AXI
    (data_o,
     clock_o,

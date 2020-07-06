@@ -4,7 +4,7 @@
    "Default View_TopLeft":"-111,-95",
    "ExpandedHierarchyInLayout":"",
    "PinnedPorts":"",
-   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:9.0 non-TLS
+   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:9.0 non-TLS-threadsafe
 #  -string -flagsOSRD
 preplace port DDR -pg 1 -lvl 5 -x 1570 -y 740 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -lvl 5 -x 1570 -y 760 -defaultsOSRD
@@ -19,9 +19,9 @@ preplace inst ps7_0_axi_periph -pg 1 -lvl 2 -x 540 -y 580 -defaultsOSRD
 preplace inst rst_ps7_0_50M -pg 1 -lvl 1 -x 200 -y 420 -defaultsOSRD
 preplace inst simple_aes_0 -pg 1 -lvl 3 -x 990 -y 590 -defaultsOSRD
 preplace inst clk_wiz_0 -pg 1 -lvl 2 -x 540 -y 320 -defaultsOSRD
-preplace inst tdc_sensor_0 -pg 1 -lvl 3 -x 990 -y 430 -defaultsOSRD
 preplace inst fifo_generator_0 -pg 1 -lvl 4 -x 1400 -y 310 -defaultsOSRD
 preplace inst fifo_controller_0 -pg 1 -lvl 3 -x 990 -y 160 -defaultsOSRD
+preplace inst tdc_sensor_0 -pg 1 -lvl 3 -x 990 -y 430 -defaultsOSRD
 preplace netloc rst_ps7_0_50M_peripheral_aresetn 1 1 2 370 740 740
 preplace netloc simple_aes_0_reset_o 1 3 2 NJ 560 NJ
 preplace netloc simple_aes_0_start_o 1 2 3 760 860 1240 580 NJ
@@ -38,12 +38,12 @@ preplace netloc fifo_controller_0_rd_en_o 1 3 1 1200 180n
 preplace netloc fifo_generator_0_dout 1 2 2 790 10 1250J
 preplace netloc fifo_generator_0_empty 1 2 2 780 320 NJ
 preplace netloc fifo_generator_0_full 1 2 2 790 310 1220
-preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 N 560
-preplace netloc processing_system7_0_DDR 1 3 2 NJ 740 NJ
+preplace netloc processing_system7_0_FIXED_IO 1 3 2 NJ 760 NJ
 preplace netloc ps7_0_axi_periph_M01_AXI 1 2 1 710 400n
 preplace netloc ps7_0_axi_periph_M02_AXI 1 2 1 690 70n
-preplace netloc processing_system7_0_FIXED_IO 1 3 2 NJ 760 NJ
 preplace netloc processing_system7_0_M_AXI_GP0 1 1 3 390 400 700J 340 1180
+preplace netloc processing_system7_0_DDR 1 3 2 NJ 740 NJ
+preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 N 560
 levelinfo -pg 1 0 200 540 990 1400 1570
 pagesize -pg 1 -db -bbox -sgen -120 0 1690 870
 "

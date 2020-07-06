@@ -180,12 +180,37 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
         return RUN_FAILURE;
     }
 
-    if(read_idx == CMD_ERR_NOT_FOUND)
+    if (read_idx == CMD_ERR_NOT_FOUND)
     {
         printf("*** Start calibration ***\n\r");
         printf("Best settings: 0x%08x\n\r", TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer));
     }
     printf("Current value: 0x%08x\n\r", TDC_HW_read());
+    return RUN_SUCCESS;
+}
+
+RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
+{
+    if (cmd == NULL)
+    {
+        return RUN_FAILURE;
+    }
+    const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
+    int read_idx = CMD_find_option(options_ptr, 'r');
+    if (read_idx == CMD_ERR_NOT_FOUND)
+    {
+        return RUN_FAILURE;
+    }
+    printf("*** Start FIFO read ***\n\r");
+    uint32_t buffer[FIFO_HW_STACK_SIZE];
+    int len = FIFO_HW_read(buffer, FIFO_HW_STACK_SIZE);
+    len = len == FIFO_HW_ERR_NONE ? FIFO_HW_STACK_SIZE : len;
+
+    xil_printf("Read successful : %d words\n\r", len);
+    for (int idx = 0; idx < len; idx++)
+    {
+        xil_printf("read[%d] = %08x\n\r", idx, buffer[idx]);
+    }
     return RUN_SUCCESS;
 }
 
@@ -247,6 +272,9 @@ RUN_status_t RUN_cmd()
             break;
         case CMD_TYPE_TDC:
             run_status = RUN_tdc(&cmd);
+            break;
+        case CMD_TYPE_FIFO:
+            run_status = RUN_fifo(&cmd);
             break;
         default:
             fprintf(stderr, "Not implemented: %s\n\r", strtok(line, " "));

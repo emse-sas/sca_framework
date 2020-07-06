@@ -8,6 +8,7 @@ entity tdc_sensor_v1_0_S_AXI is
         count_coarse_g : positive := 1;
         count_fine_g : positive := 1;
         count_blocks_g : positive range 0 to 24 := 4;
+        count_tdc_g : positive;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -19,8 +20,8 @@ entity tdc_sensor_v1_0_S_AXI is
 	port (
 		-- Users to add ports here
         clock_i : in std_logic;
-        clock_o : out std_logic;
-        data_o : out std_logic_vector(4 * count_blocks_g - 1 downto 0);
+        clock_o : out std_logic_vector(count_tdc_g - 1 downto 0);
+        data_o : out std_logic_vector(4 * count_tdc_g * count_blocks_g - 1 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -128,18 +129,19 @@ architecture arch_imp of tdc_sensor_v1_0_S_AXI is
 	signal aw_en	: std_logic;
     
     
-	component tdc
+	component tdc_bank
 	   generic (
 	       count_coarse_g : positive;
            count_fine_g : positive;
-           count_blocks_g : positive
+           count_blocks_g : positive;
+           count_tdc_g : positive
 	   ) ;
 	  port (
         clock_i : in std_logic;
-        clock_o : out std_logic;
+        clock_o : out std_logic_vector(count_tdc_g - 1 downto 0);
         coarse_delay_i : in std_logic_vector(1 downto 0);
         fine_delay_i : in std_logic_vector(9 downto 0);
-        data_o : out std_logic_vector(4 * count_blocks_g - 1 downto 0)
+        data_o : out std_logic_vector(4 * count_blocks_g * count_tdc_g - 1 downto 0)
       ) ;
     end component;
     
@@ -413,11 +415,12 @@ begin
 
     delay_s <= slv_reg3;
     data_o <= data_s(4 * count_blocks_g - 1 downto 0);
-	U0 : tdc
+	U0 : tdc_bank
 	generic map (
 	    count_coarse_g => count_coarse_g,
         count_fine_g => count_fine_g,
-        count_blocks_g => count_blocks_g
+        count_blocks_g => count_blocks_g,
+        count_tdc_g => count_tdc_g
 	)
 	port map (
 	   clock_i => clock_i,

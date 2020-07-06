@@ -1,10 +1,10 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Fri Jul  3 13:21:56 2020
+-- Date        : Fri Jul  3 13:57:40 2020
 -- Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               d:/sca_framework/vivado_sca/vivado_sca.srcs/sources_1/bd/system/ip/system_tdc_sensor_0_0/system_tdc_sensor_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top system_tdc_sensor_0_0 -prefix
+--               system_tdc_sensor_0_0_ system_tdc_sensor_0_0_sim_netlist.vhdl
 -- Design      : system_tdc_sensor_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -20,8 +20,6 @@ entity system_tdc_sensor_0_0_clock_mux is
     clocks_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_clock_mux : entity is "clock_mux";
 end system_tdc_sensor_0_0_clock_mux;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_clock_mux is
@@ -1512,7 +1510,7 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity system_tdc_sensor_0_0_clock_mux_182 is
   port (
-    \slv_reg3_reg[11]\ : out STD_LOGIC;
+    clock_o : out STD_LOGIC;
     clocks_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
@@ -1590,7 +1588,7 @@ out_mux: unisim.vcomponents.MUXF7
      port map (
       I0 => mux_s(0),
       I1 => mux_s(1),
-      O => \slv_reg3_reg[11]\,
+      O => clock_o,
       S => Q(1)
     );
 end STRUCTURE;
@@ -1686,17 +1684,457 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_clock_mux_42 is
+entity system_tdc_sensor_0_0_clock_mux_192 is
   port (
     clock_o : out STD_LOGIC;
     clocks_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_clock_mux_42 : entity is "clock_mux";
-end system_tdc_sensor_0_0_clock_mux_42;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_clock_mux_192 : entity is "clock_mux";
+end system_tdc_sensor_0_0_clock_mux_192;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_clock_mux_42 is
+architecture STRUCTURE of system_tdc_sensor_0_0_clock_mux_192 is
+  signal I1 : STD_LOGIC;
+  signal O : STD_LOGIC;
+  signal \luts[2].lut_i_n_0\ : STD_LOGIC;
+  signal \luts[3].lut_i_n_0\ : STD_LOGIC;
+  signal mux_s : STD_LOGIC_VECTOR ( 1 downto 0 );
+  attribute DONT_TOUCH : boolean;
+  attribute DONT_TOUCH of \luts[0].lut_i\ : label is std.standard.true;
+  attribute box_type : string;
+  attribute box_type of \luts[0].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[1].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[1].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[2].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[2].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[3].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[3].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of middle_mux_0 : label is "PRIMITIVE";
+  attribute box_type of middle_mux_1 : label is "PRIMITIVE";
+  attribute box_type of out_mux : label is "PRIMITIVE";
+begin
+\luts[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(0),
+      O => O
+    );
+\luts[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(1),
+      O => I1
+    );
+\luts[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(2),
+      O => \luts[2].lut_i_n_0\
+    );
+\luts[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(3),
+      O => \luts[3].lut_i_n_0\
+    );
+middle_mux_0: unisim.vcomponents.MUXF7
+     port map (
+      I0 => O,
+      I1 => I1,
+      O => mux_s(0),
+      S => Q(0)
+    );
+middle_mux_1: unisim.vcomponents.MUXF7
+     port map (
+      I0 => \luts[2].lut_i_n_0\,
+      I1 => \luts[3].lut_i_n_0\,
+      O => mux_s(1),
+      S => Q(0)
+    );
+out_mux: unisim.vcomponents.MUXF7
+     port map (
+      I0 => mux_s(0),
+      I1 => mux_s(1),
+      O => clock_o,
+      S => Q(1)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_clock_mux_197 is
+  port (
+    clock_o : out STD_LOGIC;
+    clocks_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_clock_mux_197 : entity is "clock_mux";
+end system_tdc_sensor_0_0_clock_mux_197;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_clock_mux_197 is
+  signal I1 : STD_LOGIC;
+  signal O : STD_LOGIC;
+  signal \luts[2].lut_i_n_0\ : STD_LOGIC;
+  signal \luts[3].lut_i_n_0\ : STD_LOGIC;
+  signal mux_s : STD_LOGIC_VECTOR ( 1 downto 0 );
+  attribute DONT_TOUCH : boolean;
+  attribute DONT_TOUCH of \luts[0].lut_i\ : label is std.standard.true;
+  attribute box_type : string;
+  attribute box_type of \luts[0].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[1].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[1].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[2].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[2].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[3].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[3].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of middle_mux_0 : label is "PRIMITIVE";
+  attribute box_type of middle_mux_1 : label is "PRIMITIVE";
+  attribute box_type of out_mux : label is "PRIMITIVE";
+begin
+\luts[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(0),
+      O => O
+    );
+\luts[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(1),
+      O => I1
+    );
+\luts[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(2),
+      O => \luts[2].lut_i_n_0\
+    );
+\luts[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(3),
+      O => \luts[3].lut_i_n_0\
+    );
+middle_mux_0: unisim.vcomponents.MUXF7
+     port map (
+      I0 => O,
+      I1 => I1,
+      O => mux_s(0),
+      S => Q(0)
+    );
+middle_mux_1: unisim.vcomponents.MUXF7
+     port map (
+      I0 => \luts[2].lut_i_n_0\,
+      I1 => \luts[3].lut_i_n_0\,
+      O => mux_s(1),
+      S => Q(0)
+    );
+out_mux: unisim.vcomponents.MUXF7
+     port map (
+      I0 => mux_s(0),
+      I1 => mux_s(1),
+      O => clock_o,
+      S => Q(1)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_clock_mux_202 is
+  port (
+    clock_o : out STD_LOGIC;
+    clocks_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_clock_mux_202 : entity is "clock_mux";
+end system_tdc_sensor_0_0_clock_mux_202;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_clock_mux_202 is
+  signal I1 : STD_LOGIC;
+  signal O : STD_LOGIC;
+  signal \luts[2].lut_i_n_0\ : STD_LOGIC;
+  signal \luts[3].lut_i_n_0\ : STD_LOGIC;
+  signal mux_s : STD_LOGIC_VECTOR ( 1 downto 0 );
+  attribute DONT_TOUCH : boolean;
+  attribute DONT_TOUCH of \luts[0].lut_i\ : label is std.standard.true;
+  attribute box_type : string;
+  attribute box_type of \luts[0].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[1].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[1].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[2].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[2].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[3].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[3].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of middle_mux_0 : label is "PRIMITIVE";
+  attribute box_type of middle_mux_1 : label is "PRIMITIVE";
+  attribute box_type of out_mux : label is "PRIMITIVE";
+begin
+\luts[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(0),
+      O => O
+    );
+\luts[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(1),
+      O => I1
+    );
+\luts[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(2),
+      O => \luts[2].lut_i_n_0\
+    );
+\luts[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(3),
+      O => \luts[3].lut_i_n_0\
+    );
+middle_mux_0: unisim.vcomponents.MUXF7
+     port map (
+      I0 => O,
+      I1 => I1,
+      O => mux_s(0),
+      S => Q(0)
+    );
+middle_mux_1: unisim.vcomponents.MUXF7
+     port map (
+      I0 => \luts[2].lut_i_n_0\,
+      I1 => \luts[3].lut_i_n_0\,
+      O => mux_s(1),
+      S => Q(0)
+    );
+out_mux: unisim.vcomponents.MUXF7
+     port map (
+      I0 => mux_s(0),
+      I1 => mux_s(1),
+      O => clock_o,
+      S => Q(1)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_clock_mux_207 is
+  port (
+    clock_o : out STD_LOGIC;
+    clocks_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_clock_mux_207 : entity is "clock_mux";
+end system_tdc_sensor_0_0_clock_mux_207;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_clock_mux_207 is
+  signal I1 : STD_LOGIC;
+  signal O : STD_LOGIC;
+  signal \luts[2].lut_i_n_0\ : STD_LOGIC;
+  signal \luts[3].lut_i_n_0\ : STD_LOGIC;
+  signal mux_s : STD_LOGIC_VECTOR ( 1 downto 0 );
+  attribute DONT_TOUCH : boolean;
+  attribute DONT_TOUCH of \luts[0].lut_i\ : label is std.standard.true;
+  attribute box_type : string;
+  attribute box_type of \luts[0].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[1].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[1].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[2].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[2].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[3].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[3].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of middle_mux_0 : label is "PRIMITIVE";
+  attribute box_type of middle_mux_1 : label is "PRIMITIVE";
+  attribute box_type of out_mux : label is "PRIMITIVE";
+begin
+\luts[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(0),
+      O => O
+    );
+\luts[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(1),
+      O => I1
+    );
+\luts[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(2),
+      O => \luts[2].lut_i_n_0\
+    );
+\luts[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(3),
+      O => \luts[3].lut_i_n_0\
+    );
+middle_mux_0: unisim.vcomponents.MUXF7
+     port map (
+      I0 => O,
+      I1 => I1,
+      O => mux_s(0),
+      S => Q(0)
+    );
+middle_mux_1: unisim.vcomponents.MUXF7
+     port map (
+      I0 => \luts[2].lut_i_n_0\,
+      I1 => \luts[3].lut_i_n_0\,
+      O => mux_s(1),
+      S => Q(0)
+    );
+out_mux: unisim.vcomponents.MUXF7
+     port map (
+      I0 => mux_s(0),
+      I1 => mux_s(1),
+      O => clock_o,
+      S => Q(1)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_clock_mux_212 is
+  port (
+    \slv_reg3_reg[11]\ : out STD_LOGIC;
+    clocks_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_clock_mux_212 : entity is "clock_mux";
+end system_tdc_sensor_0_0_clock_mux_212;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_clock_mux_212 is
+  signal I1 : STD_LOGIC;
+  signal O : STD_LOGIC;
+  signal \luts[2].lut_i_n_0\ : STD_LOGIC;
+  signal \luts[3].lut_i_n_0\ : STD_LOGIC;
+  signal mux_s : STD_LOGIC_VECTOR ( 1 downto 0 );
+  attribute DONT_TOUCH : boolean;
+  attribute DONT_TOUCH of \luts[0].lut_i\ : label is std.standard.true;
+  attribute box_type : string;
+  attribute box_type of \luts[0].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[1].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[1].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[2].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[2].lut_i\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \luts[3].lut_i\ : label is std.standard.true;
+  attribute box_type of \luts[3].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of middle_mux_0 : label is "PRIMITIVE";
+  attribute box_type of middle_mux_1 : label is "PRIMITIVE";
+  attribute box_type of out_mux : label is "PRIMITIVE";
+begin
+\luts[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(0),
+      O => O
+    );
+\luts[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(1),
+      O => I1
+    );
+\luts[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(2),
+      O => \luts[2].lut_i_n_0\
+    );
+\luts[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clocks_i(3),
+      O => \luts[3].lut_i_n_0\
+    );
+middle_mux_0: unisim.vcomponents.MUXF7
+     port map (
+      I0 => O,
+      I1 => I1,
+      O => mux_s(0),
+      S => Q(0)
+    );
+middle_mux_1: unisim.vcomponents.MUXF7
+     port map (
+      I0 => \luts[2].lut_i_n_0\,
+      I1 => \luts[3].lut_i_n_0\,
+      O => mux_s(1),
+      S => Q(0)
+    );
+out_mux: unisim.vcomponents.MUXF7
+     port map (
+      I0 => mux_s(0),
+      I1 => mux_s(1),
+      O => \slv_reg3_reg[11]\,
+      S => Q(1)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_clock_mux_217 is
+  port (
+    clock_o : out STD_LOGIC;
+    clocks_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_clock_mux_217 : entity is "clock_mux";
+end system_tdc_sensor_0_0_clock_mux_217;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_clock_mux_217 is
   signal I1 : STD_LOGIC;
   signal O : STD_LOGIC;
   signal \luts[2].lut_i_n_0\ : STD_LOGIC;
@@ -2747,8 +3185,6 @@ entity system_tdc_sensor_0_0_coarse_block is
     \delay_path[2].lut_i_0\ : out STD_LOGIC;
     delta_i : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block : entity is "coarse_block";
 end system_tdc_sensor_0_0_coarse_block;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block is
@@ -6272,8 +6708,8 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity system_tdc_sensor_0_0_coarse_block_178 is
   port (
-    delta_i : out STD_LOGIC;
-    clock_o : in STD_LOGIC
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_178 : entity is "coarse_block";
@@ -6294,7 +6730,7 @@ begin
       INIT => X"2"
     )
         port map (
-      I0 => clock_o,
+      I0 => delta_i,
       O => O
     );
 \delay_path[1].lut_i\: unisim.vcomponents.LUT1
@@ -6319,7 +6755,7 @@ begin
     )
         port map (
       I0 => \delay_path[2].lut_i_n_0\,
-      O => delta_i
+      O => \delay_path[2].lut_i_0\
     );
 end STRUCTURE;
 library IEEE;
@@ -6496,8 +6932,8 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity system_tdc_sensor_0_0_coarse_block_183 is
   port (
-    delta_i : out STD_LOGIC;
-    clock_i : in STD_LOGIC
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_183 : entity is "coarse_block";
@@ -6518,7 +6954,7 @@ begin
       INIT => X"2"
     )
         port map (
-      I0 => clock_i,
+      I0 => delta_i,
       O => O
     );
 \delay_path[1].lut_i\: unisim.vcomponents.LUT1
@@ -6543,7 +6979,7 @@ begin
     )
         port map (
       I0 => \delay_path[2].lut_i_n_0\,
-      O => delta_i
+      O => \delay_path[2].lut_i_0\
     );
 end STRUCTURE;
 library IEEE;
@@ -6718,16 +7154,16 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_block_39 is
+entity system_tdc_sensor_0_0_coarse_block_188 is
   port (
     \delay_path[2].lut_i_0\ : out STD_LOGIC;
     delta_i : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_39 : entity is "coarse_block";
-end system_tdc_sensor_0_0_coarse_block_39;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_188 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_188;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_39 is
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_188 is
   signal O : STD_LOGIC;
   signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
   signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
@@ -6774,16 +7210,16 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_block_40 is
+entity system_tdc_sensor_0_0_coarse_block_189 is
   port (
     \delay_path[2].lut_i_0\ : out STD_LOGIC;
     delta_i : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_40 : entity is "coarse_block";
-end system_tdc_sensor_0_0_coarse_block_40;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_189 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_189;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_40 is
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_189 is
   signal O : STD_LOGIC;
   signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
   signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
@@ -6830,16 +7266,72 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_block_41 is
+entity system_tdc_sensor_0_0_coarse_block_190 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_190 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_190;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_190 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_191 is
   port (
     clocks_i : out STD_LOGIC_VECTOR ( 0 to 0 );
     delta_i : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_41 : entity is "coarse_block";
-end system_tdc_sensor_0_0_coarse_block_41;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_191 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_191;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_41 is
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_191 is
   signal O : STD_LOGIC;
   signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
   signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
@@ -6886,16 +7378,16 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_block_43 is
+entity system_tdc_sensor_0_0_coarse_block_193 is
   port (
     \delay_path[2].lut_i_0\ : out STD_LOGIC;
     delta_i : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_43 : entity is "coarse_block";
-end system_tdc_sensor_0_0_coarse_block_43;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_193 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_193;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_43 is
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_193 is
   signal O : STD_LOGIC;
   signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
   signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
@@ -6936,6 +7428,1070 @@ begin
         port map (
       I0 => \delay_path[2].lut_i_n_0\,
       O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_194 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_194 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_194;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_194 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_195 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_195 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_195;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_195 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_196 is
+  port (
+    clocks_i : out STD_LOGIC_VECTOR ( 0 to 0 );
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_196 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_196;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_196 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => clocks_i(0)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_198 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_198 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_198;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_198 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_199 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_199 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_199;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_199 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_200 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_200 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_200;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_200 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_201 is
+  port (
+    clocks_i : out STD_LOGIC_VECTOR ( 0 to 0 );
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_201 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_201;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_201 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => clocks_i(0)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_203 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_203 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_203;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_203 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_204 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_204 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_204;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_204 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_205 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_205 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_205;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_205 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_206 is
+  port (
+    clocks_i : out STD_LOGIC_VECTOR ( 0 to 0 );
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_206 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_206;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_206 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => clocks_i(0)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_208 is
+  port (
+    delta_i : out STD_LOGIC;
+    clock_o : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_208 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_208;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_208 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clock_o,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => delta_i
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_209 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_209 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_209;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_209 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_210 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_210 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_210;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_210 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_211 is
+  port (
+    clocks_i : out STD_LOGIC_VECTOR ( 0 to 0 );
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_211 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_211;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_211 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => clocks_i(0)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_213 is
+  port (
+    delta_i : out STD_LOGIC;
+    clock_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_213 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_213;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_213 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => clock_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => delta_i
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_214 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_214 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_214;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_214 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_215 is
+  port (
+    \delay_path[2].lut_i_0\ : out STD_LOGIC;
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_215 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_215;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_215 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => \delay_path[2].lut_i_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_block_216 is
+  port (
+    clocks_i : out STD_LOGIC_VECTOR ( 0 to 0 );
+    delta_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_block_216 : entity is "coarse_block";
+end system_tdc_sensor_0_0_coarse_block_216;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_block_216 is
+  signal O : STD_LOGIC;
+  signal \delay_path[1].lut_i_n_0\ : STD_LOGIC;
+  signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
+  attribute box_type : string;
+  attribute box_type of \delay_path[0].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[1].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[2].lut_i\ : label is "PRIMITIVE";
+  attribute box_type of \delay_path[3].lut_i\ : label is "PRIMITIVE";
+begin
+\delay_path[0].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => delta_i,
+      O => O
+    );
+\delay_path[1].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => O,
+      O => \delay_path[1].lut_i_n_0\
+    );
+\delay_path[2].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[1].lut_i_n_0\,
+      O => \delay_path[2].lut_i_n_0\
+    );
+\delay_path[3].lut_i\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => \delay_path[2].lut_i_n_0\,
+      O => clocks_i(0)
     );
 end STRUCTURE;
 library IEEE;
@@ -9469,506 +11025,9 @@ entity system_tdc_sensor_0_0_delay_block is
     delta_i : in STD_LOGIC;
     clock_i : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block : entity is "delay_block";
 end system_tdc_sensor_0_0_delay_block;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_delay_block is
-  signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal \^delta_o\ : STD_LOGIC;
-  signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
-  attribute box_type : string;
-  attribute box_type of delay_path : label is "PRIMITIVE";
-  attribute DONT_TOUCH : boolean;
-  attribute DONT_TOUCH of \regs[0].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[0].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[1].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[1].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[2].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[2].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[3].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[3].delay_reg\ : label is "PRIMITIVE";
-begin
-  delta_o <= \^delta_o\;
-delay_path: unisim.vcomponents.CARRY4
-     port map (
-      CI => delta_i,
-      CO(3) => \^delta_o\,
-      CO(2 downto 0) => carry_s(2 downto 0),
-      CYINIT => '0',
-      DI(3 downto 0) => B"0000",
-      O(3 downto 0) => NLW_delay_path_O_UNCONNECTED(3 downto 0),
-      S(3 downto 0) => B"1111"
-    );
-\regs[0].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(0),
-      Q => data_o(0)
-    );
-\regs[1].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(1),
-      Q => data_o(1)
-    );
-\regs[2].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(2),
-      Q => data_o(2)
-    );
-\regs[3].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => \^delta_o\,
-      Q => data_o(3)
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_delay_block_29 is
-  port (
-    delta_o : out STD_LOGIC;
-    data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    delta_i : in STD_LOGIC;
-    clock_i : in STD_LOGIC
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block_29 : entity is "delay_block";
-end system_tdc_sensor_0_0_delay_block_29;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_29 is
-  signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal \^delta_o\ : STD_LOGIC;
-  signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
-  attribute box_type : string;
-  attribute box_type of delay_path : label is "PRIMITIVE";
-  attribute DONT_TOUCH : boolean;
-  attribute DONT_TOUCH of \regs[0].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[0].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[1].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[1].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[2].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[2].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[3].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[3].delay_reg\ : label is "PRIMITIVE";
-begin
-  delta_o <= \^delta_o\;
-delay_path: unisim.vcomponents.CARRY4
-     port map (
-      CI => delta_i,
-      CO(3) => \^delta_o\,
-      CO(2 downto 0) => carry_s(2 downto 0),
-      CYINIT => '0',
-      DI(3 downto 0) => B"0000",
-      O(3 downto 0) => NLW_delay_path_O_UNCONNECTED(3 downto 0),
-      S(3 downto 0) => B"1111"
-    );
-\regs[0].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(0),
-      Q => data_o(0)
-    );
-\regs[1].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(1),
-      Q => data_o(1)
-    );
-\regs[2].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(2),
-      Q => data_o(2)
-    );
-\regs[3].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => \^delta_o\,
-      Q => data_o(3)
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_delay_block_30 is
-  port (
-    delta_o : out STD_LOGIC;
-    data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    delta_i : in STD_LOGIC;
-    clock_i : in STD_LOGIC
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block_30 : entity is "delay_block";
-end system_tdc_sensor_0_0_delay_block_30;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_30 is
-  signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal \^delta_o\ : STD_LOGIC;
-  signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
-  attribute box_type : string;
-  attribute box_type of delay_path : label is "PRIMITIVE";
-  attribute DONT_TOUCH : boolean;
-  attribute DONT_TOUCH of \regs[0].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[0].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[1].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[1].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[2].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[2].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[3].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[3].delay_reg\ : label is "PRIMITIVE";
-begin
-  delta_o <= \^delta_o\;
-delay_path: unisim.vcomponents.CARRY4
-     port map (
-      CI => delta_i,
-      CO(3) => \^delta_o\,
-      CO(2 downto 0) => carry_s(2 downto 0),
-      CYINIT => '0',
-      DI(3 downto 0) => B"0000",
-      O(3 downto 0) => NLW_delay_path_O_UNCONNECTED(3 downto 0),
-      S(3 downto 0) => B"1111"
-    );
-\regs[0].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(0),
-      Q => data_o(0)
-    );
-\regs[1].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(1),
-      Q => data_o(1)
-    );
-\regs[2].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(2),
-      Q => data_o(2)
-    );
-\regs[3].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => \^delta_o\,
-      Q => data_o(3)
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_delay_block_31 is
-  port (
-    delta_o : out STD_LOGIC;
-    data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    delta_i : in STD_LOGIC;
-    clock_i : in STD_LOGIC
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block_31 : entity is "delay_block";
-end system_tdc_sensor_0_0_delay_block_31;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_31 is
-  signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal \^delta_o\ : STD_LOGIC;
-  signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
-  attribute box_type : string;
-  attribute box_type of delay_path : label is "PRIMITIVE";
-  attribute DONT_TOUCH : boolean;
-  attribute DONT_TOUCH of \regs[0].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[0].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[1].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[1].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[2].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[2].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[3].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[3].delay_reg\ : label is "PRIMITIVE";
-begin
-  delta_o <= \^delta_o\;
-delay_path: unisim.vcomponents.CARRY4
-     port map (
-      CI => delta_i,
-      CO(3) => \^delta_o\,
-      CO(2 downto 0) => carry_s(2 downto 0),
-      CYINIT => '0',
-      DI(3 downto 0) => B"0000",
-      O(3 downto 0) => NLW_delay_path_O_UNCONNECTED(3 downto 0),
-      S(3 downto 0) => B"1111"
-    );
-\regs[0].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(0),
-      Q => data_o(0)
-    );
-\regs[1].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(1),
-      Q => data_o(1)
-    );
-\regs[2].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(2),
-      Q => data_o(2)
-    );
-\regs[3].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => \^delta_o\,
-      Q => data_o(3)
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_delay_block_32 is
-  port (
-    delta_o : out STD_LOGIC;
-    data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    delta_i : in STD_LOGIC;
-    clock_i : in STD_LOGIC
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block_32 : entity is "delay_block";
-end system_tdc_sensor_0_0_delay_block_32;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_32 is
-  signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal \^delta_o\ : STD_LOGIC;
-  signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
-  attribute box_type : string;
-  attribute box_type of delay_path : label is "PRIMITIVE";
-  attribute DONT_TOUCH : boolean;
-  attribute DONT_TOUCH of \regs[0].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[0].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[1].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[1].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[2].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[2].delay_reg\ : label is "PRIMITIVE";
-  attribute DONT_TOUCH of \regs[3].delay_reg\ : label is std.standard.true;
-  attribute box_type of \regs[3].delay_reg\ : label is "PRIMITIVE";
-begin
-  delta_o <= \^delta_o\;
-delay_path: unisim.vcomponents.CARRY4
-     port map (
-      CI => delta_i,
-      CO(3) => \^delta_o\,
-      CO(2 downto 0) => carry_s(2 downto 0),
-      CYINIT => '0',
-      DI(3 downto 0) => B"0000",
-      O(3 downto 0) => NLW_delay_path_O_UNCONNECTED(3 downto 0),
-      S(3 downto 0) => B"1111"
-    );
-\regs[0].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(0),
-      Q => data_o(0)
-    );
-\regs[1].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(1),
-      Q => data_o(1)
-    );
-\regs[2].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => carry_s(2),
-      Q => data_o(2)
-    );
-\regs[3].delay_reg\: unisim.vcomponents.FDCE
-    generic map(
-      INIT => '0',
-      IS_CLR_INVERTED => '0',
-      IS_C_INVERTED => '0',
-      IS_D_INVERTED => '0'
-    )
-        port map (
-      C => clock_i,
-      CE => '1',
-      CLR => '0',
-      D => \^delta_o\,
-      Q => data_o(3)
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_delay_block_33 is
-  port (
-    delta_o : out STD_LOGIC;
-    data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    delta_i : in STD_LOGIC;
-    clock_i : in STD_LOGIC
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block_33 : entity is "delay_block";
-end system_tdc_sensor_0_0_delay_block_33;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_33 is
   signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal \^delta_o\ : STD_LOGIC;
   signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
@@ -10157,7 +11216,7 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity system_tdc_sensor_0_0_delay_block_35 is
   port (
-    clock_o : out STD_LOGIC;
+    delta_o : out STD_LOGIC;
     data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
     delta_i : in STD_LOGIC;
     clock_i : in STD_LOGIC
@@ -10167,6 +11226,501 @@ entity system_tdc_sensor_0_0_delay_block_35 is
 end system_tdc_sensor_0_0_delay_block_35;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_35 is
+  signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal \^delta_o\ : STD_LOGIC;
+  signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
+  attribute box_type : string;
+  attribute box_type of delay_path : label is "PRIMITIVE";
+  attribute DONT_TOUCH : boolean;
+  attribute DONT_TOUCH of \regs[0].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[0].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[1].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[1].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[2].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[2].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[3].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[3].delay_reg\ : label is "PRIMITIVE";
+begin
+  delta_o <= \^delta_o\;
+delay_path: unisim.vcomponents.CARRY4
+     port map (
+      CI => delta_i,
+      CO(3) => \^delta_o\,
+      CO(2 downto 0) => carry_s(2 downto 0),
+      CYINIT => '0',
+      DI(3 downto 0) => B"0000",
+      O(3 downto 0) => NLW_delay_path_O_UNCONNECTED(3 downto 0),
+      S(3 downto 0) => B"1111"
+    );
+\regs[0].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(0),
+      Q => data_o(0)
+    );
+\regs[1].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(1),
+      Q => data_o(1)
+    );
+\regs[2].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(2),
+      Q => data_o(2)
+    );
+\regs[3].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => \^delta_o\,
+      Q => data_o(3)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_delay_block_36 is
+  port (
+    delta_o : out STD_LOGIC;
+    data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    delta_i : in STD_LOGIC;
+    clock_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block_36 : entity is "delay_block";
+end system_tdc_sensor_0_0_delay_block_36;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_36 is
+  signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal \^delta_o\ : STD_LOGIC;
+  signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
+  attribute box_type : string;
+  attribute box_type of delay_path : label is "PRIMITIVE";
+  attribute DONT_TOUCH : boolean;
+  attribute DONT_TOUCH of \regs[0].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[0].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[1].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[1].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[2].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[2].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[3].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[3].delay_reg\ : label is "PRIMITIVE";
+begin
+  delta_o <= \^delta_o\;
+delay_path: unisim.vcomponents.CARRY4
+     port map (
+      CI => delta_i,
+      CO(3) => \^delta_o\,
+      CO(2 downto 0) => carry_s(2 downto 0),
+      CYINIT => '0',
+      DI(3 downto 0) => B"0000",
+      O(3 downto 0) => NLW_delay_path_O_UNCONNECTED(3 downto 0),
+      S(3 downto 0) => B"1111"
+    );
+\regs[0].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(0),
+      Q => data_o(0)
+    );
+\regs[1].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(1),
+      Q => data_o(1)
+    );
+\regs[2].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(2),
+      Q => data_o(2)
+    );
+\regs[3].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => \^delta_o\,
+      Q => data_o(3)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_delay_block_37 is
+  port (
+    delta_o : out STD_LOGIC;
+    data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    delta_i : in STD_LOGIC;
+    clock_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block_37 : entity is "delay_block";
+end system_tdc_sensor_0_0_delay_block_37;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_37 is
+  signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal \^delta_o\ : STD_LOGIC;
+  signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
+  attribute box_type : string;
+  attribute box_type of delay_path : label is "PRIMITIVE";
+  attribute DONT_TOUCH : boolean;
+  attribute DONT_TOUCH of \regs[0].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[0].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[1].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[1].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[2].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[2].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[3].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[3].delay_reg\ : label is "PRIMITIVE";
+begin
+  delta_o <= \^delta_o\;
+delay_path: unisim.vcomponents.CARRY4
+     port map (
+      CI => delta_i,
+      CO(3) => \^delta_o\,
+      CO(2 downto 0) => carry_s(2 downto 0),
+      CYINIT => '0',
+      DI(3 downto 0) => B"0000",
+      O(3 downto 0) => NLW_delay_path_O_UNCONNECTED(3 downto 0),
+      S(3 downto 0) => B"1111"
+    );
+\regs[0].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(0),
+      Q => data_o(0)
+    );
+\regs[1].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(1),
+      Q => data_o(1)
+    );
+\regs[2].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(2),
+      Q => data_o(2)
+    );
+\regs[3].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => \^delta_o\,
+      Q => data_o(3)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_delay_block_38 is
+  port (
+    delta_o : out STD_LOGIC;
+    data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    delta_i : in STD_LOGIC;
+    clock_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block_38 : entity is "delay_block";
+end system_tdc_sensor_0_0_delay_block_38;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_38 is
+  signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal \^delta_o\ : STD_LOGIC;
+  signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
+  attribute box_type : string;
+  attribute box_type of delay_path : label is "PRIMITIVE";
+  attribute DONT_TOUCH : boolean;
+  attribute DONT_TOUCH of \regs[0].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[0].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[1].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[1].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[2].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[2].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[3].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[3].delay_reg\ : label is "PRIMITIVE";
+begin
+  delta_o <= \^delta_o\;
+delay_path: unisim.vcomponents.CARRY4
+     port map (
+      CI => delta_i,
+      CO(3) => \^delta_o\,
+      CO(2 downto 0) => carry_s(2 downto 0),
+      CYINIT => '0',
+      DI(3 downto 0) => B"0000",
+      O(3 downto 0) => NLW_delay_path_O_UNCONNECTED(3 downto 0),
+      S(3 downto 0) => B"1111"
+    );
+\regs[0].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(0),
+      Q => data_o(0)
+    );
+\regs[1].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(1),
+      Q => data_o(1)
+    );
+\regs[2].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(2),
+      Q => data_o(2)
+    );
+\regs[3].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => \^delta_o\,
+      Q => data_o(3)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_delay_block_39 is
+  port (
+    delta_o : out STD_LOGIC;
+    data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    delta_i : in STD_LOGIC;
+    clock_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block_39 : entity is "delay_block";
+end system_tdc_sensor_0_0_delay_block_39;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_39 is
+  signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal \^delta_o\ : STD_LOGIC;
+  signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
+  attribute box_type : string;
+  attribute box_type of delay_path : label is "PRIMITIVE";
+  attribute DONT_TOUCH : boolean;
+  attribute DONT_TOUCH of \regs[0].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[0].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[1].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[1].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[2].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[2].delay_reg\ : label is "PRIMITIVE";
+  attribute DONT_TOUCH of \regs[3].delay_reg\ : label is std.standard.true;
+  attribute box_type of \regs[3].delay_reg\ : label is "PRIMITIVE";
+begin
+  delta_o <= \^delta_o\;
+delay_path: unisim.vcomponents.CARRY4
+     port map (
+      CI => delta_i,
+      CO(3) => \^delta_o\,
+      CO(2 downto 0) => carry_s(2 downto 0),
+      CYINIT => '0',
+      DI(3 downto 0) => B"0000",
+      O(3 downto 0) => NLW_delay_path_O_UNCONNECTED(3 downto 0),
+      S(3 downto 0) => B"1111"
+    );
+\regs[0].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(0),
+      Q => data_o(0)
+    );
+\regs[1].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(1),
+      Q => data_o(1)
+    );
+\regs[2].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => carry_s(2),
+      Q => data_o(2)
+    );
+\regs[3].delay_reg\: unisim.vcomponents.FDCE
+    generic map(
+      INIT => '0',
+      IS_CLR_INVERTED => '0',
+      IS_C_INVERTED => '0',
+      IS_D_INVERTED => '0'
+    )
+        port map (
+      C => clock_i,
+      CE => '1',
+      CLR => '0',
+      D => \^delta_o\,
+      Q => data_o(3)
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_delay_block_40 is
+  port (
+    clock_o : out STD_LOGIC;
+    data_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    delta_i : in STD_LOGIC;
+    clock_i : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_block_40 : entity is "delay_block";
+end system_tdc_sensor_0_0_delay_block_40;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_delay_block_40 is
   signal carry_s : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal \^clock_o\ : STD_LOGIC;
   signal NLW_delay_path_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
@@ -10261,8 +11815,6 @@ entity system_tdc_sensor_0_0_fine_block is
     delta_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_fine_block : entity is "fine_block";
 end system_tdc_sensor_0_0_fine_block;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_fine_block is
@@ -10344,7 +11896,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_fine_block_36 is
+entity system_tdc_sensor_0_0_fine_block_41 is
   port (
     delta_o : out STD_LOGIC;
     clock_o : out STD_LOGIC;
@@ -10352,10 +11904,10 @@ entity system_tdc_sensor_0_0_fine_block_36 is
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_fine_block_36 : entity is "fine_block";
-end system_tdc_sensor_0_0_fine_block_36;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_fine_block_41 : entity is "fine_block";
+end system_tdc_sensor_0_0_fine_block_41;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_fine_block_36 is
+architecture STRUCTURE of system_tdc_sensor_0_0_fine_block_41 is
   signal I1 : STD_LOGIC;
   signal O : STD_LOGIC;
   signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
@@ -10434,7 +11986,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_fine_block_37 is
+entity system_tdc_sensor_0_0_fine_block_42 is
   port (
     delta_o : out STD_LOGIC;
     clock_o : out STD_LOGIC;
@@ -10442,10 +11994,10 @@ entity system_tdc_sensor_0_0_fine_block_37 is
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_fine_block_37 : entity is "fine_block";
-end system_tdc_sensor_0_0_fine_block_37;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_fine_block_42 : entity is "fine_block";
+end system_tdc_sensor_0_0_fine_block_42;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_fine_block_37 is
+architecture STRUCTURE of system_tdc_sensor_0_0_fine_block_42 is
   signal I1 : STD_LOGIC;
   signal O : STD_LOGIC;
   signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
@@ -10524,17 +12076,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_fine_block_38 is
+entity system_tdc_sensor_0_0_fine_block_43 is
   port (
     clock_o : out STD_LOGIC;
     delta_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_fine_block_38 : entity is "fine_block";
-end system_tdc_sensor_0_0_fine_block_38;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_fine_block_43 : entity is "fine_block";
+end system_tdc_sensor_0_0_fine_block_43;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_fine_block_38 is
+architecture STRUCTURE of system_tdc_sensor_0_0_fine_block_43 is
   signal I1 : STD_LOGIC;
   signal O : STD_LOGIC;
   signal \delay_path[2].lut_i_n_0\ : STD_LOGIC;
@@ -10618,8 +12170,6 @@ entity system_tdc_sensor_0_0_coarse_delay is
     clock_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay : entity is "coarse_delay";
 end system_tdc_sensor_0_0_coarse_delay;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay is
@@ -10628,27 +12178,27 @@ architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay is
   signal \blocks[2].block_i_n_0\ : STD_LOGIC;
   signal \blocks[3].block_i_n_0\ : STD_LOGIC;
 begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_183
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_213
      port map (
       clock_i => clock_i,
       delta_i => \blocks[0].block_i_n_0\
     );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_184
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_214
      port map (
       \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
       delta_i => \blocks[0].block_i_n_0\
     );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_185
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_215
      port map (
       \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
       delta_i => \blocks[1].block_i_n_0\
     );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_186
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_216
      port map (
       clocks_i(0) => \blocks[3].block_i_n_0\,
       delta_i => \blocks[2].block_i_n_0\
     );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_187
+mux: entity work.system_tdc_sensor_0_0_clock_mux_217
      port map (
       Q(1 downto 0) => Q(1 downto 0),
       clock_o => clock_o,
@@ -10678,27 +12228,27 @@ architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_0 is
   signal \blocks[2].block_i_n_0\ : STD_LOGIC;
   signal \blocks[3].block_i_n_0\ : STD_LOGIC;
 begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_178
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_208
      port map (
       clock_o => clock_o,
       delta_i => \blocks[0].block_i_n_0\
     );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_179
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_209
      port map (
       \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
       delta_i => \blocks[0].block_i_n_0\
     );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_180
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_210
      port map (
       \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
       delta_i => \blocks[1].block_i_n_0\
     );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_181
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_211
      port map (
       clocks_i(0) => \blocks[3].block_i_n_0\,
       delta_i => \blocks[2].block_i_n_0\
     );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_182
+mux: entity work.system_tdc_sensor_0_0_clock_mux_212
      port map (
       Q(1 downto 0) => Q(1 downto 0),
       clocks_i(3) => \blocks[3].block_i_n_0\,
@@ -10728,27 +12278,27 @@ architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_1 is
   signal \blocks[2].block_i_n_0\ : STD_LOGIC;
   signal \blocks[3].block_i_n_0\ : STD_LOGIC;
 begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_173
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_203
      port map (
       \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
       delta_i => delta_i
     );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_174
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_204
      port map (
       \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
       delta_i => \blocks[0].block_i_n_0\
     );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_175
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_205
      port map (
       \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
       delta_i => \blocks[1].block_i_n_0\
     );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_176
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_206
      port map (
       clocks_i(0) => \blocks[3].block_i_n_0\,
       delta_i => \blocks[2].block_i_n_0\
     );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_177
+mux: entity work.system_tdc_sensor_0_0_clock_mux_207
      port map (
       Q(1 downto 0) => Q(1 downto 0),
       clock_o => clock_o,
@@ -10773,1056 +12323,6 @@ entity system_tdc_sensor_0_0_coarse_delay_10 is
 end system_tdc_sensor_0_0_coarse_delay_10;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_10 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_128
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_129
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_130
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_131
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_132
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_11 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_11 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_11;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_11 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_123
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_124
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_125
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_126
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_127
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_12 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_12 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_12;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_12 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_118
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_119
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_120
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_121
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_122
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_13 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_13 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_13;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_13 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_113
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_114
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_115
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_116
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_117
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_14 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_14 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_14;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_14 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_108
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_109
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_110
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_111
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_112
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_15 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_15 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_15;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_15 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_103
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_104
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_105
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_106
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_107
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_16 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_16 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_16;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_16 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_98
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_99
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_100
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_101
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_102
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_17 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_17 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_17;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_17 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_93
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_94
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_95
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_96
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_97
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_18 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_18 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_18;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_18 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_88
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_89
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_90
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_91
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_92
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_19 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_19 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_19;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_19 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_83
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_84
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_85
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_86
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_87
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_2 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_2 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_2;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_2 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_168
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_169
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_170
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_171
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_172
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_20 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_20 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_20;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_20 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_78
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_79
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_80
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_81
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_82
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_21 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_21 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_21;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_21 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_73
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_74
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_75
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_76
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_77
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_22 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_22 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_22;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_22 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_68
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_69
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_70
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_71
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_72
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_23 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_23 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_23;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_23 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_63
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_64
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_65
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_66
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_67
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_24 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_24 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_24;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_24 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_58
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_59
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_60
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_61
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_62
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_25 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_25 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_25;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_25 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_53
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_54
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_55
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_56
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_57
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_26 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_26 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_26;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_26 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_48
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_49
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_50
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_51
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_52
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_27 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_27 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_27;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_27 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_43
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_44
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_45
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_46
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_47
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_28 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_28 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_28;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_28 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_39
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_40
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_41
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_42
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_3 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_3 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_3;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_3 is
-  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
-  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
-begin
-\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_163
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
-      delta_i => delta_i
-    );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_164
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
-      delta_i => \blocks[0].block_i_n_0\
-    );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_165
-     port map (
-      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
-      delta_i => \blocks[1].block_i_n_0\
-    );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_166
-     port map (
-      clocks_i(0) => \blocks[3].block_i_n_0\,
-      delta_i => \blocks[2].block_i_n_0\
-    );
-mux: entity work.system_tdc_sensor_0_0_clock_mux_167
-     port map (
-      Q(1 downto 0) => Q(1 downto 0),
-      clock_o => clock_o,
-      clocks_i(3) => \blocks[3].block_i_n_0\,
-      clocks_i(2) => \blocks[2].block_i_n_0\,
-      clocks_i(1) => \blocks[1].block_i_n_0\,
-      clocks_i(0) => \blocks[0].block_i_n_0\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_4 is
-  port (
-    clock_o : out STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_4 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_4;
-
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_4 is
   signal \blocks[0].block_i_n_0\ : STD_LOGIC;
   signal \blocks[1].block_i_n_0\ : STD_LOGIC;
   signal \blocks[2].block_i_n_0\ : STD_LOGIC;
@@ -11862,17 +12362,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_5 is
+entity system_tdc_sensor_0_0_coarse_delay_11 is
   port (
     clock_o : out STD_LOGIC;
     delta_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_5 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_5;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_11 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_11;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_5 is
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_11 is
   signal \blocks[0].block_i_n_0\ : STD_LOGIC;
   signal \blocks[1].block_i_n_0\ : STD_LOGIC;
   signal \blocks[2].block_i_n_0\ : STD_LOGIC;
@@ -11912,17 +12412,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_6 is
+entity system_tdc_sensor_0_0_coarse_delay_12 is
   port (
     clock_o : out STD_LOGIC;
     delta_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_6 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_6;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_12 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_12;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_6 is
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_12 is
   signal \blocks[0].block_i_n_0\ : STD_LOGIC;
   signal \blocks[1].block_i_n_0\ : STD_LOGIC;
   signal \blocks[2].block_i_n_0\ : STD_LOGIC;
@@ -11962,17 +12462,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_7 is
+entity system_tdc_sensor_0_0_coarse_delay_13 is
   port (
     clock_o : out STD_LOGIC;
     delta_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_7 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_7;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_13 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_13;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_7 is
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_13 is
   signal \blocks[0].block_i_n_0\ : STD_LOGIC;
   signal \blocks[1].block_i_n_0\ : STD_LOGIC;
   signal \blocks[2].block_i_n_0\ : STD_LOGIC;
@@ -12012,17 +12512,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_8 is
+entity system_tdc_sensor_0_0_coarse_delay_14 is
   port (
     clock_o : out STD_LOGIC;
     delta_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_8 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_8;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_14 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_14;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_8 is
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_14 is
   signal \blocks[0].block_i_n_0\ : STD_LOGIC;
   signal \blocks[1].block_i_n_0\ : STD_LOGIC;
   signal \blocks[2].block_i_n_0\ : STD_LOGIC;
@@ -12062,17 +12562,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_tdc_sensor_0_0_coarse_delay_9 is
+entity system_tdc_sensor_0_0_coarse_delay_15 is
   port (
     clock_o : out STD_LOGIC;
     delta_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_9 : entity is "coarse_delay";
-end system_tdc_sensor_0_0_coarse_delay_9;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_15 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_15;
 
-architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_9 is
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_15 is
   signal \blocks[0].block_i_n_0\ : STD_LOGIC;
   signal \blocks[1].block_i_n_0\ : STD_LOGIC;
   signal \blocks[2].block_i_n_0\ : STD_LOGIC;
@@ -12112,6 +12612,1306 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_16 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_16 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_16;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_16 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_128
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_129
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_130
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_131
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_132
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_17 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_17 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_17;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_17 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_123
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_124
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_125
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_126
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_127
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_18 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_18 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_18;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_18 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_118
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_119
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_120
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_121
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_122
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_19 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_19 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_19;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_19 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_113
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_114
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_115
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_116
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_117
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_2 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_2 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_2;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_2 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_198
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_199
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_200
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_201
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_202
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_20 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_20 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_20;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_20 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_108
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_109
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_110
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_111
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_112
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_21 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_21 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_21;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_21 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_103
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_104
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_105
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_106
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_107
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_22 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_22 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_22;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_22 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_98
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_99
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_100
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_101
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_102
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_23 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_23 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_23;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_23 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_93
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_94
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_95
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_96
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_97
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_24 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_24 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_24;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_24 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_88
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_89
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_90
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_91
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_92
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_25 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_25 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_25;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_25 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_83
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_84
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_85
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_86
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_87
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_26 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_26 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_26;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_26 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_78
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_79
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_80
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_81
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_82
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_27 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_27 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_27;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_27 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_73
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_74
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_75
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_76
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_77
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_28 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_28 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_28;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_28 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_68
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_69
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_70
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_71
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_72
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_29 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_29 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_29;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_29 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_63
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_64
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_65
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_66
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_67
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_3 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_3 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_3;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_3 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_193
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_194
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_195
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_196
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_197
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_30 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_30 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_30;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_30 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_58
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_59
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_60
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_61
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_62
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_31 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_31 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_31;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_31 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_53
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_54
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_55
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_56
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_57
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_32 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_32 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_32;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_32 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_48
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_49
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_50
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_51
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_52
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_33 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_33 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_33;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_33 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_44
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_45
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_46
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_47
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_4 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_4 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_4;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_4 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_188
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_189
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_190
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_191
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_192
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_5 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_5 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_5;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_5 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_183
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_184
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_185
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_186
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_187
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_6 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_6 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_6;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_6 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_178
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_179
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_180
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_181
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_182
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_7 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_7 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_7;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_7 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_173
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_174
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_175
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_176
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_177
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_8 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_8 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_8;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_8 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_168
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_169
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_170
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_171
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_172
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_tdc_sensor_0_0_coarse_delay_9 is
+  port (
+    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_coarse_delay_9 : entity is "coarse_delay";
+end system_tdc_sensor_0_0_coarse_delay_9;
+
+architecture STRUCTURE of system_tdc_sensor_0_0_coarse_delay_9 is
+  signal \blocks[0].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[1].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[2].block_i_n_0\ : STD_LOGIC;
+  signal \blocks[3].block_i_n_0\ : STD_LOGIC;
+begin
+\blocks[0].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_163
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[0].block_i_n_0\,
+      delta_i => delta_i
+    );
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_164
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[1].block_i_n_0\,
+      delta_i => \blocks[0].block_i_n_0\
+    );
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_165
+     port map (
+      \delay_path[2].lut_i_0\ => \blocks[2].block_i_n_0\,
+      delta_i => \blocks[1].block_i_n_0\
+    );
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_coarse_block_166
+     port map (
+      clocks_i(0) => \blocks[3].block_i_n_0\,
+      delta_i => \blocks[2].block_i_n_0\
+    );
+mux: entity work.system_tdc_sensor_0_0_clock_mux_167
+     port map (
+      Q(1 downto 0) => Q(1 downto 0),
+      clock_o => clock_o,
+      clocks_i(3) => \blocks[3].block_i_n_0\,
+      clocks_i(2) => \blocks[2].block_i_n_0\,
+      clocks_i(1) => \blocks[1].block_i_n_0\,
+      clocks_i(0) => \blocks[0].block_i_n_0\
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
 entity system_tdc_sensor_0_0_delay_line is
   port (
     data_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -12119,8 +13919,6 @@ entity system_tdc_sensor_0_0_delay_line is
     delta_i : in STD_LOGIC;
     clock_i : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_delay_line : entity is "delay_line";
 end system_tdc_sensor_0_0_delay_line;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_delay_line is
@@ -12133,49 +13931,49 @@ begin
       delta_i => delta_i,
       delta_o => delta_s(1)
     );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_delay_block_29
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_delay_block_34
      port map (
       clock_i => clock_i,
       data_o(3 downto 0) => data_o(7 downto 4),
       delta_i => delta_s(1),
       delta_o => delta_s(2)
     );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_delay_block_30
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_delay_block_35
      port map (
       clock_i => clock_i,
       data_o(3 downto 0) => data_o(11 downto 8),
       delta_i => delta_s(2),
       delta_o => delta_s(3)
     );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_delay_block_31
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_delay_block_36
      port map (
       clock_i => clock_i,
       data_o(3 downto 0) => data_o(15 downto 12),
       delta_i => delta_s(3),
       delta_o => delta_s(4)
     );
-\blocks[4].block_i\: entity work.system_tdc_sensor_0_0_delay_block_32
+\blocks[4].block_i\: entity work.system_tdc_sensor_0_0_delay_block_37
      port map (
       clock_i => clock_i,
       data_o(3 downto 0) => data_o(19 downto 16),
       delta_i => delta_s(4),
       delta_o => delta_s(5)
     );
-\blocks[5].block_i\: entity work.system_tdc_sensor_0_0_delay_block_33
+\blocks[5].block_i\: entity work.system_tdc_sensor_0_0_delay_block_38
      port map (
       clock_i => clock_i,
       data_o(3 downto 0) => data_o(23 downto 20),
       delta_i => delta_s(5),
       delta_o => delta_s(6)
     );
-\blocks[6].block_i\: entity work.system_tdc_sensor_0_0_delay_block_34
+\blocks[6].block_i\: entity work.system_tdc_sensor_0_0_delay_block_39
      port map (
       clock_i => clock_i,
       data_o(3 downto 0) => data_o(27 downto 24),
       delta_i => delta_s(6),
       delta_o => delta_s(7)
     );
-\blocks[7].block_i\: entity work.system_tdc_sensor_0_0_delay_block_35
+\blocks[7].block_i\: entity work.system_tdc_sensor_0_0_delay_block_40
      port map (
       clock_i => clock_i,
       clock_o => clock_o,
@@ -12193,8 +13991,6 @@ entity system_tdc_sensor_0_0_fine_delay is
     delta_i : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 9 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_fine_delay : entity is "fine_delay";
 end system_tdc_sensor_0_0_fine_delay;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_fine_delay is
@@ -12208,21 +14004,21 @@ begin
       delta_i => delta_i,
       delta_o => delta_s(1)
     );
-\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_fine_block_36
+\blocks[1].block_i\: entity work.system_tdc_sensor_0_0_fine_block_41
      port map (
       Q(1 downto 0) => Q(3 downto 2),
       clock_o => clocks_i(1),
       delta_i => delta_s(1),
       delta_o => delta_s(2)
     );
-\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_fine_block_37
+\blocks[2].block_i\: entity work.system_tdc_sensor_0_0_fine_block_42
      port map (
       Q(1 downto 0) => Q(5 downto 4),
       clock_o => clocks_i(2),
       delta_i => delta_s(2),
       delta_o => delta_s(3)
     );
-\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_fine_block_38
+\blocks[3].block_i\: entity work.system_tdc_sensor_0_0_fine_block_43
      port map (
       Q(1 downto 0) => Q(7 downto 6),
       clock_o => clocks_i(3),
@@ -12261,8 +14057,6 @@ entity system_tdc_sensor_0_0_tdc is
     Q : in STD_LOGIC_VECTOR ( 31 downto 0 );
     clock_i : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_tdc : entity is "tdc";
 end system_tdc_sensor_0_0_tdc;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_tdc is
@@ -12286,7 +14080,12 @@ architecture STRUCTURE of system_tdc_sensor_0_0_tdc is
   signal \coarse_line[26].delay_i_n_0\ : STD_LOGIC;
   signal \coarse_line[27].delay_i_n_0\ : STD_LOGIC;
   signal \coarse_line[28].delay_i_n_0\ : STD_LOGIC;
+  signal \coarse_line[29].delay_i_n_0\ : STD_LOGIC;
   signal \coarse_line[2].delay_i_n_0\ : STD_LOGIC;
+  signal \coarse_line[30].delay_i_n_0\ : STD_LOGIC;
+  signal \coarse_line[31].delay_i_n_0\ : STD_LOGIC;
+  signal \coarse_line[32].delay_i_n_0\ : STD_LOGIC;
+  signal \coarse_line[33].delay_i_n_0\ : STD_LOGIC;
   signal \coarse_line[3].delay_i_n_0\ : STD_LOGIC;
   signal \coarse_line[4].delay_i_n_0\ : STD_LOGIC;
   signal \coarse_line[5].delay_i_n_0\ : STD_LOGIC;
@@ -12828,7 +14627,7 @@ begin
 \coarse_line[29].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_20
      port map (
       Q(1 downto 0) => Q(11 downto 10),
-      clock_o => fine_clock_s(0),
+      clock_o => \coarse_line[29].delay_i_n_0\,
       delta_i => \coarse_line[28].delay_i_n_0\
     );
 \coarse_line[2].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_21
@@ -12837,43 +14636,73 @@ begin
       clock_o => \coarse_line[2].delay_i_n_0\,
       delta_i => \coarse_line[1].delay_i_n_0\
     );
-\coarse_line[3].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_22
+\coarse_line[30].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_22
+     port map (
+      Q(1 downto 0) => Q(11 downto 10),
+      clock_o => \coarse_line[30].delay_i_n_0\,
+      delta_i => \coarse_line[29].delay_i_n_0\
+    );
+\coarse_line[31].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_23
+     port map (
+      Q(1 downto 0) => Q(11 downto 10),
+      clock_o => \coarse_line[31].delay_i_n_0\,
+      delta_i => \coarse_line[30].delay_i_n_0\
+    );
+\coarse_line[32].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_24
+     port map (
+      Q(1 downto 0) => Q(11 downto 10),
+      clock_o => \coarse_line[32].delay_i_n_0\,
+      delta_i => \coarse_line[31].delay_i_n_0\
+    );
+\coarse_line[33].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_25
+     port map (
+      Q(1 downto 0) => Q(11 downto 10),
+      clock_o => \coarse_line[33].delay_i_n_0\,
+      delta_i => \coarse_line[32].delay_i_n_0\
+    );
+\coarse_line[34].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_26
+     port map (
+      Q(1 downto 0) => Q(11 downto 10),
+      clock_o => fine_clock_s(0),
+      delta_i => \coarse_line[33].delay_i_n_0\
+    );
+\coarse_line[3].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_27
      port map (
       Q(1 downto 0) => Q(11 downto 10),
       clock_o => \coarse_line[3].delay_i_n_0\,
       delta_i => \coarse_line[2].delay_i_n_0\
     );
-\coarse_line[4].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_23
+\coarse_line[4].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_28
      port map (
       Q(1 downto 0) => Q(11 downto 10),
       clock_o => \coarse_line[4].delay_i_n_0\,
       delta_i => \coarse_line[3].delay_i_n_0\
     );
-\coarse_line[5].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_24
+\coarse_line[5].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_29
      port map (
       Q(1 downto 0) => Q(11 downto 10),
       clock_o => \coarse_line[5].delay_i_n_0\,
       delta_i => \coarse_line[4].delay_i_n_0\
     );
-\coarse_line[6].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_25
+\coarse_line[6].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_30
      port map (
       Q(1 downto 0) => Q(11 downto 10),
       clock_o => \coarse_line[6].delay_i_n_0\,
       delta_i => \coarse_line[5].delay_i_n_0\
     );
-\coarse_line[7].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_26
+\coarse_line[7].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_31
      port map (
       Q(1 downto 0) => Q(11 downto 10),
       clock_o => \coarse_line[7].delay_i_n_0\,
       delta_i => \coarse_line[6].delay_i_n_0\
     );
-\coarse_line[8].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_27
+\coarse_line[8].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_32
      port map (
       Q(1 downto 0) => Q(11 downto 10),
       clock_o => \coarse_line[8].delay_i_n_0\,
       delta_i => \coarse_line[7].delay_i_n_0\
     );
-\coarse_line[9].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_28
+\coarse_line[9].delay_i\: entity work.system_tdc_sensor_0_0_coarse_delay_33
      port map (
       Q(1 downto 0) => Q(11 downto 10),
       clock_o => \coarse_line[9].delay_i_n_0\,
@@ -12920,8 +14749,6 @@ entity system_tdc_sensor_0_0_tdc_sensor_v1_0_S_AXI is
     s_axi_bready : in STD_LOGIC;
     s_axi_rready : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_tdc_sensor_v1_0_S_AXI : entity is "tdc_sensor_v1_0_S_AXI";
 end system_tdc_sensor_0_0_tdc_sensor_v1_0_S_AXI;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_tdc_sensor_v1_0_S_AXI is
@@ -13803,8 +15630,6 @@ entity system_tdc_sensor_0_0_tdc_sensor_v1_0 is
     s_axi_bready : in STD_LOGIC;
     s_axi_rready : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_tdc_sensor_0_0_tdc_sensor_v1_0 : entity is "tdc_sensor_v1_0";
 end system_tdc_sensor_0_0_tdc_sensor_v1_0;
 
 architecture STRUCTURE of system_tdc_sensor_0_0_tdc_sensor_v1_0 is

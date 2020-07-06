@@ -1,10 +1,10 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-// Date        : Fri Jul  3 13:57:41 2020
+// Date        : Fri Jul  3 13:57:40 2020
 // Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               d:/sca_framework/vivado_sca/vivado_sca.srcs/sources_1/bd/system/ip/system_tdc_sensor_0_0/system_tdc_sensor_0_0_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top system_tdc_sensor_0_0 -prefix
+//               system_tdc_sensor_0_0_ system_tdc_sensor_0_0_stub.v
 // Design      : system_tdc_sensor_0_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z010clg400-1

@@ -18,3 +18,5 @@ platform_aes/logs/
 vivado_aes/
 
 platform_aes/
+
+vivado_sca/vivado_sca.tmp/

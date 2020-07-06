@@ -1,6 +1,27 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
+| Date         : Sun Jul  5 16:29:20 2020
+| Host         : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z010clg400-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'system_tdc_sensor_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the conversion of system_tdc_sensor_0_0 (xilinx.com:user:tdc_sensor:1.0 (Rev. 13)) to Vivado generation flows.
+
+
+
+
+
+
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
 | Date         : Thu Jul  2 20:41:14 2020
 | Host         : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
 | Command      : upgrade_ip

@@ -8,6 +8,7 @@ entity tdc_sensor_v1_0 is
         count_coarse_g : positive := 1;
         count_fine_g : positive := 1;
         count_blocks_g : positive range 0 to 24 := 4;
+        count_tdc_g : positive := 1;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -20,8 +21,8 @@ entity tdc_sensor_v1_0 is
 		-- Users to add ports here
         
         clock_i : in std_logic;
-        clock_o : out std_logic;
-        data_o : out std_logic_vector(4 * count_blocks_g - 1 downto 0);
+        clock_o : out std_logic_vector(count_tdc_g - 1 downto 0);
+        data_o : out std_logic_vector(4 * count_tdc_g * count_blocks_g - 1 downto 0);
 
 		-- User ports ends
 		-- Do not modify the ports beyond this line
@@ -61,12 +62,13 @@ architecture arch_imp of tdc_sensor_v1_0 is
 		C_S_AXI_ADDR_WIDTH	: integer	:= 4;
         count_coarse_g : positive := 1;
         count_fine_g : positive := 1;
-        count_blocks_g : positive
+        count_blocks_g : positive;
+        count_tdc_g : positive
 		);
 		port (
         clock_i : in std_logic;
-        clock_o : out std_logic;
-        data_o : out std_logic_vector(4 * count_blocks_g - 1 downto 0);
+        clock_o : out std_logic_vector(count_tdc_g - 1 downto 0);
+        data_o : out std_logic_vector(4 * count_tdc_g * count_blocks_g - 1 downto 0);
 		S_AXI_ACLK	: in std_logic;
 		S_AXI_ARESETN	: in std_logic;
 		S_AXI_AWADDR	: in std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -100,7 +102,8 @@ tdc_sensor_v1_0_S_AXI_inst : tdc_sensor_v1_0_S_AXI
 		C_S_AXI_ADDR_WIDTH	=> C_S_AXI_ADDR_WIDTH,
         count_coarse_g => count_coarse_g,
         count_fine_g => count_fine_g,
-        count_blocks_g => count_blocks_g
+        count_blocks_g => count_blocks_g,
+        count_tdc_g => count_tdc_g
 	)
 	port map (
 	    clock_i => clock_i,
