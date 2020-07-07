@@ -18,7 +18,6 @@ vlib modelsim_lib/msim/lib_thirdparty
 vlib modelsim_lib/msim/lib_round
 vlib modelsim_lib/msim/lib_rtl
 vlib modelsim_lib/msim/axi_protocol_converter_v2_1_21
-vlib modelsim_lib/msim/axi_mmu_v2_1_19
 
 vmap xilinx_vip modelsim_lib/msim/xilinx_vip
 vmap xpm modelsim_lib/msim/xpm
@@ -37,7 +36,6 @@ vmap lib_thirdparty modelsim_lib/msim/lib_thirdparty
 vmap lib_round modelsim_lib/msim/lib_round
 vmap lib_rtl modelsim_lib/msim/lib_rtl
 vmap axi_protocol_converter_v2_1_21 modelsim_lib/msim/axi_protocol_converter_v2_1_21
-vmap axi_mmu_v2_1_19 modelsim_lib/msim/axi_mmu_v2_1_19
 
 vlog -work xilinx_vip  -incr -sv -L axi_vip_v1_1_7 -L processing_system7_vip_v1_0_9 -L xilinx_vip "+incdir+D:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
 "D:/Xilinx/Vivado/2020.1/data/xilinx_vip/hdl/axi4stream_vip_axi4streampc.sv" \
@@ -142,33 +140,25 @@ vcom -work xil_defaultlib  -93 \
 "../../../bd/system/ipshared/436e/hdl/fifo_controller_v1_0_S_AXI.vhd" \
 "../../../bd/system/ipshared/436e/hdl/fifo_controller_v1_0.vhd" \
 "../../../bd/system/ip/system_fifo_controller_0_0/sim/system_fifo_controller_0_0.vhd" \
-"../../../bd/system/ipshared/c8b2/src/clock_mux.vhd" \
-"../../../bd/system/ipshared/c8b2/src/coarse_block.vhd" \
-"../../../bd/system/ipshared/c8b2/src/coarse_line.vhd" \
-"../../../bd/system/ipshared/c8b2/src/fine_block.vhd" \
-"../../../bd/system/ipshared/c8b2/src/fine_line.vhd" \
-"../../../bd/system/ipshared/c8b2/src/sampling_block.vhd" \
-"../../../bd/system/ipshared/c8b2/src/sampling_line.vhd" \
-"../../../bd/system/ipshared/c8b2/src/tdc.vhd" \
-"../../../bd/system/ipshared/c8b2/src/tdc_bank.vhd" \
-"../../../bd/system/ipshared/c8b2/hdl/tdc_bank_v1_0_S_AXI.vhd" \
-"../../../bd/system/ipshared/c8b2/hdl/tdc_bank_v1_0.vhd" \
+"../../../bd/system/ipshared/e58a/src/clock_mux.vhd" \
+"../../../bd/system/ipshared/e58a/src/coarse_block.vhd" \
+"../../../bd/system/ipshared/e58a/src/coarse_line.vhd" \
+"../../../bd/system/ipshared/e58a/src/fine_block.vhd" \
+"../../../bd/system/ipshared/e58a/src/fine_line.vhd" \
+"../../../bd/system/ipshared/e58a/src/sampling_block.vhd" \
+"../../../bd/system/ipshared/e58a/src/sampling_line.vhd" \
+"../../../bd/system/ipshared/e58a/src/tdc.vhd" \
+"../../../bd/system/ipshared/e58a/src/tdc_bank.vhd" \
+"../../../bd/system/ipshared/e58a/hdl/tdc_bank_v1_0_S_AXI.vhd" \
+"../../../bd/system/ipshared/e58a/hdl/tdc_bank_v1_0.vhd" \
 "../../../bd/system/ip/system_tdc_bank_0_1/sim/system_tdc_bank_0_1.vhd" \
+"../../../bd/system/sim/system.vhd" \
 
 vlog -work axi_protocol_converter_v2_1_21  -incr "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/ec67/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/6b56/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/8b3d" "+incdir+D:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
 "../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/8dfa/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \
 
 vlog -work xil_defaultlib  -incr "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/ec67/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/6b56/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/8b3d" "+incdir+D:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
 "../../../bd/system/ip/system_auto_pc_0/sim/system_auto_pc_0.v" \
-
-vlog -work axi_mmu_v2_1_19  -incr "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/ec67/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/6b56/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/8b3d" "+incdir+D:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
-"../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/45eb/hdl/axi_mmu_v2_1_vl_rfs.v" \
-
-vlog -work xil_defaultlib  -incr "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/ec67/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/6b56/hdl" "+incdir+../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/8b3d" "+incdir+D:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
-"../../../bd/system/ip/system_s00_mmu_0/sim/system_s00_mmu_0.v" \
-
-vcom -work xil_defaultlib  -93 \
-"../../../bd/system/sim/system.vhd" \
 
 vlog -work xil_defaultlib \
 "glbl.v"

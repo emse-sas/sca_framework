@@ -17,7 +17,7 @@ architecture clock_mux_arch of clock_mux is
 
     signal lut_s : std_logic_vector(3 downto 0);
     attribute dont_touch of lut_s: signal is "true"; 
-    
+
     signal mux_s : std_logic_vector(1 downto 0);
     attribute dont_touch of mux_s: signal is "true"; 
     
@@ -26,16 +26,16 @@ architecture clock_mux_arch of clock_mux is
     attribute dont_touch of out_mux: label is "true";
 begin
 
-    luts : for i in 0 to 3 generate
-    attribute dont_touch of lut_i: label is "true"; 
+    delay_path : for i in 0 to 3 generate
+    attribute dont_touch of lut: label is "true"; 
     begin
-        lut_i : lut1
+        lut : lut1
         generic map (INIT => "10")
         port map (
             I0 => clocks_i(i),
             O => lut_s(i)
         );
-    end generate ; -- luts
+    end generate ; -- delay_path
 
     middle_mux_0 : muxf7
     port map (

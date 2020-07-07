@@ -697,6 +697,7 @@ proc create_root_design { parentCell } {
   # Create instance: tdc_bank_0, and set properties
   set tdc_bank_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:tdc_bank:1.0 tdc_bank_0 ]
   set_property -dict [ list \
+   CONFIG.coarse_len_g {3} \
    CONFIG.sampling_len_g {8} \
  ] $tdc_bank_0
 

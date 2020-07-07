@@ -14,13 +14,12 @@ uint32_t TDC_HW_calibrate(int iterations)
 {
     iterations = iterations ? iterations : TDC_HW_DEFAULT_CALIBRATE_IT;
     uint32_t delay, best_delay = 0x00000000;
-    char best_coarse = 0;
     uint64_t value, best_value = 0xffffffffffffffff;
     for (uint32_t coarse = 0; coarse <= 0x3; coarse++)
     {
         for (uint32_t fine = 0; fine <= 0xf; fine++)
         {
-            delay = TDC_HW_DELAY(coarse, fine);
+            delay = TDC_HW_DELAY(fine, coarse);
             value = 0;
             TDC_HW_set_delay(delay);
             for (int i = 0; i < iterations; i++)

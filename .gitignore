@@ -22,3 +22,5 @@ platform_aes/
 vivado_sca/vivado_sca.tmp/
 
 vivado_ip/managed_ip_project/managed_ip_project.tmp/
+
+*.log

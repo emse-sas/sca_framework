@@ -41,6 +41,7 @@ architecture fine_line_arch of fine_line is
 begin
 	delta_s(0)(0) <= delta_i;
 	delta_o <= delta_s(len_g - 1)(4);
+	delta_s(len_g)(4 downto 1) <= (others => '0');
 	clock_o <= delta_s(len_g)(0);
     delay_line : for n in 0 to len_g - 1 generate
 			block_0 : fine_block

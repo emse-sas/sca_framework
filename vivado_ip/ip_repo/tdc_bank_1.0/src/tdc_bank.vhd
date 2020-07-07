@@ -46,23 +46,23 @@ architecture tdc_bank_arch of tdc_bank is
     end component;
 
 begin
+    data_o <= data_s;
 
     parallel : for i in 0 to count_tdc_g - 1 generate
-        
     parallel_i: tdc
-    generic map (
-        coarse_len_g => coarse_len_g,
-        fine_len_g => fine_len_g,
-        sampling_len_g => sampling_len_g
-	)
-    port map (
-        clock_i => clock_i,
-        delta_i => delta_i,
-        delta_o => delta_o(i),
-        coarse_delay_i => coarse_delay_i,
-        fine_delay_i => fine_delay_i,
-        data_o => data_s(4 * sampling_len_g * (i + 1) - 1 downto 4 * sampling_len_g * i)
-    );
+        generic map (
+            coarse_len_g => coarse_len_g,
+            fine_len_g => fine_len_g,
+            sampling_len_g => sampling_len_g
+        )
+        port map (
+            clock_i => clock_i,
+            delta_i => delta_i,
+            delta_o => delta_o(i),
+            coarse_delay_i => coarse_delay_i,
+            fine_delay_i => fine_delay_i,
+            data_o => data_s(4 * sampling_len_g * (i + 1) - 1 downto 4 * sampling_len_g * i)
+        );
     end generate ; -- parallel
 
 
