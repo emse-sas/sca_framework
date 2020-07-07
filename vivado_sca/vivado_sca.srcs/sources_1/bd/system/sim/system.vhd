@@ -1,7 +1,7 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Sun Jul  5 16:29:46 2020
+--Date        : Tue Jul  7 21:15:37 2020
 --Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
 --Command     : generate_target system.bd
 --Design      : system
@@ -1402,7 +1402,7 @@ entity system is
     sys_clock : in STD_LOGIC
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of system : entity is "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=14,numReposBlks=9,numNonXlnxBlks=0,numHierBlks=5,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=4,da_board_cnt=2,da_clkrst_cnt=17,da_ps7_cnt=1,synth_mode=OOC_per_IP}";
+  attribute CORE_GENERATION_INFO of system : entity is "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=14,numReposBlks=9,numNonXlnxBlks=0,numHierBlks=5,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=4,da_board_cnt=2,da_clkrst_cnt=17,da_ps7_cnt=1,synth_mode=Global}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of system : entity is "system.hwdef";
 end system;
@@ -1487,6 +1487,15 @@ architecture STRUCTURE of system is
     peripheral_aresetn : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   end component system_rst_ps7_0_50M_0;
+  component system_clk_wiz_0_0 is
+  port (
+    reset : in STD_LOGIC;
+    clk_in1 : in STD_LOGIC;
+    clk_aes : out STD_LOGIC;
+    clk_acq : out STD_LOGIC;
+    locked : out STD_LOGIC
+  );
+  end component system_clk_wiz_0_0;
   component system_simple_aes_0_0 is
   port (
     clock_i : in STD_LOGIC;
@@ -1517,19 +1526,11 @@ architecture STRUCTURE of system is
     s_axi_rready : in STD_LOGIC
   );
   end component system_simple_aes_0_0;
-  component system_clk_wiz_0_0 is
-  port (
-    reset : in STD_LOGIC;
-    clk_in1 : in STD_LOGIC;
-    clk_aes : out STD_LOGIC;
-    clk_acq : out STD_LOGIC;
-    locked : out STD_LOGIC
-  );
-  end component system_clk_wiz_0_0;
   component system_fifo_generator_0_0 is
   port (
-    clk : in STD_LOGIC;
-    srst : in STD_LOGIC;
+    rst : in STD_LOGIC;
+    wr_clk : in STD_LOGIC;
+    rd_clk : in STD_LOGIC;
     din : in STD_LOGIC_VECTOR ( 31 downto 0 );
     wr_en : in STD_LOGIC;
     rd_en : in STD_LOGIC;
@@ -1540,16 +1541,13 @@ architecture STRUCTURE of system is
   end component system_fifo_generator_0_0;
   component system_fifo_controller_0_0 is
   port (
-    clock_wr_i : in STD_LOGIC;
-    clock_rd_i : in STD_LOGIC;
-    start_i : in STD_LOGIC;
-    done_i : in STD_LOGIC;
-    data_i : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    clock_i : in STD_LOGIC;
     empty_i : in STD_LOGIC;
     full_i : in STD_LOGIC;
-    clock_o : out STD_LOGIC;
-    wr_en_o : out STD_LOGIC;
-    rd_en_o : out STD_LOGIC;
+    data_i : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    reset_o : out STD_LOGIC;
+    write_o : out STD_LOGIC;
+    read_o : out STD_LOGIC;
     s_axi_aclk : in STD_LOGIC;
     s_axi_aresetn : in STD_LOGIC;
     s_axi_awaddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
@@ -1573,14 +1571,15 @@ architecture STRUCTURE of system is
     s_axi_rready : in STD_LOGIC
   );
   end component system_fifo_controller_0_0;
-  component system_tdc_sensor_0_0 is
+  component system_tdc_bank_0_1 is
   port (
     clock_i : in STD_LOGIC;
-    clock_o : out STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    delta_o : out STD_LOGIC_VECTOR ( 0 to 0 );
     data_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
     s_axi_aclk : in STD_LOGIC;
     s_axi_aresetn : in STD_LOGIC;
-    s_axi_awaddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s_axi_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
     s_axi_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
     s_axi_awvalid : in STD_LOGIC;
     s_axi_awready : out STD_LOGIC;
@@ -1591,7 +1590,7 @@ architecture STRUCTURE of system is
     s_axi_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
     s_axi_bvalid : out STD_LOGIC;
     s_axi_bready : in STD_LOGIC;
-    s_axi_araddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s_axi_araddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
     s_axi_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
     s_axi_arvalid : in STD_LOGIC;
     s_axi_arready : out STD_LOGIC;
@@ -1600,12 +1599,12 @@ architecture STRUCTURE of system is
     s_axi_rvalid : out STD_LOGIC;
     s_axi_rready : in STD_LOGIC
   );
-  end component system_tdc_sensor_0_0;
+  end component system_tdc_bank_0_1;
   signal clk_wiz_0_clk_aes : STD_LOGIC;
   signal clk_wiz_0_clk_out2 : STD_LOGIC;
-  signal fifo_controller_0_clock_o : STD_LOGIC;
-  signal fifo_controller_0_rd_en_o : STD_LOGIC;
-  signal fifo_controller_0_wr_en_o : STD_LOGIC;
+  signal fifo_controller_0_read_o : STD_LOGIC;
+  signal fifo_controller_0_reset_o : STD_LOGIC;
+  signal fifo_controller_0_write_o : STD_LOGIC;
   signal fifo_generator_0_dout : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal fifo_generator_0_empty : STD_LOGIC;
   signal fifo_generator_0_full : STD_LOGIC;
@@ -1732,13 +1731,13 @@ architecture STRUCTURE of system is
   signal simple_aes_0_inv_o : STD_LOGIC;
   signal simple_aes_0_reset_o : STD_LOGIC;
   signal simple_aes_0_start_o : STD_LOGIC;
-  signal tdc_sensor_0_data_o : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal tdc_bank_0_data_o : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal NLW_clk_wiz_0_locked_UNCONNECTED : STD_LOGIC;
   signal NLW_rst_ps7_0_50M_mb_reset_UNCONNECTED : STD_LOGIC;
   signal NLW_rst_ps7_0_50M_bus_struct_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_rst_ps7_0_50M_interconnect_aresetn_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_rst_ps7_0_50M_peripheral_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal NLW_tdc_sensor_0_clock_o_UNCONNECTED : STD_LOGIC;
+  signal NLW_tdc_bank_0_delta_o_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of DDR_cas_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CAS_N";
   attribute X_INTERFACE_INFO of DDR_ck_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_N";
@@ -1786,14 +1785,12 @@ clk_wiz_0: component system_clk_wiz_0_0
     );
 fifo_controller_0: component system_fifo_controller_0_0
      port map (
-      clock_o => fifo_controller_0_clock_o,
-      clock_rd_i => processing_system7_0_FCLK_CLK0,
-      clock_wr_i => clk_wiz_0_clk_out2,
+      clock_i => processing_system7_0_FCLK_CLK0,
       data_i(31 downto 0) => fifo_generator_0_dout(31 downto 0),
-      done_i => simple_aes_0_done_o,
       empty_i => fifo_generator_0_empty,
       full_i => fifo_generator_0_full,
-      rd_en_o => fifo_controller_0_rd_en_o,
+      read_o => fifo_controller_0_read_o,
+      reset_o => fifo_controller_0_reset_o,
       s_axi_aclk => processing_system7_0_FCLK_CLK0,
       s_axi_araddr(3 downto 0) => ps7_0_axi_periph_M02_AXI_ARADDR(3 downto 0),
       s_axi_aresetn => rst_ps7_0_50M_peripheral_aresetn(0),
@@ -1815,19 +1812,19 @@ fifo_controller_0: component system_fifo_controller_0_0
       s_axi_wready => ps7_0_axi_periph_M02_AXI_WREADY,
       s_axi_wstrb(3 downto 0) => ps7_0_axi_periph_M02_AXI_WSTRB(3 downto 0),
       s_axi_wvalid => ps7_0_axi_periph_M02_AXI_WVALID,
-      start_i => simple_aes_0_start_o,
-      wr_en_o => fifo_controller_0_wr_en_o
+      write_o => fifo_controller_0_write_o
     );
 fifo_generator_0: component system_fifo_generator_0_0
      port map (
-      clk => fifo_controller_0_clock_o,
-      din(31 downto 0) => tdc_sensor_0_data_o(31 downto 0),
+      din(31 downto 0) => tdc_bank_0_data_o(31 downto 0),
       dout(31 downto 0) => fifo_generator_0_dout(31 downto 0),
       empty => fifo_generator_0_empty,
       full => fifo_generator_0_full,
-      rd_en => fifo_controller_0_rd_en_o,
-      srst => '0',
-      wr_en => fifo_controller_0_wr_en_o
+      rd_clk => processing_system7_0_FCLK_CLK0,
+      rd_en => fifo_controller_0_read_o,
+      rst => fifo_controller_0_reset_o,
+      wr_clk => clk_wiz_0_clk_out2,
+      wr_en => fifo_controller_0_write_o
     );
 processing_system7_0: component system_processing_system7_0_0
      port map (
@@ -2043,18 +2040,19 @@ simple_aes_0: component system_simple_aes_0_0
       s_axi_wvalid => ps7_0_axi_periph_M00_AXI_WVALID,
       start_o => simple_aes_0_start_o
     );
-tdc_sensor_0: component system_tdc_sensor_0_0
+tdc_bank_0: component system_tdc_bank_0_1
      port map (
       clock_i => clk_wiz_0_clk_out2,
-      clock_o => NLW_tdc_sensor_0_clock_o_UNCONNECTED,
-      data_o(31 downto 0) => tdc_sensor_0_data_o(31 downto 0),
+      data_o(31 downto 0) => tdc_bank_0_data_o(31 downto 0),
+      delta_i => clk_wiz_0_clk_out2,
+      delta_o(0) => NLW_tdc_bank_0_delta_o_UNCONNECTED(0),
       s_axi_aclk => processing_system7_0_FCLK_CLK0,
-      s_axi_araddr(3 downto 0) => ps7_0_axi_periph_M01_AXI_ARADDR(3 downto 0),
+      s_axi_araddr(4 downto 0) => ps7_0_axi_periph_M01_AXI_ARADDR(4 downto 0),
       s_axi_aresetn => rst_ps7_0_50M_peripheral_aresetn(0),
       s_axi_arprot(2 downto 0) => ps7_0_axi_periph_M01_AXI_ARPROT(2 downto 0),
       s_axi_arready => ps7_0_axi_periph_M01_AXI_ARREADY,
       s_axi_arvalid => ps7_0_axi_periph_M01_AXI_ARVALID,
-      s_axi_awaddr(3 downto 0) => ps7_0_axi_periph_M01_AXI_AWADDR(3 downto 0),
+      s_axi_awaddr(4 downto 0) => ps7_0_axi_periph_M01_AXI_AWADDR(4 downto 0),
       s_axi_awprot(2 downto 0) => ps7_0_axi_periph_M01_AXI_AWPROT(2 downto 0),
       s_axi_awready => ps7_0_axi_periph_M01_AXI_AWREADY,
       s_axi_awvalid => ps7_0_axi_periph_M01_AXI_AWVALID,

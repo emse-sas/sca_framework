@@ -56,7 +56,7 @@ void RUN_quit();
  * @param cipher_idx index of the cipher data in the command options or CMD_ERROR_NOT_FOUND
  * @param key_idx index of the cipher data in the command options 
  */
-void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx);
+void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx, int acq_idx);
 
 /**
  * @brief Launch AES computation using FPGA implementation of AES and displays results
@@ -65,7 +65,7 @@ void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_i
  * @param cipher_idx index of the cipher data in the command options or CMD_ERROR_NOT_FOUND
  * @param key_idx index of the cipher data in the command options 
  */
-void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx);
+void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx, int acq_idx);
 
 
 /**

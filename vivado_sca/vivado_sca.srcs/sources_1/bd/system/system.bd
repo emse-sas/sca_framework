@@ -5,7 +5,7 @@
       "device": "xc7z010clg400-1",
       "name": "system",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
-      "synth_flow_mode": "Hierarchical",
+      "synth_flow_mode": "None",
       "tool_version": "2020.1",
       "validated": "true"
     },
@@ -21,11 +21,11 @@
         "m02_couplers": {}
       },
       "rst_ps7_0_50M": "",
-      "simple_aes_0": "",
       "clk_wiz_0": "",
+      "simple_aes_0": "",
       "fifo_generator_0": "",
       "fifo_controller_0": "",
-      "tdc_sensor_0": ""
+      "tdc_bank_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -1547,10 +1547,16 @@
           }
         },
         "interface_nets": {
-          "xbar_to_m01_couplers": {
+          "ps7_0_axi_periph_to_s00_couplers": {
             "interface_ports": [
-              "xbar/M01_AXI",
-              "m01_couplers/S_AXI"
+              "S00_AXI",
+              "s00_couplers/S_AXI"
+            ]
+          },
+          "s00_couplers_to_xbar": {
+            "interface_ports": [
+              "s00_couplers/M_AXI",
+              "xbar/S00_AXI"
             ]
           },
           "xbar_to_m00_couplers": {
@@ -1559,10 +1565,10 @@
               "m00_couplers/S_AXI"
             ]
           },
-          "m01_couplers_to_ps7_0_axi_periph": {
+          "m00_couplers_to_ps7_0_axi_periph": {
             "interface_ports": [
-              "M01_AXI",
-              "m01_couplers/M_AXI"
+              "M00_AXI",
+              "m00_couplers/M_AXI"
             ]
           },
           "m02_couplers_to_ps7_0_axi_periph": {
@@ -1577,22 +1583,16 @@
               "m02_couplers/S_AXI"
             ]
           },
-          "ps7_0_axi_periph_to_s00_couplers": {
+          "m01_couplers_to_ps7_0_axi_periph": {
             "interface_ports": [
-              "S00_AXI",
-              "s00_couplers/S_AXI"
+              "M01_AXI",
+              "m01_couplers/M_AXI"
             ]
           },
-          "s00_couplers_to_xbar": {
+          "xbar_to_m01_couplers": {
             "interface_ports": [
-              "s00_couplers/M_AXI",
-              "xbar/S00_AXI"
-            ]
-          },
-          "m00_couplers_to_ps7_0_axi_periph": {
-            "interface_ports": [
-              "M00_AXI",
-              "m00_couplers/M_AXI"
+              "xbar/M01_AXI",
+              "m01_couplers/S_AXI"
             ]
           }
         },
@@ -1631,22 +1631,18 @@
         "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
         "xci_name": "system_rst_ps7_0_50M_0"
       },
-      "simple_aes_0": {
-        "vlnv": "xilinx.com:user:simple_aes:1.0",
-        "xci_name": "system_simple_aes_0_0"
-      },
       "clk_wiz_0": {
         "vlnv": "xilinx.com:ip:clk_wiz:6.0",
         "xci_name": "system_clk_wiz_0_0",
         "parameters": {
           "CLKOUT2_JITTER": {
-            "value": "154.207"
+            "value": "142.107"
           },
           "CLKOUT2_PHASE_ERROR": {
             "value": "164.985"
           },
           "CLKOUT2_REQUESTED_OUT_FREQ": {
-            "value": "125"
+            "value": "200"
           },
           "CLKOUT2_USED": {
             "value": "true"
@@ -1658,17 +1654,30 @@
             "value": "clk_acq"
           },
           "MMCM_CLKOUT1_DIVIDE": {
-            "value": "8"
+            "value": "5"
           },
           "NUM_OUT_CLKS": {
             "value": "2"
           }
         }
       },
+      "simple_aes_0": {
+        "vlnv": "xilinx.com:user:simple_aes:1.0",
+        "xci_name": "system_simple_aes_0_0"
+      },
       "fifo_generator_0": {
         "vlnv": "xilinx.com:ip:fifo_generator:13.2",
         "xci_name": "system_fifo_generator_0_0",
         "parameters": {
+          "Enable_Safety_Circuit": {
+            "value": "false"
+          },
+          "Fifo_Implementation": {
+            "value": "Independent_Clocks_Block_RAM"
+          },
+          "Full_Flags_Reset_Value": {
+            "value": "1"
+          },
           "Input_Data_Width": {
             "value": "32"
           },
@@ -1681,20 +1690,35 @@
         "vlnv": "xilinx.com:user:fifo_controller:1.0",
         "xci_name": "system_fifo_controller_0_0"
       },
-      "tdc_sensor_0": {
-        "vlnv": "xilinx.com:user:tdc_sensor:1.0",
-        "xci_name": "system_tdc_sensor_0_0",
+      "tdc_bank_0": {
+        "vlnv": "xilinx.com:user:tdc_bank:1.0",
+        "xci_name": "system_tdc_bank_0_1",
         "parameters": {
-          "count_blocks_g": {
+          "sampling_len_g": {
             "value": "8"
-          },
-          "count_coarse_g": {
-            "value": "35"
           }
         }
       }
     },
     "interface_nets": {
+      "ps7_0_axi_periph_M01_AXI": {
+        "interface_ports": [
+          "ps7_0_axi_periph/M01_AXI",
+          "tdc_bank_0/S_AXI"
+        ]
+      },
+      "ps7_0_axi_periph_M00_AXI": {
+        "interface_ports": [
+          "ps7_0_axi_periph/M00_AXI",
+          "simple_aes_0/S_AXI"
+        ]
+      },
+      "processing_system7_0_DDR": {
+        "interface_ports": [
+          "DDR",
+          "processing_system7_0/DDR"
+        ]
+      },
       "processing_system7_0_FIXED_IO": {
         "interface_ports": [
           "FIXED_IO",
@@ -1712,24 +1736,6 @@
           "processing_system7_0/M_AXI_GP0",
           "ps7_0_axi_periph/S00_AXI"
         ]
-      },
-      "ps7_0_axi_periph_M00_AXI": {
-        "interface_ports": [
-          "ps7_0_axi_periph/M00_AXI",
-          "simple_aes_0/S_AXI"
-        ]
-      },
-      "ps7_0_axi_periph_M01_AXI": {
-        "interface_ports": [
-          "ps7_0_axi_periph/M01_AXI",
-          "tdc_sensor_0/S_AXI"
-        ]
-      },
-      "processing_system7_0_DDR": {
-        "interface_ports": [
-          "DDR",
-          "processing_system7_0/DDR"
-        ]
       }
     },
     "nets": {
@@ -1739,37 +1745,11 @@
           "ps7_0_axi_periph/S00_ARESETN",
           "ps7_0_axi_periph/M00_ARESETN",
           "ps7_0_axi_periph/ARESETN",
-          "simple_aes_0/s_axi_aresetn",
           "ps7_0_axi_periph/M01_ARESETN",
           "ps7_0_axi_periph/M02_ARESETN",
+          "simple_aes_0/s_axi_aresetn",
           "fifo_controller_0/s_axi_aresetn",
-          "tdc_sensor_0/s_axi_aresetn"
-        ]
-      },
-      "simple_aes_0_reset_o": {
-        "ports": [
-          "simple_aes_0/reset_o",
-          "led_reset"
-        ]
-      },
-      "simple_aes_0_start_o": {
-        "ports": [
-          "simple_aes_0/start_o",
-          "led_start",
-          "fifo_controller_0/start_i"
-        ]
-      },
-      "simple_aes_0_inv_o": {
-        "ports": [
-          "simple_aes_0/inv_o",
-          "led_inv"
-        ]
-      },
-      "simple_aes_0_done_o": {
-        "ports": [
-          "simple_aes_0/done_o",
-          "led_done",
-          "fifo_controller_0/done_i"
+          "tdc_bank_0/s_axi_aresetn"
         ]
       },
       "reset_rtl_1": {
@@ -1783,7 +1763,6 @@
         "ports": [
           "processing_system7_0/FCLK_CLK0",
           "clk_wiz_0/clk_in1",
-          "simple_aes_0/s_axi_aclk",
           "processing_system7_0/M_AXI_GP0_ACLK",
           "ps7_0_axi_periph/S00_ACLK",
           "ps7_0_axi_periph/ACLK",
@@ -1791,22 +1770,19 @@
           "rst_ps7_0_50M/slowest_sync_clk",
           "ps7_0_axi_periph/M01_ACLK",
           "ps7_0_axi_periph/M02_ACLK",
-          "fifo_controller_0/clock_rd_i",
+          "simple_aes_0/s_axi_aclk",
+          "fifo_generator_0/rd_clk",
+          "fifo_controller_0/clock_i",
           "fifo_controller_0/s_axi_aclk",
-          "tdc_sensor_0/s_axi_aclk"
+          "tdc_bank_0/s_axi_aclk"
         ]
       },
       "clk_wiz_0_clk_out2": {
         "ports": [
           "clk_wiz_0/clk_acq",
-          "fifo_controller_0/clock_wr_i",
-          "tdc_sensor_0/clock_i"
-        ]
-      },
-      "tdc_sensor_0_data_o": {
-        "ports": [
-          "tdc_sensor_0/data_o",
-          "fifo_generator_0/din"
+          "fifo_generator_0/wr_clk",
+          "tdc_bank_0/clock_i",
+          "tdc_bank_0/delta_i"
         ]
       },
       "clk_wiz_0_clk_aes": {
@@ -1815,28 +1791,34 @@
           "simple_aes_0/clock_i"
         ]
       },
-      "fifo_controller_0_clock_o": {
+      "simple_aes_0_reset_o": {
         "ports": [
-          "fifo_controller_0/clock_o",
-          "fifo_generator_0/clk"
+          "simple_aes_0/reset_o",
+          "led_reset"
         ]
       },
-      "fifo_controller_0_wr_en_o": {
+      "simple_aes_0_start_o": {
         "ports": [
-          "fifo_controller_0/wr_en_o",
-          "fifo_generator_0/wr_en"
+          "simple_aes_0/start_o",
+          "led_start"
         ]
       },
-      "fifo_controller_0_rd_en_o": {
+      "simple_aes_0_inv_o": {
         "ports": [
-          "fifo_controller_0/rd_en_o",
-          "fifo_generator_0/rd_en"
+          "simple_aes_0/inv_o",
+          "led_inv"
         ]
       },
-      "fifo_generator_0_dout": {
+      "simple_aes_0_done_o": {
         "ports": [
-          "fifo_generator_0/dout",
-          "fifo_controller_0/data_i"
+          "simple_aes_0/done_o",
+          "led_done"
+        ]
+      },
+      "fifo_generator_0_full": {
+        "ports": [
+          "fifo_generator_0/full",
+          "fifo_controller_0/full_i"
         ]
       },
       "fifo_generator_0_empty": {
@@ -1845,10 +1827,34 @@
           "fifo_controller_0/empty_i"
         ]
       },
-      "fifo_generator_0_full": {
+      "fifo_generator_0_dout": {
         "ports": [
-          "fifo_generator_0/full",
-          "fifo_controller_0/full_i"
+          "fifo_generator_0/dout",
+          "fifo_controller_0/data_i"
+        ]
+      },
+      "fifo_controller_0_reset_o": {
+        "ports": [
+          "fifo_controller_0/reset_o",
+          "fifo_generator_0/rst"
+        ]
+      },
+      "fifo_controller_0_write_o": {
+        "ports": [
+          "fifo_controller_0/write_o",
+          "fifo_generator_0/wr_en"
+        ]
+      },
+      "fifo_controller_0_read_o": {
+        "ports": [
+          "fifo_controller_0/read_o",
+          "fifo_generator_0/rd_en"
+        ]
+      },
+      "tdc_bank_0_data_o": {
+        "ports": [
+          "tdc_bank_0/data_o",
+          "fifo_generator_0/din"
         ]
       }
     },
@@ -1869,8 +1875,8 @@
                 "offset": "0x43C00000",
                 "range": "64K"
               },
-              "SEG_tdc_sensor_0_S_AXI_reg": {
-                "address_block": "/tdc_sensor_0/S_AXI/S_AXI_reg",
+              "SEG_tdc_bank_0_S_AXI_reg": {
+                "address_block": "/tdc_bank_0/S_AXI/S_AXI_reg",
                 "offset": "0x43C10000",
                 "range": "64K"
               }

@@ -54,8 +54,9 @@
 
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module system_fifo_generator_0_0 (
-  clk,
-  srst,
+  rst,
+  wr_clk,
+  rd_clk,
   din,
   wr_en,
   rd_en,
@@ -64,10 +65,13 @@ module system_fifo_generator_0_0 (
   empty
 );
 
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME core_clk, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_fifo_controller_0_0_clock_o, INSERT_VIP 0" *)
-(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 core_clk CLK" *)
-input wire clk;
-input wire srst;
+input wire rst;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME write_clk, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN /clk_wiz_0_clk_out1, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 write_clk CLK" *)
+input wire wr_clk;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME read_clk, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 read_clk CLK" *)
+input wire rd_clk;
 (* X_INTERFACE_INFO = "xilinx.com:interface:fifo_write:1.0 FIFO_WRITE WR_DATA" *)
 input wire [31 : 0] din;
 (* X_INTERFACE_INFO = "xilinx.com:interface:fifo_write:1.0 FIFO_WRITE WR_EN" *)
@@ -82,7 +86,7 @@ output wire full;
 output wire empty;
 
   fifo_generator_v13_2_5 #(
-    .C_COMMON_CLOCK(1),
+    .C_COMMON_CLOCK(0),
     .C_SELECT_XPM(0),
     .C_COUNT_TYPE(0),
     .C_DATA_COUNT_WIDTH(10),
@@ -92,7 +96,7 @@ output wire empty;
     .C_DOUT_WIDTH(32),
     .C_ENABLE_RLOCS(0),
     .C_FAMILY("zynq"),
-    .C_FULL_FLAGS_RST_VAL(0),
+    .C_FULL_FLAGS_RST_VAL(1),
     .C_HAS_ALMOST_EMPTY(0),
     .C_HAS_ALMOST_FULL(0),
     .C_HAS_BACKUP(0),
@@ -102,14 +106,14 @@ output wire empty;
     .C_HAS_OVERFLOW(0),
     .C_HAS_RD_DATA_COUNT(0),
     .C_HAS_RD_RST(0),
-    .C_HAS_RST(0),
-    .C_HAS_SRST(1),
+    .C_HAS_RST(1),
+    .C_HAS_SRST(0),
     .C_HAS_UNDERFLOW(0),
     .C_HAS_VALID(0),
     .C_HAS_WR_ACK(0),
     .C_HAS_WR_DATA_COUNT(0),
     .C_HAS_WR_RST(0),
-    .C_IMPLEMENTATION_TYPE(0),
+    .C_IMPLEMENTATION_TYPE(2),
     .C_INIT_WR_PNTR_VAL(0),
     .C_MEMORY_TYPE(1),
     .C_MIF_FILE_NAME("BlankString"),
@@ -121,8 +125,8 @@ output wire empty;
     .C_PROG_EMPTY_THRESH_ASSERT_VAL(2),
     .C_PROG_EMPTY_THRESH_NEGATE_VAL(3),
     .C_PROG_EMPTY_TYPE(0),
-    .C_PROG_FULL_THRESH_ASSERT_VAL(1022),
-    .C_PROG_FULL_THRESH_NEGATE_VAL(1021),
+    .C_PROG_FULL_THRESH_ASSERT_VAL(1021),
+    .C_PROG_FULL_THRESH_NEGATE_VAL(1020),
     .C_PROG_FULL_TYPE(0),
     .C_RD_DATA_COUNT_WIDTH(10),
     .C_RD_DEPTH(1024),
@@ -260,10 +264,10 @@ output wire empty;
     .C_PROG_FULL_TYPE_RACH(0),
     .C_PROG_FULL_TYPE_RDCH(0),
     .C_PROG_FULL_TYPE_AXIS(0),
-    .C_PROG_FULL_THRESH_ASSERT_VAL_WACH(255),
+    .C_PROG_FULL_THRESH_ASSERT_VAL_WACH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_WDCH(1023),
-    .C_PROG_FULL_THRESH_ASSERT_VAL_WRCH(15),
-    .C_PROG_FULL_THRESH_ASSERT_VAL_RACH(15),
+    .C_PROG_FULL_THRESH_ASSERT_VAL_WRCH(1023),
+    .C_PROG_FULL_THRESH_ASSERT_VAL_RACH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_RDCH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_AXIS(1023),
     .C_PROG_EMPTY_TYPE_WACH(0),
@@ -272,10 +276,10 @@ output wire empty;
     .C_PROG_EMPTY_TYPE_RACH(0),
     .C_PROG_EMPTY_TYPE_RDCH(0),
     .C_PROG_EMPTY_TYPE_AXIS(0),
-    .C_PROG_EMPTY_THRESH_ASSERT_VAL_WACH(254),
+    .C_PROG_EMPTY_THRESH_ASSERT_VAL_WACH(1022),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL_WDCH(1022),
-    .C_PROG_EMPTY_THRESH_ASSERT_VAL_WRCH(14),
-    .C_PROG_EMPTY_THRESH_ASSERT_VAL_RACH(14),
+    .C_PROG_EMPTY_THRESH_ASSERT_VAL_WRCH(1022),
+    .C_PROG_EMPTY_THRESH_ASSERT_VAL_RACH(1022),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL_RDCH(1022),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL_AXIS(1022),
     .C_REG_SLICE_MODE_WACH(0),
@@ -287,12 +291,12 @@ output wire empty;
   ) inst (
     .backup(1'D0),
     .backup_marker(1'D0),
-    .clk(clk),
-    .rst(1'D0),
-    .srst(srst),
-    .wr_clk(1'D0),
+    .clk(1'D0),
+    .rst(rst),
+    .srst(1'D0),
+    .wr_clk(wr_clk),
     .wr_rst(1'D0),
-    .rd_clk(1'D0),
+    .rd_clk(rd_clk),
     .rd_rst(1'D0),
     .din(din),
     .wr_en(wr_en),

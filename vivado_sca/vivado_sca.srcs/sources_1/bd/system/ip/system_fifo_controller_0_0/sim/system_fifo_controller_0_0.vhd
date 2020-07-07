@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: xilinx.com:user:fifo_controller:1.0
--- IP Revision: 4
+-- IP Revision: 11
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -55,16 +55,13 @@ USE ieee.numeric_std.ALL;
 
 ENTITY system_fifo_controller_0_0 IS
   PORT (
-    clock_wr_i : IN STD_LOGIC;
-    clock_rd_i : IN STD_LOGIC;
-    start_i : IN STD_LOGIC;
-    done_i : IN STD_LOGIC;
-    data_i : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    clock_i : IN STD_LOGIC;
     empty_i : IN STD_LOGIC;
     full_i : IN STD_LOGIC;
-    clock_o : OUT STD_LOGIC;
-    wr_en_o : OUT STD_LOGIC;
-    rd_en_o : OUT STD_LOGIC;
+    data_i : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    reset_o : OUT STD_LOGIC;
+    write_o : OUT STD_LOGIC;
+    read_o : OUT STD_LOGIC;
     s_axi_aclk : IN STD_LOGIC;
     s_axi_aresetn : IN STD_LOGIC;
     s_axi_awaddr : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -98,16 +95,13 @@ ARCHITECTURE system_fifo_controller_0_0_arch OF system_fifo_controller_0_0 IS
       C_S_AXI_ADDR_WIDTH : INTEGER -- Width of S_AXI address bus
     );
     PORT (
-      clock_wr_i : IN STD_LOGIC;
-      clock_rd_i : IN STD_LOGIC;
-      start_i : IN STD_LOGIC;
-      done_i : IN STD_LOGIC;
-      data_i : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+      clock_i : IN STD_LOGIC;
       empty_i : IN STD_LOGIC;
       full_i : IN STD_LOGIC;
-      clock_o : OUT STD_LOGIC;
-      wr_en_o : OUT STD_LOGIC;
-      rd_en_o : OUT STD_LOGIC;
+      data_i : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+      reset_o : OUT STD_LOGIC;
+      write_o : OUT STD_LOGIC;
+      read_o : OUT STD_LOGIC;
       s_axi_aclk : IN STD_LOGIC;
       s_axi_aresetn : IN STD_LOGIC;
       s_axi_awaddr : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -158,12 +152,10 @@ ARCHITECTURE system_fifo_controller_0_0_arch OF system_fifo_controller_0_0 IS
   ATTRIBUTE X_INTERFACE_INFO OF s_axi_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 S_AXI_RST RST";
   ATTRIBUTE X_INTERFACE_PARAMETER OF s_axi_aclk: SIGNAL IS "XIL_INTERFACENAME S_AXI_CLK, ASSOCIATED_BUSIF S_AXI, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF s_axi_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 S_AXI_CLK CLK";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF clock_o: SIGNAL IS "XIL_INTERFACENAME clock_o, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_fifo_controller_0_0_clock_o, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF clock_o: SIGNAL IS "xilinx.com:signal:clock:1.0 clock_o CLK";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF clock_rd_i: SIGNAL IS "XIL_INTERFACENAME clock_rd_i, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF clock_rd_i: SIGNAL IS "xilinx.com:signal:clock:1.0 clock_rd_i CLK";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF clock_wr_i: SIGNAL IS "XIL_INTERFACENAME clock_wr_i, FREQ_HZ 125000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN /clk_wiz_0_clk_out1, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF clock_wr_i: SIGNAL IS "xilinx.com:signal:clock:1.0 clock_wr_i CLK";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF reset_o: SIGNAL IS "XIL_INTERFACENAME reset_o, POLARITY ACTIVE_LOW, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF reset_o: SIGNAL IS "xilinx.com:signal:reset:1.0 reset_o RST";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF clock_i: SIGNAL IS "XIL_INTERFACENAME clock_i, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF clock_i: SIGNAL IS "xilinx.com:signal:clock:1.0 clock_i CLK";
 BEGIN
   U0 : fifo_controller_v1_0
     GENERIC MAP (
@@ -171,16 +163,13 @@ BEGIN
       C_S_AXI_ADDR_WIDTH => 4
     )
     PORT MAP (
-      clock_wr_i => clock_wr_i,
-      clock_rd_i => clock_rd_i,
-      start_i => start_i,
-      done_i => done_i,
-      data_i => data_i,
+      clock_i => clock_i,
       empty_i => empty_i,
       full_i => full_i,
-      clock_o => clock_o,
-      wr_en_o => wr_en_o,
-      rd_en_o => rd_en_o,
+      data_i => data_i,
+      reset_o => reset_o,
+      write_o => write_o,
+      read_o => read_o,
       s_axi_aclk => s_axi_aclk,
       s_axi_aresetn => s_axi_aresetn,
       s_axi_awaddr => s_axi_awaddr,

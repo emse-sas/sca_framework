@@ -58,8 +58,12 @@ void RUN_quit()
     xil_printf("*** Exiting ***\n\r");
 }
 
-void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx)
+void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx, int acq_idx)
 {
+    if (acq_idx != CMD_ERR_NOT_FOUND)
+    {
+        FIFO_HW_clear();
+    }
     xil_printf("*** Start tiny AES ***\n\r");
     struct AES_ctx ctx;
     uint8_t key[HEX_BYTES_SIZE], block[HEX_BYTES_SIZE];
@@ -74,7 +78,16 @@ void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_i
         HEX_print_bytes(block);
         xil_printf("\n\r");
         AES_init_ctx(&ctx, key);
-        AES_ECB_encrypt(&ctx, block);
+        if (acq_idx != CMD_ERR_NOT_FOUND)
+        {
+            FIFO_HW_start_write();
+            AES_ECB_encrypt(&ctx, block);
+            FIFO_HW_stop_write();
+        }
+        else
+        {
+            AES_ECB_encrypt(&ctx, block);
+        }
         xil_printf("Cipher: ");
         HEX_print_bytes(block);
         xil_printf("\n\r");
@@ -86,14 +99,23 @@ void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_i
         HEX_print_bytes(block);
         xil_printf("\n\r");
         AES_init_ctx_iv(&ctx, key, block);
-        AES_ECB_decrypt(&ctx, block);
+        if (acq_idx != CMD_ERR_NOT_FOUND)
+        {
+            FIFO_HW_start_write();
+            AES_ECB_decrypt(&ctx, block);
+            FIFO_HW_stop_write();
+        }
+        else
+        {
+            AES_ECB_decrypt(&ctx, block);
+        }
         xil_printf("Plain: ");
         HEX_print_bytes(block);
         xil_printf("\n\r");
     }
 }
 
-void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx)
+void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx, int acq_idx)
 {
     xil_printf("*** Start hardware AES ***\n\r");
     uint32_t key[HEX_WORDS_SIZE], block[HEX_WORDS_SIZE];
@@ -146,6 +168,7 @@ RUN_status_t RUN_aes(const CMD_cmd_t *cmd)
     int plain_idx = CMD_find_option(options_ptr, 'p');
     int key_idx = CMD_find_option(options_ptr, 'k');
     int hw_idx = CMD_find_option(options_ptr, 'h');
+    int acq_idx = CMD_find_option(options_ptr, 'a');
 
     if ((cipher_idx != CMD_ERR_NOT_FOUND && plain_idx != CMD_ERR_NOT_FOUND) ||
         (cipher_idx == CMD_ERR_NOT_FOUND && plain_idx == CMD_ERR_NOT_FOUND) ||
@@ -156,11 +179,11 @@ RUN_status_t RUN_aes(const CMD_cmd_t *cmd)
 
     if (hw_idx == CMD_ERR_NOT_FOUND)
     {
-        RUN_tiny_aes(cmd, plain_idx, cipher_idx, key_idx);
+        RUN_tiny_aes(cmd, plain_idx, cipher_idx, key_idx, acq_idx);
     }
     else
     {
-        RUN_hw_aes(cmd, plain_idx, cipher_idx, key_idx);
+        RUN_hw_aes(cmd, plain_idx, cipher_idx, key_idx, acq_idx);
     }
     return RUN_SUCCESS;
 }
@@ -189,6 +212,26 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
     return RUN_SUCCESS;
 }
 
+void RUN_fifo_flush()
+{
+    FIFO_HW_clear();
+    printf("FIFO flushed!\n\r");
+}
+
+void RUN_fifo_read()
+{
+    printf("*** Start FIFO read ***\n\r");
+    uint32_t buffer[FIFO_HW_STACK_SIZE];
+    int len = FIFO_HW_read(buffer, FIFO_HW_STACK_SIZE);
+    len = len == FIFO_HW_ERR_NONE ? FIFO_HW_STACK_SIZE : len;
+
+    xil_printf("Read successful: %d words\n\r", len);
+    for (int idx = 0; idx < len; idx++)
+    {
+        xil_printf("read[%d] = 0x%08x\n\r", idx, buffer[idx]);
+    }
+}
+
 RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
 {
     if (cmd == NULL)
@@ -197,20 +240,21 @@ RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
     }
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
     int read_idx = CMD_find_option(options_ptr, 'r');
-    if (read_idx == CMD_ERR_NOT_FOUND)
+    int flush_idx = CMD_find_option(options_ptr, 'f');
+    if ((read_idx != CMD_ERR_NOT_FOUND && flush_idx != CMD_ERR_NOT_FOUND) ||
+        (read_idx == CMD_ERR_NOT_FOUND && flush_idx == CMD_ERR_NOT_FOUND))
     {
         return RUN_FAILURE;
     }
-    printf("*** Start FIFO read ***\n\r");
-    uint32_t buffer[FIFO_HW_STACK_SIZE];
-    int len = FIFO_HW_read(buffer, FIFO_HW_STACK_SIZE);
-    len = len == FIFO_HW_ERR_NONE ? FIFO_HW_STACK_SIZE : len;
-
-    xil_printf("Read successful : %d words\n\r", len);
-    for (int idx = 0; idx < len; idx++)
+    if (read_idx != CMD_ERR_NOT_FOUND)
     {
-        xil_printf("read[%d] = %08x\n\r", idx, buffer[idx]);
+        RUN_fifo_read();
     }
+    if (flush_idx != CMD_ERR_NOT_FOUND)
+    {
+        RUN_fifo_flush();
+    }
+
     return RUN_SUCCESS;
 }
 

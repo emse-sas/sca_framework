@@ -3,7 +3,7 @@
  * @author Sami Dahoux (s.dahoux@emse.fr)
  * @brief Driver for the AES IP contained in the test system vivado_sca
  * 
- * In all the following contents, a block refers to a 16-bytes array or a 4-words array, which is the data format for the AES algorithm.
+ * In all the following contents, a block refers to a 16-words array or a 4-words array, which is the data format for the AES algorithm.
  * The driver API allows encryption and decryption, therefore, the input/ouput refers to either the plain text or the cipher text.
  */
 
@@ -37,13 +37,13 @@
 #define AES_HW_STATUS_POS_IN 12
 #define AES_HW_STATUS_POS_OUT 13
 
-#define AES_HW_STATUS_NULL 0x00000000
+#define AES_HW_STATUS_NULL 0
 
-#define AES_HW_STATUS_START 0x00000002
-#define AES_HW_STATUS_RESET 0x00000001
-#define AES_HW_STATUS_INV 0x00000004
+#define AES_HW_STATUS_START 2
+#define AES_HW_STATUS_RESET 1
+#define AES_HW_STATUS_INV 4
 
-#define AES_HW_STATUS_DONE 0x00000001
+#define AES_HW_STATUS_DONE 1
 
 #define AES_HW_ADDR(pos) (AES_HW_BASE_ADDR + AES_HW_WORD_SIZE * pos)
 #define AES_HW_STATUS_SET_1(status, status_reg) (status_reg | status)
@@ -63,33 +63,33 @@ void AES_HW_clear(AES_HW_mode_t mode);
 
 /**
  * @brief Writes input block data
- * @param bytes input block words
+ * @param words input block words
  */
-void AES_HW_write_input(const uint32_t *bytes);
+void AES_HW_write_input(const uint32_t *words);
 
 /**
  * @brief Writes key block data
- * @param bytes key block words
+ * @param words key block words
  */
-void AES_HW_write_key(const uint32_t *bytes);
+void AES_HW_write_key(const uint32_t *words);
 
 /**
  * @brief Reads input block data
- * @param bytes input block words
+ * @param words input block words
  */
-void AES_HW_read_input(uint32_t *bytes);
+void AES_HW_read_input(uint32_t *words);
 
 /**
  * @brief Reads key block data
- * @param bytes key block words
+ * @param words key block words
  */
-void AES_HW_read_key(uint32_t *bytes);
+void AES_HW_read_key(uint32_t *words);
 
 /**
  * @brief Reads outpout block data
- * @param bytes output block words
+ * @param words output block words
  */
-void AES_HW_read_output(uint32_t *bytes);
+void AES_HW_read_output(uint32_t *words);
 
 /**
  * @brief Starts hardware AES computing and wait until done

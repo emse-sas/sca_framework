@@ -17,13 +17,15 @@
 #include <math.h>
 
 #define TDC_HW_WORD_SIZE 4
-#define TDC_HW_BASE_ADDR XPAR_TDC_SENSOR_0_S_AXI_BASEADDR
+
+#define TDC_HW_BASE_ADDR XPAR_TDC_BANK_0_S_AXI_BASEADDR
 #define TDC_HW_DATA_POS_0 0
 #define TDC_HW_DATA_POS_1 1
 #define TDC_HW_DATA_POS_2 2
-#define TDC_HW_STATUS_POS 3
+#define TDC_HW_DATA_POS_3 3
+#define TDC_HW_DELAY_POS 4
 #define TDC_HW_ADDR(pos) (TDC_HW_BASE_ADDR + TDC_HW_WORD_SIZE * pos)
-#define TDC_HW_SET_DELAY(fine, coarse) (fine | (coarse << 10))
+#define TDC_HW_DELAY(fine, coarse) (fine | (coarse << 4))
 
 #define TDC_HW_DEFAULT_CALIBRATE_IT 512 /** default iteration count for sensor calibration */
 

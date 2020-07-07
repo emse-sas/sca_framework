@@ -624,7 +624,7 @@
 						"WVALID": { "actual": "s_axi_wvalid"}
 					}
 				},
-				"/tdc_sensor_0/S_AXI": {
+				"/tdc_bank_0/S_AXI": {
 					"interface": "xilinx.com:interface:aximm:1.0",
 					"ports": {
 						"ACLK": { "actual": "s_axi_aclk"},
