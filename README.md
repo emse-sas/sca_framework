@@ -1,5 +1,42 @@
-# SCA Framework
-## "program and play" framework for side-channel attacks (SCA)
+ # SCA Framework
+
+## Introduction: An FPGA-based SCA evaluation platform 
+
+This repository contains an open-source Side-Channel Analysis (SCA) framework based on a Xilinx Zynq SoC. It provides a complete toolkit to implement crypto-algorithms and their capture power SCA leakage.
+
+<!--We constructed the framework in order to allow to easily reproduce the attacks made available by the current state of the art.
+We want to keep the framework setup and attack configuration as straightforward as possible in order to allow the largest number of people to launch and review the attack.-->
+
+### How does it work?
+
+It leverages FPGA digital logic blocks designed to capture the SoC voltage fluctuations. These sensors are employed to eavesdrop the power leakage 
+of a crypto-algorithm running in the FPGA fabric (FPGA-to-FPGA attack) or in the CPU (FPGA-to-CPU attack)
+<!--then used to conduct Simple Power Analysis (SPA) and Correlation Power Analysis (CPA)-->
+*Only the Zynq board is needed. Both the crypto-algorithm process and the power trace acquisition are happening inside*
+
+
+### For what purpose? 
+
+- As a way to reproduce the remote power SCA attacks proposed in [link to the paper 1] and [link to the paper 2]
+- As a way to evaluate the SCA leakage of other hardware and sofware crypto-algorithms.
+- As an educational low-cost platform for SCA traning and co-design development.
+
+### What's inside?
+
+**Sensors:**
+- Time-to-Digital Converter based sensor (TDC) 
+- Ring-Oscillator-based sensor (RO)
+- *Your sensor ? (you can add your sensor in the vivado bloc design)*
+
+**Hardware Algorithms (VHDL - verilog)**
+- Custom hardware AES - key size : 128 bit - data path : 128 bit
+- *Your HW algorithm ? (you can add your hardware algorithm in the vivado bloc design)*
+
+**Software Algorithms (C)**
+- tiny AES
+- OpenSSL AES
+- *Your SW algorithm ? (you can add your software algorithm in the vitis C project)*
+
 
 ### Topic overview
 
@@ -26,13 +63,6 @@ To achieve our goal, we designed a *hybrid framework* that allows to simulate ou
 
 The framework consist on a test bench FPGA platform and an configure and run application.
 
-### Introduction
-
-This repository provides an open-source framework modeling our SCA test bench.
-We constructed the framework in order to allow to easily reproduce the attacks made
-available by the current state of the art.
-
-We want to keep the framework setup and attack configuration as straightforward as possible in order to allow the largest number of people to launch and review the attack. 
 
 #### Contents
 
