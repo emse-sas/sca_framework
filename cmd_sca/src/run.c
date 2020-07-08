@@ -241,12 +241,18 @@ RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
 RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
 {
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
-    int traces_idx;
-    if ((traces_idx = CMD_find_option(options_ptr, 't')) == CMD_ERR_NOT_FOUND)
+    int traces_idx = CMD_find_option(options_ptr, 't');
+    int hw_idx = CMD_find_option(options_ptr, 'h');
+    int inv_idx = CMD_find_option(options_ptr, 'i');
+    if (traces_idx == CMD_ERR_NOT_FOUND)
     {
         return RUN_FAILURE;
     }
+    int traces_count = cmd->options[traces_idx]->value.integer;
+    
     printf("*** Start SCA power analysis ***\n\r");
+
+    return RUN_SUCCESS;
 }
 
 RUN_status_t RUN_cmd()

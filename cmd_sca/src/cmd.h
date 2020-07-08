@@ -135,7 +135,7 @@ const static char CMD_allowed_options[CMD_COUNT_TYPE][CMD_MAX_OPTIONS] = {
     {'h', 'k', 'p', 'c', 'a', CMD_NULL_OPTION},
     {'c', 'r', CMD_NULL_OPTION},
     {'f', 'r', CMD_NULL_OPTION},
-    {'t', CMD_NULL_OPTION}};
+    {'h', 'i', 't', CMD_NULL_OPTION}};
 
 /**
  * @brief allowed option value types for the given command
@@ -147,7 +147,7 @@ const static CMD_opt_val_type_t CMD_allowed_types[CMD_COUNT_TYPE][CMD_MAX_OPTION
     {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_END},
     {CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_END},
     {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_END},
-    {CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_END},
+    {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_END},
 };
 
 const static char *CMD_opt_type_labels[CMD_COUNT_VAL_TYPE] = {
