@@ -226,12 +226,11 @@ void RUN_fifo_read()
     int len = FIFO_HW_read(buffer, FIFO_HW_STACK_SIZE);
     len = len == FIFO_HW_ERR_NONE ? FIFO_HW_STACK_SIZE : len;
 
-    HEX_words_to_hamming(buffer, weights, len);
     xil_printf("Read successful: %d words\n\r", len);
-    for (int idx = 0; idx < len; idx++)
-    {
-        xil_printf("read[%d] = %u\n\r", idx, weights[idx]);
-    }
+    HEX_words_to_hamming(buffer, weights, len);
+    char str_weights[4 *FIFO_HW_STACK_SIZE + 1];
+    CSV_stringify(str_weights, weights, len);
+    xil_printf("Hamming weights:\n\r%s\n\r", str_weights);
 }
 
 RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)

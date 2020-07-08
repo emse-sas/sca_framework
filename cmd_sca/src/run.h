@@ -15,10 +15,12 @@
 #include "xil_printf.h"
 
 #include "cmd.h"
+#include "csv.h"
 #include "../tiny-AES-c/aes.h"
 #include "aes_hw.h"
 #include "tdc_hw.h"
 #include "fifo_hw.h"
+
 
 typedef enum
 {
