@@ -56,9 +56,9 @@ It provides hardware configuration, sensor acquisition and crypto-algorithm cont
 ### Documentation
 
 This repository features a [wiki](https://github.com/samiBendou/sca_framework/wiki) that provides a complete technical documentation of the framework.
-If your new to SCA attacks it also provide a detailed presentation of our attack context and setup.
+If your new to SCA attacks it also provide a detailed presentation of [remote SCA attacks](https://github.com/samiBendou/sca_framework/wiki/Topic-Overview).
 
 To set-up the framework and launch the attacks check the [getting started guide](https://github.com/samiBendou/sca_framework/wiki/Getting-Started). 
-If you are already familiar with Vivado and Vitis/SDK you can directly get deep into the [attack documentation](https://github.com/samiBendou/sca_framework/wiki/Our-setup).
+If you are already familiar with Vivado and Vitis/SDK you can directly get deep into the [setup documentation](https://github.com/samiBendou/sca_framework/wiki/Our-setup).
 
 ### Contributions

@@ -15,7 +15,7 @@
 #include "xil_printf.h"
 
 #include "cmd.h"
-#include "aes.h"
+#include "../../tiny-AES-c/aes.h"
 #include "aes_hw.h"
 #include "tdc_hw.h"
 #include "fifo_hw.h"
@@ -83,6 +83,21 @@ RUN_status_t RUN_aes(const CMD_cmd_t *cmd);
  */
 RUN_status_t RUN_tdc(const CMD_cmd_t *cmd);
 
+/**
+ * @brief Reads values in FIFO and prints it
+ */
+void RUN_fifo_read();
+
+/**
+ * @brief Flush values in FIFO
+ */
+void RUN_fifo_flush();
+
+/**
+ * @brief Launches the fifo command
+ * @param non-optional command
+ * @return `RUN_FAILURE` when the operation failed else `RUN_SUCCESS`
+ */
 RUN_status_t RUN_fifo(const CMD_cmd_t *cmd);
 
 /**

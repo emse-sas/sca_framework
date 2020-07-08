@@ -4,7 +4,7 @@
  * @brief Driver for the AES IP contained in the test system vivado_sca
  * 
  * In all the following contents, a block refers to a 16-words array or a 4-words array, which is the data format for the AES algorithm.
- * The driver API allows encryption and decryption, therefore, the input/ouput refers to either the plain text or the cipher text.
+ * The driver API allows encryption and decryption, therefore, the input/ouput refers to either plain or the cipher raw hexadecimal data.
  */
 
 #ifndef SCA_FRAMEWORK_AES_HW_H
