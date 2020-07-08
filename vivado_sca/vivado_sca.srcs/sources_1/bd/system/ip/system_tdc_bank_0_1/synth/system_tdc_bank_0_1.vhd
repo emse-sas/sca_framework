@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: xilinx.com:user:tdc_bank:1.0
--- IP Revision: 4
+-- IP Revision: 5
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -128,7 +128,7 @@ ARCHITECTURE system_tdc_bank_0_1_arch OF system_tdc_bank_0_1 IS
   ATTRIBUTE CHECK_LICENSE_TYPE : STRING;
   ATTRIBUTE CHECK_LICENSE_TYPE OF system_tdc_bank_0_1_arch : ARCHITECTURE IS "system_tdc_bank_0_1,tdc_bank_v1_0,{}";
   ATTRIBUTE CORE_GENERATION_INFO : STRING;
-  ATTRIBUTE CORE_GENERATION_INFO OF system_tdc_bank_0_1_arch: ARCHITECTURE IS "system_tdc_bank_0_1,tdc_bank_v1_0,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=tdc_bank,x_ipVersion=1.0,x_ipCoreRevision=4,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,coarse_len_g=3,fine_len_g=1,sampling_len_g=8,count_tdc_g=1,C_S_AXI_DATA_WIDTH=32,C_S_AXI_ADDR_WIDTH=5}";
+  ATTRIBUTE CORE_GENERATION_INFO OF system_tdc_bank_0_1_arch: ARCHITECTURE IS "system_tdc_bank_0_1,tdc_bank_v1_0,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=tdc_bank,x_ipVersion=1.0,x_ipCoreRevision=5,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,coarse_len_g=3,fine_len_g=1,sampling_len_g=8,count_tdc_g=1,C_S_AXI_DATA_WIDTH=32,C_S_AXI_ADDR_WIDTH=5}";
   ATTRIBUTE X_INTERFACE_INFO : STRING;
   ATTRIBUTE X_INTERFACE_PARAMETER : STRING;
   ATTRIBUTE X_INTERFACE_INFO OF s_axi_rready: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI RREADY";

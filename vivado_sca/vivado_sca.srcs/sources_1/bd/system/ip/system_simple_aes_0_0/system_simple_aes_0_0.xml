@@ -707,11 +707,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Jul 06 16:47:51 UTC 2020</spirit:value>
+            <spirit:value>Wed Jul 08 08:09:45 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:b13229be</spirit:value>
+            <spirit:value>9:744e58c0</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -722,7 +722,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:b13229be</spirit:value>
+            <spirit:value>9:744e58c0</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -738,11 +738,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Jul 06 16:47:51 UTC 2020</spirit:value>
+            <spirit:value>Wed Jul 08 08:09:45 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:b13229be</spirit:value>
+            <spirit:value>9:744e58c0</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -758,11 +758,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Jul 06 16:47:51 UTC 2020</spirit:value>
+            <spirit:value>Wed Jul 08 08:09:45 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:13553b1c</spirit:value>
+            <spirit:value>9:d6294a62</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -778,11 +778,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Jul 06 16:47:51 UTC 2020</spirit:value>
+            <spirit:value>Wed Jul 08 08:09:45 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:13553b1c</spirit:value>
+            <spirit:value>9:d6294a62</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1198,86 +1198,86 @@
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlsynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/crypt_pack.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/crypt_pack.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_thirdparty</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/add_roundkey.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/add_roundkey.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_round</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/state_reg.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/state_reg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_thirdparty</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/mix_prod.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/mix_prod.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_thirdparty</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/round_counter.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/round_counter.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_thirdparty</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/test_pack.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/test_pack.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_thirdparty</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/mix_columns.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/mix_columns.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_round</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/sub_bytes.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/sub_bytes.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_round</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/shift_rows.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/shift_rows.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_round</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/key_expander.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/key_expander.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/key_expansion_fsm.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/key_expansion_fsm.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/key_expansion.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/key_expansion.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/aes_fsm.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/aes_fsm.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/aes_round.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/aes_round.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/aes.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/aes.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/hdl/simple_aes_v1_0_S_AXI.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/hdl/simple_aes_v1_0_S_AXI.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/hdl/simple_aes_v1_0.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/hdl/simple_aes_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1292,86 +1292,86 @@
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/crypt_pack.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/crypt_pack.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_thirdparty</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/add_roundkey.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/add_roundkey.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_round</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/state_reg.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/state_reg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_thirdparty</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/mix_prod.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/mix_prod.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_thirdparty</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/round_counter.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/round_counter.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_thirdparty</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/test_pack.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/test_pack.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_thirdparty</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/mix_columns.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/mix_columns.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_round</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/sub_bytes.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/sub_bytes.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_round</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/shift_rows.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/shift_rows.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_round</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/key_expander.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/key_expander.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/key_expansion_fsm.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/key_expansion_fsm.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/key_expansion.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/key_expansion.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/aes_fsm.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/aes_fsm.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/aes_round.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/aes_round.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/src/aes.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/src/aes.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>lib_rtl</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/hdl/simple_aes_v1_0_S_AXI.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/hdl/simple_aes_v1_0_S_AXI.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/4ef0/hdl/simple_aes_v1_0.vhd</spirit:name>
+        <spirit:name>../../ipshared/8ba1/hdl/simple_aes_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1384,7 +1384,7 @@
       </spirit:file>
     </spirit:fileSet>
   </spirit:fileSets>
-  <spirit:description>Basic AES accelerator</spirit:description>
+  <spirit:description>Basic AES 128 accelerator</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>C_S_AXI_DATA_WIDTH</spirit:name>
@@ -1443,8 +1443,8 @@
   </spirit:parameters>
   <spirit:vendorExtensions>
     <xilinx:coreExtensions>
-      <xilinx:displayName>Simple AES</xilinx:displayName>
-      <xilinx:coreRevision>14</xilinx:coreRevision>
+      <xilinx:displayName>Advanced Encryption Standard (AES)</xilinx:displayName>
+      <xilinx:coreRevision>15</xilinx:coreRevision>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4f0fbc20_ARCHIVE_LOCATION">d:/codesign/ip/simple_aes/simple_aes_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@972d77_ARCHIVE_LOCATION">d:/codesign/ip/simple_aes/simple_aes_1.0</xilinx:tag>
@@ -1587,6 +1587,17 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7f99ab05_ARCHIVE_LOCATION">d:/codesign/ip/simple_aes/simple_aes_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@229d36f2_ARCHIVE_LOCATION">d:/codesign/ip/simple_aes/simple_aes_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7e855b94_ARCHIVE_LOCATION">d:/codesign/ip/simple_aes/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b7a0d34_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1cc7345_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d48a84_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@258b8304_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3a801c22_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4260daaf_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3a69cc20_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@577edd88_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ee684a2_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a97a81a_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@166d1a7b_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
       </xilinx:tags>
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.CLOCK_I.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Jul  7 22:44:22 2020" VIVADOVERSION="2020.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul  8 10:09:47 2020" VIVADOVERSION="2020.1">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo-z7-10:part0:1.0" DEVICE="7z010" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -790,7 +790,7 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE COREREVISION="11" FULLNAME="/fifo_controller_0" HWVERSION="1.0" INSTANCE="fifo_controller_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="fifo_controller" VLNV="xilinx.com:user:fifo_controller:1.0">
+    <MODULE COREREVISION="12" FULLNAME="/fifo_controller_0" HWVERSION="1.0" INSTANCE="fifo_controller_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="fifo_controller" VLNV="xilinx.com:user:fifo_controller:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="S_AXI" NAME="S_AXI_reg" RANGE="4096" USAGE="register"/>
@@ -2591,10 +2591,10 @@
             <CONNECTION INSTANCE="rst_ps7_0_50M" PORT="slowest_sync_clk"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M01_ACLK"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M02_ACLK"/>
-            <CONNECTION INSTANCE="simple_aes_0" PORT="s_axi_aclk"/>
             <CONNECTION INSTANCE="fifo_generator_0" PORT="rd_clk"/>
             <CONNECTION INSTANCE="fifo_controller_0" PORT="clock_i"/>
             <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_aclk"/>
+            <CONNECTION INSTANCE="simple_aes_0" PORT="s_axi_aclk"/>
             <CONNECTION INSTANCE="tdc_bank_0" PORT="s_axi_aclk"/>
           </CONNECTIONS>
         </PORT>
@@ -3841,15 +3841,15 @@
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="ARESETN"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M01_ARESETN"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M02_ARESETN"/>
-            <CONNECTION INSTANCE="simple_aes_0" PORT="s_axi_aresetn"/>
             <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_aresetn"/>
+            <CONNECTION INSTANCE="simple_aes_0" PORT="s_axi_aresetn"/>
             <CONNECTION INSTANCE="tdc_bank_0" PORT="s_axi_aresetn"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE COREREVISION="14" FULLNAME="/simple_aes_0" HWVERSION="1.0" INSTANCE="simple_aes_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="simple_aes" VLNV="xilinx.com:user:simple_aes:1.0">
+    <MODULE COREREVISION="15" FULLNAME="/simple_aes_0" HWVERSION="1.0" INSTANCE="simple_aes_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="simple_aes" VLNV="xilinx.com:user:simple_aes:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="S_AXI" NAME="S_AXI_reg" RANGE="4096" USAGE="register"/>
@@ -4053,7 +4053,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="4" FULLNAME="/tdc_bank_0" HWVERSION="1.0" INSTANCE="tdc_bank_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="tdc_bank" VLNV="xilinx.com:user:tdc_bank:1.0">
+    <MODULE COREREVISION="5" FULLNAME="/tdc_bank_0" HWVERSION="1.0" INSTANCE="tdc_bank_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="tdc_bank" VLNV="xilinx.com:user:tdc_bank:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="S_AXI" NAME="S_AXI_reg" RANGE="4096" USAGE="register"/>
