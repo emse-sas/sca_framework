@@ -2,8 +2,7 @@
 
 We designed a simple wrapper design containing the minimum requirement to perform attack in a high-performance and flexible way.
 
-<img src="https://github.com/samiBendou/sca_framework/raw/master/media/img/sca_vivado_wrapper.png" alt="top level" style="width:200px;"/>
-
+<img src="https://github.com/samiBendou/sca_framework/raw/master/media/img/sca_vivado_wrapper.png" width="400px">
 
 To get deep into the design and the performances of the test bench go to the [wiki](https://github.com/samiBendou/sca_framework/wiki). Here we only give a top level description with explanations on the interface.
 
