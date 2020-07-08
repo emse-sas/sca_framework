@@ -11,16 +11,16 @@ The framework is composed of two heterogeneous parts :
 - [**Driver application**](https://github.com/samiBendou/sca_framework/tree/master/cmd_sca) : control and configuration application for the attack
 
 The repository is organized as follows :
-- **cmd_sca**:  C command prompt to drive the hardware platform
-- **vivado_sca**: Vivado project for the hardware SCA test-bench
-- **platform_sca**: C Vitis/SDK platform project
+- **vivado_sca**: Vivado design for the hardware SCA test-bench
 - **vivado_ip**: Vivado managed IP used in **vivado_sca**
+- **platform_sca**: C Vitis/SDK platform project
+- **cmd_sca**:  C command prompt to drive the hardware platform
 
 ### How does it work?
 
 #### Hardware design
 
-Our hardware design is based on sensor leverages FPGA digital logic blocks available in the slices to capture the SoC voltage fluctuations.
+Our hardware design is based on sensors that leverage FPGA digital logic blocks available in the slices to capture the SoC voltage fluctuations.
 These sensors are employed to eavesdrop the power leakage of a crypto-algorithm running in the FPGA fabric (FPGA-to-FPGA attack) or in the CPU (FPGA-to-CPU attack).
 
 *Only the Zynq board is needed. Both the crypto-algorithm process and the power trace acquisition are happening inside*
@@ -28,7 +28,7 @@ These sensors are employed to eavesdrop the power leakage of a crypto-algorithm 
 #### Driver application
 
 Our driver application is a command prompt that allows to easily and safely test the hardware design and launch the attacks.
-It provides hardware configuration, acquisition and crypto-algorithm control.
+It provides hardware configuration, sensor acquisition and crypto-algorithm control.
 
 
 ### For what purpose? 
@@ -56,7 +56,7 @@ It provides hardware configuration, acquisition and crypto-algorithm control.
 ### Documentation
 
 This repository features a [wiki](https://github.com/samiBendou/sca_framework/wiki) that provides a complete technical documentation of the framework.
-If your new to SCA attacks it also provide a detailed presentation of our attack context and our setup.
+If your new to SCA attacks it also provide a detailed presentation of our attack context and setup.
 
 To set-up the framework and launch the attacks check the [getting started guide](https://github.com/samiBendou/sca_framework/wiki/Getting-Started). 
 If you are already familiar with Vivado and Vitis/SDK you can directly get deep into the [attack documentation](https://github.com/samiBendou/sca_framework/wiki/Our-setup).
