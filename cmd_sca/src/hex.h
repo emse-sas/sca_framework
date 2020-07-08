@@ -35,6 +35,6 @@ void HEX_print_words(const uint32_t *words);
  */
 void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words);
 
-void HEX_words_to_hamming(const uint32_t *words, unsigned int *weights, size_t len);
+void HEX_random_words(uint32_t *words);
 
 #endif //SCA_FRAMEWORK_HEX_H

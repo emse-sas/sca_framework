@@ -39,10 +39,11 @@ void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words)
     }
 }
 
-void HEX_words_to_hamming(const uint32_t *words, unsigned int *weights, size_t len)
+void HEX_random_words(uint32_t *words)
 {
-    for (size_t idx = 0; idx < len; idx++)
+    srand(0);
+    for (size_t idx = 0; idx < HEX_WORDS_SIZE; idx ++)
     {
-        weights[idx] = OP_hamming_weight(words[idx]);
+        words[idx] = rand();
     }
 }

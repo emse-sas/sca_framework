@@ -22,3 +22,11 @@ unsigned int OP_hamming_distance(unsigned int left, unsigned int right) {
     }
     return weight;
 }
+
+void OP_words_to_hamming(const uint32_t *words, unsigned int *weights, size_t len)
+{
+    for (size_t idx = 0; idx < len; idx++)
+    {
+        weights[idx] = OP_hamming_weight(words[idx]);
+    }
+}

@@ -11,11 +11,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <stdlib.h>
 
 #include "xil_printf.h"
 
 #include "cmd.h"
 #include "csv.h"
+#include "op.h"
 #include "../tiny-AES-c/aes.h"
 #include "aes_hw.h"
 #include "tdc_hw.h"
@@ -53,21 +56,21 @@ void RUN_quit();
 
 /**
  * @brief Launches AES computation using tiny-AES implementation and displays results
- * @param cmd command containing key and data
- * @param plain_idx index of the plain data in the command options or CMD_ERROR_NOT_FOUND
- * @param cipher_idx index of the cipher data in the command options or CMD_ERROR_NOT_FOUND
- * @param key_idx index of the cipher data in the command options 
+ * @param block block data in the command options
+ * @param key key data in the command options
+ * @param inv 1 for decryption 0 for encryption
+ * @param acq 1 for sensor acquisition during computation, 0 otherwise 
  */
-void RUN_tiny_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx, int acq_idx);
+void RUN_tiny_aes(uint8_t *block, uint8_t *key, int inv, int acq);
 
 /**
  * @brief Launch AES computation using FPGA implementation of AES and displays results
- * @param cmd command containing key and data
- * @param plain_idx index of the plain data in the command options or CMD_ERROR_NOT_FOUND
- * @param cipher_idx index of the cipher data in the command options or CMD_ERROR_NOT_FOUND
- * @param key_idx index of the cipher data in the command options 
+ * @param block block data in the command options
+ * @param key key data in the command options
+ * @param inv 1 for decryption 0 for encryption
+ * @param acq 1 for sensor acquisition during computation, 0 otherwise 
  */
-void RUN_hw_aes(const CMD_cmd_t *cmd, int plain_idx, int cipher_idx, int key_idx, int acq_idx);
+void RUN_hw_aes(uint32_t *block, uint32_t *key, int inv, int acq);
 
 
 /**
@@ -101,6 +104,13 @@ void RUN_fifo_flush();
  * @return `RUN_FAILURE` when the operation failed else `RUN_SUCCESS`
  */
 RUN_status_t RUN_fifo(const CMD_cmd_t *cmd);
+
+/**
+ * @brief Launches the fifo command
+ * @param non-optional command
+ * @return `RUN_FAILURE` when the operation failed else `RUN_SUCCESS`
+ */
+RUN_status_t RUN_sca(const CMD_cmd_t *cmd);
 
 /**
  * @brief Launches the command prompts
