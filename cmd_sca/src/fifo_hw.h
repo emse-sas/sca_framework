@@ -83,6 +83,11 @@ void FIFO_HW_stop_write();
  */
 void FIFO_HW_clear();
 
+/*
+ * @brief Pops a single value from the FIFO
+ */
+uint32_t FIFO_HW_pop();
+
 /**
  * @brief Pops all the values contained in the FIFO
  * 

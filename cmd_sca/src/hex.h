@@ -12,6 +12,7 @@
 #include <stdio.h>
 
 #include "xil_printf.h"
+#include "op.h"
 
 #define HEX_BYTES_SIZE 16 /** Size of the bytes arrays to process */
 #define HEX_WORDS_SIZE 4 /** Size of the words arrays to process */
@@ -33,5 +34,7 @@ void HEX_print_words(const uint32_t *words);
  * @param words destination words
  */
 void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words);
+
+void HEX_words_to_hamming(const uint32_t *words, unsigned int *weights, size_t len);
 
 #endif //SCA_FRAMEWORK_HEX_H

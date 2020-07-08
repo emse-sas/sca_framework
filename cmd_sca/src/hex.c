@@ -33,9 +33,16 @@ void HEX_print_words(const uint32_t *words)
 
 void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words)
 {
-    size_t idx = 0;
-    for (; idx < HEX_BYTES_SIZE; idx += 4)
+    for (size_t idx = 0; idx < HEX_BYTES_SIZE; idx += 4)
     {
         words[idx / 4] = ((uint32_t)bytes[idx] << 24) + ((uint32_t)bytes[idx + 1] << 16) + ((uint32_t)bytes[idx + 2] << 8) + (uint32_t)bytes[idx + 3];
+    }
+}
+
+void HEX_words_to_hamming(const uint32_t *words, unsigned int *weights, size_t len)
+{
+    for (size_t idx = 0; idx < len; idx++)
+    {
+        weights[idx] = OP_hamming_weight(words[idx]);
     }
 }

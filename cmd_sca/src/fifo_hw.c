@@ -49,17 +49,23 @@ void FIFO_HW_clear()
         FIFO_HW_STATUS_SET_0(FIFO_HW_STATUS_RESET, Xil_In32(FIFO_HW_ADDR(FIFO_HW_STATUS_POS_WR))));
 }
 
+uint32_t FIFO_HW_pop()
+ {
+    FIFO_HW_start_read();
+    uint32_t value = Xil_In32(FIFO_HW_ADDR(FIFO_HW_DATA_POS));
+    FIFO_HW_stop_read();
+    return value;
+}
+
 int FIFO_HW_read(uint32_t *words, size_t len)
 {
-    for (size_t idx = 0; idx < len; idx++)
+    for (size_t idx = len - 1; idx >= 0; idx--)
     {
         if (FIFO_HW_is_empty())
         {
-            return idx;
+            return len - idx - 1;
         }
-        FIFO_HW_start_read();
-        words[idx] = Xil_In32(FIFO_HW_ADDR(FIFO_HW_DATA_POS));
-        FIFO_HW_stop_read();
+        words[idx] = FIFO_HW_pop();
     }
     return FIFO_HW_ERR_NONE;
 }
