@@ -133,10 +133,6 @@
                         					
                     </folderInfo>
                     					
-                    <fileInfo id="xilinx.gnu.armv7.exe.debug.1893210735.1114175208" name="test.cpp" rcbsApplicability="disable" resourcePath="src/tiny-AES-c/test.cpp" toolsToInvoke=""/>
-                    					
-                    <fileInfo id="xilinx.gnu.armv7.exe.debug.1893210735.1089003938" name="aes.hpp" rcbsApplicability="disable" resourcePath="src/tiny-AES-c/aes.hpp" toolsToInvoke=""/>
-                    					
                     <sourceEntries>
                         						
                         <entry excluding="src/tiny-AES-c/test.cpp|src/tiny-AES-c/aes.hpp|src/tiny-AES-c/test.c|_ide" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
