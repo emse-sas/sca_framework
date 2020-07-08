@@ -27,7 +27,7 @@ uint32_t TDC_HW_calibrate(int iterations)
                 value += TDC_HW_read();
             }
             value /= iterations;
-            if (value < best_value && value >= 0xffff)
+            if (value < best_value)
             {
                 best_delay = delay;
                 best_value = value;

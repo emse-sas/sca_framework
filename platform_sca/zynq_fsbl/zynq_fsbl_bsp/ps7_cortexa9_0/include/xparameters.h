@@ -191,9 +191,9 @@
 #define XPAR_SIMPLE_AES_0_S_AXI_HIGHADDR 0x43C0FFFF
 
 
-/* Definitions for peripheral TDC_SENSOR_0 */
-#define XPAR_TDC_SENSOR_0_S_AXI_BASEADDR 0x43C10000
-#define XPAR_TDC_SENSOR_0_S_AXI_HIGHADDR 0x43C1FFFF
+/* Definitions for peripheral TDC_BANK_0 */
+#define XPAR_TDC_BANK_0_S_AXI_BASEADDR 0x43C10000
+#define XPAR_TDC_BANK_0_S_AXI_HIGHADDR 0x43C1FFFF
 
 
 /******************************************************************/
