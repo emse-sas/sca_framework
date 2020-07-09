@@ -1,3 +1,8 @@
+-------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file tdc_tb.vhd
+-------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use IEEE.numeric_std.all;

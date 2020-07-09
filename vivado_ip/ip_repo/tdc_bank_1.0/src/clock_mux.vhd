@@ -1,3 +1,9 @@
+-------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file clock_mux.vhd
+--! @brief Multiplixer 4 to 1 to select delayed clock
+-------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 Library unisim;

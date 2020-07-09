@@ -1,6 +1,7 @@
 -------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
 --! @file tdc_bank.vhd
---! @brief TDC sensor made of multiple TDC cells
+--! @brief Assembly of multiple TDC
 -------------------------------------------------------
 
 library ieee;

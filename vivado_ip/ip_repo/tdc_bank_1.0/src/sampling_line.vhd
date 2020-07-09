@@ -1,3 +1,9 @@
+-------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file sampling_line.vhd
+--! @brief Serial assembly of sampling blocks
+-------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 

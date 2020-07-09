@@ -1,3 +1,10 @@
+-------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file sampling_block.vhd
+--! @brief Delay line block with intermediate 4-bit output
+-------------------------------------------------------
+
+
 library ieee;
 use ieee.std_logic_1164.all;
 Library unisim;
