@@ -698,6 +698,7 @@ proc create_root_design { parentCell } {
   set tdc_bank_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:tdc_bank:1.0 tdc_bank_0 ]
   set_property -dict [ list \
    CONFIG.coarse_len_g {3} \
+   CONFIG.fine_len_g {1} \
    CONFIG.sampling_len_g {8} \
  ] $tdc_bank_0
 

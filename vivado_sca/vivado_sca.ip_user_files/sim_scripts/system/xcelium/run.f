@@ -113,15 +113,13 @@
   "../../../bd/system/ipshared/20db/hdl/tdc_bank_v1_0_S_AXI.vhd" \
   "../../../bd/system/ipshared/20db/hdl/tdc_bank_v1_0.vhd" \
   "../../../bd/system/ip/system_tdc_bank_0_1/sim/system_tdc_bank_0_1.vhd" \
+  "../../../bd/system/sim/system.vhd" \
 -endlib
 -makelib xcelium_lib/axi_protocol_converter_v2_1_21 \
   "../../../../vivado_sca.srcs/sources_1/bd/system/ipshared/8dfa/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
   "../../../bd/system/ip/system_auto_pc_0/sim/system_auto_pc_0.v" \
--endlib
--makelib xcelium_lib/xil_defaultlib \
-  "../../../bd/system/sim/system.vhd" \
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
   glbl.v
