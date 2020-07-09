@@ -40,8 +40,8 @@ It provides hardware configuration, sensor acquisition and crypto-algorithm cont
 ### What's inside?
 
 **Sensors:**
-- [Time-to-Digital Converter based sensor (TDC)](https://github.com/samiBendou/sca_framework/wiki/TDC)
-- [Ring-Oscillator-based sensor (RO)](https://github.com/samiBendou/sca_framework/wiki/RO)
+- [Time-to-Digital Converter based sensor (TDC)](https://github.com/samiBendou/sca_framework/wiki/TDC-Sensor)
+- [Ring-Oscillator-based sensor (RO)](https://github.com/samiBendou/sca_framework/wiki/RO-Sensor)
 - *Your sensor ? (you can add your sensor in the vivado bloc design)*
 
 **Hardware Algorithms (VHDL - verilog)**
