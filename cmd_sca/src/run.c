@@ -254,11 +254,11 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     uint8_t key8[HEX_BYTES_SIZE], block8[HEX_BYTES_SIZE];
 
     printf("*** Start SCA power analysis ***\n\r");
-    HEX_random_words(key);
+    HEX_random_words(key, INT_MAX);
     HEX_words_to_bytes(key, key8);
     for (int idx = 0; idx < traces_count; idx++)
     {
-        HEX_random_words(block);
+        HEX_random_words(block, idx + 1);
         if (hw_idx == CMD_ERR_NOT_FOUND)
         {
             HEX_words_to_bytes(block, block8);

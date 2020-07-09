@@ -37,6 +37,6 @@ void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words);
 
 void HEX_words_to_bytes(const uint32_t *words, uint8_t *bytes);
 
-void HEX_random_words(uint32_t *words);
+void HEX_random_words(uint32_t *words, int seed);
 
 #endif //SCA_FRAMEWORK_HEX_H

@@ -13,6 +13,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "xil_printf.h"
 

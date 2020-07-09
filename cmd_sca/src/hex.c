@@ -55,9 +55,9 @@ void HEX_words_to_bytes(const uint32_t *words, uint8_t* bytes)
     }
 }
 
-void HEX_random_words(uint32_t *words)
+void HEX_random_words(uint32_t *words, int seed)
 {
-    srand(0);
+    srand(seed);
     for (size_t idx = 0; idx < HEX_WORDS_SIZE; idx++)
     {
         words[idx] = rand();
