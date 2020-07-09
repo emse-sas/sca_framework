@@ -67,7 +67,7 @@ CMD_err_t CMD_get_opts(char **words, size_t len, CMD_opt_t **options)
             if (next_len > 2 && words[next_word][0] == '0' && words[next_word][1] == 'x')
             {
                 options[option_idx]->type = CMD_VAL_TYPE_HEXADECIMAL;
-                HEX_parse_chars(words[next_word], options[option_idx]->value.bytes);
+                HEX_parse_chars(words[next_word], options[option_idx]->value.bytes, CMD_LINE_SIZE);
             }
             else
             {
@@ -145,4 +145,10 @@ int CMD_parse_line(char *line, CMD_cmd_t *cmd)
         return error;
 
     return CMD_ERR_NONE;
+}
+
+int CMD_simultaneously_present(const int opt1_idx, const int opt2_idx)
+{
+    return ((opt1_idx != CMD_ERR_NOT_FOUND && opt2_idx != CMD_ERR_NOT_FOUND) ||
+           (opt1_idx == CMD_ERR_NOT_FOUND && opt2_idx == CMD_ERR_NOT_FOUND));
 }

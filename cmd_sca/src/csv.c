@@ -1,11 +1,15 @@
 
 #include "csv.h"
 
-void CSV_stringify(char* str, unsigned int *weights, size_t len)
+void CSV_stringify_u32(char *str, unsigned int *weights, size_t len)
 {
+	if(len == 0) {
+		return;
+	}
+
     for (size_t idx = 0; idx < len - 1; idx++)
     {
         sprintf(str + 4 * idx, "%02u, ", weights[idx]);
     }
-    sprintf(str + 4 * (len - 1), "%02u", weights[len - 1]);
+	sprintf(str + 4 * (len - 1), "%02u", weights[len - 1]);
 }

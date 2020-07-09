@@ -206,4 +206,12 @@ int CMD_check_options(CMD_cmd_t cmd);
  */
 int CMD_find_option(const CMD_opt_t **options, char label);
 
+/**
+ * @brief Checks either the two given options are simultaneously present
+ * @param opt1_idx first option index
+ * @param opt2_idx second option index
+ */
+int CMD_simultaneously_present(const int opt1_idx, const int opt2_idx);
+
+
 #endif //SCA_FRAMEWORK_CMD_H

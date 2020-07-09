@@ -7,7 +7,6 @@
 #ifndef SCA_FRAMEWORK_RUN_H
 #define SCA_FRAMEWORK_RUN_H
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,13 +24,14 @@
 #include "tdc_hw.h"
 #include "fifo_hw.h"
 
+#define RUN_AES_BYTES_SIZE 16
+#define RUN_AES_WORDS_SIZE 4
 
 typedef enum
 {
     RUN_SUCCESS = -1,
     RUN_FAILURE = -2
 } RUN_status_t;
-
 
 /**
  * @brief Prints the help message for all commands
@@ -73,14 +73,12 @@ void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq);
  */
 void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq);
 
-
 /**
  * @brief Launches the aes command
  * @param non-optional command
  * @return `RUN_FAILURE` when the operation failed else `RUN_SUCCESS`
  */
 RUN_status_t RUN_aes(const CMD_cmd_t *cmd);
-
 
 /**
  * @brief Launches the tdc command

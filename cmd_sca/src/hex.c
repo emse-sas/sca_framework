@@ -4,36 +4,41 @@
 
 #include "hex.h"
 
-void HEX_parse_chars(const char *word, uint8_t *bytes)
+void HEX_parse_chars(const char *word, uint8_t *bytes, size_t len)
 {
     char buffer[3] = "00";
-    const char *word_ptr = (word[1] != 'x' ? word : word + 2);
-    int idx = 0;
-    for (; idx < HEX_BYTES_SIZE; idx++)
+    size_t init_idx =  word[1] != 'x' ? 0 : 2;
+    for (size_t idx = init_idx; idx < 2 * len; idx += 2)
     {
-        buffer[0] = word_ptr[2 * idx];
-        buffer[1] = word_ptr[2 * idx + 1];
-        bytes[idx] = strtol(buffer, NULL, 16);
+        buffer[0] = word[idx];
+        buffer[1] = word[idx + 1];
+        bytes[(idx - init_idx) >> 1] = strtol(buffer, NULL, 16);
     }
 }
 
-void HEX_print_bytes(const uint8_t *bytes)
+void HEX_stringify_bytes(char *str, const uint8_t *bytes, size_t len)
 {
-    xil_printf("0x%02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x %02x%02x%02x%02x",
-               bytes[0], bytes[1], bytes[2], bytes[3],
-               bytes[4], bytes[5], bytes[6], bytes[7],
-               bytes[8], bytes[9], bytes[10], bytes[11],
-               bytes[12], bytes[13], bytes[14], bytes[15]);
+    size_t str_idx = 0;
+    for (size_t idx = 0; idx < len; idx += 4)
+    {
+        sprintf(str + 9 * str_idx, "%02x%02x%02x%02x ", bytes[idx], bytes[idx + 1], bytes[idx + 2], bytes[idx + 3]);
+        str_idx++;
+    }
 }
 
-void HEX_print_words(const uint32_t *words)
+void HEX_stringify_words(char *str, const uint32_t *words, size_t len)
 {
-    xil_printf("0x%08x %08x %08x %08x", words[0], words[1], words[2], words[3]);
+    size_t str_idx = 0;
+    for (size_t idx = 0; idx < len; idx++)
+    {
+        sprintf(str + 9 * str_idx, "%08x ", words[idx]);
+        str_idx++;
+    }
 }
 
-void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words)
+void HEX_bytes_to_words(uint32_t *words, const uint8_t *bytes, size_t len)
 {
-    for (size_t idx = 0; idx < HEX_BYTES_SIZE; idx += 4)
+    for (size_t idx = 0; idx < len; idx += 4)
     {
         words[idx / 4] = ((uint32_t)bytes[idx] << 24) +
                          ((uint32_t)bytes[idx + 1] << 16) +
@@ -42,10 +47,10 @@ void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words)
     }
 }
 
-void HEX_words_to_bytes(const uint32_t *words, uint8_t* bytes)
+void HEX_words_to_bytes(uint8_t *bytes, const uint32_t *words, size_t len)
 {
     size_t words_idx;
-    for (size_t idx = 0; idx < HEX_BYTES_SIZE; idx += 4)
+    for (size_t idx = 0; idx < len; idx += 4)
     {
         words_idx = idx / 4;
         bytes[idx] = (words[words_idx] >> 24);
@@ -55,10 +60,10 @@ void HEX_words_to_bytes(const uint32_t *words, uint8_t* bytes)
     }
 }
 
-void HEX_random_words(uint32_t *words, int seed)
+void HEX_random_words(uint32_t *words, int seed, size_t len)
 {
     srand(seed);
-    for (size_t idx = 0; idx < HEX_WORDS_SIZE; idx++)
+    for (size_t idx = 0; idx < len; idx++)
     {
         words[idx] = rand();
     }
