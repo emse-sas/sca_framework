@@ -35,14 +35,30 @@ void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words)
 {
     for (size_t idx = 0; idx < HEX_BYTES_SIZE; idx += 4)
     {
-        words[idx / 4] = ((uint32_t)bytes[idx] << 24) + ((uint32_t)bytes[idx + 1] << 16) + ((uint32_t)bytes[idx + 2] << 8) + (uint32_t)bytes[idx + 3];
+        words[idx / 4] = ((uint32_t)bytes[idx] << 24) +
+                         ((uint32_t)bytes[idx + 1] << 16) +
+                         ((uint32_t)bytes[idx + 2] << 8) +
+                         (uint32_t)bytes[idx + 3];
+    }
+}
+
+void HEX_words_to_bytes(const uint32_t *words, uint8_t* bytes)
+{
+    size_t words_idx;
+    for (size_t idx = 0; idx < HEX_BYTES_SIZE; idx += 4)
+    {
+        words_idx = idx / 4;
+        bytes[idx] = (words[words_idx] >> 24);
+        bytes[idx + 1] = (words[words_idx] >> 16) & 0xff;
+        bytes[idx + 2] = (words[words_idx] >> 8) & 0xff;
+        bytes[idx + 3] = words[words_idx] & 0xff;
     }
 }
 
 void HEX_random_words(uint32_t *words)
 {
     srand(0);
-    for (size_t idx = 0; idx < HEX_WORDS_SIZE; idx ++)
+    for (size_t idx = 0; idx < HEX_WORDS_SIZE; idx++)
     {
         words[idx] = rand();
     }

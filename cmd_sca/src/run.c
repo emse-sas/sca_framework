@@ -53,7 +53,7 @@ void RUN_quit()
     xil_printf("*** Exiting ***\n\r");
 }
 
-void RUN_tiny_aes(uint8_t *block, uint8_t *key, int inv, int acq)
+void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
 {
     struct AES_ctx ctx;
 
@@ -104,7 +104,7 @@ void RUN_tiny_aes(uint8_t *block, uint8_t *key, int inv, int acq)
     xil_printf("\n\r");
 }
 
-void RUN_hw_aes(uint32_t *block, uint32_t *key, int inv, int acq)
+void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq)
 {
     xil_printf("*** Start hardware AES ***\n\r");
 
@@ -249,8 +249,27 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
         return RUN_FAILURE;
     }
     int traces_count = cmd->options[traces_idx]->value.integer;
-    
+    int inv = inv_idx != CMD_ERR_NOT_FOUND;
+    uint32_t key[HEX_WORDS_SIZE], block[HEX_WORDS_SIZE];
+    uint8_t key8[HEX_BYTES_SIZE], block8[HEX_BYTES_SIZE];
+
     printf("*** Start SCA power analysis ***\n\r");
+    HEX_random_words(key);
+    HEX_words_to_bytes(key, key8);
+    for (int idx = 0; idx < traces_count; idx++)
+    {
+        HEX_random_words(block);
+        if (hw_idx == CMD_ERR_NOT_FOUND)
+        {
+            HEX_words_to_bytes(block, block8);
+            RUN_tiny_aes(block8, key8, inv, 1);
+        }
+        else
+        {
+            RUN_tiny_aes(block, key, inv, 1);
+        }
+        RUN_fifo_read();
+    }
 
     return RUN_SUCCESS;
 }
@@ -316,6 +335,9 @@ RUN_status_t RUN_cmd()
             break;
         case CMD_TYPE_FIFO:
             run_status = RUN_fifo(&cmd);
+            break;
+        case CMD_TYPE_SCA:
+            run_status = RUN_sca(&cmd);
             break;
         default:
             fprintf(stderr, "Not implemented: %s\n\r", strtok(line, " "));

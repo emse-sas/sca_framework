@@ -15,7 +15,7 @@
 #include "op.h"
 
 #define HEX_BYTES_SIZE 16 /** Size of the bytes arrays to process */
-#define HEX_WORDS_SIZE 4 /** Size of the words arrays to process */
+#define HEX_WORDS_SIZE 4  /** Size of the words arrays to process */
 
 /**
  * @brief Parse the string given in argument to get a hexadecimal value bytes
@@ -34,6 +34,8 @@ void HEX_print_words(const uint32_t *words);
  * @param words destination words
  */
 void HEX_bytes_to_words(const uint8_t *bytes, uint32_t *words);
+
+void HEX_words_to_bytes(const uint32_t *words, uint8_t *bytes);
 
 void HEX_random_words(uint32_t *words);
 

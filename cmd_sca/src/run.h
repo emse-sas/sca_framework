@@ -61,7 +61,7 @@ void RUN_quit();
  * @param inv 1 for decryption 0 for encryption
  * @param acq 1 for sensor acquisition during computation, 0 otherwise 
  */
-void RUN_tiny_aes(uint8_t *block, uint8_t *key, int inv, int acq);
+void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq);
 
 /**
  * @brief Launch AES computation using FPGA implementation of AES and displays results
@@ -70,7 +70,7 @@ void RUN_tiny_aes(uint8_t *block, uint8_t *key, int inv, int acq);
  * @param inv 1 for decryption 0 for encryption
  * @param acq 1 for sensor acquisition during computation, 0 otherwise 
  */
-void RUN_hw_aes(uint32_t *block, uint32_t *key, int inv, int acq);
+void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq);
 
 
 /**

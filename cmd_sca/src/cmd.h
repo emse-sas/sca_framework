@@ -23,7 +23,7 @@
 #define CMD_LINE_SIZE 512    /** maximum size of the line buffer */
 #define CMD_MAX_OPTIONS 10   /** maximum number of options in a command */
 #define CMD_NULL_OPTION 0    /** label code for the null option */
-#define CMD_COUNT_TYPE 6     /** count of available commands */
+#define CMD_COUNT_TYPE 7     /** count of available commands */
 #define CMD_COUNT_VAL_TYPE 4 /** count of available options value types */
 
 typedef enum
