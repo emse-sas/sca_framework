@@ -1,3 +1,9 @@
+-------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file tdc.vhd
+--! @brief FIFO acquisition controller to synchronize acquisition with crypto-algorithm
+-------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 
