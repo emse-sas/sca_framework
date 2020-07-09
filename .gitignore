@@ -28,3 +28,5 @@ vivado_ip/managed_ip_project/managed_ip_project.tmp/
 cmd_sca/_ide/
 
 vivado_ip/managed_ip_project/managed_ip_project.cache/
+
+.idea/
