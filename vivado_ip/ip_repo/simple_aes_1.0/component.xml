@@ -298,7 +298,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>781601ff</spirit:value>
+            <spirit:value>5127e797</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -314,7 +314,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>781601ff</spirit:value>
+            <spirit:value>5127e797</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -356,7 +356,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>aa9547bd</spirit:value>
+            <spirit:value>c17e47ae</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1035,8 +1035,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>Advanced Encryption Standard (AES)</xilinx:displayName>
-      <xilinx:coreRevision>15</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2020-07-08T08:05:15Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>16</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2020-07-09T14:35:53Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4f0fbc20_ARCHIVE_LOCATION">d:/codesign/ip/simple_aes/simple_aes_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@972d77_ARCHIVE_LOCATION">d:/codesign/ip/simple_aes/simple_aes_1.0</xilinx:tag>
@@ -1190,13 +1190,55 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@6ee684a2_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@6a97a81a_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@166d1a7b_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d724b46_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@511de78e_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6afd826d_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ff627fc_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b132261_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@51527697_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b43e435_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@47d35625_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@918f196_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7f0e88c7_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@651b4fdb_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@31d1ceae_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7dbf58ab_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d4b0fad_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4bbd97e2_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ac5537e_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@41e63eb5_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4dd1cceb_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@528a5b77_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1194eed_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3ecfd4a_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@114621f9_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27e9820d_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@73e38983_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5910afbc_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@54477007_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e2bd8b6_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2348dc18_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f58cf6f_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f0cb4f2_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a6a5e80_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fb3c0b_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@21c1b59d_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25529104_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@457765cb_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d264c8a_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@68164faf_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@389ceb00_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@22db2cd0_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40edfa9f_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1add0994_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40a78974_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/simple_aes_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="ba9a2df2"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c30980da"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="7c61f758"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="b2b16101"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="57612c7c"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="77846896"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="4f8c8140"/>

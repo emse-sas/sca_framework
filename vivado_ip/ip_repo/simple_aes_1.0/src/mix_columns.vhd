@@ -1,8 +1,8 @@
---------------------------------------------------------------------------------
--- @author DAHOUX Sami
--- @date 27 Octobre 2017
--- @component mix_columns
---------------------------------------------------------------------------------
+ -------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file mix_columns.vhd
+--! @brief LUT-style mix columns operation
+-------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;

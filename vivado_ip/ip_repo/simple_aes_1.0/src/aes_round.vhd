@@ -1,3 +1,9 @@
+ -------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file aes_round.vhd
+--! @brief Top level for round combinatorial
+-------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 
