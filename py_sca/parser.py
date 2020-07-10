@@ -30,8 +30,8 @@ class Log:
                 elif line.startswith("cipher"):
                     split = line.split(" ")
                     ciphers.append(list(map(lambda x: hex(int(x, 16)), split[1:-1])))
-                elif re.match("([0-9]+,\s*)*\s*[0-9]+", line):
-                    split = line.split(", ")
+                elif re.match(r"([0-9]+,\s*)*\s*[0-9]+", line):
+                    split = line.split(",")
                     traces.append(list(map(lambda x: int(x), split)))
 
         return Log(plains, ciphers, keys, traces)
