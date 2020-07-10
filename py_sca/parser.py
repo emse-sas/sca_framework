@@ -1,5 +1,6 @@
 import re
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 class Log:
@@ -43,6 +44,8 @@ print(log.ciphers)
 print(log.keys)
 print(log.traces)
 
+n = 10
 for trace in log.traces:
+    trace = np.convolve(trace, np.ones((n,))/n, mode='valid')
     plt.plot(trace)
     plt.show()
