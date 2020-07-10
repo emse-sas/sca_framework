@@ -11,8 +11,8 @@
 
 #include "xparameters.h"
 #include "xil_io.h"
+#include "op.h"
 #include <stdint.h>
-#include <math.h>
 
 #define TDC_HW_WORD_SIZE 4
 
@@ -26,7 +26,10 @@
 #define TDC_HW_DELAY(fine, coarse) (fine | (coarse << 4)) /** delay value formating */
 
 #define TDC_HW_DEFAULT_CALIBRATE_IT 512 /** default iteration count for sensor calibration */
+#define TDC_HW_CALIBRATE_TARGET 0xffff
 
+#define TDC_HW_MAX_COARSE 0x3
+#define TDC_HW_MAX_FINE 0xf
 
 /**
  * @brief Reads the current value of the TDC data registers

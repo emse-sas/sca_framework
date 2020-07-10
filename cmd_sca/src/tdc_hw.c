@@ -13,11 +13,11 @@ void TDC_HW_set_delay(uint32_t delay)
 uint32_t TDC_HW_calibrate(int iterations)
 {
     iterations = iterations ? iterations : TDC_HW_DEFAULT_CALIBRATE_IT;
-    uint32_t delay, best_delay = 0x00000000;
-    uint64_t value, best_value = 0xffffffffffffffff;
-    for (uint32_t coarse = 0; coarse <= 0x3; coarse++)
+    uint32_t delay, best_delay = 0;
+    uint64_t value, best_value = UINT64_MAX;
+    for (uint32_t coarse = 0; coarse <= TDC_HW_MAX_COARSE; coarse++)
     {
-        for (uint32_t fine = 0; fine <= 0xf; fine++)
+        for (uint32_t fine = 0; fine <= TDC_HW_MAX_FINE; fine++)
         {
             delay = TDC_HW_DELAY(fine, coarse);
             value = 0;
@@ -27,7 +27,7 @@ uint32_t TDC_HW_calibrate(int iterations)
                 value += TDC_HW_read();
             }
             value /= iterations;
-            if (value < best_value)
+            if (OP_hamming_distance(TDC_HW_CALIBRATE_TARGET, value) < OP_hamming_distance(TDC_HW_CALIBRATE_TARGET, best_value))
             {
                 best_delay = delay;
                 best_value = value;
