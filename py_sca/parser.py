@@ -1,6 +1,7 @@
 import re
 import matplotlib.pyplot as plt
 import numpy as np
+import py_sca.stats as stats
 
 
 class Log:
@@ -32,7 +33,7 @@ class Log:
                     ciphers.append(list(map(lambda x: hex(int(x, 16)), split[1:-1])))
                 elif re.match(r"([0-9]+,\s*)*\s*[0-9]+", line):
                     split = line.split(",")
-                    traces.append(list(map(lambda x: int(x), split)))
+                    traces.append(list(map(lambda x: int(x), split))[:8000])
 
         return Log(plains, ciphers, keys, traces)
 
@@ -44,8 +45,18 @@ print(log.ciphers)
 print(log.keys)
 print(log.traces)
 
-n = 10
-for trace in log.traces:
-    trace = np.convolve(trace, np.ones((n,))/n, mode='valid')
-    plt.plot(trace)
+l = len(log.traces[0])
+m = len(log.traces)
+n = 32
+
+for idx in range(0, m):
+    log.traces[idx] = stats.sliding_average(log.traces[idx], n)
+
+for idx in range(m - 10, m):
+    plt.plot(log.traces[idx])
     plt.show()
+traces = np.array(log.traces)
+mean = traces.mean(axis=0)
+plt.plot(mean, color="red")
+plt.show()
+
