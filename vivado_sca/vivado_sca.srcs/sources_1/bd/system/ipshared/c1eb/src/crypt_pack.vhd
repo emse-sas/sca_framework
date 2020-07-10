@@ -1,3 +1,9 @@
+ -------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file crypt_pack.vhd
+--! @brief Utilities package for crypto-algorithms
+-------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 

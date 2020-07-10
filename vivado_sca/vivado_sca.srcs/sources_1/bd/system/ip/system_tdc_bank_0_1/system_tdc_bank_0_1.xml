@@ -671,11 +671,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Jul 08 08:09:46 UTC 2020</spirit:value>
+            <spirit:value>Thu Jul 09 17:48:35 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:0007f032</spirit:value>
+            <spirit:value>9:94f265f1</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -686,7 +686,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:0007f032</spirit:value>
+            <spirit:value>9:94f265f1</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -702,11 +702,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Jul 08 18:56:49 UTC 2020</spirit:value>
+            <spirit:value>Thu Jul 09 17:48:35 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:0007f032</spirit:value>
+            <spirit:value>9:94f265f1</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -722,11 +722,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Jul 08 08:09:46 UTC 2020</spirit:value>
+            <spirit:value>Thu Jul 09 17:48:35 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:2a822869</spirit:value>
+            <spirit:value>9:be77bdaa</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -742,11 +742,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Jul 08 18:56:49 UTC 2020</spirit:value>
+            <spirit:value>Thu Jul 09 17:48:35 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:2a822869</spirit:value>
+            <spirit:value>9:be77bdaa</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1175,47 +1175,47 @@
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlsynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/clock_mux.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/clock_mux.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/coarse_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/coarse_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/coarse_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/coarse_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/fine_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/fine_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/fine_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/fine_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/sampling_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/sampling_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/sampling_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/sampling_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/tdc.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/tdc.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/tdc_bank.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/tdc_bank.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/hdl/tdc_bank_v1_0_S_AXI.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/hdl/tdc_bank_v1_0_S_AXI.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/hdl/tdc_bank_v1_0.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/hdl/tdc_bank_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1230,47 +1230,47 @@
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/clock_mux.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/clock_mux.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/coarse_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/coarse_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/coarse_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/coarse_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/fine_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/fine_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/fine_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/fine_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/sampling_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/sampling_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/sampling_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/sampling_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/tdc.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/tdc.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/src/tdc_bank.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/src/tdc_bank.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/hdl/tdc_bank_v1_0_S_AXI.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/hdl/tdc_bank_v1_0_S_AXI.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/20db/hdl/tdc_bank_v1_0.vhd</spirit:name>
+        <spirit:name>../../ipshared/abb2/hdl/tdc_bank_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1347,7 +1347,7 @@
   <spirit:vendorExtensions>
     <xilinx:coreExtensions>
       <xilinx:displayName>Time to Digital Converter (TDC)</xilinx:displayName>
-      <xilinx:coreRevision>5</xilinx:coreRevision>
+      <xilinx:coreRevision>6</xilinx:coreRevision>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@61a16a5e_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1653b297_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
@@ -1416,6 +1416,11 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5ecb18a2_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@539e5a1e_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@270f35e9_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2da29d85_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77fe7dee_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f165d34_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ed1f5a8_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@61229d6_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
       </xilinx:tags>
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.CLOCK_I.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
@@ -1472,7 +1477,7 @@
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="f6b97cbd"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c30980da"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="a3daeaa9"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="eec5dc65"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="2716582e"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="0d4e5e44"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="c84cbaf9"/>

@@ -1,3 +1,10 @@
+-------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file coarse_line.vhd
+--! @brief Coarse delay block, providing a large amount of delay
+-------------------------------------------------------
+
+
 library ieee;
 use ieee.std_logic_1164.all;
 Library unisim;

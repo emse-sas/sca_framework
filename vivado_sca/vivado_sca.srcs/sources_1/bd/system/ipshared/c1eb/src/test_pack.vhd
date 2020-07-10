@@ -1,3 +1,9 @@
+ -------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file test_pack.vhd
+--! @brief NIST test values for AES algorithm
+-------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

@@ -1,8 +1,8 @@
---------------------------------------------------------------------------------
--- @author DAHOUX Sami
--- @date 21 Novembre 2017
--- @component key_expansion
---------------------------------------------------------------------------------
+ -------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file key_expansion.vhd
+--! @brief Top level for key expansion
+-------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;

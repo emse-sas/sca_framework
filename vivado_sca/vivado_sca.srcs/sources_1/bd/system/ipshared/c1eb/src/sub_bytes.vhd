@@ -1,8 +1,9 @@
---------------------------------------------------------------------------------
--- @author DAHOUX Sami
--- @date 27 Octobre 2017
--- @component sub_bytes
---------------------------------------------------------------------------------
+ -------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file sub_bytes.vhd
+--! @brief LUT-style sub-bytes operation
+-------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

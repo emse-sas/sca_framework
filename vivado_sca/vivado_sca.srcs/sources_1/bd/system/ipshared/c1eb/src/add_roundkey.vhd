@@ -1,8 +1,9 @@
- --------------------------------------------------------------------------------
--- @author DAHOUX Sami
--- @date 16 Décembre 2017
--- @component add_roundkey
---------------------------------------------------------------------------------
+ -------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file add_roundkey.vhd
+--! @brief XOR between data block and round key
+-------------------------------------------------------
+
 
 library ieee;
 use ieee.std_logic_1164.all;

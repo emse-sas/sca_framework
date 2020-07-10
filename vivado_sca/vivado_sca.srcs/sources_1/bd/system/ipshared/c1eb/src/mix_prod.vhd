@@ -1,3 +1,9 @@
+ -------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file mix_prod.vhd
+--! @brief Mix column Gallois field product for an AES state column
+-------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

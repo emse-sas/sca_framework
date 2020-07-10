@@ -40,6 +40,8 @@
 #include "xil_exception.h"
 #include "xpseudo_asm.h"
 #include "xdebug.h"
+#define DEBUG
+
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions ******************************/

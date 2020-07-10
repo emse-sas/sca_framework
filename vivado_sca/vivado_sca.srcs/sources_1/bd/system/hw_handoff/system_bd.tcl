@@ -194,14 +194,19 @@ proc create_root_design { parentCell } {
   # Create instance: fifo_generator_0, and set properties
   set fifo_generator_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.2 fifo_generator_0 ]
   set_property -dict [ list \
+   CONFIG.Data_Count_Width {13} \
    CONFIG.Enable_Safety_Circuit {false} \
    CONFIG.Fifo_Implementation {Independent_Clocks_Block_RAM} \
    CONFIG.Full_Flags_Reset_Value {1} \
-   CONFIG.Full_Threshold_Assert_Value {1021} \
-   CONFIG.Full_Threshold_Negate_Value {1020} \
+   CONFIG.Full_Threshold_Assert_Value {8189} \
+   CONFIG.Full_Threshold_Negate_Value {8188} \
    CONFIG.Input_Data_Width {32} \
+   CONFIG.Input_Depth {8192} \
    CONFIG.Output_Data_Width {32} \
+   CONFIG.Output_Depth {8192} \
+   CONFIG.Read_Data_Count_Width {13} \
    CONFIG.Reset_Type {Asynchronous_Reset} \
+   CONFIG.Write_Data_Count_Width {13} \
  ] $fifo_generator_0
 
   # Create instance: processing_system7_0, and set properties

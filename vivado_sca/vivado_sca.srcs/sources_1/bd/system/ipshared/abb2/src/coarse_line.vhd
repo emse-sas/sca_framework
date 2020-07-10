@@ -1,3 +1,9 @@
+-------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
+--! @file coarse_line.vhd
+--! @brief Serial assembly of blocks containing 4 coarse block and a clock selector
+-------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 

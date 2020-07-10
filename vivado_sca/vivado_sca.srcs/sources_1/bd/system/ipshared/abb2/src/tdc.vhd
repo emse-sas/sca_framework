@@ -1,8 +1,7 @@
 -------------------------------------------------------
+--! @author Sami Dahoux (s.dahoux@emse.fr)
 --! @file tdc.vhd
---! @brief TDC sensor cell
---!
---! 
+--! @brief Top level wrapper
 -------------------------------------------------------
 
 library ieee;
