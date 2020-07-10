@@ -43,7 +43,7 @@
 #define FIFO_HW_STATUS_SET_0(status, status_reg) (status_reg & ~status)
 #define FIFO_HW_STATUS_GET(status, status_reg) (status_reg & status)
 
-#define FIFO_HW_STACK_SIZE 1024 /** Data size of the FIFO stack */
+#define FIFO_HW_STACK_SIZE 8192 /** Data size of the FIFO stack */
 
 /**
  * @brief Checks if the FIFO is empty

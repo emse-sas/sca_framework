@@ -6,7 +6,7 @@
 
 const static unsigned int bit_shift = 1;
 
-unsigned int OP_hamming_weight(unsigned int data) {
+unsigned char OP_hamming_weight(unsigned int data) {
     unsigned int weight = 0;
     for (; data > 0; data >>= bit_shift) {
         weight += data & bit_shift;
@@ -14,7 +14,7 @@ unsigned int OP_hamming_weight(unsigned int data) {
     return weight;
 }
 
-unsigned int OP_hamming_distance(unsigned int left, unsigned int right) {
+unsigned char OP_hamming_distance(unsigned int left, unsigned int right) {
     unsigned int bit_diff = left ^ right;
     unsigned int weight = 0;
     for (; bit_diff > 0; bit_diff >>= bit_shift) {
@@ -23,7 +23,7 @@ unsigned int OP_hamming_distance(unsigned int left, unsigned int right) {
     return weight;
 }
 
-void OP_words_to_hamming(const uint32_t *words, unsigned int *weights, size_t len)
+void OP_words_to_hamming(const uint32_t *words, unsigned char *weights, size_t len)
 {
     for (size_t idx = 0; idx < len; idx++)
     {

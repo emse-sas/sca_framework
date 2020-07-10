@@ -98,13 +98,13 @@ int CMD_check_options(CMD_cmd_t cmd)
     int option_valid;
     for (; option_idx < CMD_MAX_OPTIONS && cmd.options[option_idx] != NULL; option_idx++)
     {
-        option_valid = CMD_FALSE;
+        option_valid = 0;
         for (allowed_idx = 0; CMD_allowed_options[cmd.type][allowed_idx] != CMD_NULL_OPTION; allowed_idx++)
         {
             if (CMD_allowed_options[cmd.type][allowed_idx] != cmd.options[option_idx]->label ||
                 CMD_allowed_types[cmd.type][allowed_idx] != cmd.options[option_idx]->type)
                 continue;
-            option_valid = CMD_TRUE;
+            option_valid = 1;
             break;
         }
         if (!option_valid)
@@ -145,10 +145,4 @@ int CMD_parse_line(char *line, CMD_cmd_t *cmd)
         return error;
 
     return CMD_ERR_NONE;
-}
-
-int CMD_simultaneously_present(const int opt1_idx, const int opt2_idx)
-{
-    return ((opt1_idx != CMD_ERR_NOT_FOUND && opt2_idx != CMD_ERR_NOT_FOUND) ||
-           (opt1_idx == CMD_ERR_NOT_FOUND && opt2_idx == CMD_ERR_NOT_FOUND));
 }

@@ -15,7 +15,7 @@
  * @param data 32-bit raw data
  * @return value of the weight
  */
-unsigned int OP_hamming_weight(unsigned int data);
+unsigned char OP_hamming_weight(unsigned int data);
 
 /**
  * @brief Computes Hamming distance between the two given data
@@ -23,7 +23,7 @@ unsigned int OP_hamming_weight(unsigned int data);
  * @param right second 32-bit raw data
  * @return value of the distance
  */
-unsigned int OP_hamming_distance(unsigned int left, unsigned int right);
+unsigned char OP_hamming_distance(unsigned int left, unsigned int right);
 
 /**
  * @brief Computes the Hamming weight of the given words
@@ -31,6 +31,6 @@ unsigned int OP_hamming_distance(unsigned int left, unsigned int right);
  * @param weights computed weights
  * @param len length of `words`
  */
-void OP_words_to_hamming(const uint32_t *words, unsigned int *weights, size_t len);
+void OP_words_to_hamming(const uint32_t *words, unsigned char *weights, size_t len);
 
 #endif //SCA_FRAMEWORK_OP_H

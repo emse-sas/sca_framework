@@ -26,11 +26,8 @@
 #define CMD_COUNT_TYPE 7     /** count of available commands */
 #define CMD_COUNT_VAL_TYPE 4 /** count of available options value types */
 
-typedef enum
-{
-    CMD_TRUE = 1,
-    CMD_FALSE = 0
-} CMD_bool_t;
+#define CMD_OPT_BOTH_PRESENT(idx1, idx2) (idx1 != CMD_ERR_NOT_FOUND && idx2 != CMD_ERR_NOT_FOUND)
+#define CMD_OPT_BOTH_MISSING(idx1, idx2) (idx1 == CMD_ERR_NOT_FOUND && idx2 == CMD_ERR_NOT_FOUND)
 
 /**
  * @brief enumerations of errors
@@ -133,7 +130,7 @@ const static char CMD_allowed_options[CMD_COUNT_TYPE][CMD_MAX_OPTIONS] = {
     {'c', CMD_NULL_OPTION},
     {CMD_NULL_OPTION},
     {'h', 'k', 'p', 'c', 'a', CMD_NULL_OPTION},
-    {'c', 'r', CMD_NULL_OPTION},
+    {'c', 'r', 'd', CMD_NULL_OPTION},
     {'f', 'r', CMD_NULL_OPTION},
     {'h', 'i', 't', CMD_NULL_OPTION}};
 
@@ -145,7 +142,7 @@ const static CMD_opt_val_type_t CMD_allowed_types[CMD_COUNT_TYPE][CMD_MAX_OPTION
     {CMD_VAL_TYPE_STRING, CMD_VAL_TYPE_END},
     {CMD_VAL_TYPE_END},
     {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_END},
-    {CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_END},
+    {CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_END},
     {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_END},
     {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_END},
 };
@@ -205,13 +202,5 @@ int CMD_check_options(CMD_cmd_t cmd);
  * @return `CMD_ERR_NONE` on success
  */
 int CMD_find_option(const CMD_opt_t **options, char label);
-
-/**
- * @brief Checks either the two given options are simultaneously present
- * @param opt1_idx first option index
- * @param opt2_idx second option index
- */
-int CMD_simultaneously_present(const int opt1_idx, const int opt2_idx);
-
 
 #endif //SCA_FRAMEWORK_CMD_H

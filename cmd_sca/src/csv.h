@@ -9,6 +9,6 @@
  * @param weights Hamming weights to stringify
  * @param length of `weights`
  */
-void CSV_stringify_u32(char* str, unsigned int *weights, size_t len);
+void CSV_stringify_u32(char* str, unsigned char *weights, size_t len);
 
 #endif // SCA_FRAMEWORK_CSV_H

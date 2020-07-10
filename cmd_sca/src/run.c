@@ -145,7 +145,9 @@ RUN_status_t RUN_aes(const CMD_cmd_t *cmd)
     int hw_idx = CMD_find_option(options_ptr, 'h');
     int acq_idx = CMD_find_option(options_ptr, 'a');
 
-    if (CMD_simultaneously_present(plain_idx, cipher_idx) || key_idx == CMD_ERR_NOT_FOUND)
+    if (CMD_OPT_BOTH_MISSING(plain_idx, cipher_idx) ||
+        CMD_OPT_BOTH_PRESENT(plain_idx, cipher_idx) ||
+        key_idx == CMD_ERR_NOT_FOUND)
     {
         return RUN_FAILURE;
     }
@@ -174,31 +176,41 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
     int calibrate_idx = CMD_find_option(options_ptr, 'c');
     int read_idx = CMD_find_option(options_ptr, 'r');
-    if (CMD_simultaneously_present(read_idx, calibrate_idx))
+    int delay_idx = CMD_find_option(options_ptr, 'd');
+
+    if (CMD_OPT_BOTH_PRESENT(calibrate_idx, delay_idx) ||
+        CMD_OPT_BOTH_MISSING(calibrate_idx, delay_idx) && read_idx == CMD_ERR_NOT_FOUND)
     {
         return RUN_FAILURE;
     }
 
-    if (read_idx == CMD_ERR_NOT_FOUND)
+    if (delay_idx != CMD_ERR_NOT_FOUND)
     {
-        printf("*** Start calibration ***\n\r");
-        printf("Best settings: 0x%08x\n\r", TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer));
+        TDC_HW_set_delay(cmd->options[delay_idx]->value.bytes[0]);
     }
-    printf("Current value: 0x%08x\n\r", TDC_HW_read());
+
+    if (calibrate_idx != CMD_ERR_NOT_FOUND)
+    {
+        xil_printf("*** Start calibration ***\n\r");
+        xil_printf("Best settings: 0x%08x\n\r", TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer));
+    }
+
+    xil_printf("Current value: 0x%08x\n\r", TDC_HW_read());
+
     return RUN_SUCCESS;
 }
 
 void RUN_fifo_flush()
 {
     FIFO_HW_clear();
-    printf("FIFO flushed!\n\r");
+    xil_printf("FIFO flushed!\n\r");
 }
 
 void RUN_fifo_read()
 {
-    printf("*** Start FIFO read ***\n\r");
+    xil_printf("*** Start FIFO read ***\n\r");
     uint32_t buffer[FIFO_HW_STACK_SIZE];
-    unsigned int weights[FIFO_HW_STACK_SIZE];
+    unsigned char weights[FIFO_HW_STACK_SIZE];
     int len = FIFO_HW_read(buffer, FIFO_HW_STACK_SIZE);
     len = len == FIFO_HW_ERR_NONE ? FIFO_HW_STACK_SIZE : len;
 
@@ -207,8 +219,8 @@ void RUN_fifo_read()
     {
         return;
     }
+    char str_weights[3 * FIFO_HW_STACK_SIZE + 1] = "";
     OP_words_to_hamming(buffer, weights, len);
-    char str_weights[4 * FIFO_HW_STACK_SIZE + 1] = "";
     CSV_stringify_u32(str_weights, weights, len);
     xil_printf("Hamming weights:\n\r%s\n\r", str_weights);
 }
@@ -218,7 +230,8 @@ RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
     int read_idx = CMD_find_option(options_ptr, 'r');
     int flush_idx = CMD_find_option(options_ptr, 'f');
-    if (CMD_simultaneously_present(read_idx, flush_idx))
+    if (CMD_OPT_BOTH_MISSING(read_idx, flush_idx) ||
+        CMD_OPT_BOTH_PRESENT(read_idx, flush_idx))
     {
         return RUN_FAILURE;
     }
@@ -249,7 +262,7 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     uint32_t key[RUN_AES_WORDS_SIZE], block[RUN_AES_WORDS_SIZE];
     uint8_t key8[RUN_AES_BYTES_SIZE], block8[RUN_AES_BYTES_SIZE];
 
-    printf("*** Start SCA power analysis ***\n\r");
+    xil_printf("*** Start SCA power analysis ***\n\r");
     HEX_random_words(key, INT_MAX, RUN_AES_WORDS_SIZE);
     HEX_words_to_bytes(key8, key, RUN_AES_BYTES_SIZE);
     for (int idx = 0; idx < traces_count; idx++)
@@ -262,6 +275,7 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
         }
         else
         {
+            RUN_fifo_flush();
             RUN_hw_aes(block, key, inv, 1);
         }
         RUN_fifo_read();
