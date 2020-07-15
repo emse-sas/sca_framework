@@ -1,4 +1,3 @@
-#include "xparameters.h"
 #include "run.h"
 
 int main(int argc, char *argv[])
