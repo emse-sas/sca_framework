@@ -178,12 +178,17 @@ proc create_root_design { parentCell } {
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0 ]
   set_property -dict [ list \
+   CONFIG.CLKOUT1_JITTER {162.035} \
+   CONFIG.CLKOUT1_PHASE_ERROR {164.985} \
    CONFIG.CLKOUT2_JITTER {142.107} \
    CONFIG.CLKOUT2_PHASE_ERROR {164.985} \
    CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {200} \
    CONFIG.CLKOUT2_USED {true} \
    CONFIG.CLK_OUT1_PORT {clk_aes} \
    CONFIG.CLK_OUT2_PORT {clk_acq} \
+   CONFIG.MMCM_CLKFBOUT_MULT_F {20.000} \
+   CONFIG.MMCM_CLKIN1_PERIOD {20.000} \
+   CONFIG.MMCM_CLKOUT0_DIVIDE_F {10.000} \
    CONFIG.MMCM_CLKOUT1_DIVIDE {5} \
    CONFIG.NUM_OUT_CLKS {2} \
  ] $clk_wiz_0
@@ -702,8 +707,8 @@ proc create_root_design { parentCell } {
   # Create instance: tdc_bank_0, and set properties
   set tdc_bank_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:tdc_bank:1.0 tdc_bank_0 ]
   set_property -dict [ list \
-   CONFIG.coarse_len_g {3} \
-   CONFIG.fine_len_g {1} \
+   CONFIG.coarse_len_g {1} \
+   CONFIG.fine_len_g {2} \
    CONFIG.sampling_len_g {8} \
  ] $tdc_bank_0
 

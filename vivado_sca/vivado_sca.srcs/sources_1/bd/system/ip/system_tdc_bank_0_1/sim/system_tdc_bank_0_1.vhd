@@ -155,8 +155,8 @@ ARCHITECTURE system_tdc_bank_0_1_arch OF system_tdc_bank_0_1 IS
 BEGIN
   U0 : tdc_bank_v1_0
     GENERIC MAP (
-      coarse_len_g => 3,
-      fine_len_g => 1,
+      coarse_len_g => 1,
+      fine_len_g => 2,
       sampling_len_g => 8,
       count_tdc_g => 1,
       C_S_AXI_DATA_WIDTH => 32,

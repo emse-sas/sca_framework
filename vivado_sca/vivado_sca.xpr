@@ -48,13 +48,13 @@
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="80"/>
-    <Option Name="WTModelSimExportSim" Val="80"/>
-    <Option Name="WTQuestaExportSim" Val="80"/>
-    <Option Name="WTIesExportSim" Val="80"/>
-    <Option Name="WTVcsExportSim" Val="80"/>
-    <Option Name="WTRivieraExportSim" Val="80"/>
-    <Option Name="WTActivehdlExportSim" Val="80"/>
+    <Option Name="WTXSimExportSim" Val="93"/>
+    <Option Name="WTModelSimExportSim" Val="93"/>
+    <Option Name="WTQuestaExportSim" Val="93"/>
+    <Option Name="WTIesExportSim" Val="93"/>
+    <Option Name="WTVcsExportSim" Val="93"/>
+    <Option Name="WTRivieraExportSim" Val="93"/>
+    <Option Name="WTActivehdlExportSim" Val="93"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -165,8 +165,8 @@
         <StratHandle Name="Flow_AreaOptimized_high" Flow="Vivado Synthesis 2020"/>
         <Step Id="synth_design">
           <Option Id="ControlSetOptThreshold">1</Option>
-          <Option Id="Directive">1</Option>
           <Option Id="FlattenHierarchy">1</Option>
+          <Option Id="Directive">1</Option>
         </Step>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
