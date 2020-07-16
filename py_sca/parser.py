@@ -11,7 +11,7 @@ class Log:
         self.traces = traces
         self.read_counts = []
 
-    def _parse_line(self, line):
+    def _parse_line(self, line, mini=True):
         line = line.lower().replace("\n", "")
 
         if line.startswith("key:"):
@@ -25,40 +25,46 @@ class Log:
             self.ciphers.append(list(map(lambda x: hex(int(x, 16)), split[1:-1])))
         elif line.startswith("success:"):
             split = line.split(" ")
-            self.read_counts.append(split[-1])
-        elif re.match(r"([0-9]+,\s*)*\s*[0-9]+", line):
-            split = line.split(",")
+            self.read_counts.append(int(split[-2]))
+        elif mini and re.match(r"\S*;", line):
+            self.traces.append(list(map(lambda x: (ord(x) if ord(x) != 255 else 127) - ord(' '), line)))
+        elif not mini and re.match(r"([0-9]+,\s*)*\s*[0-9]+;*", line):
+            split = line[:-1].split(",")
             self.traces.append(list(map(lambda x: int(x), split)))
 
     def cropped_traces(self):
-        lens = list(map(lambda trace: len(trace), self.traces))
-        n = min(lens)
-        return list(map(lambda trace: trace[:n], self.traces))
+        n = min(self.read_counts)
+        m = 0
+        for i in range(0, n):
+            if len(list(filter(lambda t: t[i] != self.traces[0][i], self.traces))) != 0:
+                m = i
+                break
+        return list(map(lambda t: list(t[m:n]), self.traces))
 
     @classmethod
     def empty(cls):
         return Log([], [], [], [])
 
     @classmethod
-    def from_file(cls, filepath):
+    def from_file(cls, filepath, mini=True):
         with open(filepath, "r") as log_file:
             ret = cls.empty()
             for line in log_file:
-                ret._parse_line(line)
+                ret._parse_line(line, mini)
         return ret
 
     @classmethod
-    def from_serial(cls, count, port, baud=115200):
+    def from_serial(cls, count, port, baud=115200, mini=True):
         ser = serial.Serial(port, baud, timeout=None, parity=serial.PARITY_NONE, xonxoff=False)
 
         ser.flush()
-        ser.write(b"sca -t %d\n\r" % count)
+        ser.write(("sca -t %d%s\n\r" % (count, " -m" if mini else "")).encode())
         s = ser.read_until(b"end")
         lines = str(s, "utf-8").split("\n\r")
 
         ret = cls.empty()
         for line in lines:
-            ret._parse_line(line)
+            ret._parse_line(line, mini)
 
         ser.close()
         return ret
