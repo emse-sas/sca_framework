@@ -23,7 +23,7 @@ entity tdc_bank_v1_0 is
 		clock_i : in std_logic;
 		delta_i : in std_logic;
         delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-        data_o : out std_logic_vector(4 * count_tdc_g * sampling_len_g - 1 downto 0);
+        data_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -70,7 +70,7 @@ architecture arch_imp of tdc_bank_v1_0 is
 		clock_i : in std_logic;
 		delta_i : in std_logic;
 		delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-		data_o : out std_logic_vector(4 * count_tdc_g * sampling_len_g - 1 downto 0);
+		data_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
 		S_AXI_ACLK	: in std_logic;
 		S_AXI_ARESETN	: in std_logic;
 		S_AXI_AWADDR	: in std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);

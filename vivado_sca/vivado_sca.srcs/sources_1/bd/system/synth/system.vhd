@@ -1,7 +1,7 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Wed Jul 15 14:29:04 2020
+--Date        : Wed Jul 15 20:55:24 2020
 --Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
 --Command     : generate_target system.bd
 --Design      : system
@@ -1575,7 +1575,7 @@ architecture STRUCTURE of system is
   port (
     clock_i : in STD_LOGIC;
     delta_i : in STD_LOGIC;
-    delta_o : out STD_LOGIC_VECTOR ( 0 to 0 );
+    delta_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
     data_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
     s_axi_aclk : in STD_LOGIC;
     s_axi_aresetn : in STD_LOGIC;
@@ -1737,7 +1737,7 @@ architecture STRUCTURE of system is
   signal NLW_rst_ps7_0_50M_bus_struct_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_rst_ps7_0_50M_interconnect_aresetn_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_rst_ps7_0_50M_peripheral_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal NLW_tdc_bank_0_delta_o_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal NLW_tdc_bank_0_delta_o_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of DDR_cas_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CAS_N";
   attribute X_INTERFACE_INFO of DDR_ck_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_N";
@@ -2045,7 +2045,7 @@ tdc_bank_0: component system_tdc_bank_0_1
       clock_i => clk_wiz_0_clk_out2,
       data_o(31 downto 0) => tdc_bank_0_data_o(31 downto 0),
       delta_i => clk_wiz_0_clk_out2,
-      delta_o(0) => NLW_tdc_bank_0_delta_o_UNCONNECTED(0),
+      delta_o(3 downto 0) => NLW_tdc_bank_0_delta_o_UNCONNECTED(3 downto 0),
       s_axi_aclk => processing_system7_0_FCLK_CLK0,
       s_axi_araddr(4 downto 0) => ps7_0_axi_periph_M01_AXI_ARADDR(4 downto 0),
       s_axi_aresetn => rst_ps7_0_50M_peripheral_aresetn(0),

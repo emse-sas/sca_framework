@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: xilinx.com:user:tdc_bank:1.0
--- IP Revision: 6
+-- IP Revision: 11
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -57,7 +57,7 @@ ENTITY system_tdc_bank_0_1 IS
   PORT (
     clock_i : IN STD_LOGIC;
     delta_i : IN STD_LOGIC;
-    delta_o : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    delta_o : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
     data_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     s_axi_aclk : IN STD_LOGIC;
     s_axi_aresetn : IN STD_LOGIC;
@@ -98,7 +98,7 @@ ARCHITECTURE system_tdc_bank_0_1_arch OF system_tdc_bank_0_1 IS
     PORT (
       clock_i : IN STD_LOGIC;
       delta_i : IN STD_LOGIC;
-      delta_o : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      delta_o : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
       data_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       s_axi_aclk : IN STD_LOGIC;
       s_axi_aresetn : IN STD_LOGIC;
@@ -158,7 +158,7 @@ BEGIN
       coarse_len_g => 1,
       fine_len_g => 2,
       sampling_len_g => 8,
-      count_tdc_g => 1,
+      count_tdc_g => 4,
       C_S_AXI_DATA_WIDTH => 32,
       C_S_AXI_ADDR_WIDTH => 5
     )
