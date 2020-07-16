@@ -92,7 +92,7 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd);
 /**
  * @brief Reads values in FIFO and prints it
  */
-void RUN_fifo_read();
+void RUN_fifo_read(int mini);
 
 /**
  * @brief Flush values in FIFO

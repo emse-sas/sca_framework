@@ -220,7 +220,7 @@ void RUN_fifo_flush()
 #endif
 }
 
-void RUN_fifo_read()
+void RUN_fifo_read(int mini)
 {
 #ifdef SCA_DEBUG
     xil_printf("*** fifo read ***\n\r");
@@ -235,10 +235,21 @@ void RUN_fifo_read()
     {
         return;
     }
-    char str_weights[3 * FIFO_HW_STACK_SIZE + 1] = "";
+
     OP_words_to_hamming(buffer, weights, len);
-    CSV_stringify_u32(str_weights, weights, len);
-    xil_printf("%s\n\r", str_weights);
+    if (mini)
+    {
+        char str_weights[FIFO_HW_STACK_SIZE + 1] = "";
+        OP_encode_hamming(str_weights, weights, len);
+        xil_printf("%s;\n\r", str_weights);
+    }
+    else
+    {
+        char str_weights[3 * FIFO_HW_STACK_SIZE + 1] = "";
+        CSV_stringify_u32(str_weights, weights, len);
+        xil_printf("%s;\n\r", str_weights);
+    }
+    
 }
 
 RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
@@ -246,6 +257,8 @@ RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
     int read_idx = CMD_find_option(options_ptr, 'r');
     int flush_idx = CMD_find_option(options_ptr, 'f');
+    int min_idx = CMD_find_option(options_ptr, 'm');
+
     if (CMD_OPT_BOTH_MISSING(read_idx, flush_idx) ||
         CMD_OPT_BOTH_PRESENT(read_idx, flush_idx))
     {
@@ -253,7 +266,7 @@ RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
     }
     if (read_idx != CMD_ERR_NOT_FOUND)
     {
-        RUN_fifo_read();
+        RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
     }
     if (flush_idx != CMD_ERR_NOT_FOUND)
     {
@@ -269,6 +282,7 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     int traces_idx = CMD_find_option(options_ptr, 't');
     int hw_idx = CMD_find_option(options_ptr, 'h');
     int inv_idx = CMD_find_option(options_ptr, 'i');
+    int min_idx = CMD_find_option(options_ptr, 'm');
     if (traces_idx == CMD_ERR_NOT_FOUND)
     {
         return RUN_FAILURE;
@@ -297,7 +311,7 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
             RUN_fifo_flush();
             RUN_hw_aes(block, key, inv, 1);
         }
-        RUN_fifo_read();
+        RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
     }
     xil_printf("end\n\r");
     return RUN_SUCCESS;
