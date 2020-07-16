@@ -14,8 +14,8 @@ log = Log.from_serial(TRACES_COUNT, "COM5")
 
 # log SCA acquisition into CSV files
 if LOG_TO_CSV:
-    log.report_data("../../data/report_data.csv")
-    log.report_traces("../../data/report_traces.csv")
+    log.report_data("../../data/serial_report_data.csv")
+    log.report_traces("../../data/serial_report_traces.csv")
 
 # Crop traces and remove offset
 original_traces = np.array(log.cropped_traces())
