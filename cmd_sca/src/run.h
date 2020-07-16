@@ -7,6 +7,8 @@
 #ifndef SCA_FRAMEWORK_RUN_H
 #define SCA_FRAMEWORK_RUN_H
 
+#define SCA_DEBUG
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

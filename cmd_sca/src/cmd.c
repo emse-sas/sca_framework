@@ -28,6 +28,14 @@ void CMD_clear(CMD_cmd_t *command)
     }
 }
 
+void CMD_clear_option(CMD_opt_t **options, size_t idx)
+{
+    for (size_t i = 0; i < CMD_LINE_SIZE; i++)
+    {
+        options[idx]->value.bytes[i] = 0;
+    }
+}
+
 CMD_err_t CMD_get_type(const char *word, CMD_type_t *type)
 {
     size_t idx = 0;
@@ -56,6 +64,7 @@ CMD_err_t CMD_get_opts(char **words, size_t len, CMD_opt_t **options)
         if ((options[option_idx] = malloc(sizeof(CMD_opt_t))) == NULL)
             return CMD_ERR_ALLOC;
 
+        CMD_clear_option(options, option_idx);
         next_word = word_idx + 1;
         if (words[next_word] != NULL && words[next_word][0] != '-')
         {
@@ -67,7 +76,7 @@ CMD_err_t CMD_get_opts(char **words, size_t len, CMD_opt_t **options)
             if (next_len > 2 && words[next_word][0] == '0' && words[next_word][1] == 'x')
             {
                 options[option_idx]->type = CMD_VAL_TYPE_HEXADECIMAL;
-                HEX_parse_chars(words[next_word], options[option_idx]->value.bytes, CMD_LINE_SIZE);
+                HEX_parse_chars(words[next_word], options[option_idx]->value.bytes, next_len);
             }
             else
             {

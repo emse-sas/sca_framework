@@ -75,7 +75,7 @@ typedef union {
     char string[CMD_LINE_SIZE];   /** string component of the value */
     long long integer;            /** integer component of the value */
     uint8_t bytes[CMD_LINE_SIZE]; /** raw bytes of the value*/
-    uint32_t words[CMD_LINE_SIZE]; /** 32-bit raw words of the value*/
+    uint32_t words[CMD_LINE_SIZE >> 2]; /** 32-bit raw words of the value*/
 } CMD_opt_val_t;
 
 /**
