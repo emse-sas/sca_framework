@@ -1,6 +1,11 @@
 import re
 import serial
 import csv
+import numpy as np
+
+
+class ParsingError(Exception):
+    pass
 
 
 class Log:
@@ -12,7 +17,7 @@ class Log:
         self.read_counts = []
 
     def _parse_line(self, line, mini=True):
-        line = line.lower().replace("\n", "")
+        line = line.lower()
 
         if line.startswith("key:"):
             split = line.split(" ")
@@ -26,11 +31,20 @@ class Log:
         elif line.startswith("success:"):
             split = line.split(" ")
             self.read_counts.append(int(split[-2]))
-        elif mini and re.match(r"\S*;", line):
-            self.traces.append(list(map(lambda x: (ord(x) if ord(x) != 255 else 127) - ord(' '), line)))
-        elif not mini and re.match(r"([0-9]+,\s*)*\s*[0-9]+;*", line):
-            split = line[:-1].split(",")
-            self.traces.append(list(map(lambda x: int(x), split)))
+        else:
+            if mini and re.match(r"\S*;\n", line):
+                self.traces.append(list(map(lambda x: int((ord(x) if ord(x) != 255 else 127) - ord(' ')), line[:-2])))
+            elif not mini and re.match(r"([0-9]+,\s*)*\s*[0-9]+;\n", line):
+                split = line[:-2].split(",")
+                self.traces.append(list(map(lambda x: int(x), split)))
+            else:
+                return
+            if len(self.traces[-1]) != self.read_counts[-1]:
+                self.plains.pop()
+                self.ciphers.pop()
+                self.keys.pop()
+                self.traces.pop()
+                self.read_counts.pop()
 
     def cropped_traces(self):
         n = min(self.read_counts)
@@ -39,7 +53,17 @@ class Log:
             if len(list(filter(lambda t: t[i] != self.traces[0][i], self.traces))) != 0:
                 m = i
                 break
-        return list(map(lambda t: list(t[m:n]), self.traces))
+        return list(map(lambda t: t[m:n], self.traces))
+
+    def traces_matrix(self):
+        traces = self.cropped_traces()
+        n = len(traces)
+        m = len(traces[0])
+        ret = np.empty((n, m), dtype=float)
+        for i in range(0, n):
+            for j in range(0, m):
+                ret[i, j] = traces[i][j]
+        return ret
 
     @classmethod
     def empty(cls):
