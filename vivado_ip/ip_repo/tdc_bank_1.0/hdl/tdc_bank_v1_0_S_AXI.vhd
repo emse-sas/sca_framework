@@ -22,7 +22,7 @@ entity tdc_bank_v1_0_S_AXI is
 		clock_i : in std_logic;
 		delta_i : in std_logic;
         delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-        data_o : out std_logic_vector(4 * count_tdc_g * sampling_len_g - 1 downto 0);
+        data_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -113,8 +113,8 @@ architecture arch_imp of tdc_bank_v1_0_S_AXI is
 	------------------------------------------------
 	---- Signals for user logic register space example
 
-	signal fine_delay_s : std_logic_vector(3 downto 0);
-	signal coarse_delay_s : std_logic_vector(1 downto 0);
+	signal coarse_delay_s : std_logic_vector(2 * count_tdc_g - 1 downto 0);
+	signal fine_delay_s : std_logic_vector(4 * count_tdc_g - 1 downto 0);
 	signal data_s : std_logic_vector(4 * C_S_AXI_DATA_WIDTH - 1 downto 0);
 
 	component tdc_bank
@@ -127,10 +127,10 @@ architecture arch_imp of tdc_bank_v1_0_S_AXI is
 		port (
 			clock_i : in std_logic;
 			delta_i : in std_logic;
-			coarse_delay_i : in std_logic_vector(1 downto 0);
-			fine_delay_i : in std_logic_vector(3 downto 0);
+			coarse_delay_i : in std_logic_vector(2 * count_tdc_g - 1 downto 0);
+			fine_delay_i : in std_logic_vector(4 * count_tdc_g - 1 downto 0);
 			delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-			data_o : out std_logic_vector(4 * sampling_len_g * count_tdc_g - 1 downto 0)
+			data_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0)
 		) ;
     end component;
 
@@ -466,10 +466,10 @@ begin
 
 	-- Add user logic here
 	
-    coarse_delay_s <= slv_reg4(5 downto 4);
-    fine_delay_s <= slv_reg4(3 downto 0);
-	data_o <= data_s(4 * sampling_len_g * count_tdc_g - 1 downto 0);
-	data_s(4 * C_S_AXI_DATA_WIDTH - 1 downto  4 * sampling_len_g * count_tdc_g) <= (others => '0');
+    fine_delay_s <= slv_reg4(4 * count_tdc_g - 1 downto 0);
+    coarse_delay_s <= slv_reg5(2 * count_tdc_g - 1 downto 0);
+	data_o <= data_s(4 * sampling_len_g - 1 downto 0);
+	data_s(4 * C_S_AXI_DATA_WIDTH - 1 downto  4 * sampling_len_g) <= (others => '0');
 	top : tdc_bank
 	generic map (
 	    coarse_len_g => coarse_len_g,
@@ -483,7 +483,7 @@ begin
 	   coarse_delay_i => coarse_delay_s,
 	   fine_delay_i => fine_delay_s,
 	   delta_o => delta_o,
-	   data_o => data_s(4 * sampling_len_g * count_tdc_g - 1 downto 0)
+	   data_o => data_s(4 * sampling_len_g - 1 downto 0)
 	);
 
 	-- User logic ends

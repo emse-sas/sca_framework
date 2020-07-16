@@ -21,15 +21,19 @@
 #define TDC_HW_DATA_POS_1 1
 #define TDC_HW_DATA_POS_2 2
 #define TDC_HW_DATA_POS_3 3
-#define TDC_HW_DELAY_POS 4
+#define TDC_HW_DELAY_POS_FINE 4
+#define TDC_HW_DELAY_POS_COARSE 5
 #define TDC_HW_ADDR(pos) (TDC_HW_BASE_ADDR + TDC_HW_WORD_SIZE * pos)
 #define TDC_HW_DELAY(fine, coarse) (fine | (coarse << 4)) /** delay value formating */
 
 #define TDC_HW_DEFAULT_CALIBRATE_IT 512 /** default iteration count for sensor calibration */
 #define TDC_HW_CALIBRATE_TARGET 0xffff
 
-#define TDC_HW_MAX_COARSE 0x3
-#define TDC_HW_MAX_FINE 0xf
+#define TDC_HW_COUNT_TDC 4
+
+uint32_t TDC_HW_max_coarse();
+
+uint32_t TDC_HW_max_fine();
 
 /**
  * @brief Reads the current value of the TDC data registers
@@ -40,7 +44,7 @@ uint32_t TDC_HW_read();
 /**
  * @brief Writes the given value of the delay into the corresponding register
  */
-void TDC_HW_set_delay(uint32_t delay);
+void TDC_HW_set_delay(uint32_t fine, uint32_t coarse);
 
 /**
  * @brief Calibrates the TDC in order to provide the best range and sensitivity
@@ -52,6 +56,6 @@ void TDC_HW_set_delay(uint32_t delay);
  * @param iterations count of samples for average
  * @return choosen calibration delay value
  */
-uint32_t TDC_HW_calibrate(int iterations);
+uint64_t TDC_HW_calibrate(int iterations);
 
 #endif //SCA_FRAMEWORK_TDC_HW_H

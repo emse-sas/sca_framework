@@ -76,9 +76,9 @@ begin
 			);
 			mux : clock_mux
 			port map (
-					clocks_i => delta_s(n)(4 downto 1),
-					delay_i => delay_i(3 downto 2),
-					clock_o => delta_s(n + 1)(0)
+				clocks_i => delta_s(n)(4 downto 1),
+				delay_i => delay_i(3 downto 2),
+				clock_o => delta_s(n + 1)(0)
 			);
     end generate ; -- blocks
 

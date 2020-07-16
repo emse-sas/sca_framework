@@ -43,8 +43,8 @@ begin
 
     DUT : tdc
     generic map(
-      coarse_len_g => 1,
-      fine_len_g => 1,
+      coarse_len_g => 2,
+      fine_len_g => 2,
       sampling_len_g => 8
     )
     port map (
