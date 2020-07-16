@@ -11,7 +11,7 @@ log = Log.from_serial(TRACES_COUNT, "COM5")
 TRACES_COUNT = len(log.traces)
 l = len(log.traces[0])
 
-original_traces = np.array(log.traces)
+original_traces = np.array(log.cropped_traces())
 filtered_traces = original_traces.copy()
 # filtered_traces = stats.bandpass_filtering(filtered_traces, 200.)
 original_traces = original_traces - np.mean(original_traces, axis=1).reshape((TRACES_COUNT, 1))

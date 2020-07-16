@@ -33,3 +33,9 @@ vivado_ip/managed_ip_project/managed_ip_project.cache/
 /media/temp/
 
 vivado_sca/vivado_sca.ip_user_files/
+
+py_sca/__pycache__/
+
+platform_sca/tempdsa/
+
+data/
