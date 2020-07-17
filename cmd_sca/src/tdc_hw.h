@@ -24,16 +24,14 @@
 #define TDC_HW_DELAY_POS_FINE 4
 #define TDC_HW_DELAY_POS_COARSE 5
 #define TDC_HW_ADDR(pos) (TDC_HW_BASE_ADDR + TDC_HW_WORD_SIZE * pos)
-#define TDC_HW_DELAY(fine, coarse) ( (((uint64_t)coarse) << 32) | (uint64_t)fine) /** delay value formating */
+#define TDC_HW_DELAY_64(fine, coarse) (((coarse) << 32) | fine) /** delay value formating */
 
 #define TDC_HW_DEFAULT_CALIBRATE_IT 512 /** default iteration count for sensor calibration */
 #define TDC_HW_CALIBRATE_TARGET 0xffff
+#define TDC_HW_MAX_COARSE 0x3
+#define TDC_HW_MAX_FINE 0xf
 
 #define TDC_HW_COUNT_TDC 4
-
-uint32_t TDC_HW_max_coarse();
-
-uint32_t TDC_HW_max_fine();
 
 /**
  * @brief Reads the current value of the TDC data registers
@@ -44,7 +42,7 @@ uint32_t TDC_HW_read();
 /**
  * @brief Writes the given value of the delay into the corresponding register
  */
-void TDC_HW_write_delay(uint32_t fine, uint32_t coarse);
+void TDC_HW_write_delay(uint32_t fine, uint32_t coarse, int id);
 
 uint64_t TDC_HW_read_delay();
 /**

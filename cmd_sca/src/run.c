@@ -182,6 +182,9 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
     int calibrate_idx = CMD_find_option(options_ptr, 'c');
     int read_idx = CMD_find_option(options_ptr, 'r');
     int delay_idx = CMD_find_option(options_ptr, 'd');
+#ifdef SCA_DEBUG
+    uint64_t delay;
+#endif
 
     if (CMD_OPT_BOTH_PRESENT(calibrate_idx, delay_idx) ||
         (CMD_OPT_BOTH_MISSING(calibrate_idx, delay_idx) && read_idx == CMD_ERR_NOT_FOUND))
@@ -191,9 +194,10 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
 
     if (delay_idx != CMD_ERR_NOT_FOUND)
     {
-        TDC_HW_write_delay(cmd->options[delay_idx]->value.words[0], cmd->options[delay_idx]->value.words[1]);
+        TDC_HW_write_delay(cmd->options[delay_idx]->value.words[0], cmd->options[delay_idx]->value.words[1], -1);
 #ifdef SCA_DEBUG
-        printf("delay: 0x%016llx\n\r", TDC_HW_read_delay());
+        delay = TDC_HW_read_delay();
+        xil_printf("delay: 0x%08x%08x\n\r", (unsigned int) (delay >> 32), (unsigned int) delay);
 #endif
     }
 
@@ -201,7 +205,8 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
     {
 #ifdef SCA_DEBUG
         xil_printf("*** calibration ***\n\r");
-        xil_printf("delay: 0x%016llx\n\r", TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer));
+        delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);
+        xil_printf("delay: 0x%08x%08x\n\r", (unsigned int) (delay >> 32), (unsigned int) delay);
 #else
         TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);
 #endif
