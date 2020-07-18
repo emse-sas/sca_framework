@@ -1,15 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import sys
 from lib.logger import Log
 
 SEED_NO = 0
-COUNT_TRACES = 512  # count of traces to record from FPGA
+COUNT_TRACES = 4  # count of traces to record from FPGA
 AVG_LEN = 64  # sliding average convolution kernel size
 F_SAMPLING = 200e6  # sampling frequency of the acquisition system
 TRACES_TO_PLOT = 8  # count of raw traces to plot
 HARDWARE_AES = False
-LOG_SOURCE = "file"
+LOG_SOURCE = "serial"
 
 log = None
 if LOG_SOURCE == "serial":
@@ -22,8 +21,8 @@ else:
     pass
 
 # log SCA acquisition into CSV files
-log.report_data("../../data/serial_report_data.csv")
-log.report_traces("../../data/serial_report_traces.csv")
+log.report_data("data/serial_report_data.csv")
+log.report_traces("data/serial_report_traces.csv")
 
 # Crop traces and remove offsets
 traces = log.cropped_traces()
