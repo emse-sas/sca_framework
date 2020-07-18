@@ -21,7 +21,7 @@ entity tdc_bank is
         coarse_delay_i : in std_logic_vector(2 * count_tdc_g - 1 downto 0);
         fine_delay_i : in std_logic_vector(4 * count_tdc_g - 1 downto 0);
         delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-        data_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0)
+        data_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0)
   );
     attribute dont_touch : string;
     attribute dont_touch of tdc_bank: entity is "true";
@@ -49,9 +49,9 @@ architecture tdc_bank_arch of tdc_bank is
 
 begin
     -- data_o <= data_s;
-    parallel : for i in 0 to count_tdc_g - 1 generate
+    bank : for i in 0 to count_tdc_g - 1 generate
     
-    parallel_i: tdc
+    sensors: tdc
         generic map (
             coarse_len_g => coarse_len_g,
             fine_len_g => fine_len_g,
@@ -65,19 +65,22 @@ begin
             fine_delay_i => fine_delay_i(4 * (i + 1) - 1 downto 4 * i),
             data_o => data_s(4 * sampling_len_g * (i + 1) - 1 downto 4 * sampling_len_g * i)
         );
-    end generate ; -- parallel
+    end generate ; -- sensors
 
-    average : process( data_s )
-    variable data_os : unsigned(8 * sampling_len_g - 1 downto 0);
-    begin
-        data_os := (others => '0');
-        sum : for i in 0 to count_tdc_g - 1 loop
-            data_os := data_os + unsigned(data_s(4 * sampling_len_g * (i + 1) - 1 downto 4 * sampling_len_g * i));
+    weights : process( data_s )
+    type weights_array_t is array (0 to count_tdc_g - 1) of unsigned(7 downto 0);
+    variable weight_v : weights_array_t;
+    begin  
+        concat : for i in 0 to count_tdc_g - 1  loop
+            weight_v(i) := (others => '0');
+            filter : for j in 0 to 4 * sampling_len_g - 1 loop
+                if data_s(4 * sampling_len_g * i + j) = data_s(4 * sampling_len_g * i) then
+                    weight_v(i) := weight_v(i) + 1;
+                end if;
+            end loop ; -- weights
+            data_o(8 * (i + 1) - 1  downto 8 * i) <= std_logic_vector(weight_v(i));
         end loop ; -- sum
-        data_os := data_os / count_tdc_g;
-        data_o <= std_logic_vector(data_os(4 * sampling_len_g - 1 downto 0));
         
-    end process ; -- average
-
+    end process ; -- weigths
 
 end tdc_bank_arch ; -- tdc_bank_arch

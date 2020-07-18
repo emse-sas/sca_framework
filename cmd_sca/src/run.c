@@ -58,9 +58,7 @@ void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
     struct AES_ctx ctx;
     char *block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
 
-#ifdef SCA_DEBUG
     xil_printf("*** tiny aes ***\n\r");
-#endif
 
     HEX_stringify_bytes(key_str, key, RUN_AES_BYTES_SIZE);
     xil_printf("key: %s\n\r", key_str);
@@ -108,19 +106,15 @@ void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq)
 {
     char *block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
 
-#ifdef SCA_DEBUG
     xil_printf("*** hardware aes ***\n\r");
-#endif
 
     AES_HW_clear(inv ? AES_HW_DECRYPT : AES_HW_ENCRYPT);
 
     AES_HW_write_key(key);
-    AES_HW_read_key(key);
     HEX_stringify_words(key_str, key, RUN_AES_WORDS_SIZE);
     xil_printf("key: %s\n\r", key_str);
 
     AES_HW_write_input(block);
-    AES_HW_read_input(block);
     HEX_stringify_words(block_str, block, RUN_AES_WORDS_SIZE);
     xil_printf("%s: %s\n\r", inv ? "cipher" : "plain", block_str);
 
@@ -182,9 +176,6 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
     int calibrate_idx = CMD_find_option(options_ptr, 'c');
     int read_idx = CMD_find_option(options_ptr, 'r');
     int delay_idx = CMD_find_option(options_ptr, 'd');
-#ifdef SCA_DEBUG
-    uint64_t delay;
-#endif
 
     if (CMD_OPT_BOTH_PRESENT(calibrate_idx, delay_idx) ||
         (CMD_OPT_BOTH_MISSING(calibrate_idx, delay_idx) && read_idx == CMD_ERR_NOT_FOUND))
@@ -192,27 +183,23 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
         return RUN_FAILURE;
     }
 
+    uint64_t delay;
     if (delay_idx != CMD_ERR_NOT_FOUND)
     {
         TDC_HW_write_delay(cmd->options[delay_idx]->value.words[0], cmd->options[delay_idx]->value.words[1], -1);
-#ifdef SCA_DEBUG
-        delay = TDC_HW_read_delay();
+
+        delay = TDC_HW_read_delay(-1);
         xil_printf("delay: 0x%08x%08x\n\r", (unsigned int)(delay >> 32), (unsigned int)delay);
-#endif
     }
 
     if (calibrate_idx != CMD_ERR_NOT_FOUND)
     {
-#ifdef SCA_DEBUG
         xil_printf("*** calibration ***\n\r");
         delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);
         xil_printf("delay: 0x%08x%08x\n\r", (unsigned int)(delay >> 32), (unsigned int)delay);
-#else
-        TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);
-#endif
     }
 
-    xil_printf("value: %d\n\r", TDC_HW_read());
+    xil_printf("value: %08x\n\r", TDC_HW_read(-1));
 
     return RUN_SUCCESS;
 }
@@ -220,19 +207,15 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
 void RUN_fifo_flush()
 {
     FIFO_HW_clear();
-#ifdef SCA_DEBUG
     xil_printf("*** flush successful ***\n\r");
-#endif
 }
 
 void RUN_fifo_read(int mini)
 {
-#ifdef SCA_DEBUG
     xil_printf("*** read ***\n\r");
-#endif
-    uint32_t buffer[FIFO_HW_STACK_SIZE];
-    unsigned char weights[FIFO_HW_STACK_SIZE];
-    int len = FIFO_HW_read(buffer, FIFO_HW_STACK_SIZE);
+
+    uint32_t weights[FIFO_HW_STACK_SIZE];
+    int len = FIFO_HW_read(weights, FIFO_HW_STACK_SIZE);
     len = len == FIFO_HW_ERR_NONE ? FIFO_HW_STACK_SIZE : len;
 
     xil_printf("samples: %d\n\r", len);
@@ -241,17 +224,27 @@ void RUN_fifo_read(int mini)
         return;
     }
 
-    OP_words_to_hamming(buffer, weights, len);
+    uint32_t weight;
+    for (size_t idx = 0; idx < len; idx++)
+    {
+        weight = 0;
+        for (int id = 0; id < TDC_HW_COUNT_TDC; id++)
+        {
+            weight += TDC_HW_WEIGHT(weights[idx], id);
+        }
+        weights[idx] = weight;
+    }
+
     if (mini)
     {
         char str_weights[FIFO_HW_STACK_SIZE + 1] = "";
-        OP_encode_hamming(str_weights, buffer, len, TDC_HW_CALIBRATE_TARGET);
+        OP_encode_hamming(str_weights, weights, len, TDC_HW_CALIBRATE_TARGET * TDC_HW_COUNT_TDC);
         xil_printf("weights: %s\n\r", str_weights);
     }
     else
     {
         char str_weights[3 * FIFO_HW_STACK_SIZE + 1] = "";
-        OP_stringify_hamming(str_weights, buffer, len);
+        OP_stringify_hamming(str_weights, weights, len);
         xil_printf("weights: %s\n\r", str_weights);
     }
 }
@@ -297,9 +290,7 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     uint32_t key[RUN_AES_WORDS_SIZE], block[RUN_AES_WORDS_SIZE];
     uint8_t key8[RUN_AES_BYTES_SIZE], block8[RUN_AES_BYTES_SIZE];
 
-#ifdef SCA_DEBUG
     xil_printf("*** start acquisition ***\n\r");
-#endif
     xil_printf("mode: %s\n\r", hw ? "hardware" : "software");
     xil_printf("direction: %s\n\r", inv ? "decrypt" : "encrypt");
     xil_printf("target: %d\n\r", TDC_HW_CALIBRATE_TARGET);

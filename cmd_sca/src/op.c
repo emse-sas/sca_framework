@@ -6,6 +6,7 @@
 
 const static unsigned int bit_shift = 1;
 
+
 unsigned char OP_hamming_weight(unsigned int data)
 {
     unsigned int weight = 0;
