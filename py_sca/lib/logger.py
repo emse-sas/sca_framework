@@ -43,10 +43,10 @@ class Log:
             self.mode = second
         elif first == "direction:":
             self.direction = second
-        elif first == "target:":
-            self.offset = int(second)
         elif first == "sensors:":
             self.sensors = int(second)
+        elif first == "target:":
+            self.offset = int(second) * self.sensors
         elif first == "key:":
             self.keys.append(split[1:])
         elif first == "plain:":
