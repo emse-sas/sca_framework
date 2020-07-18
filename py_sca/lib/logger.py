@@ -38,15 +38,15 @@ class Log:
             return
 
         first = split[0]
-        nexto = split[1]
+        second = split[1]
         if first == "mode:":
-            self.mode = nexto
+            self.mode = second
         elif first == "direction:":
-            self.direction = nexto
+            self.direction = second
         elif first == "target:":
-            self.offset = int(nexto)
+            self.offset = int(second)
         elif first == "sensors:":
-            self.sensors = int(nexto)
+            self.sensors = int(second)
         elif first == "key:":
             self.keys.append(split[1:])
         elif first == "plain:":
@@ -54,11 +54,11 @@ class Log:
         elif first == "cipher:":
             self.ciphers.append(split[1:])
         elif first == "samples:":
-            self.read_counts.append(int(nexto))
+            self.read_counts.append(int(second))
         elif first == "weights:":
-            match = re.match(r".*" if mini else r"([0-9]+,\s*)*\s*[0-9]+", nexto).group()
+            match = re.match(r".*" if mini else r"([0-9]+,\s*)*\s*[0-9]+", second).group()
             if match is None:
-                raise FormatError("unrecognized weights format: %s" % nexto)
+                raise FormatError("unrecognized weights format: %s" % second)
             self.traces.append(list(map(self._hamming_to_int, match) if mini else map(int, match.split(","))))
             if len(self.traces[-1]) != self.read_counts[-1]:
                 self.pop()

@@ -1,14 +1,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from py_sca.parser import Log
+import sys
+from lib.logger import Log
 
 SEED_NO = 0
-COUNT_TRACES = 16  # count of traces to record from FPGA
+COUNT_TRACES = 512  # count of traces to record from FPGA
 AVG_LEN = 64  # sliding average convolution kernel size
 F_SAMPLING = 200e6  # sampling frequency of the acquisition system
 TRACES_TO_PLOT = 8  # count of raw traces to plot
 HARDWARE_AES = False
-LOG_SOURCE = "serial"
+LOG_SOURCE = "file"
 
 log = None
 if LOG_SOURCE == "serial":
@@ -16,7 +17,7 @@ if LOG_SOURCE == "serial":
     log = Log.from_serial(COUNT_TRACES, "COM5", hardware=HARDWARE_AES)
 elif LOG_SOURCE == "file":
     # read FPGA acquisition command prompt log file
-    log = Log.from_file("../../data/cmd_%d_s%d%s.log" % (COUNT_TRACES, SEED_NO, "_hw" if HARDWARE_AES else ""))
+    log = Log.from_file("data/cmd_%d_s%d%s.log" % (COUNT_TRACES, SEED_NO, "_hw" if HARDWARE_AES else ""))
 else:
     pass
 

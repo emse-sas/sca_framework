@@ -1,4 +1,4 @@
-from py_sca.parser import Log
+from lib.logger import Log
 
 log = Log.from_file("../../data/sample_512_seed_0.log")
 log.report_data("../../data/report_data_512_seed_0.csv")
