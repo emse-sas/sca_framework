@@ -49,7 +49,7 @@ uint64_t TDC_HW_calibrate(int iterations)
                     value += TDC_HW_read();
                 }
                 value /= iterations;
-                if (OP_hamming_distance(TDC_HW_CALIBRATE_TARGET, value) < OP_hamming_distance(TDC_HW_CALIBRATE_TARGET, best_value))
+                if (abs(TDC_HW_CALIBRATE_TARGET - value) < abs(TDC_HW_CALIBRATE_TARGET - best_value))
                 {
                     best_value = value;
                     best_fine = fine;

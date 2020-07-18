@@ -10,6 +10,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#define OP_HAMMING_TO_ASCII(weight, offset) (weight + 'O' - offset) 
+
 /**
  * @brief Computes Hamming weight of the given data
  * @param data 32-bit raw data
@@ -34,6 +36,14 @@ unsigned char OP_hamming_distance(unsigned int left, unsigned int right);
 void OP_words_to_hamming(const uint32_t *words, unsigned char *weights, size_t len);
 
 
-void OP_encode_hamming(char* str, unsigned char *weights, size_t len);
+void OP_encode_hamming(char* str, uint32_t *weights, size_t len, char offset);
+
+/**
+ * @brief Transforms 32-bit registers Hamming weights into a CSV compliant string
+ * @param str result string
+ * @param weights Hamming weights to stringify
+ * @param length of `weights`
+ */
+void OP_stringify_hamming(char* str, uint32_t *weights, size_t len);
 
 #endif //SCA_FRAMEWORK_OP_H

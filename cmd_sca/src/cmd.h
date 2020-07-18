@@ -20,11 +20,9 @@
 #include "io.h"
 #include "hex.h"
 
-#define CMD_LINE_SIZE 512    /** maximum size of the line buffer */
-#define CMD_MAX_OPTIONS 10   /** maximum number of options in a command */
-#define CMD_NULL_OPTION 0    /** label code for the null option */
-#define CMD_COUNT_TYPE 7     /** count of available commands */
-#define CMD_COUNT_VAL_TYPE 4 /** count of available options value types */
+#define CMD_LINE_SIZE 512  /** maximum size of the line buffer */
+#define CMD_MAX_OPTIONS 10 /** maximum number of options in a command */
+#define CMD_NULL_OPTION 0  /** label code for the null option */
 
 #define CMD_OPT_BOTH_PRESENT(idx1, idx2) (idx1 != CMD_ERR_NOT_FOUND && idx2 != CMD_ERR_NOT_FOUND)
 #define CMD_OPT_BOTH_MISSING(idx1, idx2) (idx1 == CMD_ERR_NOT_FOUND && idx2 == CMD_ERR_NOT_FOUND)
@@ -51,7 +49,8 @@ typedef enum
     CMD_TYPE_AES,
     CMD_TYPE_TDC,
     CMD_TYPE_FIFO,
-    CMD_TYPE_SCA
+    CMD_TYPE_SCA,
+    CMD_COUNT_TYPE /** count of available commands */
 } CMD_type_t;
 
 /**
@@ -63,7 +62,8 @@ typedef enum
     CMD_VAL_TYPE_DECIMAL,     /** base 10 `int` value */
     CMD_VAL_TYPE_HEXADECIMAL, /** base 16 unconstrained integer value as bytes */
     CMD_VAL_TYPE_STRING,      /** string value */
-    CMD_VAL_TYPE_END
+    CMD_VAL_TYPE_END,
+    CMD_COUNT_VAL_TYPE /** count of available options value types */
 } CMD_opt_val_type_t;
 
 /**
@@ -72,9 +72,9 @@ typedef enum
  * The members accessed must be compatible with the option value type `CMD_opt_val_type_t`.
  */
 typedef union {
-    char string[CMD_LINE_SIZE];   /** string component of the value */
-    long long integer;            /** integer component of the value */
-    uint8_t bytes[CMD_LINE_SIZE]; /** raw bytes of the value*/
+    char string[CMD_LINE_SIZE];         /** string component of the value */
+    long long integer;                  /** integer component of the value */
+    uint8_t bytes[CMD_LINE_SIZE];       /** raw bytes of the value*/
     uint32_t words[CMD_LINE_SIZE >> 2]; /** 32-bit raw words of the value*/
 } CMD_opt_val_t;
 

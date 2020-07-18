@@ -50,7 +50,7 @@ void RUN_help(const CMD_cmd_t *cmd)
 
 void RUN_quit()
 {
-    xil_printf("*** Exiting ***\n\r");
+    xil_printf("*** exiting ***\n\r");
 }
 
 void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
@@ -59,7 +59,7 @@ void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
     char *block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
 
 #ifdef SCA_DEBUG
-    xil_printf("*** tiny AES ***\n\r");
+    xil_printf("*** tiny aes ***\n\r");
 #endif
 
     HEX_stringify_bytes(key_str, key, RUN_AES_BYTES_SIZE);
@@ -109,7 +109,7 @@ void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq)
     char *block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
 
 #ifdef SCA_DEBUG
-    xil_printf("*** hardware AES ***\n\r");
+    xil_printf("*** hardware aes ***\n\r");
 #endif
 
     AES_HW_clear(inv ? AES_HW_DECRYPT : AES_HW_ENCRYPT);
@@ -197,7 +197,7 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
         TDC_HW_write_delay(cmd->options[delay_idx]->value.words[0], cmd->options[delay_idx]->value.words[1], -1);
 #ifdef SCA_DEBUG
         delay = TDC_HW_read_delay();
-        xil_printf("delay: 0x%08x%08x\n\r", (unsigned int) (delay >> 32), (unsigned int) delay);
+        xil_printf("delay: 0x%08x%08x\n\r", (unsigned int)(delay >> 32), (unsigned int)delay);
 #endif
     }
 
@@ -206,13 +206,13 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
 #ifdef SCA_DEBUG
         xil_printf("*** calibration ***\n\r");
         delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);
-        xil_printf("delay: 0x%08x%08x\n\r", (unsigned int) (delay >> 32), (unsigned int) delay);
+        xil_printf("delay: 0x%08x%08x\n\r", (unsigned int)(delay >> 32), (unsigned int)delay);
 #else
         TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);
 #endif
     }
 
-    xil_printf("value: 0x%08x\n\r", TDC_HW_read());
+    xil_printf("value: %d\n\r", TDC_HW_read());
 
     return RUN_SUCCESS;
 }
@@ -221,21 +221,21 @@ void RUN_fifo_flush()
 {
     FIFO_HW_clear();
 #ifdef SCA_DEBUG
-    xil_printf("*** fifo flush successful ***\n\r");
+    xil_printf("*** flush successful ***\n\r");
 #endif
 }
 
 void RUN_fifo_read(int mini)
 {
 #ifdef SCA_DEBUG
-    xil_printf("*** fifo read ***\n\r");
+    xil_printf("*** read ***\n\r");
 #endif
     uint32_t buffer[FIFO_HW_STACK_SIZE];
     unsigned char weights[FIFO_HW_STACK_SIZE];
     int len = FIFO_HW_read(buffer, FIFO_HW_STACK_SIZE);
     len = len == FIFO_HW_ERR_NONE ? FIFO_HW_STACK_SIZE : len;
 
-    xil_printf("success: %d words\n\r", len);
+    xil_printf("samples: %d\n\r", len);
     if (len == 0)
     {
         return;
@@ -245,16 +245,15 @@ void RUN_fifo_read(int mini)
     if (mini)
     {
         char str_weights[FIFO_HW_STACK_SIZE + 1] = "";
-        OP_encode_hamming(str_weights, weights, len);
-        xil_printf("%s;\n\r", str_weights);
+        OP_encode_hamming(str_weights, buffer, len, TDC_HW_CALIBRATE_TARGET);
+        xil_printf("weights: %s\n\r", str_weights);
     }
     else
     {
         char str_weights[3 * FIFO_HW_STACK_SIZE + 1] = "";
-        CSV_stringify_u32(str_weights, weights, len);
-        xil_printf("%s;\n\r", str_weights);
+        OP_stringify_hamming(str_weights, buffer, len);
+        xil_printf("weights: %s\n\r", str_weights);
     }
-    
 }
 
 RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
@@ -294,31 +293,34 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     }
     int traces_count = cmd->options[traces_idx]->value.integer;
     int inv = inv_idx != CMD_ERR_NOT_FOUND;
+    int hw = hw_idx != CMD_ERR_NOT_FOUND;
     uint32_t key[RUN_AES_WORDS_SIZE], block[RUN_AES_WORDS_SIZE];
     uint8_t key8[RUN_AES_BYTES_SIZE], block8[RUN_AES_BYTES_SIZE];
 
 #ifdef SCA_DEBUG
-    xil_printf("*** start sca acquisition ***\n\r");
+    xil_printf("*** start acquisition ***\n\r");
 #endif
-
+    xil_printf("mode: %s\n\r", hw ? "hardware" : "software");
+    xil_printf("direction: %s\n\r", inv ? "decrypt" : "encrypt");
+    xil_printf("target: %d\n\r", TDC_HW_CALIBRATE_TARGET);
+    xil_printf("sensors: %d\n\r", TDC_HW_COUNT_TDC);
     HEX_random_words(key, INT_MAX, RUN_AES_WORDS_SIZE);
     HEX_words_to_bytes(key8, key, RUN_AES_BYTES_SIZE);
     for (int idx = 0; idx < traces_count; idx++)
     {
         HEX_random_words(block, idx + 1, RUN_AES_WORDS_SIZE);
-        if (hw_idx == CMD_ERR_NOT_FOUND)
+        if (hw)
+        {
+            RUN_hw_aes(block, key, inv, 1);
+        }
+        else
         {
             HEX_words_to_bytes(block8, block, RUN_AES_BYTES_SIZE);
             RUN_tiny_aes(block8, key8, inv, 1);
         }
-        else
-        {
-            RUN_fifo_flush();
-            RUN_hw_aes(block, key, inv, 1);
-        }
         RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
     }
-    xil_printf("end\n\r");
+    xil_printf("\n\r\xff\n\r");
     return RUN_SUCCESS;
 }
 
@@ -335,7 +337,7 @@ RUN_status_t RUN_cmd()
     {
         IO_clear_line(line, CMD_LINE_SIZE);
         CMD_clear(&cmd);
-        xil_printf(">");
+        xil_printf("> ");
         if (IO_get_line(line, CMD_LINE_SIZE) != IO_SUCCESS)
         {
             fprintf(stderr, "read error: errno=%d\n\r", errno);

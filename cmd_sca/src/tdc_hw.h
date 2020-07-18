@@ -13,10 +13,13 @@
 #include "xil_io.h"
 #include "op.h"
 #include <stdint.h>
+#include <stdlib.h>
+
 
 #define TDC_HW_WORD_SIZE 4
-
+#define TDC_HW_COUNT_TDC 4
 #define TDC_HW_BASE_ADDR XPAR_TDC_BANK_0_S_AXI_BASEADDR
+
 #define TDC_HW_DATA_POS_0 0
 #define TDC_HW_DATA_POS_1 1
 #define TDC_HW_DATA_POS_2 2
@@ -24,14 +27,13 @@
 #define TDC_HW_DELAY_POS_FINE 4
 #define TDC_HW_DELAY_POS_COARSE 5
 #define TDC_HW_ADDR(pos) (TDC_HW_BASE_ADDR + TDC_HW_WORD_SIZE * pos)
-#define TDC_HW_DELAY_64(fine, coarse) (((coarse) << 32) | fine) /** delay value formating */
 
+#define TDC_HW_DELAY_64(fine, coarse) (((coarse) << 32) | fine) /** delay value formating */
 #define TDC_HW_DEFAULT_CALIBRATE_IT 512 /** default iteration count for sensor calibration */
-#define TDC_HW_CALIBRATE_TARGET 0xffff
+#define TDC_HW_CALIBRATE_TARGET 16 * TDC_HW_COUNT_TDC
 #define TDC_HW_MAX_COARSE 0x3
 #define TDC_HW_MAX_FINE 0xf
 
-#define TDC_HW_COUNT_TDC 4
 
 /**
  * @brief Reads the current value of the TDC data registers

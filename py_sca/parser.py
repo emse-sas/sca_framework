@@ -4,47 +4,64 @@ import csv
 import numpy as np
 
 
-class ParsingError(Exception):
-    pass
+class FormatError(Exception):
+    def __init__(self, message="", line=""):
+        self.message = message
+        self.line = line
 
 
 class Log:
-    def __init__(self, plains, ciphers, keys, traces):
+    def __init__(self, plains, ciphers, keys, traces, direction=None, mode=None):
+        self.mode = mode
+        self.direction = direction
+        self.offset = 0
+        self.sensors = 0
         self.plains = plains
         self.ciphers = ciphers
         self.keys = keys
-        self.traces = traces
         self.read_counts = []
+        self.traces = traces
+
+    def pop(self):
+        self.plains.pop()
+        self.ciphers.pop()
+        self.keys.pop()
+        self.traces.pop()
+        self.read_counts.pop()
+
+    def _hamming_to_int(self, s):
+        return int(ord(s) - ord(' ') + self.offset)
 
     def _parse_line(self, line, mini=True):
-        line = line.lower()
+        split = line.replace("\n", "").strip().split(" ")
+        if len(split) < 2:
+            return
 
-        if line.startswith("key:"):
-            split = line.split(" ")
-            self.keys.append(list(map(lambda x: hex(int(x, 16)), split[1:-1])))
-        elif line.startswith("plain:"):
-            split = line.split(" ")
-            self.plains.append(list(map(lambda x: hex(int(x, 16)), split[1:-1])))
-        elif line.startswith("cipher:"):
-            split = line.split(" ")
-            self.ciphers.append(list(map(lambda x: hex(int(x, 16)), split[1:-1])))
-        elif line.startswith("success:"):
-            split = line.split(" ")
-            self.read_counts.append(int(split[-2]))
-        else:
-            if mini and re.match(r"\S*;\n", line):
-                self.traces.append(list(map(lambda x: int((ord(x) if ord(x) != 255 else 127) - ord(' ')), line[:-2])))
-            elif not mini and re.match(r"([0-9]+,\s*)*\s*[0-9]+;\n", line):
-                split = line[:-2].split(",")
-                self.traces.append(list(map(lambda x: int(x), split)))
-            else:
-                return
+        first = split[0]
+        nexto = split[1]
+        if first == "mode:":
+            self.mode = nexto
+        elif first == "direction:":
+            self.direction = nexto
+        elif first == "target:":
+            self.offset = int(nexto)
+        elif first == "sensors:":
+            self.sensors = int(nexto)
+        elif first == "key:":
+            self.keys.append(split[1:])
+        elif first == "plain:":
+            self.plains.append(split[1:])
+        elif first == "cipher:":
+            self.ciphers.append(split[1:])
+        elif first == "samples:":
+            self.read_counts.append(int(nexto))
+        elif first == "weights:":
+            match = re.match(r".*" if mini else r"([0-9]+,\s*)*\s*[0-9]+", nexto).group()
+            if match is None:
+                raise FormatError("unrecognized weights format: %s" % nexto)
+            self.traces.append(list(map(self._hamming_to_int, match) if mini else map(int, match.split(","))))
             if len(self.traces[-1]) != self.read_counts[-1]:
-                self.plains.pop()
-                self.ciphers.pop()
-                self.keys.pop()
-                self.traces.pop()
-                self.read_counts.pop()
+                self.pop()
 
     def cropped_traces(self):
         n = min(self.read_counts)
@@ -59,7 +76,7 @@ class Log:
         traces = self.cropped_traces()
         n = len(traces)
         m = len(traces[0])
-        ret = np.empty((n, m), dtype=float)
+        ret = np.empty((n, m), dtype=int)
         for i in range(0, n):
             for j in range(0, m):
                 ret[i, j] = traces[i][j]
@@ -71,26 +88,36 @@ class Log:
 
     @classmethod
     def from_file(cls, filepath, mini=True):
-        with open(filepath, "r") as log_file:
-            ret = cls.empty()
-            for line in log_file:
-                ret._parse_line(line, mini)
-        return ret
-
-    @classmethod
-    def from_serial(cls, count, port, baud=115200, mini=True):
-        ser = serial.Serial(port, baud, timeout=None, parity=serial.PARITY_NONE, xonxoff=False)
-
-        ser.flush()
-        ser.write(("sca -t %d%s\n\r" % (count, " -m" if mini else "")).encode())
-        s = ser.read_until(b"end")
-        lines = str(s, "utf-8").split("\n\r")
-
+        lines = []
         ret = cls.empty()
+        with open(filepath, "r") as log_file:
+            for line in log_file:
+                if len(line) == 0:
+                    continue
+                lines.append(line)
+
         for line in lines:
             ret._parse_line(line, mini)
 
+        return ret
+
+    @classmethod
+    def from_serial(cls, count, port, baud=115200, mini=True, hardware=False):
+        ser = serial.Serial(port, baud, timeout=None, parity=serial.PARITY_NONE, xonxoff=False)
+        ser.flush()
+        ser.write(("sca -t %d%s%s\n\r" % (count, " -m" if mini else "", " -h" if hardware else "")).encode())
+        s = ser.read_until(b"\n\r\xff\n\r")
         ser.close()
+
+        ret = cls.empty()
+        try:
+            lines = str(s[:-3], "ascii").split("\r")
+        except UnicodeDecodeError as e:
+            raise FormatError("unable to decode bytes string: %s\n" % s[e.start:e.end])
+
+        for line in lines:
+            ret._parse_line(line, mini)
+
         return ret
 
     @classmethod

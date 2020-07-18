@@ -35,15 +35,24 @@ void OP_words_to_hamming(const uint32_t *words, unsigned char *weights, size_t l
     }
 }
 
-void OP_encode_hamming(char* str, unsigned char *weights, size_t len)
+void OP_encode_hamming(char *str, uint32_t *weights, size_t len, char offset)
 {
-    unsigned char ascii;
     for (size_t idx = 0; idx < len; idx++)
-    {  
-        ascii = weights[idx] + ' ';
-        if(ascii == 127) {
-            ascii = 255;
-        }
-        sprintf(str + idx, "%c", ascii);
+    {
+        str[idx] = OP_HAMMING_TO_ASCII(weights[idx], offset);
     }
+    str[len] = '\0';
+}
+
+void OP_stringify_hamming(char *str, uint32_t *weights, size_t len)
+{
+    if (len == 0)
+    {
+        return;
+    }
+    for (size_t idx = 0; idx < len - 1; idx++)
+    {
+        sprintf(str + 3 * idx, "%02u,", (char)weights[idx]);
+    }
+    sprintf(str + 3 * (len - 1), "%02u", (char)weights[len - 1]);
 }
