@@ -163,8 +163,8 @@ RUN_status_t RUN_aes(const CMD_cmd_t *cmd)
     else
     {
         uint32_t key[RUN_AES_WORDS_SIZE], block[RUN_AES_WORDS_SIZE];
-        memcpy(key, cmd->options[key_idx]->value.words, RUN_AES_WORDS_SIZE);
-        memcpy(block, cmd->options[inv ? cipher_idx : plain_idx]->value.words, RUN_AES_WORDS_SIZE);
+        HEX_bytes_to_words(key, cmd->options[key_idx]->value.bytes, RUN_AES_BYTES_SIZE);
+        HEX_bytes_to_words(block, cmd->options[inv ? cipher_idx : plain_idx]->value.bytes, RUN_AES_BYTES_SIZE);
         RUN_hw_aes(block, key, inv, acq);
     }
     return RUN_SUCCESS;
