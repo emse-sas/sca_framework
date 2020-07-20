@@ -38,11 +38,11 @@ void FIFO_HW_stop_write()
         FIFO_HW_STATUS_SET_0(FIFO_HW_STATUS_WRITE, Xil_In32(FIFO_HW_ADDR(FIFO_HW_STATUS_POS_WR))));
 }
 
-void FIFO_HW_clear()
+void FIFO_HW_clear(FIFO_HW_mode_t mode)
 {
     Xil_Out32(
         FIFO_HW_ADDR(FIFO_HW_STATUS_POS_WR),
-        FIFO_HW_STATUS_SET_1(FIFO_HW_STATUS_RESET, FIFO_HW_STATUS_NULL));
+        FIFO_HW_STATUS_SET_1(FIFO_HW_STATUS_RESET, mode));
     usleep(1);
     Xil_Out32(
         FIFO_HW_ADDR(FIFO_HW_STATUS_POS_WR),

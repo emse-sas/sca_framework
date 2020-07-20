@@ -77,14 +77,14 @@ void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
 
     if (acq && inv)
     {
-        FIFO_HW_clear();
+        FIFO_HW_clear(FIFO_HW_MODE_SW);
         FIFO_HW_start_write();
         AES_ECB_decrypt(&ctx, block);
         FIFO_HW_stop_write();
     }
     else if (acq && !inv)
     {
-        FIFO_HW_clear();
+        FIFO_HW_clear(FIFO_HW_MODE_SW);
         FIFO_HW_start_write();
         AES_ECB_encrypt(&ctx, block);
         FIFO_HW_stop_write();
@@ -120,7 +120,7 @@ void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq)
 
     if (acq)
     {
-        FIFO_HW_clear();
+        FIFO_HW_clear(FIFO_HW_MODE_HW);
         FIFO_HW_start_write();
         AES_HW_launch();
         FIFO_HW_stop_write();
@@ -206,7 +206,7 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
 
 void RUN_fifo_flush()
 {
-    FIFO_HW_clear();
+    FIFO_HW_clear(FIFO_HW_MODE_SW);
     xil_printf("*** flush successful ***\n\r");
 }
 

@@ -37,6 +37,7 @@
 #define FIFO_HW_STATUS_RESET 1
 #define FIFO_HW_STATUS_READ 2
 #define FIFO_HW_STATUS_WRITE 4
+#define FIFO_HW_STATUS_MODE 8
 
 #define FIFO_HW_ADDR(pos) (FIFO_HW_BASE_ADDR + FIFO_HW_WORD_SIZE * pos)
 #define FIFO_HW_STATUS_SET_1(status, status_reg) (status_reg | status)
@@ -44,6 +45,11 @@
 #define FIFO_HW_STATUS_GET(status, status_reg) (status_reg & status)
 
 #define FIFO_HW_STACK_SIZE 8192 /** Data size of the FIFO stack */
+
+typedef enum {
+    FIFO_HW_MODE_HW = FIFO_HW_STATUS_MODE,
+    FIFO_HW_MODE_SW = FIFO_HW_STATUS_NULL
+} FIFO_HW_mode_t;
 
 /**
  * @brief Checks if the FIFO is empty
@@ -81,7 +87,7 @@ void FIFO_HW_stop_write();
 /**
  * @brief Flushes the FIFO
  */
-void FIFO_HW_clear();
+void FIFO_HW_clear(FIFO_HW_mode_t mode);
 
 /*
  * @brief Pops a single value from the FIFO
