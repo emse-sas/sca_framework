@@ -22,7 +22,7 @@ entity tdc_bank is
         fine_delay_i : in std_logic_vector(4 * count_tdc_g - 1 downto 0);
         delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
         data_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0)
-  );
+    );
     attribute dont_touch : string;
     attribute dont_touch of tdc_bank: entity is "true";
 end tdc_bank;
@@ -36,7 +36,7 @@ architecture tdc_bank_arch of tdc_bank is
         coarse_len_g : positive;
         fine_len_g : positive;
         sampling_len_g : positive
-      ) ;
+      );
     port (
         clock_i : in std_logic;
         delta_i : in std_logic;
@@ -73,10 +73,13 @@ begin
     begin  
         concat : for i in 0 to count_tdc_g - 1  loop
             weight_v(i) := (others => '0');
-            filter : for j in 0 to 4 * sampling_len_g - 1 loop
-                if data_s(4 * sampling_len_g * i + j) = data_s(4 * sampling_len_g * i) then
+            filter : for j in 0 to 4 * sampling_len_g - 1 loop  
+                if data_s(4 * sampling_len_g * i + j) = '1' then
                     weight_v(i) := weight_v(i) + 1;
                 end if;
+                -- if data_s(4 * sampling_len_g * i + j) = data_s(4 * sampling_len_g * i) then
+                --    weight_v(i) := weight_v(i) + 1;
+                -- end if; 
             end loop ; -- weights
             data_o(8 * (i + 1) - 1  downto 8 * i) <= std_logic_vector(weight_v(i));
         end loop ; -- sum
