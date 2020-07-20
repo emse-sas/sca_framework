@@ -51,8 +51,8 @@
 #define AES_HW_STATUS_GET(status, status_reg) (status_reg & status)
 
 typedef enum {
-    AES_HW_ENCRYPT,
-    AES_HW_DECRYPT
+    AES_HW_ENCRYPT = AES_HW_STATUS_NULL,
+    AES_HW_DECRYPT = AES_HW_STATUS_INV
 } AES_HW_mode_t;
 
 /**

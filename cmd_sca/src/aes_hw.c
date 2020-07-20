@@ -4,7 +4,7 @@ void AES_HW_clear(AES_HW_mode_t mode)
 {
     Xil_Out32(
         AES_HW_ADDR(AES_HW_STATUS_POS_IN),
-        AES_HW_STATUS_SET_1(AES_HW_STATUS_RESET, mode == AES_HW_DECRYPT ? AES_HW_STATUS_INV : AES_HW_STATUS_NULL));
+        AES_HW_STATUS_SET_1(AES_HW_STATUS_RESET, mode));
     usleep(1);
     Xil_Out32(
         AES_HW_ADDR(AES_HW_STATUS_POS_IN),
