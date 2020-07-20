@@ -74,7 +74,7 @@ begin
   )
   port map(
     delta_i => delta_i,
-    delta_o => delta_coarse_s,
+    clock_o => delta_coarse_s,
     delay_i => coarse_delay_i
   );
 
@@ -84,7 +84,7 @@ begin
   )
   port map(
     delta_i => delta_coarse_s,
-    delta_o => delta_fine_s,
+    clock_o => delta_fine_s,
     delay_i => fine_delay_i
   );
 

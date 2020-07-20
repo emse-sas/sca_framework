@@ -24,7 +24,9 @@ end fine_line;
 architecture fine_line_arch of fine_line is
 
     type delta_array_t is array (0 to len_g) of std_logic_vector(4 downto 0);
-    signal delta_s : delta_array_t;
+    type clock_array_t is array (0 to len_g - 1) of std_logic_vector(3 downto 0);
+	signal delta_s : delta_array_t; 
+	signal clocks_s : clock_array_t;
 	attribute dont_touch of delta_s: signal is "true";
 
     component fine_block
@@ -54,29 +56,33 @@ begin
 			port map (
 				delta_i => delta_s(n)(0),
 				delay_i => delay_i(1 downto 0),
+				clock_o => clocks_s(n)(0),
 				delta_o => delta_s(n)(1)
 			);
 			block_1 : fine_block
 			port map (
 				delta_i => delta_s(n)(1),
 				delay_i => delay_i(1 downto 0),
+				clock_o => clocks_s(n)(1),
 				delta_o => delta_s(n)(2)
 			);
 			block_2 : fine_block
 			port map (
 				delta_i => delta_s(n)(2),
 				delay_i => delay_i(1 downto 0),
+				clock_o => clocks_s(n)(2),
 				delta_o => delta_s(n)(3)
 			);
 			block_3 : fine_block
 			port map (
 				delta_i => delta_s(n)(3),
 				delay_i => delay_i(1 downto 0),
+				clock_o => clocks_s(n)(3),
 				delta_o => delta_s(n)(4)
 			);
 			mux : clock_mux
 			port map (
-				clocks_i => delta_s(n)(4 downto 1),
+				clocks_i => clocks_s(n),
 				delay_i => delay_i(3 downto 2),
 				clock_o => delta_s(n + 1)(0)
 			);
