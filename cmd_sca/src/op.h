@@ -9,6 +9,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <math.h>
 
 #define OP_HAMMING_TO_ASCII(weight, offset) (weight + 'O' - offset) 
 

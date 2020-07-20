@@ -56,7 +56,7 @@ void RUN_quit()
 void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
 {
     struct AES_ctx ctx;
-    char *block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
+    char block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
 
     xil_printf("*** tiny aes ***\n\r");
 
@@ -104,7 +104,7 @@ void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
 
 void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq)
 {
-    char *block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
+    char block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
 
     xil_printf("*** hardware aes ***\n\r");
 
@@ -243,7 +243,7 @@ void RUN_fifo_read(int mini)
     }
     else
     {
-        char str_weights[3 * FIFO_HW_STACK_SIZE + 1] = "";
+        char str_weights[4 * FIFO_HW_STACK_SIZE + 1] = "";
         OP_stringify_hamming(str_weights, weights, len);
         xil_printf("weights: %s\n\r", str_weights);
     }
@@ -293,8 +293,9 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     xil_printf("*** start acquisition ***\n\r");
     xil_printf("mode: %s\n\r", hw ? "hardware" : "software");
     xil_printf("direction: %s\n\r", inv ? "decrypt" : "encrypt");
-    xil_printf("target: %d\n\r", TDC_HW_CALIBRATE_TARGET);
     xil_printf("sensors: %d\n\r", TDC_HW_COUNT_TDC);
+    xil_printf("target: %d\n\r", TDC_HW_CALIBRATE_TARGET);
+
     HEX_random_words(key, INT_MAX, RUN_AES_WORDS_SIZE);
     HEX_words_to_bytes(key8, key, RUN_AES_BYTES_SIZE);
     for (int idx = 0; idx < traces_count; idx++)

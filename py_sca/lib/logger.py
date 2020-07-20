@@ -30,36 +30,33 @@ class Log:
         self.read_counts.pop()
 
     def _hamming_to_int(self, s):
-        return int(ord(s) - ord(' ') + self.offset)
+        return int(s - ord('O') + self.offset)
 
     def _parse_line(self, line, mini=True):
-        split = line.replace("\n", "").strip().split(" ")
+        split = line.strip().split(b" ")
         if len(split) < 2:
             return
 
-        first = split[0]
+        first = str(split[0], "ascii")
         second = split[1]
         if first == "mode:":
-            self.mode = second
+            self.mode = str(second, "ascii")
         elif first == "direction:":
-            self.direction = second
+            self.direction = str(second, "ascii")
         elif first == "sensors:":
             self.sensors = int(second)
         elif first == "target:":
             self.offset = int(second) * self.sensors
         elif first == "key:":
-            self.keys.append(split[1:])
+            self.keys.append(list(map(lambda x: hex(int(x, 16)), split[1:])))
         elif first == "plain:":
-            self.plains.append(split[1:])
+            self.plains.append(list(map(lambda x: hex(int(x, 16)), split[1:])))
         elif first == "cipher:":
-            self.ciphers.append(split[1:])
+            self.ciphers.append(list(map(lambda x: hex(int(x, 16)), split[1:])))
         elif first == "samples:":
             self.read_counts.append(int(second))
         elif first == "weights:":
-            match = re.match(r".*" if mini else r"([0-9]+,\s*)*\s*[0-9]+", second).group()
-            if match is None:
-                raise FormatError("unrecognized weights format: %s" % second)
-            self.traces.append(list(map(self._hamming_to_int, match) if mini else map(int, match.split(","))))
+            self.traces.append(list(map(self._hamming_to_int, second) if mini else map(int, second.split(","))))
             if len(self.traces[-1]) != self.read_counts[-1]:
                 self.pop()
 
@@ -90,11 +87,11 @@ class Log:
     def from_file(cls, filepath, mini=True):
         lines = []
         ret = cls.empty()
-        with open(filepath, "r") as log_file:
+        with open(filepath, "rb") as log_file:
             for line in log_file:
                 if len(line) == 0:
                     continue
-                lines.append(line)
+                lines.append(line.replace(b"\r", b"").replace(b"\n", b""))
 
         for line in lines:
             ret._parse_line(line, mini)
@@ -110,10 +107,7 @@ class Log:
         ser.close()
 
         ret = cls.empty()
-        try:
-            lines = str(s[:-3], "ascii").split("\r")
-        except UnicodeDecodeError as e:
-            raise FormatError("unable to decode bytes string: %s\n" % s[e.start:e.end])
+        lines = s.split(b"\n\r")
 
         for line in lines:
             ret._parse_line(line, mini)

@@ -6,7 +6,6 @@
 
 const static unsigned int bit_shift = 1;
 
-
 unsigned char OP_hamming_weight(unsigned int data)
 {
     unsigned int weight = 0;
@@ -51,9 +50,20 @@ void OP_stringify_hamming(char *str, uint32_t *weights, size_t len)
     {
         return;
     }
+
+    char *ptr = str;
     for (size_t idx = 0; idx < len - 1; idx++)
     {
-        sprintf(str + 3 * idx, "%02u,", (char)weights[idx]);
+        sprintf(ptr, "%lu,", weights[idx]);
+        if (weights[idx] > 9)
+        {
+            ptr++;
+        }
+        if (weights[idx] > 99)
+        {
+            ptr++;
+        }
+        ptr += 2;
     }
-    sprintf(str + 3 * (len - 1), "%02u", (char)weights[len - 1]);
+    sprintf(ptr, "%lu", weights[len - 1]);
 }
