@@ -41,12 +41,14 @@ uint64_t TDC_HW_calibrate(int iterations)
 {
     iterations = iterations ? iterations : TDC_HW_DEFAULT_CALIBRATE_IT;
     uint32_t best_fine = 0, best_coarse = 0;
-    uint64_t value, best_value;
+    uint32_t value, best_value;
+    uint32_t target = TDC_HW_CALIBRATE_TARGET * iterations;
 
     TDC_HW_write_delay(0, 0, -1);
     for (int id = 0; id < TDC_HW_COUNT_TDC; id++)
     {
-        best_value = UINT64_MAX;
+        printf("device: %d\n\r", id);
+        best_value = UINT32_MAX;
         for (uint32_t coarse = 0; coarse <= TDC_HW_COARSE_MAX; coarse++)
         {
             for (uint32_t fine = 0; fine <= TDC_HW_FINE_MAX; fine++)
@@ -57,7 +59,8 @@ uint64_t TDC_HW_calibrate(int iterations)
                 {
                     value += TDC_HW_read(id);
                 }
-                if (abs(16 * iterations - value) < abs(16 * iterations - best_value))
+                printf("(%lx, %lx): %05.2f\n\r", fine, coarse, (float)value / iterations);
+                if (abs(target - value) < abs(target - best_value))
                 {
                     best_value = value;
                     best_fine = fine;
