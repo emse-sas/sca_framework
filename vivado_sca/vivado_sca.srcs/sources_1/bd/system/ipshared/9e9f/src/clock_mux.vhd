@@ -59,7 +59,7 @@ begin
         O => mux_s(1)
     );
 
-    out_mux : muxf7
+    out_mux : muxf8
     port map (
         I0 => mux_s(0),
         I1 => mux_s(1),

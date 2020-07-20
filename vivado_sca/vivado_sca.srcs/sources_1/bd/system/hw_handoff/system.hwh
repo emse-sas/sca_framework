@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sat Jul 18 13:58:24 2020" VIVADOVERSION="2020.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Jul 20 18:34:01 2020" VIVADOVERSION="2020.1">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo-z7-10:part0:1.0" DEVICE="7z010" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -3207,6 +3207,101 @@
             <CONNECTION INSTANCE="rst_ps7_0_50M" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M02_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="2" NAME="M02_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_awprot">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_awprot"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M02_AXI_awvalid" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M02_AXI_awready" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M02_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="3" NAME="M02_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_wstrb">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_wstrb"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M02_AXI_wvalid" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M02_AXI_wready" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="M02_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_bresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_bresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M02_AXI_bvalid" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M02_AXI_bready" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M02_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="2" NAME="M02_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_arprot">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_arprot"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M02_AXI_arvalid" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M02_AXI_arready" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="M02_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="M02_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_rresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_rresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M02_AXI_rvalid" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M02_AXI_rready" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_rready"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" LEFT="11" NAME="S00_AXI_awid" RIGHT="0" SIGIS="undef" SIGNAME="processing_system7_0_M_AXI_GP0_AWID">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_AWID"/>
@@ -3587,101 +3682,6 @@
             <CONNECTION INSTANCE="tdc_bank_0" PORT="s_axi_rready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M02_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_awaddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M02_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_awprot">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_awprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M02_AXI_awvalid" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_awvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M02_AXI_awready" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_awready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M02_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="3" NAME="M02_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_wstrb">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_wstrb"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M02_AXI_wvalid" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M02_AXI_wready" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_wready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M02_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_bresp">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_bresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M02_AXI_bvalid" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_bvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M02_AXI_bready" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_bready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M02_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_araddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M02_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_arprot">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_arprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M02_AXI_arvalid" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_arvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M02_AXI_arready" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_arready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M02_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_rdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M02_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_rresp">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_rresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M02_AXI_rvalid" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_rvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M02_AXI_rready" SIGIS="undef" SIGNAME="fifo_controller_0_s_axi_rready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="fifo_controller_0" PORT="s_axi_rready"/>
-          </CONNECTIONS>
-        </PORT>
       </PORTS>
       <BUSINTERFACES>
         <BUSINTERFACE BUSNAME="processing_system7_0_M_AXI_GP0" DATAWIDTH="32" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
@@ -4060,9 +4060,9 @@
       </ADDRESSBLOCKS>
       <PARAMETERS>
         <PARAMETER NAME="coarse_len_g" VALUE="1"/>
-        <PARAMETER NAME="fine_len_g" VALUE="2"/>
+        <PARAMETER NAME="fine_len_g" VALUE="1"/>
         <PARAMETER NAME="sampling_len_g" VALUE="8"/>
-        <PARAMETER NAME="count_tdc_g" VALUE="4"/>
+        <PARAMETER NAME="count_tdc_g" VALUE="1"/>
         <PARAMETER NAME="C_S_AXI_DATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_S_AXI_ADDR_WIDTH" VALUE="5"/>
         <PARAMETER NAME="Component_Name" VALUE="system_tdc_bank_0_1"/>
@@ -4081,8 +4081,8 @@
             <CONNECTION INSTANCE="clk_wiz_0" PORT="clk_acq"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="3" NAME="delta_o" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="O" LEFT="31" NAME="data_o" RIGHT="0" SIGIS="undef" SIGNAME="tdc_bank_0_data_o">
+        <PORT DIR="O" LEFT="0" NAME="delta_o" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="7" NAME="data_o" RIGHT="0" SIGIS="undef" SIGNAME="tdc_bank_0_data_o">
           <CONNECTIONS>
             <CONNECTION INSTANCE="fifo_generator_0" PORT="din"/>
           </CONNECTIONS>
