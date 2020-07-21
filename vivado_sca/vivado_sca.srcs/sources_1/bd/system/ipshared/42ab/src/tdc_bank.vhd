@@ -7,6 +7,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use IEEE.math_real.all;
 
 entity tdc_bank is
     generic (
@@ -18,10 +19,13 @@ entity tdc_bank is
     port (
         clock_i : in std_logic;
         delta_i : in std_logic;
+        sel_i : in std_logic_vector(integer(ceil(log2(real(count_tdc_g)))) - 1 downto 0);
         coarse_delay_i : in std_logic_vector(2 * count_tdc_g - 1 downto 0);
         fine_delay_i : in std_logic_vector(4 * count_tdc_g - 1 downto 0);
         delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-        data_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0)
+        weights_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0);
+        raw_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
+        weight_o : out std_logic_vector(31 downto 0)
     );
     attribute dont_touch : string;
     attribute dont_touch of tdc_bank: entity is "true";
@@ -30,7 +34,6 @@ end tdc_bank;
 architecture tdc_bank_arch of tdc_bank is
 
     signal data_s : std_logic_vector(4 * sampling_len_g * count_tdc_g - 1 downto 0); 
-
     component tdc
     generic (
         coarse_len_g : positive;
@@ -48,7 +51,6 @@ architecture tdc_bank_arch of tdc_bank is
     end component;
 
 begin
-    -- data_o <= data_s;
     bank : for i in 0 to count_tdc_g - 1 generate
     
     sensors: tdc
@@ -70,20 +72,22 @@ begin
     weights : process( data_s )
     type weights_array_t is array (0 to count_tdc_g - 1) of unsigned(7 downto 0);
     variable weight_v : weights_array_t;
+    variable sum_v: unsigned(31 downto 0);
     begin  
+        sum_v := (others => '0');
         concat : for i in 0 to count_tdc_g - 1  loop
             weight_v(i) := (others => '0');
             filter : for j in 0 to 4 * sampling_len_g - 1 loop  
                 if data_s(4 * sampling_len_g * i + j) = '1' then
                     weight_v(i) := weight_v(i) + 1;
                 end if;
-                -- if data_s(4 * sampling_len_g * i + j) = data_s(4 * sampling_len_g * i) then
-                --    weight_v(i) := weight_v(i) + 1;
-                -- end if; 
             end loop ; -- weights
-            data_o(8 * (i + 1) - 1  downto 8 * i) <= std_logic_vector(weight_v(i));
-        end loop ; -- sum
-        
+            weights_o(8 * (i + 1) - 1  downto 8 * i) <= std_logic_vector(weight_v(i));
+            sum_v := sum_v + weight_v(i);
+        end loop ; -- concat 
+        weight_o <= std_logic_vector(sum_v);
     end process ; -- weigths
+    
+    raw_o <= data_s(4 * sampling_len_g * (to_integer(unsigned(sel_i)) + 1) - 1 downto 4 * sampling_len_g * to_integer(unsigned(sel_i)));
 
 end tdc_bank_arch ; -- tdc_bank_arch

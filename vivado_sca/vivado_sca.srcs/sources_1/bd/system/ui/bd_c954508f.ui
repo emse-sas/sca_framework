@@ -4,7 +4,7 @@
    "Default View_TopLeft":"-320,0",
    "ExpandedHierarchyInLayout":"",
    "PinnedPorts":"",
-   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:9.0 non-TLS-threadsafe
+   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:9.0 non-TLS
 #  -string -flagsOSRD
 preplace port DDR -pg 1 -lvl 5 -x 1520 -y 760 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -lvl 5 -x 1520 -y 780 -defaultsOSRD
@@ -20,8 +20,8 @@ preplace inst rst_ps7_0_50M -pg 1 -lvl 1 -x 190 -y 550 -defaultsOSRD
 preplace inst clk_wiz_0 -pg 1 -lvl 2 -x 530 -y 670 -defaultsOSRD
 preplace inst fifo_generator_0 -pg 1 -lvl 4 -x 1350 -y 160 -defaultsOSRD
 preplace inst simple_aes_0 -pg 1 -lvl 3 -x 950 -y 630 -defaultsOSRD
-preplace inst tdc_bank_0 -pg 1 -lvl 3 -x 950 -y 460 -defaultsOSRD
 preplace inst fifo_controller_0 -pg 1 -lvl 3 -x 950 -y 180 -defaultsOSRD
+preplace inst tdc_bank_0 -pg 1 -lvl 3 -x 950 -y 460 -defaultsOSRD
 preplace netloc rst_ps7_0_50M_peripheral_aresetn 1 1 2 370 250 700
 preplace netloc reset_rtl_1 1 0 2 20 660 NJ
 preplace netloc processing_system7_0_FCLK_CLK0 1 0 4 20 450 360 240 710 320 1190
@@ -40,10 +40,10 @@ preplace netloc fifo_controller_0_read_o 1 3 1 N 200
 preplace netloc tdc_bank_0_data_o 1 3 1 1160 100n
 preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 690 400n
 preplace netloc ps7_0_axi_periph_M02_AXI 1 2 1 680 100n
-preplace netloc processing_system7_0_M_AXI_GP0 1 1 3 380 260 690J 330 1140
 preplace netloc ps7_0_axi_periph_M01_AXI 1 2 1 N 420
-preplace netloc processing_system7_0_DDR 1 3 2 NJ 760 NJ
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 3 380 260 690J 330 1140
 preplace netloc processing_system7_0_FIXED_IO 1 3 2 NJ 780 NJ
+preplace netloc processing_system7_0_DDR 1 3 2 NJ 760 NJ
 levelinfo -pg 1 0 190 530 950 1350 1520
 pagesize -pg 1 -db -bbox -sgen -120 0 1640 890
 "
