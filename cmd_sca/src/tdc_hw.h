@@ -16,15 +16,16 @@
 #include <stdlib.h>
 
 #define TDC_HW_WORD_SIZE 4
-#define TDC_HW_COUNT_TDC 1
+#define TDC_HW_COUNT_TDC 2
 #define TDC_HW_BASE_ADDR XPAR_TDC_BANK_0_S_AXI_BASEADDR
 
-#define TDC_HW_DATA_POS_0 0
-#define TDC_HW_DATA_POS_1 1
-#define TDC_HW_DATA_POS_2 2
-#define TDC_HW_DATA_POS_3 3
+#define TDC_HW_WEIGHTS_POS_0 0
+#define TDC_HW_WEIGHTS_POS_1 1
+#define TDC_HW_RAW_POS 2
+#define TDC_HW_SUM_POS 3
 #define TDC_HW_FINE_POS 4
 #define TDC_HW_COARSE_POS 5
+#define TDC_HW_SEL_POS 6
 #define TDC_HW_ADDR(pos) (TDC_HW_BASE_ADDR + TDC_HW_WORD_SIZE * pos)
 
 #define TDC_HW_DEFAULT_CALIBRATE_IT 512
@@ -38,11 +39,18 @@
 #define TDC_HW_DATA_MASK(id) ((uint32_t) ((0xffffff00 << (8 * id)) | (0x00ffffff >> (8 * (4 - id - 1)))))
 #define TDC_HW_WEIGHT(data, id) ((uint32_t) ((data &  ~TDC_HW_DATA_MASK(id)) >> (8 * id)))
 
+
+typedef enum {
+    TDC_HW_MODE_RAW,
+    TDC_HW_MODE_WEIGHT,
+    TDC_HW_MODE_SUM
+} TDC_HW_mode_t;
+
 /**
  * @brief Reads the current value of the TDC data registers
  * @return read value
  */
-uint32_t TDC_HW_read(int id);
+uint32_t TDC_HW_read(int id, TDC_HW_mode_t mode);
 
 /**
  * @brief Writes the given value of the delay into the corresponding register

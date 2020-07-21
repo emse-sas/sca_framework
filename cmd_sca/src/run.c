@@ -199,7 +199,7 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
         xil_printf("delay: 0x%08x%08x\n\r", (unsigned int)(delay >> 32), (unsigned int)delay);
     }
 
-    xil_printf("value: %08x\n\r", TDC_HW_read(-1));
+    xil_printf("value: %08x\n\r", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
 
     return RUN_SUCCESS;
 }
@@ -222,17 +222,6 @@ void RUN_fifo_read(int mini)
     if (len == 0)
     {
         return;
-    }
-
-    uint32_t weight;
-    for (size_t idx = 0; idx < len; idx++)
-    {
-        weight = 0;
-        for (int id = 0; id < TDC_HW_COUNT_TDC; id++)
-        {
-            weight += TDC_HW_WEIGHT(weights[idx], id);
-        }
-        weights[idx] = weight;
     }
 
     if (mini)

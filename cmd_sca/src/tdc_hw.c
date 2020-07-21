@@ -1,14 +1,25 @@
 #include "tdc_hw.h"
 
-uint32_t TDC_HW_read(int id)
+uint32_t TDC_HW_read(int id, TDC_HW_mode_t mode)
 {
-    uint32_t data = Xil_In32(TDC_HW_ADDR(TDC_HW_DATA_POS_0));
-    if (id == -1)
-    {
-        return data;
+	uint32_t data;
+    switch(mode) {
+        case TDC_HW_MODE_WEIGHT:
+            data = Xil_In32(TDC_HW_ADDR(TDC_HW_WEIGHTS_POS_0));
+            return id != -1 ? TDC_HW_WEIGHT(data, id) : data;
+        case TDC_HW_MODE_RAW:
+            Xil_Out32(TDC_HW_ADDR(TDC_HW_SEL_POS), id);
+            return Xil_In32(TDC_HW_ADDR(TDC_HW_RAW_POS));
+        case TDC_HW_MODE_SUM:
+            return Xil_In32(TDC_HW_ADDR(TDC_HW_SUM_POS));
     }
-    return TDC_HW_WEIGHT(data, id);
 }
+
+int32_t TDC_HW_raw(int id)
+{
+
+}
+
 
 void TDC_HW_write_delay(uint32_t fine, uint32_t coarse, int id)
 {
@@ -41,8 +52,9 @@ uint64_t TDC_HW_calibrate(int iterations)
 {
     iterations = iterations ? iterations : TDC_HW_DEFAULT_CALIBRATE_IT;
     uint32_t best_fine = 0, best_coarse = 0;
-    uint32_t value, best_value;
+    uint32_t value, best_value, raw;
     uint32_t target = TDC_HW_CALIBRATE_TARGET * iterations;
+    int polarity;
 
     TDC_HW_write_delay(0, 0, -1);
     for (int id = 0; id < TDC_HW_COUNT_TDC; id++)
@@ -54,13 +66,16 @@ uint64_t TDC_HW_calibrate(int iterations)
             for (uint32_t fine = 0; fine <= TDC_HW_FINE_MAX; fine++)
             {
                 value = 0;
+                polarity = 0;
                 TDC_HW_write_delay(fine, coarse, id);
                 for (int i = 0; i < iterations; i++)
                 {
-                    value += TDC_HW_read(id);
+                    raw = TDC_HW_read(id, TDC_HW_MODE_RAW);
+                    value += OP_hamming_weight(raw);
+                    polarity += OP_bit_polarity(raw);
                 }
-                printf("(%lx, %lx): %05.2f\n\r", fine, coarse, (float)value / iterations);
-                if (abs(target - value) < abs(target - best_value))
+                printf("(%lx, %lx): %5.2f (p: %5.2f)\n\r", fine, coarse, (float)value / iterations, (float)polarity / iterations);
+                if (abs(target - value) < abs(target - best_value) && (polarity == 0 || polarity % 2 == 0))
                 {
                     best_value = value;
                     best_fine = fine;

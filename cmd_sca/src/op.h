@@ -47,4 +47,6 @@ void OP_encode_hamming(char* str, uint32_t *weights, size_t len, char offset);
  */
 void OP_stringify_hamming(char* str, uint32_t *weights, size_t len);
 
+int OP_bit_polarity(uint32_t value);
+
 #endif //SCA_FRAMEWORK_OP_H

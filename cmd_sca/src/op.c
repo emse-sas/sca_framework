@@ -67,3 +67,23 @@ void OP_stringify_hamming(char *str, uint32_t *weights, size_t len)
     }
     sprintf(ptr, "%lu", weights[len - 1]);
 }
+
+int OP_bit_polarity(uint32_t value)
+{
+    if (value == UINT32_MAX || value == 0)
+    {
+        return -1;
+    }
+    else if ((value & 0x1) == 0)
+    {
+        return 2;
+    }
+    else if ((value & 0xc0000000) == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return -2;
+    }
+}
