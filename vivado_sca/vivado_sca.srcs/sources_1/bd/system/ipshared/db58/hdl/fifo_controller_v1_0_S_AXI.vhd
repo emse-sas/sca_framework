@@ -19,7 +19,9 @@ entity fifo_controller_v1_0_S_AXI is
 		
         clock_i : in std_logic;
         empty_i : in std_logic;
-        full_i : in std_logic;
+		full_i : in std_logic;
+		start_i : in std_logic;
+		done_i : in std_logic;
         data_i : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
         reset_o : out std_logic;
         write_o : out std_logic;
@@ -124,7 +126,7 @@ architecture arch_imp of fifo_controller_v1_0_S_AXI is
         read_i : in std_logic;
         write_i : in std_logic;
         empty_i : in std_logic;
-        full_i : in std_logic;
+		full_i : in std_logic;
         write_o : out std_logic;
         read_o : out std_logic;
         reset_o : out std_logic
@@ -410,15 +412,13 @@ begin
 	end process;
     
 	-- Add user logic here
-    reset_s <= slv_reg2(0);
-    read_s <= slv_reg2(1);
-    write_s <= slv_reg2(2);
+	write_s <= 	slv_reg2(2) when slv_reg2(3) = '0' else (start_i and slv_reg2(2));
     top: fifo_controller
     port map(
         clock_i => clock_i,
-        reset_i => reset_s,
-        read_i => read_s,
-        write_i => write_s,
+        reset_i => slv_reg2(0),
+        read_i => slv_reg2(1),
+		write_i => write_s,
         empty_i => empty_i,
         full_i => full_i,
         write_o => write_o,

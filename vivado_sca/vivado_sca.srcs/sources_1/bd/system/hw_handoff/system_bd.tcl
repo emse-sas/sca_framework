@@ -734,10 +734,10 @@ proc create_root_design { parentCell } {
   connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins fifo_controller_0/clock_i] [get_bd_pins fifo_controller_0/s_axi_aclk] [get_bd_pins fifo_generator_0/rd_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/M01_ACLK] [get_bd_pins ps7_0_axi_periph/M02_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps7_0_50M/slowest_sync_clk] [get_bd_pins simple_aes_0/s_axi_aclk] [get_bd_pins tdc_bank_0/s_axi_aclk]
   connect_bd_net -net reset_rtl_1 [get_bd_ports reset_rtl] [get_bd_pins clk_wiz_0/reset] [get_bd_pins rst_ps7_0_50M/ext_reset_in]
   connect_bd_net -net rst_ps7_0_50M_peripheral_aresetn [get_bd_pins fifo_controller_0/s_axi_aresetn] [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M01_ARESETN] [get_bd_pins ps7_0_axi_periph/M02_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps7_0_50M/peripheral_aresetn] [get_bd_pins simple_aes_0/s_axi_aresetn] [get_bd_pins tdc_bank_0/s_axi_aresetn]
-  connect_bd_net -net simple_aes_0_done_o [get_bd_ports led_done] [get_bd_pins simple_aes_0/done_o]
+  connect_bd_net -net simple_aes_0_done_o [get_bd_ports led_done] [get_bd_pins fifo_controller_0/done_i] [get_bd_pins simple_aes_0/done_o]
   connect_bd_net -net simple_aes_0_inv_o [get_bd_ports led_inv] [get_bd_pins simple_aes_0/inv_o]
   connect_bd_net -net simple_aes_0_reset_o [get_bd_ports led_reset] [get_bd_pins simple_aes_0/reset_o]
-  connect_bd_net -net simple_aes_0_start_o [get_bd_ports led_start] [get_bd_pins simple_aes_0/start_o]
+  connect_bd_net -net simple_aes_0_start_o [get_bd_ports led_start] [get_bd_pins fifo_controller_0/start_i] [get_bd_pins simple_aes_0/start_o]
   connect_bd_net -net tdc_bank_0_data_o [get_bd_pins fifo_generator_0/din] [get_bd_pins tdc_bank_0/data_o]
 
   # Create address segments

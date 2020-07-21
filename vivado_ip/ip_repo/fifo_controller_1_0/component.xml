@@ -298,7 +298,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>6fbc9ed7</spirit:value>
+            <spirit:value>39d4e035</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -314,7 +314,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>6fbc9ed7</spirit:value>
+            <spirit:value>39d4e035</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -376,6 +376,32 @@
       </spirit:port>
       <spirit:port>
         <spirit:name>full_i</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>start_i</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>done_i</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:wireTypeDefs>
@@ -798,7 +824,7 @@
       <spirit:file>
         <spirit:name>hdl/fifo_controller_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_1de11d7e</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_4a44ba09</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -899,8 +925,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>FIFO Controller</xilinx:displayName>
-      <xilinx:coreRevision>13</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2020-07-09T15:04:39Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>14</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2020-07-20T18:05:55Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5d394feb_ARCHIVE_LOCATION">d:/codesign/ip/ip_repo/fifo_controller_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@14daaaf9_ARCHIVE_LOCATION">d:/codesign/ip/ip_repo/fifo_controller_1.0</xilinx:tag>
@@ -1116,14 +1142,25 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4cf9bf54_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@6ff6c649_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@20ddbadb_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@232df245_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@278eec42_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b7a5a8c_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ffcaef1_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@689a4d5b_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@31fd90f9_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2b3dd54a_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1d45ba6c_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e99a2a0_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57e72302_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@30af1394_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="cd35d8c3"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c30980da"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="59a4b04e"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="a6551ab2"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="8898812a"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="88b7f54a"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="f9a38560"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="236595b7"/>
     </xilinx:packagingInfo>

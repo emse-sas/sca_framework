@@ -671,11 +671,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Jul 20 16:33:59 UTC 2020</spirit:value>
+            <spirit:value>Mon Jul 20 18:09:23 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:c5fc7712</spirit:value>
+            <spirit:value>9:0080066c</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -686,7 +686,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:c5fc7712</spirit:value>
+            <spirit:value>9:0080066c</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -702,11 +702,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Jul 20 16:34:00 UTC 2020</spirit:value>
+            <spirit:value>Mon Jul 20 18:09:23 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:c5fc7712</spirit:value>
+            <spirit:value>9:0080066c</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -722,11 +722,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Jul 20 16:33:59 UTC 2020</spirit:value>
+            <spirit:value>Mon Jul 20 18:09:23 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:97f049df</spirit:value>
+            <spirit:value>9:528c38a1</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -742,11 +742,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Jul 20 16:34:00 UTC 2020</spirit:value>
+            <spirit:value>Mon Jul 20 18:09:23 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:97f049df</spirit:value>
+            <spirit:value>9:528c38a1</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1175,47 +1175,47 @@
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlsynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/clock_mux.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/clock_mux.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/coarse_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/coarse_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/coarse_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/coarse_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/fine_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/fine_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/fine_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/fine_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/sampling_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/sampling_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/sampling_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/sampling_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/tdc.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/tdc.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/tdc_bank.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/tdc_bank.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/hdl/tdc_bank_v1_0_S_AXI.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/hdl/tdc_bank_v1_0_S_AXI.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/hdl/tdc_bank_v1_0.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/hdl/tdc_bank_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1230,47 +1230,47 @@
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/clock_mux.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/clock_mux.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/coarse_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/coarse_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/coarse_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/coarse_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/fine_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/fine_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/fine_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/fine_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/sampling_block.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/sampling_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/sampling_line.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/sampling_line.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/tdc.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/tdc.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/src/tdc_bank.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/src/tdc_bank.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/hdl/tdc_bank_v1_0_S_AXI.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/hdl/tdc_bank_v1_0_S_AXI.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/9e9f/hdl/tdc_bank_v1_0.vhd</spirit:name>
+        <spirit:name>../../ipshared/6822/hdl/tdc_bank_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1347,7 +1347,7 @@
   <spirit:vendorExtensions>
     <xilinx:coreExtensions>
       <xilinx:displayName>Time to Digital Converter (TDC)</xilinx:displayName>
-      <xilinx:coreRevision>14</xilinx:coreRevision>
+      <xilinx:coreRevision>15</xilinx:coreRevision>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@61a16a5e_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1653b297_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
@@ -1644,6 +1644,11 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4493dfa6_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1ca707c6_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@46217864_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3874e020_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4221ed0b_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2be1383_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5763c55f_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@13adba2d_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
       </xilinx:tags>
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.CLOCK_I.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
@@ -1701,7 +1706,7 @@
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="f6b97cbd"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c30980da"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="af9abc28"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="ba5c286e"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="363a0463"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="0d4e5e44"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="c84cbaf9"/>

@@ -19,7 +19,9 @@ entity fifo_controller_v1_0 is
 		
         clock_i : in std_logic;
         empty_i : in std_logic;
-        full_i : in std_logic;
+		full_i : in std_logic;
+		start_i : in std_logic;
+		done_i : in std_logic;
         data_i : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
         reset_o : out std_logic;
         write_o : out std_logic;
@@ -65,7 +67,9 @@ architecture arch_imp of fifo_controller_v1_0 is
 		port (
         clock_i : in std_logic;
         empty_i : in std_logic;
-        full_i : in std_logic;
+		full_i : in std_logic;
+		start_i : in std_logic;
+		done_i : in std_logic;
         data_i : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
         reset_o : out std_logic;
         write_o : out std_logic;
@@ -105,7 +109,9 @@ fifo_controller_v1_0_S_AXI_inst : fifo_controller_v1_0_S_AXI
 	port map (
         clock_i => clock_i,
         empty_i => empty_i, 
-        full_i => full_i,
+		full_i => full_i,
+		start_i => start_i,
+		done_i => done_i,
         data_i => data_i,
         reset_o => reset_o,
         read_o => read_o,

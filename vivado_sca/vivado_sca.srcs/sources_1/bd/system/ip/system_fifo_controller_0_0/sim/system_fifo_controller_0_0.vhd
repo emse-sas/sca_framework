@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: xilinx.com:user:fifo_controller:1.0
--- IP Revision: 13
+-- IP Revision: 14
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -58,6 +58,8 @@ ENTITY system_fifo_controller_0_0 IS
     clock_i : IN STD_LOGIC;
     empty_i : IN STD_LOGIC;
     full_i : IN STD_LOGIC;
+    start_i : IN STD_LOGIC;
+    done_i : IN STD_LOGIC;
     data_i : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     reset_o : OUT STD_LOGIC;
     write_o : OUT STD_LOGIC;
@@ -98,6 +100,8 @@ ARCHITECTURE system_fifo_controller_0_0_arch OF system_fifo_controller_0_0 IS
       clock_i : IN STD_LOGIC;
       empty_i : IN STD_LOGIC;
       full_i : IN STD_LOGIC;
+      start_i : IN STD_LOGIC;
+      done_i : IN STD_LOGIC;
       data_i : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       reset_o : OUT STD_LOGIC;
       write_o : OUT STD_LOGIC;
@@ -166,6 +170,8 @@ BEGIN
       clock_i => clock_i,
       empty_i => empty_i,
       full_i => full_i,
+      start_i => start_i,
+      done_i => done_i,
       data_i => data_i,
       reset_o => reset_o,
       write_o => write_o,

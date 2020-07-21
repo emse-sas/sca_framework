@@ -30,7 +30,9 @@ cmd_sca/_ide/
 vivado_ip/managed_ip_project/managed_ip_project.cache/
 
 .idea/
-/media/temp/
+/media/img/screenshots
+/media/img/acquisition
+/data/acquisition
 
 vivado_sca/vivado_sca.ip_user_files/
 

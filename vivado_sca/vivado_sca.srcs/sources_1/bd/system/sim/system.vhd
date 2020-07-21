@@ -1,7 +1,7 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Mon Jul 20 18:33:58 2020
+--Date        : Mon Jul 20 21:20:01 2020
 --Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
 --Command     : generate_target system.bd
 --Design      : system
@@ -1509,38 +1509,6 @@ architecture STRUCTURE of system is
     empty : out STD_LOGIC
   );
   end component system_fifo_generator_0_0;
-  component system_fifo_controller_0_0 is
-  port (
-    clock_i : in STD_LOGIC;
-    empty_i : in STD_LOGIC;
-    full_i : in STD_LOGIC;
-    data_i : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    reset_o : out STD_LOGIC;
-    write_o : out STD_LOGIC;
-    read_o : out STD_LOGIC;
-    s_axi_aclk : in STD_LOGIC;
-    s_axi_aresetn : in STD_LOGIC;
-    s_axi_awaddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    s_axi_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    s_axi_awvalid : in STD_LOGIC;
-    s_axi_awready : out STD_LOGIC;
-    s_axi_wdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    s_axi_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    s_axi_wvalid : in STD_LOGIC;
-    s_axi_wready : out STD_LOGIC;
-    s_axi_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    s_axi_bvalid : out STD_LOGIC;
-    s_axi_bready : in STD_LOGIC;
-    s_axi_araddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    s_axi_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    s_axi_arvalid : in STD_LOGIC;
-    s_axi_arready : out STD_LOGIC;
-    s_axi_rdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    s_axi_rresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    s_axi_rvalid : out STD_LOGIC;
-    s_axi_rready : in STD_LOGIC
-  );
-  end component system_fifo_controller_0_0;
   component system_simple_aes_0_0 is
   port (
     clock_i : in STD_LOGIC;
@@ -1600,6 +1568,40 @@ architecture STRUCTURE of system is
     s_axi_rready : in STD_LOGIC
   );
   end component system_tdc_bank_0_1;
+  component system_fifo_controller_0_0 is
+  port (
+    clock_i : in STD_LOGIC;
+    empty_i : in STD_LOGIC;
+    full_i : in STD_LOGIC;
+    start_i : in STD_LOGIC;
+    done_i : in STD_LOGIC;
+    data_i : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    reset_o : out STD_LOGIC;
+    write_o : out STD_LOGIC;
+    read_o : out STD_LOGIC;
+    s_axi_aclk : in STD_LOGIC;
+    s_axi_aresetn : in STD_LOGIC;
+    s_axi_awaddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s_axi_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    s_axi_awvalid : in STD_LOGIC;
+    s_axi_awready : out STD_LOGIC;
+    s_axi_wdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    s_axi_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s_axi_wvalid : in STD_LOGIC;
+    s_axi_wready : out STD_LOGIC;
+    s_axi_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    s_axi_bvalid : out STD_LOGIC;
+    s_axi_bready : in STD_LOGIC;
+    s_axi_araddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s_axi_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    s_axi_arvalid : in STD_LOGIC;
+    s_axi_arready : out STD_LOGIC;
+    s_axi_rdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    s_axi_rresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    s_axi_rvalid : out STD_LOGIC;
+    s_axi_rready : in STD_LOGIC
+  );
+  end component system_fifo_controller_0_0;
   signal clk_wiz_0_clk_aes : STD_LOGIC;
   signal clk_wiz_0_clk_out2 : STD_LOGIC;
   signal fifo_controller_0_read_o : STD_LOGIC;
@@ -1787,6 +1789,7 @@ fifo_controller_0: component system_fifo_controller_0_0
      port map (
       clock_i => processing_system7_0_FCLK_CLK0,
       data_i(31 downto 0) => fifo_generator_0_dout(31 downto 0),
+      done_i => simple_aes_0_done_o,
       empty_i => fifo_generator_0_empty,
       full_i => fifo_generator_0_full,
       read_o => fifo_controller_0_read_o,
@@ -1812,6 +1815,7 @@ fifo_controller_0: component system_fifo_controller_0_0
       s_axi_wready => ps7_0_axi_periph_M02_AXI_WREADY,
       s_axi_wstrb(3 downto 0) => ps7_0_axi_periph_M02_AXI_WSTRB(3 downto 0),
       s_axi_wvalid => ps7_0_axi_periph_M02_AXI_WVALID,
+      start_i => simple_aes_0_start_o,
       write_o => fifo_controller_0_write_o
     );
 fifo_generator_0: component system_fifo_generator_0_0
