@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from ..lib import aes
+from py_sca import aes
 
 
 class HandlerTest(unittest.TestCase):

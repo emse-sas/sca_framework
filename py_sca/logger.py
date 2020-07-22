@@ -1,7 +1,8 @@
-import re
 import serial
 import csv
 import numpy as np
+import random
+from scipy import signal, stats
 
 
 class FormatError(Exception):
@@ -52,22 +53,31 @@ class Log:
         elif first == "plain:":
             self.plains.append(list(map(lambda x: hex(int(x, 16)), split[1:])))
         elif first == "cipher:":
-            self.ciphers.append(list(map(lambda x: hex(int(x, 16)), split[1:])))
+            self.ciphers.append(
+                list(map(lambda x: hex(int(x, 16)), split[1:])))
         elif first == "samples:":
             self.read_counts.append(int(second))
         elif first == "weights:":
-            self.traces.append(list(map(self._hamming_to_int, second) if mini else map(int, second.split(","))))
+            self.traces.append(
+                list(map(self._hamming_to_int, second) if mini else map(int, second.split(","))))
             if len(self.traces[-1]) != self.read_counts[-1]:
                 self.pop()
 
     def cropped_traces(self):
         n = min(self.read_counts)
         m = 0
+        l = n - m + 1
         for i in range(0, n):
             if len(list(filter(lambda t: t[i] != self.traces[0][i], self.traces))) != 0:
                 m = i
                 break
-        return list(map(lambda t: t[m:n], self.traces))
+        ret = list(map(lambda t: t[m:n], self.traces))
+        reference = ret[0]
+        for i in range(len(self.traces)):
+            buffer = np.fromiter(map(
+                lambda shift: stats.pearsonr(reference, np.roll(ret[i], shift))[0], list(range(-l, l))), dtype=np.float)
+            ret[i] = np.roll(ret[i], np.argmax(buffer) - l)
+        return ret
 
     def traces_matrix(self):
         traces = self.cropped_traces()
@@ -100,9 +110,11 @@ class Log:
 
     @classmethod
     def from_serial(cls, count, port, baud=115200, mini=True, hardware=False):
-        ser = serial.Serial(port, baud, timeout=None, parity=serial.PARITY_NONE, xonxoff=False)
+        ser = serial.Serial(port, baud, timeout=None,
+                            parity=serial.PARITY_NONE, xonxoff=False)
         ser.flush()
-        ser.write(("sca -t %d%s%s\n\r" % (count, " -m" if mini else "", " -h" if hardware else "")).encode())
+        ser.write(("sca -t %d%s%s\n\r" % (count, " -m" if mini else "",
+                                          " -h" if hardware else "")).encode())
         s = ser.read_until(b"\n\r\xff\n\r")
         ser.close()
 
@@ -145,7 +157,8 @@ class Log:
                              "cipher 0", "cipher 1", "cipher 2", "cipher 3",
                              "key 0", "key 1", "key 2", "key 3"])
             for i in range(0, len(self.traces)):
-                writer.writerow(self.plains[i] + self.ciphers[i] + self.keys[i])
+                writer.writerow(self.plains[i] +
+                                self.ciphers[i] + self.keys[i])
 
     def report_traces(self, filepath):
         with open(filepath, "w") as file:
