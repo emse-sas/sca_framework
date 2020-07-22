@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from lib.logger import Log
 SEED_NO = 0
-COUNT_TRACES = 4  # count of traces to record from FPGA
+COUNT_TRACES = 8 # count of traces to record from FPGA
 AVG_LEN = 32  # sliding average convolution kernel size
 F_SAMPLING = 200e6  # sampling frequency of the acquisition system
 TRACES_TO_PLOT = 8  # count of raw traces to plot
