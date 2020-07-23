@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from py_sca import aes
+from py_sca.lib import aes
 
 
 class HandlerTest(unittest.TestCase):
@@ -16,7 +16,7 @@ class HandlerTest(unittest.TestCase):
         [0x04, 0x05, 0x06, 0x07],
         [0x08, 0x09, 0x0a, 0x0b],
         [0x0c, 0x0d, 0x0e, 0x0f]
-    ], dtype=np.ubyte)
+    ], dtype=np.ubyte).T
 
     cipher = np.array([
         [0x69, 0x6a, 0xd8, 0x70],
