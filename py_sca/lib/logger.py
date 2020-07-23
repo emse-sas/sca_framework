@@ -63,32 +63,6 @@ class Log:
             if len(self.traces[-1]) != self.read_counts[-1]:
                 self.pop()
 
-    def cropped_traces(self):
-        n = min(self.read_counts)
-        m = 0
-        l = n - m + 1
-        for i in range(0, n):
-            if len(list(filter(lambda t: t[i] != self.traces[0][i], self.traces))) != 0:
-                m = i
-                break
-        ret = list(map(lambda t: t[m:n], self.traces))
-        reference = ret[0]
-        for i in range(len(self.traces)):
-            buffer = np.fromiter(map(
-                lambda shift: stats.pearsonr(reference, np.roll(ret[i], shift))[0], list(range(-l, l))), dtype=np.float)
-            ret[i] = np.roll(ret[i], np.argmax(buffer) - l)
-        return ret
-
-    def traces_matrix(self):
-        traces = self.cropped_traces()
-        n = len(traces)
-        m = len(traces[0])
-        ret = np.empty((n, m), dtype=int)
-        for i in range(0, n):
-            for j in range(0, m):
-                ret[i, j] = traces[i][j]
-        return ret
-
     @classmethod
     def empty(cls):
         return Log([], [], [], [])
