@@ -59,6 +59,18 @@ def multiply(x, y):
             ((y >> 3 & 1) * xtime(xtime(xtime(x)))) ^
             ((y >> 4 & 1) * xtime(xtime(xtime(xtime(x))))))
 
+def word_to_col(w):
+    x = int(w, 16)
+    return np.array([x >> 24, (x >> 16) & 0xff, (x >> 8) & 0xff, x & 0xff])
+
+def words_to_block(words):
+    ret = np.empty((4,4))
+    ret[0] = word_to_col(words[0])
+    ret[1] = word_to_col(words[1])
+    ret[2] = word_to_col(words[2])
+    ret[3] = word_to_col(words[3])
+    return np.array(ret, dtype=int).T
+
 
 def add_round_key(block, key):
     return block ^ key.T
@@ -145,7 +157,7 @@ class Handler:
     def __init__(self, key):
         self.blocks = np.zeros((N_ROUNDS + 1, 5, 4, 4), dtype=np.ubyte)
         self.keys = np.zeros((N_ROUNDS + 1, 4, 4), dtype=np.ubyte)
-        self.keys[0] = key
+        self.keys[0] = key.T
         self._key_expansion()
 
     def encrypt(self, block):
@@ -155,12 +167,12 @@ class Handler:
         self.blocks[0][Stages.MIX_COLUMNS] = np.copy(block)
         self.blocks[0][Stages.ADD_ROUND_KEY] = add_round_key(block, self.keys[0])
 
-        for n in range(1, N_ROUNDS):
-            self.blocks[n][Stages.START] = self.blocks[n - 1][Stages.ADD_ROUND_KEY].copy()
-            self.blocks[n][Stages.SUB_BYTES] = sub_bytes(self.blocks[n][Stages.START])
-            self.blocks[n][Stages.SHIFT_ROWS] = shift_rows(self.blocks[n][Stages.SUB_BYTES])
-            self.blocks[n][Stages.MIX_COLUMNS] = mix_columns(self.blocks[n][Stages.SHIFT_ROWS])
-            self.blocks[n][Stages.ADD_ROUND_KEY] = add_round_key(self.blocks[n][Stages.MIX_COLUMNS], self.keys[n])
+        for rnd in range(1, N_ROUNDS):
+            self.blocks[rnd][Stages.START] = self.blocks[rnd - 1][Stages.ADD_ROUND_KEY].copy()
+            self.blocks[rnd][Stages.SUB_BYTES] = sub_bytes(self.blocks[rnd][Stages.START])
+            self.blocks[rnd][Stages.SHIFT_ROWS] = shift_rows(self.blocks[rnd][Stages.SUB_BYTES])
+            self.blocks[rnd][Stages.MIX_COLUMNS] = mix_columns(self.blocks[rnd][Stages.SHIFT_ROWS])
+            self.blocks[rnd][Stages.ADD_ROUND_KEY] = add_round_key(self.blocks[rnd][Stages.MIX_COLUMNS], self.keys[rnd])
 
         self.blocks[N_ROUNDS][Stages.START] = self.blocks[N_ROUNDS - 1][Stages.ADD_ROUND_KEY].copy()
         self.blocks[N_ROUNDS][Stages.SUB_BYTES] = sub_bytes(self.blocks[N_ROUNDS][Stages.START])
@@ -177,12 +189,12 @@ class Handler:
         self.blocks[N_ROUNDS][Stages.INV_ADD_ROUND_KEY] = add_round_key(block, self.keys[N_ROUNDS])
         self.blocks[N_ROUNDS][Stages.INV_MIX_COLUMNS] = np.copy(self.blocks[N_ROUNDS][Stages.INV_ADD_ROUND_KEY])
 
-        for n in range(N_ROUNDS - 1, 0, -1):
-            self.blocks[n][Stages.START] = self.blocks[n + 1][Stages.INV_MIX_COLUMNS].copy()
-            self.blocks[n][Stages.INV_SHIFT_ROWS] = inv_shift_rows(self.blocks[n][Stages.START])
-            self.blocks[n][Stages.INV_SUB_BYTES] = inv_sub_bytes(self.blocks[n][Stages.INV_SHIFT_ROWS])
-            self.blocks[n][Stages.INV_ADD_ROUND_KEY] = add_round_key(self.blocks[n][Stages.INV_SUB_BYTES], self.keys[n])
-            self.blocks[n][Stages.INV_MIX_COLUMNS] = inv_mix_columns(self.blocks[n][Stages.INV_ADD_ROUND_KEY])
+        for rnd in range(N_ROUNDS - 1, 0, -1):
+            self.blocks[rnd][Stages.START] = self.blocks[rnd + 1][Stages.INV_MIX_COLUMNS].copy()
+            self.blocks[rnd][Stages.INV_SHIFT_ROWS] = inv_shift_rows(self.blocks[rnd][Stages.START])
+            self.blocks[rnd][Stages.INV_SUB_BYTES] = inv_sub_bytes(self.blocks[rnd][Stages.INV_SHIFT_ROWS])
+            self.blocks[rnd][Stages.INV_ADD_ROUND_KEY] = add_round_key(self.blocks[rnd][Stages.INV_SUB_BYTES], self.keys[rnd])
+            self.blocks[rnd][Stages.INV_MIX_COLUMNS] = inv_mix_columns(self.blocks[rnd][Stages.INV_ADD_ROUND_KEY])
 
         self.blocks[0][Stages.START] = self.blocks[1][Stages.INV_MIX_COLUMNS].copy()
         self.blocks[0][Stages.INV_SHIFT_ROWS] = inv_shift_rows(self.blocks[0][Stages.START])
