@@ -41,3 +41,5 @@ py_sca/__pycache__/
 platform_sca/tempdsa/
 
 data/
+
+py_sca/lib/__pycache__/
