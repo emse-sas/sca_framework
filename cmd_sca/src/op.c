@@ -78,7 +78,7 @@ int OP_bit_polarity(uint32_t value)
     {
         return 2;
     }
-    else if ((value & 0xc0000000) == 0)
+    else if ((value & 0x80000000) == 0)
     {
         return 0;
     }

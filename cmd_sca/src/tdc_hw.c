@@ -75,7 +75,7 @@ uint64_t TDC_HW_calibrate(int iterations)
                     polarity += OP_bit_polarity(raw);
                 }
                 printf("(%lx, %lx): %5.2f (p: %5.2f)\n\r", fine, coarse, (float)value / iterations, (float)polarity / iterations);
-                if (abs(target - value) < abs(target - best_value) && (polarity == 0 || polarity % 2 == 0))
+                if (abs(target - value) < abs(target - best_value) && polarity % 2 == 0)
                 {
                     best_value = value;
                     best_fine = fine;
