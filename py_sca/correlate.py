@@ -1,72 +1,76 @@
-from lib import aes, logger, traces as tr
+from lib import aes, logger, cpa
+from lib import traces as tr
 import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
+import time
+from datetime import timedelta
 
-SEED_NO = 0
-COUNT_TRACES = 16384  # count of traces to record from FPGA
-AVG_LEN = COUNT_TRACES  # sliding average convolution kernel size
-F_SAMPLING = 200e6  # sampling frequency of the acquisition system
-TRACES_TO_PLOT = 64  # count of raw traces to plot
+COUNT_TRACES = 16384 # count of traces to record from FPGA
 HARDWARE_AES = True
+SYNC_TRACES = False
 
 np.set_printoptions(formatter={'int': hex})
 
 file_args = ("_hw" if HARDWARE_AES else "", COUNT_TRACES)
 
 # read FPGA acquisition csv log file
+print("*** importing traces ***")
+t_start = time.perf_counter()
 log = logger.Log.from_reports(
     "data/acquisition/report_data%s_%d.csv" % file_args,
     "data/acquisition/report_traces%s_%d.csv" % file_args)
+t_import = time.perf_counter()
+print("import successful!\nelapsed: %s" % str(timedelta(seconds=t_import - t_start)))
 
-print(log)
-
-n = len(log.plains)
-traces = tr.sync(tr.crop(log.traces))
-traces = np.array(traces, dtype=np.float)
+print("*** processing traces ***")
+t_start = time.perf_counter()
+n = log.samples
+traces = tr.crop(log.traces)
+if SYNC_TRACES:
+    traces = tr.sync(traces, stop=128)
+traces = np.array(traces, dtype=np.float64)
 traces -= traces.mean(axis=1).reshape((n, 1))
-
 m = len(traces[0])
-plains = []
-ciphers = []
-keys = []
-sub_traces = [[{} for j in range(4)] for i in range(4)]
-for d in range(n):
-    plains.append(aes.words_to_block(log.plains[d]))
-    ciphers.append(aes.words_to_block(log.ciphers[d]))
-    keys.append(aes.words_to_block(log.keys[d]))
-    for i in range(4):
-        for j in range(4):
-            try:
-                sub_traces[i][j][plains[d][i][j]].append(traces[d])
-            except KeyError:
-                sub_traces[i][j][plains[d][i][j]] = [traces[d]]
+t_proc = time.perf_counter()
+print("processing successful!\nelapsed: %s" % str(timedelta(seconds=t_proc - t_start)))
 
-for i in range(4):
-    for j in range(4):
-        for k in range(256):
-            try:
-                sub_traces[i][j][k] = np.mean(sub_traces[i][j][k], axis=0) 
-            except KeyError:
-                sub_traces[i][j][k] = np.full((m,), log.offset, dtype=np.float64)
-        sub_traces[i][j] = np.array(list(sub_traces[i][j].values()))
+print("*** creating handler ***")
+t_start = time.perf_counter()
+handler = cpa.Handler.from_log(log, traces)
+t_handler = time.perf_counter()
+print("handler successfully created!\nelapsed: %s" % str(timedelta(seconds=t_handler - t_start)))
 
-hypothesis = [[0 for k in range(256)] for hyp in range(256)]
-for hyp in range(256):
-    for k in range(256):
-        hypothesis[hyp][k] = bin(aes.S_BOX[k ^ hyp] ^ k).count("1")
+print("*** computing correlation ***")
+t_start = time.perf_counter()
+correlations = handler.correlations()
+t_cor = time.perf_counter()
+print("correlation successfully computed!\nelapsed: %s" % str(timedelta(seconds=t_cor - t_start)))
 
-m = len(traces[0])
-sub_traces[0][0] = sub_traces[0][0].T
-correlation = np.zeros((256, m))
-for hyp in range(256):
-    for t in range(m):
-        correlation[hyp][t] = stats.pearsonr(hypothesis[hyp], sub_traces[0][0][t])[0]
+print("*** saving plots ***")
+t_start = time.perf_counter()
+plt.rcParams["figure.figsize"] = (16, 9)
+for i in range(aes.BLOCK_LEN):
+    for j in range(aes.BLOCK_LEN):
+        for h in range(cpa.COUNT_HYP):
+            if h == handler.key[i, j]:
+                plt.plot(correlations[i, j, h], color="red", label="key 0x%x" % h, zorder=1000)
+            else:
+                plt.plot(correlations[i, j, h], color="grey")
+        
+        img_args = tuple([i * aes.BLOCK_LEN + j]) + file_args
+        plt.title("Time Correlation byte %d (n=%d, m=%d)" % (img_args[0], n, m))
+        plt.xlabel("Time Samples")
+        plt.ylabel("Pearson Correlation")
+        plt.legend()
+        plt.savefig("media/img/correlation/b%d/sca_cor%s_%d" % img_args)
+        plt.close()
 
-    if hyp == keys[0][0][0]:
-        plt.plot(correlation[hyp], color="red", zorder=1000)
-    else:
-        plt.plot(correlation[hyp], color="grey")
+t_plot = time.perf_counter()
+print("traces successfully saved!\nelapsed: %s" % str(timedelta(seconds=t_plot - t_start)))
 
-plt.show()
-print(correlation)
+print("exiting...")
+
+
+
+            
