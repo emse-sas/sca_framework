@@ -46,7 +46,7 @@ R_CON = np.array([
 ], dtype=np.ubyte).T
 
 N_ROUNDS = 10
-
+BLOCK_LEN = 4
 
 def xtime(x):
     return (x << 1) ^ (((x >> 7) & 1) * 0x1b)
@@ -155,8 +155,8 @@ class Stages:
 class Handler:
 
     def __init__(self, key):
-        self.blocks = np.zeros((N_ROUNDS + 1, 5, 4, 4), dtype=np.ubyte)
-        self.keys = np.zeros((N_ROUNDS + 1, 4, 4), dtype=np.ubyte)
+        self.blocks = np.zeros((N_ROUNDS + 1, 5, BLOCK_LEN, BLOCK_LEN), dtype=np.ubyte)
+        self.keys = np.zeros((N_ROUNDS + 1, BLOCK_LEN, BLOCK_LEN), dtype=np.ubyte)
         self.keys[0] = key.T
         self._key_expansion()
 
