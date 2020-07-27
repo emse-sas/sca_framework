@@ -1,9 +1,6 @@
 import serial
 import csv
-import numpy as np
 import random
-from scipy import signal, stats
-
 
 class FormatError(Exception):
     def __init__(self, message="", line=""):
@@ -12,7 +9,7 @@ class FormatError(Exception):
 
 
 class Log:
-    def __init__(self, plains, ciphers, keys, traces, direction=None, mode=None):
+    def __init__(self, plains, ciphers, keys, traces, direction=None, mode=None, sync=True):
         self.mode = mode
         self.direction = direction
         self.offset = 0
@@ -20,7 +17,8 @@ class Log:
         self.plains = plains
         self.ciphers = ciphers
         self.keys = keys
-        self.read_counts = []
+        self.reads = []
+        self.samples = 0
         self.traces = traces
 
     def pop(self):
@@ -28,7 +26,7 @@ class Log:
         self.ciphers.pop()
         self.keys.pop()
         self.traces.pop()
-        self.read_counts.pop()
+        self.reads.pop()
 
     def _hamming_to_int(self, s):
         return int(s - ord('O') + self.offset)
@@ -49,18 +47,17 @@ class Log:
         elif first == "target:":
             self.offset = int(second) * self.sensors
         elif first == "key:":
-            self.keys.append(list(map(lambda x: hex(int(x, 16)), split[1:])))
+            self.keys.append(split[1:])
         elif first == "plain:":
-            self.plains.append(list(map(lambda x: hex(int(x, 16)), split[1:])))
+            self.plains.append(split[1:])
         elif first == "cipher:":
-            self.ciphers.append(
-                list(map(lambda x: hex(int(x, 16)), split[1:])))
+            self.ciphers.append(split[1:])
         elif first == "samples:":
-            self.read_counts.append(int(second))
+            self.reads.append(int(second))
         elif first == "weights:":
             self.traces.append(
                 list(map(self._hamming_to_int, second) if mini else map(int, second.split(","))))
-            if len(self.traces[-1]) != self.read_counts[-1]:
+            if len(self.traces[-1]) != self.reads[-1]:
                 self.pop()
 
     @classmethod
@@ -80,6 +77,7 @@ class Log:
         for line in lines:
             ret._parse_line(line, mini)
 
+        ret.samples = len(ret.traces)
         return ret
 
     @classmethod
@@ -98,6 +96,7 @@ class Log:
         for line in lines:
             ret._parse_line(line, mini)
 
+        ret.samples = len(ret.traces)
         return ret
 
     @classmethod
@@ -121,7 +120,8 @@ class Log:
                 if len(row) == 0:
                     continue
                 ret.traces.append(list(map(lambda x: int(x), row)))
-
+        
+        ret.samples = len(ret.traces)
         return ret
 
     def report_data(self, filepath):
