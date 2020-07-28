@@ -46,7 +46,7 @@ print("export successful!\nelapsed: %s" % str(timedelta(seconds=t_export - t_sta
 # Synchronize trace signals and compute average trace
 print("*** processing traces ***")
 t_start = time.perf_counter()
-traces = tr.crop(log.traces)
+traces = tr.pad(log.traces)
 if SYNC_TRACES:
     traces = tr.sync(traces, stop=128)
 n, m = traces.shape
