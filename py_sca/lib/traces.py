@@ -17,6 +17,13 @@ def crop(traces):
     return ret
 
 
+def pad(traces):
+    n = max(map(lambda trace: len(trace), traces))
+    ret = np.zeros((len(traces), n), dtype=np.int)
+    for dst, src in zip(ret, traces):
+        dst[:len(src)] = src
+
+    return ret
         
 
 def sync(traces, step=1, stop=None):
