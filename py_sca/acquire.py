@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from lib import aes, logger, traces as tr
+from lib import aes, logger
+from lib import traces as tr
 import time
 from datetime import timedelta
 from scipy import fft
@@ -22,7 +23,7 @@ if LOG_SOURCE == "serial":
     log = logger.Log.from_serial(COUNT_TRACES, "COM5", hardware=HARDWARE_AES)
 elif LOG_SOURCE == "file":
     # read FPGA acquisition command prompt log file
-    log = logger.Log.from_file("data/cmd%s_%d.log" % file_args)
+    log = logger.Log.from_file("data/cmd.log")
 elif LOG_SOURCE == "reports":
     # read FPGA acquisition csv log file
     log = logger.Log.from_reports(
@@ -48,8 +49,7 @@ t_start = time.perf_counter()
 traces = tr.crop(log.traces)
 if SYNC_TRACES:
     traces = tr.sync(traces, stop=128)
-n = len(traces)
-m = len(traces[0])
+n, m = traces.shape
 mean = np.array(traces).mean(axis=0)
 smoothed = np.convolve(mean, np.ones((AVG_LEN,)) / AVG_LEN, mode="same")
 spectrum = np.fromiter(map(lambda y: np.absolute(y), fft.fft(mean - np.mean(mean))), dtype=np.float)
