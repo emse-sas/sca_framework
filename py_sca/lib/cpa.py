@@ -56,6 +56,16 @@ class Handler:
             for k in range(COUNT_CLS):
                 self.hyp[h, k] = bin(aes.S_BOX[k ^ h] ^ k).count("1")
 
+    def correlations(self):
+        m = len(self.means[0, 0, 0])
+        ret = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_HYP, m), dtype=np.float64)
+
+        for i in range(aes.BLOCK_LEN):
+            for j in range(aes.BLOCK_LEN):
+                self._pearson_fast(i, j, m, ret)
+
+        return ret
+
     def _pearson(self, i, j, m, ret):
         means = self.means[i, j].T
         for h in range(COUNT_HYP):
@@ -68,13 +78,3 @@ class Handler:
             y_std = np.sqrt(np.average(self.hyp[h] * self.hyp[h], weights=self.lens[i, j]) - y_mean * y_mean)
             xy = np.average(self.hyp[h].reshape((COUNT_HYP, 1)) * self.means[i, j], weights=self.lens[i, j], axis=0)
             ret[i, j, h] = ((xy - self.mean * y_mean) / self.dev) / y_std
-
-    def correlations(self):
-        m = len(self.means[0, 0, 0])
-        ret = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_HYP, m), dtype=np.float64)
-
-        for i in range(aes.BLOCK_LEN):
-            for j in range(aes.BLOCK_LEN):
-                self._pearson_fast(i, j, m, ret)
-
-        return ret
