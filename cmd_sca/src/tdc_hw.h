@@ -16,7 +16,7 @@
 #include <stdlib.h>
 
 #define TDC_HW_WORD_SIZE 4
-#define TDC_HW_COUNT_TDC 2
+#define TDC_HW_COUNT_TDC 4
 #define TDC_HW_BASE_ADDR XPAR_TDC_BANK_0_S_AXI_BASEADDR
 
 #define TDC_HW_WEIGHTS_POS_0 0

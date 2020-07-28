@@ -63,6 +63,9 @@ def word_to_col(w):
     x = int(w, 16)
     return np.array([x >> 24, (x >> 16) & 0xff, (x >> 8) & 0xff, x & 0xff])
 
+def col_to_word(c):
+    return "0x%x%x%x%x" % tuple(c)
+
 def words_to_block(words):
     ret = np.empty((4,4))
     ret[0] = word_to_col(words[0])
@@ -70,6 +73,9 @@ def words_to_block(words):
     ret[2] = word_to_col(words[2])
     ret[3] = word_to_col(words[3])
     return np.array(ret, dtype=int).T
+
+def block_to_word(block):
+    return "%s %s %s %s" % (col_to_word(c) for c in block.T)
 
 
 def add_round_key(block, key):

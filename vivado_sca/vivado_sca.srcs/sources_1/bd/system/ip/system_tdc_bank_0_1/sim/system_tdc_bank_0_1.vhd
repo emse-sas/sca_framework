@@ -57,8 +57,8 @@ ENTITY system_tdc_bank_0_1 IS
   PORT (
     clock_i : IN STD_LOGIC;
     delta_i : IN STD_LOGIC;
-    delta_o : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-    weights_o : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+    delta_o : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    weights_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     raw_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     weight_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     s_axi_aclk : IN STD_LOGIC;
@@ -100,8 +100,8 @@ ARCHITECTURE system_tdc_bank_0_1_arch OF system_tdc_bank_0_1 IS
     PORT (
       clock_i : IN STD_LOGIC;
       delta_i : IN STD_LOGIC;
-      delta_o : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-      weights_o : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+      delta_o : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+      weights_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       raw_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       weight_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       s_axi_aclk : IN STD_LOGIC;
@@ -162,7 +162,7 @@ BEGIN
       coarse_len_g => 1,
       fine_len_g => 1,
       sampling_len_g => 8,
-      count_tdc_g => 2,
+      count_tdc_g => 4,
       C_S_AXI_DATA_WIDTH => 32,
       C_S_AXI_ADDR_WIDTH => 5
     )

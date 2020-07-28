@@ -120,6 +120,7 @@ architecture arch_imp of simple_aes_v1_0_S_AXI is
 	signal key_s: bit128;
 	signal reset_s: std_logic;
 	signal start_s: std_logic;
+	signal start_gated_s: std_logic;
 	signal inv_s: std_logic;
 	signal done_s: std_logic;
 	
@@ -548,8 +549,7 @@ begin
 	-- Add user logic here
 	reset_s <= slv_reg12(0);
 	reset_o <= reset_s;
-	
-	start_s <= slv_reg12(1);
+	start_s <= slv_reg12(1) when rising_edge(clock_i) else start_s;
 	start_o <= start_s;
 	
 	inv_s <= slv_reg12(2);

@@ -1,13 +1,13 @@
 # X initial slice offset
 set OFFSET_X 0
 # Y initial slice offset
-set OFFSET_Y 75
+set OFFSET_Y 50
 # X slice offset increment per sensor, must be multiple of 2
 set INC_X 0
 # Y slice offset increment per sensor, must be multiple of 8
 set INC_Y 8
 
-set COUNT_SENSORS 2
+set COUNT_SENSORS 4
 
 # Slices name
 proc slice {x y} {
