@@ -12,6 +12,7 @@ TRACES_TO_PLOT = 32  # count of raw traces to plot
 HARDWARE_AES = True
 LOG_SOURCE = "serial"
 SYNC_TRACES = False
+F_SAMPLING = 200e6
 
 file_args = ("_hw" if HARDWARE_AES else "", COUNT_TRACES)
 
@@ -52,7 +53,9 @@ if SYNC_TRACES:
 n, m = traces.shape
 mean = np.array(traces).mean(axis=0)
 smoothed = np.convolve(mean, np.ones((AVG_LEN,)) / AVG_LEN, mode="same")
-spectrum = np.fromiter(map(lambda y: np.absolute(y), fft.fft(mean - np.mean(mean))), dtype=np.float)
+spectrum = np.absolute(fft.fft(mean - np.mean(mean)))
+freq = np.fft.fftfreq(spectrum.size, 1.0 / F_SAMPLING)[:spectrum.size//2] / 1e6
+f = np.argsort(freq)  
 t_proc = time.perf_counter()
 print("processing successful!\nelapsed: %s" % str(timedelta(seconds=t_proc - t_start)))
 
@@ -61,8 +64,8 @@ print("*** saving plots ***")
 t_start = time.perf_counter()
 plot_args = (n, m, log.sensors)
 plt.rcParams["figure.figsize"] = (16, 9)
-for idx in range(max(0, n - TRACES_TO_PLOT), n):
-    plt.plot(traces[idx], label="sample %d" % idx)
+for d in range(max(0, n - TRACES_TO_PLOT), n):
+    plt.plot(traces[d], label="sample %d" % d)
 
 plt.title("Raw power consumptions (traces: %d, samples: %d, sensors: %d)" % plot_args)
 plt.xlabel("Time Samples")
@@ -81,9 +84,9 @@ plt.legend()
 plt.savefig("media/img/acquisition/sca_avg%s_%d" % file_args)
 plt.close()
 
-plt.plot(spectrum, color="red", label="raw data")
+plt.plot(freq[f], spectrum[f], color="red", label="raw data")
 plt.title("Average power consumption FFT (traces: %d, samples: %d, sensors: %d)" % plot_args)
-plt.xlabel("Frequency")
+plt.xlabel("Frequency (MHz)")
 plt.ylabel("Hamming Weight")
 plt.savefig("media/img/acquisition/sca_avg_fft%s_%d" % file_args)
 plt.close()
