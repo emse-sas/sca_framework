@@ -1,25 +1,23 @@
 import numpy as np
 from scipy import stats
 
-def _matrix(traces):
-    n = len(traces)
-    m = len(traces[0])
-    ret = np.empty((n, m), dtype=np.int)
-    for i in range(0, n):
-        for j in range(0, m):
-            ret[i, j] = traces[i][j]
+
+def crop(traces):
+    n = min(map(lambda trace: len(trace), traces))
+    m = 0
+    ref = traces[0]
+    for t in range(0, n):
+        if len([trace[t] != ref[t] for trace in traces]) != 0:
+            m = t
+            break
+    ret = np.zeros((len(traces), n - m), dtype=np.int)
+    for dst, src in zip(ret, traces):
+        dst[:] = src[m:n]
+
     return ret
 
 
-def crop(traces):
-    n = min(list(map(lambda trace: len(trace), traces)))
-    m = 0
-    for i in range(0, n):
-        if len(list(filter(lambda t: t[i] != traces[0][i], traces))) != 0:
-            m = i
-            break
-    return _matrix(list(map(lambda t: t[m:n], traces)))
-
+        
 
 def sync(traces, step=1, stop=None):
     ref = traces[0]
