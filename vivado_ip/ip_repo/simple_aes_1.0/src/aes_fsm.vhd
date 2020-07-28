@@ -90,8 +90,10 @@ begin
 				next_state <= done;
 			when done =>
 			    next_state <= done;
-			    if falling_edge(start_i) then
-                    next_state <= hold;
+			    if start_i = '0' then
+					next_state <= hold;
+				else
+					next_state <= done;
                 end if;                          
             when others =>
                 next_state <= reset;
