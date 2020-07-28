@@ -226,7 +226,7 @@ void RUN_fifo_read(int mini)
     if (mini)
     {
         OP_encode_hamming(str_weights, weights, len, TDC_HW_CALIBRATE_TARGET * TDC_HW_COUNT_TDC);
-        printf("weights: %s\r\n", str_weights);
+        xil_printf("weights: %s\r\n", str_weights);
     }
     else
     {

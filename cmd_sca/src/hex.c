@@ -18,22 +18,26 @@ void HEX_parse_chars(const char *word, uint8_t *bytes, size_t len)
 
 void HEX_stringify_bytes(char *str, const uint8_t *bytes, size_t len)
 {
-    size_t str_idx = 0;
-    for (size_t idx = 0; idx < len; idx += 4)
+    char *ptr = str;
+    size_t idx = 0;
+    for (; idx < len - 3; idx += 4)
     {
-        sprintf(str + 9 * str_idx, "%02x%02x%02x%02x ", bytes[idx], bytes[idx + 1], bytes[idx + 2], bytes[idx + 3]);
-        str_idx++;
+        sprintf(ptr, "%02x%02x%02x%02x ", bytes[idx], bytes[idx + 1], bytes[idx + 2], bytes[idx + 3]);
+        ptr += 9;
     }
+    sprintf(ptr, "%02x%02x%02x%02x", bytes[idx], bytes[idx + 1], bytes[idx + 2], bytes[idx + 3]);
 }
 
 void HEX_stringify_words(char *str, const uint32_t *words, size_t len)
 {
-    size_t str_idx = 0;
-    for (size_t idx = 0; idx < len; idx++)
+    char *ptr = str;
+    size_t idx = 0;
+    for (; idx < len - 1; idx++)
     {
-        sprintf(str + 9 * str_idx, "%08x ", words[idx]);
-        str_idx++;
+        sprintf(ptr, "%08lx ", words[idx]);
+        ptr += 9;
     }
+    sprintf(ptr, "%08lx", words[idx]);
 }
 
 void HEX_bytes_to_words(uint32_t *words, const uint8_t *bytes, size_t len)

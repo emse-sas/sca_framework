@@ -36,7 +36,7 @@ class Log:
         if len(split) < 2:
             return
 
-        first = str(split[0], "ascii")
+        first = str(split[0], "ascii").strip()
         second = split[1].strip()
         if first == "mode":
             self.mode = str(second, "ascii")
@@ -47,18 +47,18 @@ class Log:
         elif first == "target":
             self.offset = int(second) * self.sensors
         elif first == "key":
-            self.keys.append(split[1:])
+            self.keys.append(list(map(lambda w: str(w, "ascii"), second.split(b" "))))
         elif first == "plain":
-            self.plains.append(split[1:])
+            self.plains.append(list(map(lambda w: str(w, "ascii"), second.split(b" "))))
         elif first == "cipher":
-            self.ciphers.append(split[1:])
+            self.ciphers.append(list(map(lambda w: str(w, "ascii"), second.split(b" "))))
         elif first == "samples":
             self.reads.append(int(second))
         elif first == "weights":
             self.traces.append(list(map(self._hamming_to_int, line[9:]) if mini else map(int, second.split(b","))))
             m = len(self.traces[-1])
             if m != self.reads[-1]:
-                self.reads[-1] = m
+                self.pop()
 
     @classmethod
     def empty(cls):
@@ -91,10 +91,10 @@ class Log:
         ser.close()
 
         ret = cls.empty()
-        lines = s.split(b"\n")
+        lines = s.split(b"\r\n")
 
         for line in lines:
-            ret._parse_line(line.replace(b"\r", b""), mini)
+            ret._parse_line(line, mini)
 
         ret.samples = len(ret.traces)
         return ret
