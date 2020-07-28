@@ -59,13 +59,10 @@ uint32_t FIFO_HW_pop()
 
 int FIFO_HW_read(uint32_t *words, size_t len)
 {
-    for (size_t idx = 0; idx < len; idx++)
+	size_t idx = 0;
+    for (;idx < len && !FIFO_HW_is_empty(); idx++)
     {
-        if (FIFO_HW_is_empty())
-        {
-            return idx + 1;
-        }
         words[idx] = FIFO_HW_pop();
     }
-    return FIFO_HW_ERR_NONE;
+    return idx;
 }

@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define OP_HAMMING_TO_ASCII(weight, offset) (weight + 'O' - offset) 
+#define OP_HAMMING_TO_ASCII(weight, offset) (weight + 'P' - offset)
 
 /**
  * @brief Computes Hamming weight of the given data

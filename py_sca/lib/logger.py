@@ -29,33 +29,33 @@ class Log:
         self.reads.pop()
 
     def _hamming_to_int(self, s):
-        return int(s - ord('O') + self.offset)
+        return int(s - ord('P') + self.offset)
 
     def _parse_line(self, line, mini=True):
-        split = line.strip().split(b" ")
+        split = line.strip().split(b":")
         if len(split) < 2:
             return
 
         first = str(split[0], "ascii")
-        second = split[1]
-        if first == "mode:":
+        second = split[1].strip()
+        if first == "mode":
             self.mode = str(second, "ascii")
-        elif first == "direction:":
+        elif first == "direction":
             self.direction = str(second, "ascii")
-        elif first == "sensors:":
+        elif first == "sensors":
             self.sensors = int(second)
-        elif first == "target:":
+        elif first == "target":
             self.offset = int(second) * self.sensors
-        elif first == "key:":
+        elif first == "key":
             self.keys.append(split[1:])
-        elif first == "plain:":
+        elif first == "plain":
             self.plains.append(split[1:])
-        elif first == "cipher:":
+        elif first == "cipher":
             self.ciphers.append(split[1:])
-        elif first == "samples:":
+        elif first == "samples":
             self.reads.append(int(second))
-        elif first == "weights:":
-            self.traces.append(list(map(self._hamming_to_int, second) if mini else map(int, second.split(","))))
+        elif first == "weights":
+            self.traces.append(list(map(self._hamming_to_int, line[9:]) if mini else map(int, second.split(b","))))
             m = len(self.traces[-1])
             if m != self.reads[-1]:
                 self.reads[-1] = m
@@ -85,16 +85,16 @@ class Log:
         ser = serial.Serial(port, baud, timeout=None,
                             parity=serial.PARITY_NONE, xonxoff=False)
         ser.flush()
-        ser.write(("sca -t %d%s%s\n\r" % (count, " -m" if mini else "",
+        ser.write(("sca -t %d%s%s\r\n" % (count, " -m" if mini else "",
                                           " -h" if hardware else "")).encode())
-        s = ser.read_until(b"\n\r\xff\n\r")
+        s = ser.read_until(b"\r\n\xff\r\n")
         ser.close()
 
         ret = cls.empty()
-        lines = s.split(b"\n\r")
+        lines = s.split(b"\n")
 
         for line in lines:
-            ret._parse_line(line, mini)
+            ret._parse_line(line.replace(b"\r", b""), mini)
 
         ret.samples = len(ret.traces)
         return ret
