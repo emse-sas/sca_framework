@@ -55,10 +55,10 @@ class Log:
         elif first == "samples:":
             self.reads.append(int(second))
         elif first == "weights:":
-            self.traces.append(
-                list(map(self._hamming_to_int, second) if mini else map(int, second.split(","))))
-            if len(self.traces[-1]) != self.reads[-1]:
-                self.pop()
+            self.traces.append(list(map(self._hamming_to_int, second) if mini else map(int, second.split(","))))
+            m = len(self.traces[-1])
+            if m != self.reads[-1]:
+                self.reads[-1] = m
 
     @classmethod
     def empty(cls):
@@ -132,7 +132,6 @@ class Log:
                              "key 0", "key 1", "key 2", "key 3"])
             for i in range(0, len(self.traces)):
                 writer.writerow(self.plains[i] +
-                                self.ciphers[i] + self.keys[i])
 
     def report_traces(self, filepath):
         with open(filepath, "w") as file:
