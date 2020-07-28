@@ -107,9 +107,9 @@ class Log:
             for row in reader:
                 if len(row) != 12:
                     continue
-                ret.plains.append([row[0], row[1], row[2], row[3]])
-                ret.ciphers.append([row[4], row[5], row[6], row[7]])
-                ret.keys.append([row[8], row[9], row[10], row[11]])
+                ret.plains.append(list(row[0:4]))
+                ret.ciphers.append(list(row[4:8]))
+                ret.keys.append(list(row[8:12]))
         ret.plains = ret.plains[1:]
         ret.ciphers = ret.ciphers[1:]
         ret.keys = ret.keys[1:]
@@ -127,11 +127,11 @@ class Log:
     def report_data(self, filepath):
         with open(filepath, "w") as file:
             writer = csv.writer(file)
-            writer.writerow(["plain 0", "plain 1", "plain 2", "plain 3",
-                             "cipher 0", "cipher 1", "cipher 2", "cipher 3",
-                             "key 0", "key 1", "key 2", "key 3"])
-            for i in range(0, len(self.traces)):
-                writer.writerow(self.plains[i] +
+            writer.writerow(["p0", "p1", "p2", "p3",
+                             "c0", "c1", "c2", "c3",
+                             "k0", "k1", "k2", "k3"])
+            for plain, cipher, key in zip(self.plains, self.ciphers, self.keys):
+                writer.writerow(plain + cipher + key)
 
     def report_traces(self, filepath):
         with open(filepath, "w") as file:
