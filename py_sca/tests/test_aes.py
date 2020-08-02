@@ -1,22 +1,24 @@
 import unittest
 import numpy as np
-from py_sca.lib import aes
+from lib import aes
 
 
 class HandlerTest(unittest.TestCase):
+    plain_str = "00112233 44556677 8899aabb ccddeeff"
+
     plain = np.array([
-        [0x00, 0x11, 0x22, 0x33],
-        [0x44, 0x55, 0x66, 0x77],
-        [0x88, 0x99, 0xaa, 0xbb],
-        [0xcc, 0xdd, 0xee, 0xff]
-    ], dtype=np.ubyte).T
+        [0x00, 0x44, 0x88, 0xcc],
+        [0x11, 0x55, 0x99, 0xdd],
+        [0x22, 0x66, 0xaa, 0xee],
+        [0x33, 0x77, 0xbb, 0xff]
+    ], dtype=np.ubyte)
 
     key = np.array([
-        [0x00, 0x01, 0x02, 0x03],
-        [0x04, 0x05, 0x06, 0x07],
-        [0x08, 0x09, 0x0a, 0x0b],
-        [0x0c, 0x0d, 0x0e, 0x0f]
-    ], dtype=np.ubyte).T
+        [0x00, 0x04, 0x08, 0x0c],
+        [0x01, 0x05, 0x09, 0x0d],
+        [0x02, 0x06, 0x0a, 0x0e],
+        [0x03, 0x07, 0x0b, 0x0f]
+    ], dtype=np.ubyte)
 
     cipher = np.array([
         [0x69, 0x6a, 0xd8, 0x70],
@@ -27,22 +29,14 @@ class HandlerTest(unittest.TestCase):
 
     def test_encrypt(self):
         np.set_printoptions(formatter={'int': hex})
-        handler = aes.Handler(HandlerTest.key)
-        block = handler.encrypt(HandlerTest.plain)
-        print("*** cipher ***")
-        print(block)
-        print("*** expected cipher ***")
-        print(HandlerTest.cipher)
-        self.assertEqual(np.linalg.norm(block - HandlerTest.cipher), 0)
+        handler = aes.Handler(self.key)
+        block = handler.encrypt(self.plain)
+        self.assertEqual(np.linalg.norm(block - self.cipher), 0)
 
     def test_decrypt(self):
         np.set_printoptions(formatter={'int': hex})
-        handler = aes.Handler(HandlerTest.key)
-        block = handler.decrypt(HandlerTest.cipher)
-        print("*** plain ***")
-        print(block)
-        print("*** expected plain ***")
-        print(HandlerTest.plain)
+        handler = aes.Handler(self.key)
+        block = handler.decrypt(self.cipher)
         self.assertEqual(np.linalg.norm(block - HandlerTest.plain), 0)
 
 
