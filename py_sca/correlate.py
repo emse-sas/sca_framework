@@ -9,7 +9,7 @@ from datetime import timedelta
 import os
 from itertools import product
 
-COUNT_TRACES = 16384 # count of traces to record from FPGA
+COUNT_TRACES = 16384  # count of traces to record from FPGA
 MODE_AES = "hw"
 SYNC_TRACES = False
 
@@ -45,13 +45,15 @@ print("*** creating handler ***")
 t_start = time.perf_counter()
 handler = cpa.Handler.from_log(log, traces)
 t_handler = time.perf_counter()
-print("handler successfully created!\nelapsed: %s" % str(duration(t_handler, t_start)))
+print("handler successfully created!\nelapsed: %s" %
+      str(duration(t_handler, t_start)))
 
 print("*** computing correlation ***")
 t_start = time.perf_counter()
 correlations = handler.correlations()
 t_cor = time.perf_counter()
-print("correlation successfully computed!\nelapsed: %s" % str(duration(t_cor, t_start)))
+print("correlation successfully computed!\nelapsed: %s" %
+      str(duration(t_cor, t_start)))
 
 print("*** saving plots ***")
 t_start = time.perf_counter()
@@ -59,10 +61,11 @@ plt.rcParams["figure.figsize"] = (16, 9)
 for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
     for h in range(cpa.COUNT_HYP):
         if h == handler.key[i, j]:
-            plt.plot(correlations[i, j, h], color="red", label="key 0x%x" % h, zorder=1000)
+            plt.plot(correlations[i, j, h], color="red",
+                     label="key 0x%x" % h, zorder=1000)
         else:
             plt.plot(correlations[i, j, h], color="grey")
-    
+
     img_args = tuple([i * aes.BLOCK_LEN + j]) + FILE_ARGS
     plt.title("Time Correlation byte %d (n=%d, m=%d)" % (img_args[0], n, m))
     plt.xlabel("Time Samples")
@@ -73,10 +76,7 @@ for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
     plt.close()
 
 t_plot = time.perf_counter()
-print("traces successfully saved!\nelapsed: %s" % str(duration(t_plot, t_start)))
+print("traces successfully saved!\nelapsed: %s" %
+      str(duration(t_plot, t_start)))
 
 print("exiting...")
-
-
-
-            
