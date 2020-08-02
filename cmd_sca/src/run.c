@@ -226,12 +226,12 @@ void RUN_fifo_read(int mini)
     if (mini)
     {
         OP_encode_hamming(str_weights, weights, len, TDC_HW_CALIBRATE_TARGET * TDC_HW_COUNT_TDC);
-        xil_printf("weights: %s\r\n", str_weights);
+        printf("code: %s\n", str_weights);
     }
     else
     {
         OP_stringify_hamming(str_weights, weights, len);
-        xil_printf("weights: %s\r\n", str_weights);
+        printf("weights: %s\r\n", str_weights);
     }
 }
 
@@ -286,6 +286,7 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     HEX_words_to_bytes(key8, key, RUN_AES_BYTES_SIZE);
     for (int idx = 0; idx < traces_count; idx++)
     {
+    	xil_printf("\r\n\xfe\r\n");
         HEX_random_words(block, idx + 1, RUN_AES_WORDS_SIZE);
         if (hw)
         {
@@ -298,7 +299,7 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
         }
         RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
     }
-    xil_printf("\r\n\xff\r\n");
+    xil_printf("\r\n\0\r\n");
     return RUN_SUCCESS;
 }
 
