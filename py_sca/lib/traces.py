@@ -4,27 +4,14 @@ from scipy import stats
 
 def crop(traces):
     n = min(map(lambda trace: len(trace), traces))
-    m = 0
-    ref = traces[0]
-    for t in range(0, n):
-        if len([trace[t] != ref[t] for trace in traces]) != 0:
-            m = t
-            break
-    ret = np.zeros((len(traces), n - m), dtype=np.int)
-    for dst, src in zip(ret, traces):
-        dst[:] = src[m:n]
-
-    return ret
+    return np.array(list(trace[:n] for trace in traces))
 
 
-def pad(traces):
-    n = max(map(lambda trace: len(trace), traces))
-    ret = np.zeros((len(traces), n), dtype=np.int)
-    for dst, src in zip(ret, traces):
-        dst[:len(src)] = src
+def pad(traces, pad=0):
+    lens = list(map(lambda trace: len(trace), traces))
+    n = max(lens)
+    return np.array(list(np.concatenate((trace, [pad] * (n - lens[k]))) for k, trace in enumerate(traces)))
 
-    return ret
-        
 
 def sync(traces, step=1, stop=None):
     ref = traces[0]
@@ -35,20 +22,25 @@ def sync(traces, step=1, stop=None):
     shape = (m, m)
     stop = min(stop or m, m)
     shifts = list(range(0, stop, step))
-    correlate = lambda trace: stats.pearsonr(ref, trace)[0]
-    for i in range(1, n - 1):
-        strided = np.lib.stride_tricks.as_strided(traces[i], shape, strides_pos)
+    def correlate(trace): return stats.pearsonr(ref, trace)[0]
+
+    for trace in traces:
+        strided = np.lib.stride_tricks.as_strided(trace, shape, strides_pos)
         buffer = list(map(lambda shift: correlate(strided[shift]), shifts))
         argmax_pos = np.argmax(buffer)
         max_pos = buffer[argmax_pos]
-        strided = np.lib.stride_tricks.as_strided(traces[i], shape, strides_neg)
+        strided = np.lib.stride_tricks.as_strided(trace, shape, strides_neg)
         buffer = list(map(lambda shift: correlate(strided[shift]), shifts))
         argmax_neg = np.argmax(buffer)
         max_neg = buffer[argmax_neg]
-        traces[i] = np.roll(traces[i], -shifts[argmax_pos] if max_neg < max_pos else shifts[argmax_neg])
+        if max_neg < max_pos:
+            trace[:] = np.roll(trace, -shifts[argmax_pos])
+        else:
+            trace[:] = np.roll(trace, shifts[argmax_neg])
 
+    trace = traces[n - 1]
     shifts = list(range(-stop, stop, step))
-    buffer = list(map(lambda shift: correlate(np.roll(traces[n - 1], shift)), shifts))
-    traces[n - 1] = np.roll(traces[n - 1], np.argmax(buffer) - stop)
+    buffer = list(map(lambda shift: correlate(np.roll(trace, shift)), shifts))
+    trace[:] = np.roll(trace, np.argmax(buffer) - stop)
 
     return traces
