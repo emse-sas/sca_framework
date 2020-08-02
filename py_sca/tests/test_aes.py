@@ -39,6 +39,14 @@ class HandlerTest(unittest.TestCase):
         block = handler.decrypt(self.cipher)
         self.assertEqual(np.linalg.norm(block - HandlerTest.plain), 0)
 
+    def test_block_to_words(self):
+        word = aes.block_to_words(self.plain)
+        self.assertEqual(word, self.plain_str)
+
+    def test_words_to_block(self):
+        block = aes.words_to_block(self.plain_str.split(" "))
+        self.assertEqual(np.linalg.norm(block - self.plain), 0)
+
 
 if __name__ == '__main__':
     unittest.main()
