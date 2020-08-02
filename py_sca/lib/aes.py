@@ -167,51 +167,56 @@ class Handler:
         self._key_expansion()
 
     def encrypt(self, block):
-        self.blocks[0][Stages.START] = np.copy(block)
-        self.blocks[0][Stages.SUB_BYTES] = np.copy(block)
-        self.blocks[0][Stages.SHIFT_ROWS] = np.copy(block)
-        self.blocks[0][Stages.MIX_COLUMNS] = np.copy(block)
-        self.blocks[0][Stages.ADD_ROUND_KEY] = add_round_key(block, self.keys[0])
+        cur, key = self.blocks[0], self.keys[0]
+        cur[Stages.START] = np.copy(block)
+        cur[Stages.SUB_BYTES] = np.copy(block)
+        cur[Stages.SHIFT_ROWS] = np.copy(block)
+        cur[Stages.MIX_COLUMNS] = np.copy(block)
+        cur[Stages.ADD_ROUND_KEY] = add_round_key(block, key)
 
-        for rnd in range(1, N_ROUNDS):
-            self.blocks[rnd][Stages.START] = self.blocks[rnd - 1][Stages.ADD_ROUND_KEY].copy()
-            self.blocks[rnd][Stages.SUB_BYTES] = sub_bytes(self.blocks[rnd][Stages.START])
-            self.blocks[rnd][Stages.SHIFT_ROWS] = shift_rows(self.blocks[rnd][Stages.SUB_BYTES])
-            self.blocks[rnd][Stages.MIX_COLUMNS] = mix_columns(self.blocks[rnd][Stages.SHIFT_ROWS])
-            self.blocks[rnd][Stages.ADD_ROUND_KEY] = add_round_key(self.blocks[rnd][Stages.MIX_COLUMNS], self.keys[rnd])
+        for (cur, prev, key) in zip(self.blocks[1:-1], self.blocks[:-2], self.keys[1:-1]):
+            cur[Stages.START] = prev[Stages.ADD_ROUND_KEY].copy()
+            cur[Stages.SUB_BYTES] = sub_bytes(cur[Stages.START])
+            cur[Stages.SHIFT_ROWS] = shift_rows(cur[Stages.SUB_BYTES])
+            cur[Stages.MIX_COLUMNS] = mix_columns(cur[Stages.SHIFT_ROWS])
+            cur[Stages.ADD_ROUND_KEY] = add_round_key(cur[Stages.MIX_COLUMNS], key)
 
-        self.blocks[N_ROUNDS][Stages.START] = self.blocks[N_ROUNDS - 1][Stages.ADD_ROUND_KEY].copy()
-        self.blocks[N_ROUNDS][Stages.SUB_BYTES] = sub_bytes(self.blocks[N_ROUNDS][Stages.START])
-        self.blocks[N_ROUNDS][Stages.SHIFT_ROWS] = shift_rows(self.blocks[N_ROUNDS][Stages.SUB_BYTES])
-        self.blocks[N_ROUNDS][Stages.MIX_COLUMNS] = self.blocks[N_ROUNDS][Stages.SHIFT_ROWS].copy()
-        self.blocks[N_ROUNDS][Stages.ADD_ROUND_KEY] = add_round_key(self.blocks[N_ROUNDS][Stages.MIX_COLUMNS], self.keys[N_ROUNDS])
+        cur, prev, key = self.blocks[N_ROUNDS], self.blocks[N_ROUNDS - 1], self.keys[N_ROUNDS]
+        cur[Stages.START] = prev[Stages.ADD_ROUND_KEY].copy()
+        cur[Stages.SUB_BYTES] = sub_bytes(cur[Stages.START])
+        cur[Stages.SHIFT_ROWS] = shift_rows(cur[Stages.SUB_BYTES])
+        cur[Stages.MIX_COLUMNS] = cur[Stages.SHIFT_ROWS].copy()
+        cur[Stages.ADD_ROUND_KEY] = add_round_key(cur[Stages.MIX_COLUMNS], key)
 
-        return self.blocks[-1][-1].copy()
+        return cur[-1].copy()
 
     def decrypt(self, block):
-        self.blocks[N_ROUNDS][Stages.START] = np.copy(block)
-        self.blocks[N_ROUNDS][Stages.INV_SHIFT_ROWS] = np.copy(block)
-        self.blocks[N_ROUNDS][Stages.INV_SUB_BYTES] = np.copy(block)
-        self.blocks[N_ROUNDS][Stages.INV_ADD_ROUND_KEY] = add_round_key(block, self.keys[N_ROUNDS])
-        self.blocks[N_ROUNDS][Stages.INV_MIX_COLUMNS] = np.copy(self.blocks[N_ROUNDS][Stages.INV_ADD_ROUND_KEY])
+        cur, key = self.blocks[N_ROUNDS], self.keys[N_ROUNDS]
+        cur[Stages.START] = np.copy(block)
+        cur[Stages.INV_SHIFT_ROWS] = np.copy(block)
+        cur[Stages.INV_SUB_BYTES] = np.copy(block)
+        cur[Stages.INV_ADD_ROUND_KEY] = add_round_key(block, key)
+        cur[Stages.INV_MIX_COLUMNS] = np.copy(cur[Stages.INV_ADD_ROUND_KEY])
 
-        for rnd in range(N_ROUNDS - 1, 0, -1):
-            self.blocks[rnd][Stages.START] = self.blocks[rnd + 1][Stages.INV_MIX_COLUMNS].copy()
-            self.blocks[rnd][Stages.INV_SHIFT_ROWS] = inv_shift_rows(self.blocks[rnd][Stages.START])
-            self.blocks[rnd][Stages.INV_SUB_BYTES] = inv_sub_bytes(self.blocks[rnd][Stages.INV_SHIFT_ROWS])
-            self.blocks[rnd][Stages.INV_ADD_ROUND_KEY] = add_round_key(self.blocks[rnd][Stages.INV_SUB_BYTES], self.keys[rnd])
-            self.blocks[rnd][Stages.INV_MIX_COLUMNS] = inv_mix_columns(self.blocks[rnd][Stages.INV_ADD_ROUND_KEY])
+        for (cur, prev, key) in zip(self.blocks[-2::-1], self.blocks[:0:-1], self.keys[-2::-1]):
+            cur[Stages.START] = prev[Stages.INV_MIX_COLUMNS].copy()
+            cur[Stages.INV_SHIFT_ROWS] = inv_shift_rows(cur[Stages.START])
+            cur[Stages.INV_SUB_BYTES] = inv_sub_bytes(cur[Stages.INV_SHIFT_ROWS])
+            cur[Stages.INV_ADD_ROUND_KEY] = add_round_key(cur[Stages.INV_SUB_BYTES], key)
+            cur[Stages.INV_MIX_COLUMNS] = inv_mix_columns(cur[Stages.INV_ADD_ROUND_KEY])
 
-        self.blocks[0][Stages.START] = self.blocks[1][Stages.INV_MIX_COLUMNS].copy()
-        self.blocks[0][Stages.INV_SHIFT_ROWS] = inv_shift_rows(self.blocks[0][Stages.START])
-        self.blocks[0][Stages.INV_SUB_BYTES] = inv_sub_bytes(self.blocks[0][Stages.INV_SHIFT_ROWS])
-        self.blocks[0][Stages.INV_ADD_ROUND_KEY] = add_round_key(self.blocks[0][Stages.INV_SUB_BYTES], self.keys[0])
-        self.blocks[0][Stages.INV_MIX_COLUMNS] = self.blocks[0][Stages.INV_ADD_ROUND_KEY].copy()
-        return self.blocks[0][-1].copy()
+        cur, prev, key = self.blocks[0], self.blocks[1], self.keys[0]
+        cur[Stages.START] = prev[Stages.INV_MIX_COLUMNS].copy()
+        cur[Stages.INV_SHIFT_ROWS] = inv_shift_rows(cur[Stages.START])
+        cur[Stages.INV_SUB_BYTES] = inv_sub_bytes(cur[Stages.INV_SHIFT_ROWS])
+        cur[Stages.INV_ADD_ROUND_KEY] = add_round_key(cur[Stages.INV_SUB_BYTES], key)
+        cur[Stages.INV_MIX_COLUMNS] = cur[Stages.INV_ADD_ROUND_KEY].copy()
+
+        return cur[-1].copy()
 
     def _key_expansion(self):
-        for n in range(1, N_ROUNDS + 1):
-            self.keys[n][0] = R_CON[n - 1] ^ sub_word(rot_word(self.keys[n - 1][3])) ^ self.keys[n - 1][0]
-            self.keys[n][1] = self.keys[n][0] ^ self.keys[n - 1][1]
-            self.keys[n][2] = self.keys[n][1] ^ self.keys[n - 1][2]
-            self.keys[n][3] = self.keys[n][2] ^ self.keys[n - 1][3]
+        for cur, prev, con in zip(self.keys[1:], self.keys, R_CON):
+            cur[0] = con ^ sub_word(rot_word(prev[3])) ^ prev[0]
+            cur[1] = cur[0] ^ prev[1]
+            cur[2] = cur[1] ^ prev[2]
+            cur[3] = cur[2] ^ prev[3]
