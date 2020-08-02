@@ -24,7 +24,8 @@ class Handler:
 
     @classmethod
     def from_log(cls, log, traces):
-        sort = [[{} for j in range(aes.BLOCK_LEN)] for i in range(aes.BLOCK_LEN)]
+        sort = [[{} for j in range(aes.BLOCK_LEN)]
+                for i in range(aes.BLOCK_LEN)]
         log_blocks = log.plains if log.direction == "encrypt" else log.ciphers
         n = log.samples
         blocks = np.empty((n, aes.BLOCK_LEN, aes.BLOCK_LEN), dtype=np.ubyte)
@@ -35,11 +36,12 @@ class Handler:
                     sort[i][j][blocks[d, i, j]].append(traces[d])
                 except KeyError:
                     sort[i][j][blocks[d, i, j]] = [traces[d]]
- 
+
         m = len(traces[0])
-        lens = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS), dtype=np.int)
-        means = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m), dtype=np.float64)
-        devs = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m), dtype=np.float64) 
+        shape = (aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m)
+        lens = np.zeros(shape[:-1], dtype=np.int)
+        means = np.zeros(shape, dtype=np.float64)
+        devs = np.zeros(shape, dtype=np.float64)
         for i, j, k in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), range(COUNT_CLS)):
             try:
                 lens[i, j, k] = len(sort[i][j][k])
@@ -58,12 +60,35 @@ class Handler:
 
     def correlations(self):
         m = len(self.means[0, 0, 0])
-        ret = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_HYP, m), dtype=np.float64)
+        ret = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN,
+                        COUNT_HYP, m), dtype=np.float64)
 
         for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
             self._pearson_fast(i, j, m, ret)
 
         return ret
+
+    def guess_stats(self, correlations):
+        m = len(self.means[0, 0, 0])
+        shape = (aes.BLOCK_LEN, aes.BLOCK_LEN, m)
+        maxs = np.zeros(shape[:-1] + (COUNT_HYP,))
+        guess = np.zeros(shape[:-1], dtype=np.ubyte)
+        cor_max = np.zeros(shape)
+        cor_min = np.zeros(shape)
+        cor_key = np.zeros(shape)
+        for i, j, h in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), range(COUNT_HYP)):
+            maxs[i, j, h] = np.max(correlations[i, j, h])
+            if h == self.key[i, j]:
+                cor_key[i, j] = correlations[i, j, h]
+
+        for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
+            guess[i, j] = np.argmax(maxs[i, j])
+
+        for i, j, t in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), range(m)):
+            cor_max[i, j, t] = np.max(correlations[i, j, :, t])
+            cor_min[i, j, t] = np.min(correlations[i, j, :, t])
+
+        return guess, maxs, cor_key, cor_max, cor_min
 
     def _pearson(self, i, j, m, ret):
         means = self.means[i, j].T

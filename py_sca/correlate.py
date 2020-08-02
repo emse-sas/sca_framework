@@ -51,6 +51,7 @@ print("handler successfully created!\nelapsed: %s" %
 print("*** computing correlation ***")
 t_start = time.perf_counter()
 correlations = handler.correlations()
+_, _, cor_key, cor_max, cor_min = handler.guess_stats(correlations)
 t_cor = time.perf_counter()
 print("correlation successfully computed!\nelapsed: %s" %
       str(duration(t_cor, t_start)))
@@ -58,13 +59,11 @@ print("correlation successfully computed!\nelapsed: %s" %
 print("*** saving plots ***")
 t_start = time.perf_counter()
 plt.rcParams["figure.figsize"] = (16, 9)
+
+
 for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
-    for h in range(cpa.COUNT_HYP):
-        if h == handler.key[i, j]:
-            plt.plot(correlations[i, j, h], color="red",
-                     label="key 0x%x" % h, zorder=1000)
-        else:
-            plt.plot(correlations[i, j, h], color="grey")
+    plt.fill_between(x=range(m), y1=cor_max[i, j], y2=cor_min[i, j], color="grey")
+    plt.plot(cor_key[i, j], color="red", label="key 0x%x" % handler.key[i, j], zorder=1000)
 
     img_args = tuple([i * aes.BLOCK_LEN + j]) + FILE_ARGS
     plt.title("Time Correlation byte %d (n=%d, m=%d)" % (img_args[0], n, m))
