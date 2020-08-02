@@ -3579,11 +3579,11 @@ unsigned long ps7_peripherals_init_data_3_0[] = {
     // ..     ==> MASK : 0x000000FFU    VAL : 0x00000006U
     // .. 
     EMIT_MASKWRITE(0XE0001034, 0x000000FFU ,0x00000006U),
-    // .. CD = 0x7c
-    // .. ==> 0XE0001018[15:0] = 0x0000007CU
-    // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000007CU
+    // .. CD = 0x1f
+    // .. ==> 0XE0001018[15:0] = 0x0000001FU
+    // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000001FU
     // .. 
-    EMIT_MASKWRITE(0XE0001018, 0x0000FFFFU ,0x0000007CU),
+    EMIT_MASKWRITE(0XE0001018, 0x0000FFFFU ,0x0000001FU),
     // .. STPBRK = 0x0
     // .. ==> 0XE0001000[8:8] = 0x00000000U
     // ..     ==> MASK : 0x00000100U    VAL : 0x00000000U
@@ -7556,11 +7556,11 @@ unsigned long ps7_peripherals_init_data_2_0[] = {
     // ..     ==> MASK : 0x000000FFU    VAL : 0x00000006U
     // .. 
     EMIT_MASKWRITE(0XE0001034, 0x000000FFU ,0x00000006U),
-    // .. CD = 0x7c
-    // .. ==> 0XE0001018[15:0] = 0x0000007CU
-    // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000007CU
+    // .. CD = 0x1f
+    // .. ==> 0XE0001018[15:0] = 0x0000001FU
+    // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000001FU
     // .. 
-    EMIT_MASKWRITE(0XE0001018, 0x0000FFFFU ,0x0000007CU),
+    EMIT_MASKWRITE(0XE0001018, 0x0000FFFFU ,0x0000001FU),
     // .. STPBRK = 0x0
     // .. ==> 0XE0001000[8:8] = 0x00000000U
     // ..     ==> MASK : 0x00000100U    VAL : 0x00000000U
@@ -11464,11 +11464,11 @@ unsigned long ps7_peripherals_init_data_1_0[] = {
     // ..     ==> MASK : 0x000000FFU    VAL : 0x00000006U
     // .. 
     EMIT_MASKWRITE(0XE0001034, 0x000000FFU ,0x00000006U),
-    // .. CD = 0x7c
-    // .. ==> 0XE0001018[15:0] = 0x0000007CU
-    // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000007CU
+    // .. CD = 0x1f
+    // .. ==> 0XE0001018[15:0] = 0x0000001FU
+    // ..     ==> MASK : 0x0000FFFFU    VAL : 0x0000001FU
     // .. 
-    EMIT_MASKWRITE(0XE0001018, 0x0000FFFFU ,0x0000007CU),
+    EMIT_MASKWRITE(0XE0001018, 0x0000FFFFU ,0x0000001FU),
     // .. STPBRK = 0x0
     // .. ==> 0XE0001000[8:8] = 0x00000000U
     // ..     ==> MASK : 0x00000100U    VAL : 0x00000000U
