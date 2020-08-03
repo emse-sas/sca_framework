@@ -38,12 +38,12 @@ preplace netloc fifo_controller_0_reset_o 1 3 1 1140 160n
 preplace netloc fifo_controller_0_write_o 1 3 1 1150 120n
 preplace netloc fifo_controller_0_read_o 1 3 1 N 200
 preplace netloc tdc_bank_0_data_o 1 3 1 1160 100n
-preplace netloc processing_system7_0_DDR 1 3 2 NJ 760 NJ
 preplace netloc ps7_0_axi_periph_M02_AXI 1 2 1 680 100n
-preplace netloc processing_system7_0_M_AXI_GP0 1 1 3 380 260 690J 330 1140
-preplace netloc ps7_0_axi_periph_M01_AXI 1 2 1 N 420
-preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 690 400n
+preplace netloc processing_system7_0_DDR 1 3 2 NJ 760 NJ
 preplace netloc processing_system7_0_FIXED_IO 1 3 2 NJ 780 NJ
+preplace netloc ps7_0_axi_periph_M01_AXI 1 2 1 N 420
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 3 380 260 690J 330 1140
+preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 690 400n
 levelinfo -pg 1 0 190 530 950 1350 1520
 pagesize -pg 1 -db -bbox -sgen -120 0 1640 890
 "

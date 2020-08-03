@@ -24,7 +24,7 @@ print("*** logging traces ***")
 t_start = time.perf_counter()
 if LOG_SOURCE == "serial":
     # connect to FPGA via UART and start SCA acquisition
-    log = logger.Log.from_serial(COUNT_TRACES, "COM5", hardware=MODE_AES == "hw", baud=460300)
+    log = logger.Log.from_serial(COUNT_TRACES, "COM5", hardware=MODE_AES == "hw", baud=921600)
 elif LOG_SOURCE == "file":
     # read FPGA acquisition command prompt log file
     log = logger.Log.from_file(LOG_PATH)
