@@ -1,7 +1,7 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Mon Aug  3 09:31:50 2020
+--Date        : Mon Aug  3 13:39:58 2020
 --Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
 --Command     : generate_target system.bd
 --Design      : system
@@ -1543,37 +1543,6 @@ architecture STRUCTURE of system is
     s_axi_rready : in STD_LOGIC
   );
   end component system_fifo_controller_0_0;
-  component system_tdc_bank_0_1 is
-  port (
-    clock_i : in STD_LOGIC;
-    delta_i : in STD_LOGIC;
-    delta_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    weights_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    raw_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    weight_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    s_axi_aclk : in STD_LOGIC;
-    s_axi_aresetn : in STD_LOGIC;
-    s_axi_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
-    s_axi_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    s_axi_awvalid : in STD_LOGIC;
-    s_axi_awready : out STD_LOGIC;
-    s_axi_wdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    s_axi_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    s_axi_wvalid : in STD_LOGIC;
-    s_axi_wready : out STD_LOGIC;
-    s_axi_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    s_axi_bvalid : out STD_LOGIC;
-    s_axi_bready : in STD_LOGIC;
-    s_axi_araddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
-    s_axi_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    s_axi_arvalid : in STD_LOGIC;
-    s_axi_arready : out STD_LOGIC;
-    s_axi_rdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    s_axi_rresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    s_axi_rvalid : out STD_LOGIC;
-    s_axi_rready : in STD_LOGIC
-  );
-  end component system_tdc_bank_0_1;
   component system_simple_aes_0_0 is
   port (
     clock_i : in STD_LOGIC;
@@ -1604,6 +1573,36 @@ architecture STRUCTURE of system is
     s_axi_rready : in STD_LOGIC
   );
   end component system_simple_aes_0_0;
+  component system_tdc_bank_0_1 is
+  port (
+    clock_i : in STD_LOGIC;
+    delta_i : in STD_LOGIC;
+    delta_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    raw_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    weight_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    s_axi_aclk : in STD_LOGIC;
+    s_axi_aresetn : in STD_LOGIC;
+    s_axi_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    s_axi_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    s_axi_awvalid : in STD_LOGIC;
+    s_axi_awready : out STD_LOGIC;
+    s_axi_wdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    s_axi_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s_axi_wvalid : in STD_LOGIC;
+    s_axi_wready : out STD_LOGIC;
+    s_axi_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    s_axi_bvalid : out STD_LOGIC;
+    s_axi_bready : in STD_LOGIC;
+    s_axi_araddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    s_axi_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    s_axi_arvalid : in STD_LOGIC;
+    s_axi_arready : out STD_LOGIC;
+    s_axi_rdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    s_axi_rresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    s_axi_rvalid : out STD_LOGIC;
+    s_axi_rready : in STD_LOGIC
+  );
+  end component system_tdc_bank_0_1;
   signal clk_wiz_0_clk_aes : STD_LOGIC;
   signal clk_wiz_0_clk_out2 : STD_LOGIC;
   signal fifo_controller_0_read_o : STD_LOGIC;
@@ -1743,7 +1742,6 @@ architecture STRUCTURE of system is
   signal NLW_rst_ps7_0_50M_peripheral_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_tdc_bank_0_delta_o_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal NLW_tdc_bank_0_raw_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal NLW_tdc_bank_0_weights_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of DDR_cas_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CAS_N";
   attribute X_INTERFACE_INFO of DDR_ck_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_N";
@@ -2075,7 +2073,6 @@ tdc_bank_0: component system_tdc_bank_0_1
       s_axi_wready => ps7_0_axi_periph_M01_AXI_WREADY,
       s_axi_wstrb(3 downto 0) => ps7_0_axi_periph_M01_AXI_WSTRB(3 downto 0),
       s_axi_wvalid => ps7_0_axi_periph_M01_AXI_WVALID,
-      weight_o(31 downto 0) => tdc_bank_0_data_o(31 downto 0),
-      weights_o(31 downto 0) => NLW_tdc_bank_0_weights_o_UNCONNECTED(31 downto 0)
+      weight_o(31 downto 0) => tdc_bank_0_data_o(31 downto 0)
     );
 end STRUCTURE;

@@ -29,7 +29,7 @@ architecture tdc_arch of tdc is
 
   signal delta_fine_s : std_logic;
   signal delta_coarse_s : std_logic;
-
+  
   component fine_line 
     generic (
         len_g : positive
@@ -96,7 +96,7 @@ begin
     clock_i => clock_i,
     delta_i => delta_fine_s,
     delta_o => delta_o,
-    data_o => data_o 
+    data_o => data_o
   );
 
 end tdc_arch ; -- tdc_arch

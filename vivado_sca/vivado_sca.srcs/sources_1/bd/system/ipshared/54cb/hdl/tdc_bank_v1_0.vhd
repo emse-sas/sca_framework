@@ -22,7 +22,6 @@ entity tdc_bank_v1_0 is
 		clock_i : in std_logic;
 		delta_i : in std_logic;
         delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-		weights_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0);
 		raw_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
 		weight_o : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 		-- User ports ends
@@ -71,7 +70,6 @@ architecture arch_imp of tdc_bank_v1_0 is
 		clock_i : in std_logic;
 		delta_i : in std_logic;
 		delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-		weights_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0);
 		raw_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
 		weight_o : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 		S_AXI_ACLK	: in std_logic;
@@ -114,7 +112,6 @@ tdc_bank_v1_0_S_AXI_inst : tdc_bank_v1_0_S_AXI
 		clock_i => clock_i,
 		delta_i => delta_i,
 		delta_o => delta_o,
-		weights_o => weights_o,
 		raw_o => raw_o,
 		weight_o => weight_o,
 		S_AXI_ACLK	=> s_axi_aclk,

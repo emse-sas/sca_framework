@@ -23,7 +23,6 @@ entity tdc_bank_v1_0_S_AXI is
 		clock_i : in std_logic;
 		delta_i : in std_logic;
         delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-		weights_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0);
 		raw_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
 		weight_o : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 		-- User ports ends
@@ -118,7 +117,6 @@ architecture arch_imp of tdc_bank_v1_0_S_AXI is
 
 	signal coarse_delay_s : std_logic_vector(2 * count_tdc_g - 1 downto 0);
 	signal fine_delay_s : std_logic_vector(4 * count_tdc_g - 1 downto 0);
-	signal weights_s : std_logic_vector(4 * C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal raw_s : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal weight_s : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
@@ -132,11 +130,11 @@ architecture arch_imp of tdc_bank_v1_0_S_AXI is
 		port (
 			clock_i : in std_logic;
 			delta_i : in std_logic;
+			en_i : in std_logic_vector(count_tdc_g - 1 downto 0);
 			sel_i : in std_logic_vector(integer(ceil(log2(real(count_tdc_g)))) - 1 downto 0);
 			coarse_delay_i : in std_logic_vector(2 * count_tdc_g - 1 downto 0);
 			fine_delay_i : in std_logic_vector(4 * count_tdc_g - 1 downto 0);
 			delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-			weights_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0);
 			raw_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
 			weight_o : out std_logic_vector(31 downto 0)
 		) ;
@@ -426,16 +424,16 @@ begin
 	-- and the slave is ready to accept the read address.
 	slv_reg_rden <= axi_arready and S_AXI_ARVALID and (not axi_rvalid) ;
 
-	process (slv_reg0, slv_reg1, slv_reg2, slv_reg3, slv_reg4, slv_reg5, slv_reg6, slv_reg7, weights_s, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
+	process (slv_reg0, slv_reg1, slv_reg2, slv_reg3, slv_reg4, slv_reg5, slv_reg6, slv_reg7, weight_s, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
 	variable loc_addr :std_logic_vector(OPT_MEM_ADDR_BITS downto 0);
 	begin
 	    -- Address decoding for reading registers
 	    loc_addr := axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
 	    case loc_addr is
 	      when b"000" =>
-	        reg_data_out <= weights_s(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	        reg_data_out <= slv_reg0;
 	      when b"001" =>
-	        reg_data_out <= weights_s(2 * C_S_AXI_DATA_WIDTH - 1 downto C_S_AXI_DATA_WIDTH);
+	        reg_data_out <= slv_reg1;
 	      when b"010" =>
 	        reg_data_out <= raw_s;
 	      when b"011" =>
@@ -474,9 +472,6 @@ begin
 
 	-- Add user logic here
 	
-	weights_o <= weights_s(8 * count_tdc_g - 1 downto 0);
-	weights_s(4 * C_S_AXI_DATA_WIDTH - 1 downto  8 * count_tdc_g) <= (others => '0');
-	
 	raw_o <= raw_s(4 * sampling_len_g - 1 downto 0);
 	raw_s(C_S_AXI_DATA_WIDTH - 1 downto 4 * sampling_len_g) <= (others => '0');
 
@@ -493,9 +488,9 @@ begin
 	   delta_i => delta_i,
 	   coarse_delay_i => slv_reg5(2 * count_tdc_g - 1 downto 0),
 	   fine_delay_i => slv_reg4(4 * count_tdc_g - 1 downto 0),
+	   en_i => slv_reg7(count_tdc_g - 1 downto 0),
 	   sel_i => slv_reg6(integer(ceil(log2(real(count_tdc_g)))) - 1 downto 0),
 	   delta_o => delta_o,
-	   weights_o => weights_s(8 * count_tdc_g - 1 downto 0),
 	   raw_o => raw_s(4 * sampling_len_g - 1 downto 0),
 	   weight_o => weight_s
 	);

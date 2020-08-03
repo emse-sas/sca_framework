@@ -19,11 +19,11 @@ entity tdc_bank is
     port (
         clock_i : in std_logic;
         delta_i : in std_logic;
+        en_i : in std_logic_vector(count_tdc_g - 1 downto 0);
         sel_i : in std_logic_vector(integer(ceil(log2(real(count_tdc_g)))) - 1 downto 0);
         coarse_delay_i : in std_logic_vector(2 * count_tdc_g - 1 downto 0);
         fine_delay_i : in std_logic_vector(4 * count_tdc_g - 1 downto 0);
         delta_o : out std_logic_vector(count_tdc_g - 1 downto 0);
-        weights_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0);
         raw_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
         weight_o : out std_logic_vector(31 downto 0)
     );
@@ -70,20 +70,20 @@ begin
     end generate ; -- sensors
 
     weights : process( data_s )
-    type weights_array_t is array (0 to count_tdc_g - 1) of unsigned(7 downto 0);
-    variable weight_v : weights_array_t;
+    variable weight_v: unsigned(31 downto 0);
     variable sum_v: unsigned(31 downto 0);
     begin  
         sum_v := (others => '0');
         concat : for i in 0 to count_tdc_g - 1  loop
-            weight_v(i) := (others => '0');
-            filter : for j in 0 to 4 * sampling_len_g - 1 loop  
-                if data_s(4 * sampling_len_g * i + j) = '1' then
-                    weight_v(i) := weight_v(i) + 1;
-                end if;
-            end loop ; -- weights
-            weights_o(8 * (i + 1) - 1  downto 8 * i) <= std_logic_vector(weight_v(i));
-            sum_v := sum_v + weight_v(i);
+            weight_v := (others => '0');
+            if en_i(i) = '1' then
+                filter : for j in 0 to 4 * sampling_len_g - 1 loop  
+                    if data_s(4 * sampling_len_g * i + j) = '1' then
+                        weight_v := weight_v + 1;
+                    end if ;
+                end loop ; -- weights
+            end if ;
+            sum_v := sum_v + weight_v;
         end loop ; -- concat 
         weight_o <= std_logic_vector(sum_v);
     end process ; -- weigths
