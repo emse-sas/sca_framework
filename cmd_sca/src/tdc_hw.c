@@ -1,25 +1,15 @@
 #include "tdc_hw.h"
 
-uint32_t TDC_HW_read(int id, TDC_HW_mode_t mode)
+uint32_t TDC_HW_read(int id)
 {
-	uint32_t data;
-    switch(mode) {
-        case TDC_HW_MODE_WEIGHT:
-            data = Xil_In32(TDC_HW_ADDR(TDC_HW_WEIGHTS_POS_0));
-            return id != -1 ? TDC_HW_WEIGHT(data, id) : data;
-        case TDC_HW_MODE_RAW:
-            Xil_Out32(TDC_HW_ADDR(TDC_HW_SEL_POS), id);
-            return Xil_In32(TDC_HW_ADDR(TDC_HW_RAW_POS));
-        case TDC_HW_MODE_SUM:
-            return Xil_In32(TDC_HW_ADDR(TDC_HW_SUM_POS));
-    }
+    Xil_Out32(TDC_HW_ADDR(TDC_HW_SEL_POS), id);
+    return Xil_In32(TDC_HW_ADDR(TDC_HW_RAW_POS));
 }
 
-int32_t TDC_HW_raw(int id)
+uint32_t TDC_HW_weight()
 {
-
+    return Xil_In32(TDC_HW_ADDR(TDC_HW_WEIGHT_POS));
 }
-
 
 void TDC_HW_write_delay(uint32_t fine, uint32_t coarse, int id)
 {
@@ -48,6 +38,16 @@ uint64_t TDC_HW_read_delay(int id)
     return TDC_HW_DELAY_64(fine, coarse);
 }
 
+void TDC_HW_write_enable(uint32_t enable)
+{
+    return Xil_Out32(TDC_HW_ADDR(TDC_HW_EN_POS), enable);
+}
+
+uint32_t TDC_HW_read_enable()
+{
+    return Xil_In32(TDC_HW_ADDR(TDC_HW_EN_POS));
+}
+
 uint64_t TDC_HW_calibrate(int iterations)
 {
     iterations = iterations ? iterations : TDC_HW_DEFAULT_CALIBRATE_IT;
@@ -70,7 +70,7 @@ uint64_t TDC_HW_calibrate(int iterations)
                 TDC_HW_write_delay(fine, coarse, id);
                 for (int i = 0; i < iterations; i++)
                 {
-                    raw = TDC_HW_read(id, TDC_HW_MODE_RAW);
+                    raw = TDC_HW_read(id);
                     value += OP_hamming_weight(raw);
                     polarity += OP_bit_polarity(raw);
                 }

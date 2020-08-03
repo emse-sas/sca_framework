@@ -176,31 +176,35 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
     int calibrate_idx = CMD_find_option(options_ptr, 'c');
     int read_idx = CMD_find_option(options_ptr, 'r');
     int delay_idx = CMD_find_option(options_ptr, 'd');
+    int enable_idx = CMD_find_option(options_ptr, 'e');
 
-    if (CMD_OPT_BOTH_PRESENT(calibrate_idx, delay_idx) ||
-        (CMD_OPT_BOTH_MISSING(calibrate_idx, delay_idx) && read_idx == CMD_ERR_NOT_FOUND))
+    if (CMD_OPT_BOTH_PRESENT(calibrate_idx, delay_idx))
     {
         return RUN_FAILURE;
+    }
+
+    if(enable_idx != CMD_ERR_NOT_FOUND)
+    {
+        TDC_HW_write_enable(cmd->options[enable_idx]->value.words[0]);
+        
     }
 
     uint64_t delay;
     if (delay_idx != CMD_ERR_NOT_FOUND)
     {
         TDC_HW_write_delay(cmd->options[delay_idx]->value.words[0], cmd->options[delay_idx]->value.words[1], -1);
-
         delay = TDC_HW_read_delay(-1);
-        xil_printf("delay: 0x%08x%08x\r\n", (unsigned int)(delay >> 32), (unsigned int)delay);
     }
 
     if (calibrate_idx != CMD_ERR_NOT_FOUND)
     {
         xil_printf("*** calibration ***\r\n");
         delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);
-        xil_printf("delay: 0x%08x%08x\r\n", (unsigned int)(delay >> 32), (unsigned int)delay);
+        
     }
-
-    xil_printf("value: %08x\r\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
-
+    xil_printf("value: %d\r\n", TDC_HW_weight());
+    xil_printf("delay: 0x%08x%08x\r\n", (unsigned int)(delay >> 32), (unsigned int)delay);
+    xil_printf("enable: 0x%08x\r\n", TDC_HW_read_enable());
     return RUN_SUCCESS;
 }
 
