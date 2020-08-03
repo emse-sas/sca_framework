@@ -87,3 +87,13 @@ int OP_bit_polarity(uint32_t value)
         return -2;
     }
 }
+
+char OP_sum_weights(uint32_t weights, int* coefs)
+{
+    char buffer[] = {weights & 0xff, (weights >> 8) & 0xff, (weights >> 16) & 0xff, (weights >> 24) & 0xff};
+    if (coefs == NULL) 
+    {
+        return buffer[0] + buffer[1] + buffer[2] + buffer[3];
+    }
+    return coefs[0] * buffer[0] + coefs[1] * buffer[1] + coefs[2] * buffer[2] + coefs[3] * buffer[3];
+}

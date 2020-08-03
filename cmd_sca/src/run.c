@@ -177,8 +177,7 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
     int read_idx = CMD_find_option(options_ptr, 'r');
     int delay_idx = CMD_find_option(options_ptr, 'd');
 
-    if (CMD_OPT_BOTH_PRESENT(calibrate_idx, delay_idx) ||
-        (CMD_OPT_BOTH_MISSING(calibrate_idx, delay_idx) && read_idx == CMD_ERR_NOT_FOUND))
+    if (CMD_OPT_BOTH_PRESENT(calibrate_idx, delay_idx))
     {
         return RUN_FAILURE;
     }
@@ -187,19 +186,18 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
     if (delay_idx != CMD_ERR_NOT_FOUND)
     {
         TDC_HW_write_delay(cmd->options[delay_idx]->value.words[0], cmd->options[delay_idx]->value.words[1], -1);
-
         delay = TDC_HW_read_delay(-1);
         xil_printf("delay: 0x%08x%08x\r\n", (unsigned int)(delay >> 32), (unsigned int)delay);
     }
 
     if (calibrate_idx != CMD_ERR_NOT_FOUND)
     {
-        xil_printf("*** calibration ***\r\n");
-        delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);
+        printf("*** calibration ***\r\n");
+        delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);  
         xil_printf("delay: 0x%08x%08x\r\n", (unsigned int)(delay >> 32), (unsigned int)delay);
     }
-
-    xil_printf("value: %08x\r\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
+    printf("value: %08x\r\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
+    printf("delay: 0x%08x%08x\r\n", (unsigned int)(delay >> 32), (unsigned int)delay);
 
     return RUN_SUCCESS;
 }
@@ -217,7 +215,10 @@ void RUN_fifo_read(int mini)
     uint32_t weights[FIFO_HW_STACK_SIZE];
     int len = FIFO_HW_read(weights, FIFO_HW_STACK_SIZE);
 
-    xil_printf("samples: %d\r\n", len);
+    for (size_t i = 0; i < len; i++)
+    {
+        weights[i] = OP_sum_weights(weights[i], NULL);
+    }
     if (len == 0)
     {
         return;

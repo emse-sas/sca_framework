@@ -49,4 +49,6 @@ void OP_stringify_hamming(char* str, uint32_t *weights, size_t len);
 
 int OP_bit_polarity(uint32_t value);
 
+char OP_sum_weights(uint32_t weights, int* coefs);
+
 #endif //SCA_FRAMEWORK_OP_H
