@@ -14,8 +14,6 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#include "xil_printf.h"
-
 #include "cmd.h"
 #include "op.h"
 #include "../tiny-AES-c/aes.h"
