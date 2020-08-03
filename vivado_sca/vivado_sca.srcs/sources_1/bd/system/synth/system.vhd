@@ -1,7 +1,7 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Mon Aug  3 09:31:49 2020
+--Date        : Mon Aug  3 15:46:52 2020
 --Host        : DESKTOP-L08MEB9 running 64-bit major release  (build 9200)
 --Command     : generate_target system.bd
 --Design      : system
@@ -1735,7 +1735,7 @@ architecture STRUCTURE of system is
   signal simple_aes_0_inv_o : STD_LOGIC;
   signal simple_aes_0_reset_o : STD_LOGIC;
   signal simple_aes_0_start_o : STD_LOGIC;
-  signal tdc_bank_0_data_o : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal tdc_bank_0_weights_o : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal NLW_clk_wiz_0_locked_UNCONNECTED : STD_LOGIC;
   signal NLW_rst_ps7_0_50M_mb_reset_UNCONNECTED : STD_LOGIC;
   signal NLW_rst_ps7_0_50M_bus_struct_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
@@ -1743,7 +1743,7 @@ architecture STRUCTURE of system is
   signal NLW_rst_ps7_0_50M_peripheral_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_tdc_bank_0_delta_o_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal NLW_tdc_bank_0_raw_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal NLW_tdc_bank_0_weights_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal NLW_tdc_bank_0_weight_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of DDR_cas_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CAS_N";
   attribute X_INTERFACE_INFO of DDR_ck_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_N";
@@ -1824,7 +1824,7 @@ fifo_controller_0: component system_fifo_controller_0_0
     );
 fifo_generator_0: component system_fifo_generator_0_0
      port map (
-      din(31 downto 0) => tdc_bank_0_data_o(31 downto 0),
+      din(31 downto 0) => tdc_bank_0_weights_o(31 downto 0),
       dout(31 downto 0) => fifo_generator_0_dout(31 downto 0),
       empty => fifo_generator_0_empty,
       full => fifo_generator_0_full,
@@ -2075,7 +2075,7 @@ tdc_bank_0: component system_tdc_bank_0_1
       s_axi_wready => ps7_0_axi_periph_M01_AXI_WREADY,
       s_axi_wstrb(3 downto 0) => ps7_0_axi_periph_M01_AXI_WSTRB(3 downto 0),
       s_axi_wvalid => ps7_0_axi_periph_M01_AXI_WVALID,
-      weight_o(31 downto 0) => tdc_bank_0_data_o(31 downto 0),
-      weights_o(31 downto 0) => NLW_tdc_bank_0_weights_o_UNCONNECTED(31 downto 0)
+      weight_o(31 downto 0) => NLW_tdc_bank_0_weight_o_UNCONNECTED(31 downto 0),
+      weights_o(31 downto 0) => tdc_bank_0_weights_o(31 downto 0)
     );
 end STRUCTURE;

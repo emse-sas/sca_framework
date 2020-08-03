@@ -1057,7 +1057,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net simple_aes_0_inv_o [get_bd_ports led_inv] [get_bd_pins simple_aes_0/inv_o]
   connect_bd_net -net simple_aes_0_reset_o [get_bd_ports led_reset] [get_bd_pins simple_aes_0/reset_o]
   connect_bd_net -net simple_aes_0_start_o [get_bd_ports led_start] [get_bd_pins fifo_controller_0/start_i] [get_bd_pins simple_aes_0/start_o]
-  connect_bd_net -net tdc_bank_0_data_o [get_bd_pins fifo_generator_0/din] [get_bd_pins tdc_bank_0/weight_o]
+  connect_bd_net -net tdc_bank_0_weights_o [get_bd_pins fifo_generator_0/din] [get_bd_pins tdc_bank_0/weights_o]
 
   # Create address segments
   assign_bd_address -offset 0x43C20000 -range 0x00010000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs fifo_controller_0/S_AXI/S_AXI_reg] -force
