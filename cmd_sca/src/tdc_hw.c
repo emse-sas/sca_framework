@@ -15,12 +15,6 @@ uint32_t TDC_HW_read(int id, TDC_HW_mode_t mode)
     }
 }
 
-int32_t TDC_HW_raw(int id)
-{
-
-}
-
-
 void TDC_HW_write_delay(uint32_t fine, uint32_t coarse, int id)
 {
     if (id == -1)
