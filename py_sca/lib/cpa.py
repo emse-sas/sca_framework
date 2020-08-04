@@ -21,17 +21,16 @@ class Handler:
     @classmethod
     def from_log(cls, log, traces):
         n, m = traces.shape
-        shape = (aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m)
-        blocks = np.empty((n, aes.BLOCK_LEN, aes.BLOCK_LEN), dtype=np.uint8)
-        lens = np.zeros(shape[:-1], dtype=np.int)
-        mean = np.zeros(m)
-        means = np.zeros(shape)
-        dev = np.zeros(m)
-        devs = np.zeros(shape)
 
+        key = aes.words_to_block(log.keys[0])
+        blocks = np.empty((n, aes.BLOCK_LEN, aes.BLOCK_LEN), dtype=np.uint8)
         for block, plain in zip(blocks, log.plains):
             block[:] = aes.words_to_block(plain)
 
+        shape = (aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m)
+        lens = np.zeros(shape[:-1], dtype=np.int)
+        means = np.zeros(shape)
+        devs = np.zeros(shape)
         bt = zip(blocks, traces)
         for i, j, (block, trace) in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), bt):
             k = block[i, j]
@@ -47,6 +46,8 @@ class Handler:
             devs[i, j, k] -= np.square(means[i, j, k])
             devs[i, j, k] = np.sqrt(devs[i, j, k])
 
+        mean = np.zeros(m)
+        dev = np.zeros(m)
         for trace in traces:
             mean += trace
             dev += trace * trace
@@ -55,7 +56,7 @@ class Handler:
         dev /= n
         dev -= np.square(mean)
         dev = np.sqrt(dev)
-        return Handler(blocks, aes.words_to_block(log.keys[0]), lens, mean, means, dev, devs)
+        return Handler(blocks, key, lens, mean, means, dev, devs)
 
     def init_model(self):
         for h, k in product(range(COUNT_HYP), range(COUNT_CLS)):
@@ -65,34 +66,34 @@ class Handler:
         n = len(self.blocks)
         m = len(self.means[0, 0, 0])
         ret = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_HYP, m))
-
         for i, j, h in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), range(COUNT_HYP)):
             y = np.array(self.hyp[h] * self.lens[i, j], dtype=np.float)
             y_mean = np.sum(y) / n
             y_std = np.sqrt(np.sum(self.hyp[h] * y) / n - y_mean * y_mean)
             xy = np.sum(y.reshape((COUNT_HYP, 1)) * self.means[i, j], axis=0) / n
-            ret[i, j, h] = np.nan_to_num(((xy - self.mean * y_mean) / self.dev) / y_std, copy=False)
+            ret[i, j, h] = ((xy - self.mean * y_mean) / self.dev) / y_std
+            ret[i, j, h] = np.nan_to_num(ret[i, j, h])
 
         return ret
 
     def guess_stats(self, cor):
-        m = len(self.means[0, 0, 0])
-        shape = (aes.BLOCK_LEN, aes.BLOCK_LEN, m)
-        maxs = np.zeros(shape[:-1] + (COUNT_HYP,))
-        guess = np.zeros(shape[:-1], dtype=np.uint8)
-        cor_max = np.zeros(shape)
-        cor_min = np.zeros(shape)
-        cor_key = np.zeros(shape)
+        _, _, _, m = self.means.shape
+        maxs = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_HYP))
         for i, j, h in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), range(COUNT_HYP)):
             maxs[i, j, h] = np.max(cor[i, j, h])
-            if h == self.key[i, j]:
-                cor_key[i, j] = cor[i, j, h]
 
+        guess = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN), dtype=np.uint8)
         for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
             guess[i, j] = np.argmax(maxs[i, j])
 
+        return guess, maxs
+
+    def guess_envelope(self, cor):
+        _, _, _, m = self.means.shape
+        cor_max = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, m))
+        cor_min = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, m))
         for i, j, t in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), range(m)):
             cor_max[i, j, t] = np.max(cor[i, j, :, t])
             cor_min[i, j, t] = np.min(cor[i, j, :, t])
 
-        return guess, maxs, cor_key, cor_max, cor_min
+        return cor_max, cor_min
