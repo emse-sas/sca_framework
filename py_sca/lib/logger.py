@@ -8,7 +8,7 @@ END_ACQ = b"\r\n\xff\r\n"
 
 
 def _bytes_to_str(words):
-    return list(map(lambda w: str(w, "ascii"), words))
+    return list(map(lambda w: "%08x" % int(w, 16), words))
 
 
 class ParsingError(Exception):
