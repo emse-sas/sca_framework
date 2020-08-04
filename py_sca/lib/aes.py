@@ -17,7 +17,7 @@ S_BOX = np.array([
     0x70, 0x3e, 0xb5, 0x66, 0x48, 0x03, 0xf6, 0x0e, 0x61, 0x35, 0x57, 0xb9, 0x86, 0xc1, 0x1d, 0x9e,
     0xe1, 0xf8, 0x98, 0x11, 0x69, 0xd9, 0x8e, 0x94, 0x9b, 0x1e, 0x87, 0xe9, 0xce, 0x55, 0x28, 0xdf,
     0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16
-], dtype=np.ubyte)
+], dtype=np.uint8)
 
 INV_S_BOX = np.array([
     0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5, 0x38, 0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB,
@@ -43,10 +43,11 @@ R_CON = np.array([
     [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00],
     [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00],
     [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
-], dtype=np.ubyte).T
+], dtype=np.uint8).T
 
 N_ROUNDS = 10
 BLOCK_LEN = 4
+
 
 def xtime(x):
     return (x << 1) ^ (((x >> 7) & 1) * 0x1b)
@@ -59,20 +60,24 @@ def multiply(x, y):
             ((y >> 3 & 1) * xtime(xtime(xtime(x)))) ^
             ((y >> 4 & 1) * xtime(xtime(xtime(xtime(x))))))
 
+
 def word_to_col(w):
     x = int(w, 16)
     return [x >> 24, (x >> 16) & 0xff, (x >> 8) & 0xff, x & 0xff]
 
+
 def col_to_word(c):
     return "%02x%02x%02x%02x" % tuple(c)
 
+
 def words_to_block(words):
-    ret = np.empty((4,4))
+    ret = np.empty((4, 4))
     ret[0] = word_to_col(words[0])
     ret[1] = word_to_col(words[1])
     ret[2] = word_to_col(words[2])
     ret[3] = word_to_col(words[3])
-    return np.array(ret, dtype=np.ubyte).T
+    return np.array(ret, dtype=np.uint8).T
+
 
 def block_to_words(block):
     return "%s %s %s %s" % tuple(col_to_word(c) for c in block.T)
@@ -84,19 +89,19 @@ def add_round_key(block, key):
 
 def sub_bytes(block):
     ret = block.copy()
-    ret[0] = np.fromiter(map(lambda b: S_BOX[b], ret[0]), dtype=np.ubyte)
-    ret[1] = np.fromiter(map(lambda b: S_BOX[b], ret[1]), dtype=np.ubyte)
-    ret[2] = np.fromiter(map(lambda b: S_BOX[b], ret[2]), dtype=np.ubyte)
-    ret[3] = np.fromiter(map(lambda b: S_BOX[b], ret[3]), dtype=np.ubyte)
+    ret[0] = np.fromiter(map(lambda b: S_BOX[b], ret[0]), dtype=np.uint8)
+    ret[1] = np.fromiter(map(lambda b: S_BOX[b], ret[1]), dtype=np.uint8)
+    ret[2] = np.fromiter(map(lambda b: S_BOX[b], ret[2]), dtype=np.uint8)
+    ret[3] = np.fromiter(map(lambda b: S_BOX[b], ret[3]), dtype=np.uint8)
     return ret
 
 
 def inv_sub_bytes(block):
     ret = block.copy()
-    ret[0] = np.fromiter(map(lambda b: INV_S_BOX[b], ret[0]), dtype=np.ubyte)
-    ret[1] = np.fromiter(map(lambda b: INV_S_BOX[b], ret[1]), dtype=np.ubyte)
-    ret[2] = np.fromiter(map(lambda b: INV_S_BOX[b], ret[2]), dtype=np.ubyte)
-    ret[3] = np.fromiter(map(lambda b: INV_S_BOX[b], ret[3]), dtype=np.ubyte)
+    ret[0] = np.fromiter(map(lambda b: INV_S_BOX[b], ret[0]), dtype=np.uint8)
+    ret[1] = np.fromiter(map(lambda b: INV_S_BOX[b], ret[1]), dtype=np.uint8)
+    ret[2] = np.fromiter(map(lambda b: INV_S_BOX[b], ret[2]), dtype=np.uint8)
+    ret[3] = np.fromiter(map(lambda b: INV_S_BOX[b], ret[3]), dtype=np.uint8)
     return ret
 
 
@@ -129,15 +134,27 @@ def mix_columns(block):
 
 def inv_mix_columns(block):
     ret = block.copy()
-    ret[0] = multiply(block[0], 0x0e) ^ multiply(block[1], 0x0b) ^ multiply(block[2], 0x0d) ^ multiply(block[3], 0x09)
-    ret[1] = multiply(block[0], 0x09) ^ multiply(block[1], 0x0e) ^ multiply(block[2], 0x0b) ^ multiply(block[3], 0x0d)
-    ret[2] = multiply(block[0], 0x0d) ^ multiply(block[1], 0x09) ^ multiply(block[2], 0x0e) ^ multiply(block[3], 0x0b)
-    ret[3] = multiply(block[0], 0x0b) ^ multiply(block[1], 0x0d) ^ multiply(block[2], 0x09) ^ multiply(block[3], 0x0e)
+    ret[0] = (multiply(block[0], 0x0e)
+              ^ multiply(block[1], 0x0b)
+              ^ multiply(block[2], 0x0d)
+              ^ multiply(block[3], 0x09))
+    ret[1] = (multiply(block[0], 0x09)
+              ^ multiply(block[1], 0x0e)
+              ^ multiply(block[2], 0x0b)
+              ^ multiply(block[3], 0x0d))
+    ret[2] = (multiply(block[0], 0x0d)
+              ^ multiply(block[1], 0x09)
+              ^ multiply(block[2], 0x0e)
+              ^ multiply(block[3], 0x0b))
+    ret[3] = (multiply(block[0], 0x0b)
+              ^ multiply(block[1], 0x0d)
+              ^ multiply(block[2], 0x09)
+              ^ multiply(block[3], 0x0e))
     return ret
 
 
 def sub_word(col):
-    return np.fromiter(map(lambda b: S_BOX[b], col), dtype=np.ubyte)
+    return np.fromiter(map(lambda b: S_BOX[b], col), dtype=np.uint8)
 
 
 def rot_word(col):
@@ -161,8 +178,8 @@ class Stages:
 class Handler:
 
     def __init__(self, key):
-        self.blocks = np.zeros((N_ROUNDS + 1, 5, BLOCK_LEN, BLOCK_LEN), dtype=np.ubyte)
-        self.keys = np.zeros((N_ROUNDS + 1, BLOCK_LEN, BLOCK_LEN), dtype=np.ubyte)
+        self.blocks = np.zeros((N_ROUNDS + 1, 5, BLOCK_LEN, BLOCK_LEN), dtype=np.uint8)
+        self.keys = np.zeros((N_ROUNDS + 1, BLOCK_LEN, BLOCK_LEN), dtype=np.uint8)
         self.keys[0] = key.T
         self._key_expansion()
 

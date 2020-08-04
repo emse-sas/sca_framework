@@ -2,23 +2,21 @@ from lib import aes, logger, cpa
 from lib import traces as tr
 from lib.utils import duration
 import numpy as np
-from scipy import stats
+from scipy import signal
 import matplotlib.pyplot as plt
 import time
-from datetime import timedelta
 import os
 from itertools import product
 
-COUNT_TRACES = 16384  # count of traces to record from FPGA
+COUNT_TRACES = 50_000  # count of traces to record from FPGA
 MODE_AES = "hw"
 SYNC_TRACES = False
 
 FILE_ARGS = (MODE_AES, COUNT_TRACES)
-DATA_PATH = os.path.join("data", *["acquisition", MODE_AES])
-IMG_PATH = os.path.join("media", *["img", "correlation", MODE_AES])
+DATA_PATH = os.path.join("..", *["data", "acquisition", MODE_AES])
+IMG_PATH = os.path.join("..", *["media", "img", "correlation", MODE_AES])
 
-np.set_printoptions(formatter={'int': hex})
-
+np.set_printoptions(formatter={"int": hex})
 
 # read FPGA acquisition csv log file
 print("*** importing traces ***")
@@ -31,13 +29,21 @@ print("import successful!\nelapsed: %s" % str(duration(t_import, t_start)))
 
 print("*** processing traces ***")
 t_start = time.perf_counter()
-n = log.samples
-traces = tr.crop(log.traces)
+traces = tr.crop(log.traces, 400)
 if SYNC_TRACES:
     traces = tr.sync(traces, stop=128)
-traces = np.array(traces, dtype=np.float64)
-traces -= traces.mean(axis=1).reshape((n, 1))
-m = len(traces[0])
+
+fs = 200_000
+fc = 13_000
+order = 4
+w = fc / (fs / 2)
+# noinspection PyTupleAssignmentBalance
+b, a = signal.butter(order, w, btype="highpass", output="ba")
+
+for trace in traces:
+    trace[:] = signal.filtfilt(b, a, trace)
+
+n, m = traces.shape
 t_proc = time.perf_counter()
 print("processing successful!\nelapsed: %s" % str(duration(t_proc, t_start)))
 
@@ -50,32 +56,31 @@ print("handler successfully created!\nelapsed: %s" %
 
 print("*** computing correlation ***")
 t_start = time.perf_counter()
-correlations = handler.correlations()
-_, _, cor_key, cor_max, cor_min = handler.guess_stats(correlations)
+cor = handler.correlations()
+guess, _, cor_key, cor_max, cor_min = handler.guess_stats(cor)
 t_cor = time.perf_counter()
-print("correlation successfully computed!\nelapsed: %s" %
-      str(duration(t_cor, t_start)))
+print(f"correlation successfully computed!\nelapsed: {str(duration(t_cor, t_start))}")
 
 print("*** saving plots ***")
 t_start = time.perf_counter()
+
 plt.rcParams["figure.figsize"] = (16, 9)
 
-
 for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
-    plt.fill_between(x=range(m), y1=cor_max[i, j], y2=cor_min[i, j], color="grey")
-    plt.plot(cor_key[i, j], color="red", label="key 0x%x" % handler.key[i, j], zorder=1000)
-
-    img_args = tuple([i * aes.BLOCK_LEN + j]) + FILE_ARGS
-    plt.title("Time Correlation byte %d (n=%d, m=%d)" % (img_args[0], n, m))
+    plot_args = (i * aes.BLOCK_LEN + j, n, m, log.sensors)
+    plt.fill_between(range(m), cor_max[i, j], cor_min[i, j], color="grey")
+    plt.plot(cor_key[i, j], color="green", label="key 0x%02x" % handler.key[i, j])
+    plt.plot(cor[i, j, guess[i, j]], color="blue", label="guess 0x%02x" % guess[i, j])
+    plt.title("Time Correlation byte %d (traces: %d, samples: %d, sensors: %d)" % plot_args)
     plt.xlabel("Time Samples")
     plt.ylabel("Pearson Correlation")
     plt.legend()
     plt.tight_layout()
-    plt.savefig(os.path.join(IMG_PATH, "sca_cor_b%d_%s_%d" % img_args))
+    plt.show()
+    plt.savefig(os.path.join(IMG_PATH, "sca_cor_%s_%d_b%d" % (FILE_ARGS + (plot_args[0],))))
     plt.close()
 
 t_plot = time.perf_counter()
-print("traces successfully saved!\nelapsed: %s" %
-      str(duration(t_plot, t_start)))
+print("traces successfully saved!\nelapsed: %s" % str(duration(t_plot, t_start)))
 
 print("exiting...")

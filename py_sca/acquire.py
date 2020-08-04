@@ -1,23 +1,25 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from lib import aes, logger
+from lib import logger
 from lib import traces as tr
 from lib.utils import duration
 import os
 import time
 from scipy import fft
 
-COUNT_TRACES = 16384 # count of traces to record from FPGA
-TRACES_TO_PLOT = 32  # count of raw traces to plot
+print(os.getcwd())
+
+COUNT_TRACES = 50_000  # count of traces to record from FPGA
+TRACES_TO_PLOT = 16  # count of raw traces to plot
 MODE_AES = "hw"
-LOG_SOURCE = "serial"
+LOG_SOURCE = "reports"
 SYNC_TRACES = False
 F_SAMPLING = 200e6
 
 FILE_ARGS = (MODE_AES, COUNT_TRACES)
-DATA_PATH = os.path.join("data", *["acquisition", MODE_AES])
-IMG_PATH = os.path.join("media", *["img", "acquisition", MODE_AES])
-LOG_PATH = os.path.join("data", "cmd.log")
+DATA_PATH = os.path.join("..", *["data", "acquisition", MODE_AES])
+IMG_PATH = os.path.join("..", *["media", "img", "acquisition", MODE_AES])
+LOG_PATH = os.path.join("..", *["data", "acquisition"])
 
 log = None
 print("*** logging traces ***")
@@ -27,7 +29,7 @@ if LOG_SOURCE == "serial":
     log = logger.Log.from_serial(COUNT_TRACES, "COM5", hardware=MODE_AES == "hw", baud=921600)
 elif LOG_SOURCE == "file":
     # read FPGA acquisition command prompt log file
-    log = logger.Log.from_file(LOG_PATH)
+    log = logger.Log.from_file(os.path.join(LOG_PATH, "cmd.log"))
 elif LOG_SOURCE == "reports":
     # read FPGA acquisition csv log file
     log = logger.Log.from_reports(
@@ -38,7 +40,6 @@ else:
     raise RuntimeError("unexpected log source: %s" % LOG_SOURCE)
 t_log = time.perf_counter()
 print("traces successfully logged!\nelapsed: %s" % str(duration(t_log, t_start)))
-
 
 # log SCA acquisition into CSV reporting files
 print("*** exporting traces ***")
@@ -51,18 +52,17 @@ print("export successful!\nelapsed: %s" % str(duration(t_export, t_start)))
 # Synchronize trace signals and compute average trace
 print("*** processing traces ***")
 t_start = time.perf_counter()
-traces = tr.pad(log.traces, log.offset)
+traces = tr.crop(log.traces)
 if SYNC_TRACES:
     traces = tr.sync(traces, stop=128)
 n, m = traces.shape
 mean = np.array(traces).mean(axis=0)
-smoothed = np.convolve(mean, np.ones((m//11,)) / (m//11), mode="same")
+smoothed = np.convolve(mean, np.ones((m // 11,)) / (m // 11), mode="same")
 spectrum = np.absolute(fft.fft(mean - np.mean(mean)))
-freq = np.fft.fftfreq(spectrum.size, 1.0 / F_SAMPLING)[:spectrum.size//2] / 1e6
-f = np.argsort(freq)  
+freq = np.fft.fftfreq(spectrum.size, 1.0 / F_SAMPLING)[:spectrum.size // 2] / 1e6
+f = np.argsort(freq)
 t_proc = time.perf_counter()
 print("processing successful!\nelapsed: %s" % str(duration(t_proc, t_start)))
-
 
 print("*** saving plots ***")
 t_start = time.perf_counter()
@@ -76,6 +76,7 @@ plt.xlabel("Time Samples")
 plt.ylabel("Hamming Weights")
 plt.legend()
 plt.tight_layout()
+plt.show()
 plt.savefig(os.path.join(IMG_PATH, "sca_raw_%s_%d" % FILE_ARGS))
 plt.close()
 
@@ -87,6 +88,7 @@ plt.xlabel("Time Samples")
 plt.ylabel("Hamming Weight")
 plt.legend()
 plt.tight_layout()
+plt.show()
 plt.savefig(os.path.join(IMG_PATH, "sca_avg_%s_%d" % FILE_ARGS))
 plt.close()
 
@@ -95,6 +97,7 @@ plt.title("Average power consumption FFT (traces: %d, samples: %d, sensors: %d)"
 plt.xlabel("Frequency (MHz)")
 plt.ylabel("Hamming Weight")
 plt.tight_layout()
+plt.show()
 plt.savefig(os.path.join(IMG_PATH, "sca_avg_fft_%s_%d" % FILE_ARGS))
 plt.close()
 t_plot = time.perf_counter()
