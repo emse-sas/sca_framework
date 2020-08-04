@@ -57,29 +57,32 @@ print("handler successfully created!\nelapsed: %s" %
 print("*** computing correlation ***")
 t_start = time.perf_counter()
 cor = handler.correlations()
-guess, _, cor_key, cor_max, cor_min = handler.guess_stats(cor)
+guess, maxs = handler.guess_stats(cor)
+cor_max, cor_min = handler.guess_envelope(cor)
+key = handler.key
 t_cor = time.perf_counter()
 print(f"correlation successfully computed!\nelapsed: {str(duration(t_cor, t_start))}")
 
 print("*** saving plots ***")
 t_start = time.perf_counter()
-
 plt.rcParams["figure.figsize"] = (16, 9)
-
 for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
-    plot_args = (i * aes.BLOCK_LEN + j, n, m, log.sensors)
+    plot_args = (i * aes.BLOCK_LEN + j, n, 100 * maxs[i, j, guess[i, j]])
     plt.fill_between(range(m), cor_max[i, j], cor_min[i, j], color="grey")
-    plt.plot(cor_key[i, j], color="green", label="key 0x%02x" % handler.key[i, j])
-    plt.plot(cor[i, j, guess[i, j]], color="blue", label="guess 0x%02x" % guess[i, j])
-    plt.title("Time Correlation byte %d (traces: %d, samples: %d, sensors: %d)" % plot_args)
+    if key[i, j] != guess[i, j]:
+        plt.plot(cor[i, j, key[i, j]], color="b", label="key 0x%02x" % key[i, j])
+        plt.plot(cor[i, j, guess[i, j]], color="c", label="guess 0x%02x" % guess[i, j])
+    else:
+        plt.plot(cor[i, j, key[i, j]], color="r", label="key 0x%02x" % key[i, j])
+
+    plt.title("Time Correlation byte %d (traces: %d, best correlation: %.2f%%)" % plot_args)
     plt.xlabel("Time Samples")
     plt.ylabel("Pearson Correlation")
     plt.legend()
     plt.tight_layout()
-    plt.show()
     plt.savefig(os.path.join(IMG_PATH, "sca_cor_%s_%d_b%d" % (FILE_ARGS + (plot_args[0],))))
+    plt.show()
     plt.close()
-
 t_plot = time.perf_counter()
 print("traces successfully saved!\nelapsed: %s" % str(duration(t_plot, t_start)))
 
