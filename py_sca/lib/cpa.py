@@ -72,10 +72,10 @@ class Handler:
 
     def guess_stats(self, cor):
         _, _, _, m = self.means.shape
-        maxs = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_HYP))
-        for i, j, h in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), range(COUNT_HYP)):
-            maxs[i, j, h] = np.max(cor[i, j, h])
-
+        maxs = np.max(np.abs(cor), axis=3)
+        guess = np.argmax(maxs, axis=2)
+        exact = guess == self.key
+        return guess, maxs, exact
 
     def guess_envelope(self, cor):
         _, _, _, m = self.means.shape
