@@ -5,7 +5,7 @@ from scipy import stats
 def crop(traces, end=None):
     m = min(map(len, traces))
     m = min(end or m, m)
-    cropped = list(trace[:m] for trace in traces)
+    cropped = [trace[:m] for trace in traces]
     return np.array(cropped, dtype=np.uint8, copy=False)
 
 
