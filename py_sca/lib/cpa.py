@@ -46,14 +46,8 @@ class Handler:
             devs[i, j, k] -= np.square(means[i, j, k])
             devs[i, j, k] = np.sqrt(devs[i, j, k])
 
-        mean = np.zeros(m)
-        dev = np.zeros(m)
-        for trace in traces:
-            mean += trace
-            dev += trace * trace
-
-        mean /= n
-        dev /= n
+        mean = np.sum(traces, axis=0) / n
+        dev = np.sum(traces * traces, axis=0) / n
         dev -= np.square(mean)
         dev = np.sqrt(dev)
         return Handler(blocks, key, lens, mean, means, dev, devs)
@@ -82,11 +76,6 @@ class Handler:
         for i, j, h in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), range(COUNT_HYP)):
             maxs[i, j, h] = np.max(cor[i, j, h])
 
-        guess = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN), dtype=np.uint8)
-        for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
-            guess[i, j] = np.argmax(maxs[i, j])
-
-        return guess, maxs
 
     def guess_envelope(self, cor):
         _, _, _, m = self.means.shape
