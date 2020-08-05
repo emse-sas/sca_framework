@@ -3,18 +3,18 @@ from scipy import stats
 
 
 def crop(traces, end=None):
-    n_min = min(map(len, traces))
-    n = min(end or n_min, n_min)
-    return np.array(list(trace[:n]
-                         for trace in traces))
+    m = min(map(len, traces))
+    m = min(end or m, m)
+    cropped = list(trace[:m] for trace in traces)
+    return np.array(cropped, dtype=np.uint8, copy=False)
 
 
 def pad(traces, fill=0, end=None):
-    lens = list(map(len, traces))
-    n_max = max(lens)
-    n = max(end or n_max, n_max)
-    return np.array(list(np.concatenate((trace, [fill] * (n - lens[k])))
-                         for k, trace in enumerate(traces)))
+    reads = list(map(len, traces))
+    m = max(reads)
+    m = max(end or m, m)
+    padded = [trace + [fill] * (m - read) for trace, read in zip(traces, reads)]
+    return np.array(padded, dtype=np.uint8, copy=False)
 
 
 def sync(traces, step=1, stop=None):
