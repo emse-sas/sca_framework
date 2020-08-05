@@ -3,8 +3,8 @@ import csv
 import random
 from warnings import warn
 
-END_TRACE = b"\xfe"
-END_ACQ = b"\r\n\xff\r\n"
+START_TRACE = b"\xfe\xfe\xfe\xfe"
+END_ACQ = b"\xff\xff\xff\xff"
 
 
 def _bytes_to_str(words):

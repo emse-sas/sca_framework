@@ -8,7 +8,7 @@ void RUN_all_help()
 {
     int option_idx = 0;
     int cmd_idx = 1;
-    printf("Label\t\tDescription\t\t\tOptions\r\n");
+    printf("Label\t\tDescription\t\t\tOptions\n");
     for (; cmd_idx < CMD_COUNT_TYPE; cmd_idx++)
     {
         printf("%s\t\t%s\t\t", CMD_labels[cmd_idx], CMD_descriptions[cmd_idx]);
@@ -18,14 +18,14 @@ void RUN_all_help()
                        CMD_allowed_options[cmd_idx][option_idx],
                        CMD_opt_type_labels[CMD_allowed_types[cmd_idx][option_idx]]);
         }
-        printf("\r\n");
+        printf("\n");
     }
 }
 
 void RUN_cmd_help(const CMD_type_t type)
 {
     size_t option_idx = 0;
-    printf("Label\t\tDescription\t\t\tOptions\r\n");
+    printf("Label\t\tDescription\t\t\tOptions\n");
     printf("%s\t\t%s\t\t", CMD_labels[type], CMD_descriptions[type]);
 
     for (; CMD_allowed_options[type][option_idx] != CMD_NULL_OPTION; option_idx++)
@@ -34,7 +34,7 @@ void RUN_cmd_help(const CMD_type_t type)
                    CMD_allowed_options[type][option_idx],
                    CMD_opt_type_labels[CMD_allowed_types[type][option_idx]]);
     }
-    printf("\r\n");
+    printf("\n");
 }
 
 void RUN_help(const CMD_cmd_t *cmd)
@@ -50,7 +50,7 @@ void RUN_help(const CMD_cmd_t *cmd)
 
 void RUN_quit()
 {
-    printf("*** exiting ***\r\n");
+    printf("*** exiting ***\n");
 }
 
 void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
@@ -58,13 +58,13 @@ void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
     struct AES_ctx ctx;
     char block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
 
-    printf("*** tiny aes ***\r\n");
+    printf("*** tiny aes ***\n");
 
     HEX_stringify_bytes(key_str, key, RUN_AES_BYTES_SIZE);
-    printf("key: %s\r\n", key_str);
+    printf("key: %s\n", key_str);
 
     HEX_stringify_bytes(block_str, block, RUN_AES_BYTES_SIZE);
-    printf("%s: %s\r\n", inv ? "cipher" : "plain", block_str);
+    printf("%s: %s\n", inv ? "cipher" : "plain", block_str);
 
     if (inv)
     {
@@ -99,24 +99,24 @@ void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
     }
 
     HEX_stringify_bytes(block_str, block, RUN_AES_BYTES_SIZE);
-    printf("%s: %s\r\n", inv ? "plain" : "cipher", block_str);
+    printf("%s: %s\n", inv ? "plain" : "cipher", block_str);
 }
 
 void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq)
 {
     char block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
 
-    printf("*** hardware aes ***\r\n");
+    printf("*** hardware aes ***\n");
 
     AES_HW_clear(inv ? AES_HW_DECRYPT : AES_HW_ENCRYPT);
 
     AES_HW_write_key(key);
     HEX_stringify_words(key_str, key, RUN_AES_WORDS_SIZE);
-    printf("key: %s\r\n", key_str);
+    printf("key: %s\n", key_str);
 
     AES_HW_write_input(block);
     HEX_stringify_words(block_str, block, RUN_AES_WORDS_SIZE);
-    printf("%s: %s\r\n", inv ? "cipher" : "plain", block_str);
+    printf("%s: %s\n", inv ? "cipher" : "plain", block_str);
 
     if (acq)
     {
@@ -132,7 +132,7 @@ void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq)
 
     AES_HW_read_output(block);
     HEX_stringify_words(block_str, block, RUN_AES_WORDS_SIZE);
-    printf("%s: %s\r\n", inv ? "plain" : "cipher", block_str);
+    printf("%s: %s\n", inv ? "plain" : "cipher", block_str);
 }
 
 RUN_status_t RUN_aes(const CMD_cmd_t *cmd)
@@ -191,11 +191,11 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
 
     if (calibrate_idx != CMD_ERR_NOT_FOUND)
     {
-        printf("*** calibration ***\r\n");
+        printf("*** calibration ***\n");
         delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);  
     }
-    printf("value: %08x\r\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
-    printf("delay: 0x%08x%08x\r\n", (unsigned int)(delay >> 32), (unsigned int)delay);
+    printf("value: %08x\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
+    printf("delay: 0x%08x%08x\n", (unsigned int)(delay >> 32), (unsigned int)delay);
 
     return RUN_SUCCESS;
 }
@@ -203,12 +203,12 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
 void RUN_fifo_flush()
 {
     FIFO_HW_clear(FIFO_HW_MODE_SW);
-    printf("*** flush successful ***\r\n");
+    printf("*** flush successful ***\n");
 }
 
 void RUN_fifo_read(int mini)
 {
-    printf("*** read ***\r\n");
+    printf("*** read ***\n");
 
     uint32_t weights[FIFO_HW_STACK_SIZE];
     int len = FIFO_HW_read(weights, FIFO_HW_STACK_SIZE);
@@ -219,7 +219,7 @@ void RUN_fifo_read(int mini)
     }
     
 
-    printf("samples: %d\r\n", len);
+    printf("samples: %d\n", len);
     if (len == 0)
     {
         return;
@@ -233,7 +233,7 @@ void RUN_fifo_read(int mini)
     else
     {
         OP_stringify_hamming(str_weights, weights, len);
-        printf("weights: %s\r\n", str_weights);
+        printf("weights: %s\n", str_weights);
     }
 }
 
@@ -278,17 +278,17 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     uint32_t key[RUN_AES_WORDS_SIZE], block[RUN_AES_WORDS_SIZE];
     uint8_t key8[RUN_AES_BYTES_SIZE], block8[RUN_AES_BYTES_SIZE];
 
-    printf("*** start acquisition ***\r\n");
-    printf("mode: %s\r\n", hw ? "hardware" : "software");
-    printf("direction: %s\r\n", inv ? "decrypt" : "encrypt");
-    printf("sensors: %d\r\n", TDC_HW_COUNT_TDC);
-    printf("target: %d\r\n", TDC_HW_CALIBRATE_TARGET);
+    printf("*** start acquisition ***\n");
+    printf("mode: %s\n", hw ? "hardware" : "software");
+    printf("direction: %s\n", inv ? "decrypt" : "encrypt");
+    printf("sensors: %d\n", TDC_HW_COUNT_TDC);
+    printf("target: %d\n", TDC_HW_CALIBRATE_TARGET);
 
     HEX_random_words(key, INT_MAX, RUN_AES_WORDS_SIZE);
     HEX_words_to_bytes(key8, key, RUN_AES_BYTES_SIZE);
     for (int idx = 0; idx < traces_count; idx++)
     {
-    	printf("\r\n\xfe\r\n");
+    	printf("\xfe\xfe\xfe\xfe\n");
         HEX_random_words(block, idx + 1, RUN_AES_WORDS_SIZE);
         if (hw)
         {
@@ -301,7 +301,7 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
         }
         RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
     }
-    printf("\r\n\0\r\n");
+    printf("\xff\xff\xff\xff\n");
     return RUN_SUCCESS;
 }
 
@@ -321,7 +321,7 @@ RUN_status_t RUN_cmd()
         printf("> ");
         if (IO_get_line(line, CMD_LINE_SIZE) != IO_SUCCESS)
         {
-            fprintf(stderr, "read error: errno=%d\r\n", errno);
+            fprintf(stderr, "read error: errno=%d\n", errno);
             return RUN_FAILURE;
         }
         strcpy(buffer, line);
@@ -330,21 +330,21 @@ RUN_status_t RUN_cmd()
         case CMD_ERR_NONE:
             break;
         case CMD_ERR_NOT_FOUND:
-            fprintf(stderr, "unknown command: %s\r\n", strtok(line, " "));
+            fprintf(stderr, "unknown command: %s\n", strtok(line, " "));
             continue;
         case CMD_ERR_ALLOC:
-            fprintf(stderr, "allocation error: errno=%d\r\n", errno);
+            fprintf(stderr, "allocation error: errno=%d\n", errno);
             return RUN_FAILURE;
         case CMD_ERR_FORMAT:
-            fprintf(stderr, "invalid format: %s\r\n", line);
+            fprintf(stderr, "invalid format: %s\n", line);
             continue;
         default:
-            fprintf(stderr, "unexpected error: %d\r\n", cmd_error);
+            fprintf(stderr, "unexpected error: %d\n", cmd_error);
             continue;
         }
         if ((option_idx = CMD_check_options(cmd)) != CMD_ERR_NONE)
         {
-            fprintf(stderr, "invalid option: %c\r\n", cmd.options[option_idx]->label);
+            fprintf(stderr, "invalid option: %c\n", cmd.options[option_idx]->label);
             continue;
         }
         run_status = RUN_SUCCESS;
@@ -371,12 +371,12 @@ RUN_status_t RUN_cmd()
             run_status = RUN_sca(&cmd);
             break;
         default:
-            fprintf(stderr, "not implemented: %s\r\n", strtok(line, " "));
+            fprintf(stderr, "not implemented: %s\n", strtok(line, " "));
             break;
         }
         if (run_status != RUN_SUCCESS)
         {
-            fprintf(stderr, "%s failed\r\n", CMD_labels[cmd.type]);
+            fprintf(stderr, "%s failed\n", CMD_labels[cmd.type]);
             continue;
         }
     } while (1);
