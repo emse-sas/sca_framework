@@ -137,9 +137,9 @@ class Meta:
     def to_csv(self, path):
         with open(path, "w") as file:
             writer = csv.writer(file)
-            header = ["mode", "direction", "target", "sensors", "iterations", "offset"]
-            values = [self.mode, self.direction, self.target, self.sensors, self.iterations,
-                      self.offset]
+            rows = self.__dict__
+            header = list(rows.keys())
+            values = list(rows.values())
             writer.writerows([header, values])
 
     @classmethod
