@@ -9,7 +9,7 @@ import os
 from itertools import product
 
 t_init = time.perf_counter()
-COUNT_TRACES = 2**16  # count of traces to record from FPGA
+COUNT_TRACES = 2**8  # count of traces to record from FPGA
 MODE_AES = "hw"
 
 FILE_ARGS = (MODE_AES, COUNT_TRACES)
@@ -21,10 +21,11 @@ np.set_printoptions(formatter={"int": hex})
 # read FPGA acquisition csv log file
 print("*** importing traces ***")
 t_start = time.perf_counter()
-leak = log.Leak.from_csv(os.path.join(DATA_PATH, "trace_%s_%d.csv" % FILE_ARGS))
+leak = log.Leak.from_csv(os.path.join(DATA_PATH, "leak_%s_%d.csv" % FILE_ARGS))
 data = log.Data.from_csv(os.path.join(DATA_PATH, "data_%s_%d.csv" % FILE_ARGS))
+meta = log.Meta.from_csv(os.path.join(DATA_PATH, "meta_%s_%d.csv" % FILE_ARGS))
 t_import = time.perf_counter()
-print(format_timing("%d traces imported successfully!" % leak.size, t_import, t_start))
+print(format_timing("%d traces imported successfully!" % meta.iterations, t_import, t_start))
 
 print("*** processing traces ***")
 t_start = time.perf_counter()
@@ -87,7 +88,7 @@ for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
     else:
         plt.plot(cor[i, j, key[i, j]], color="r", label="key 0x%02x" % key[i, j])
 
-    plt.title("Time Correlation byte %d (traces: %d, best correlation: %.2f%%)" % plot_args)
+    plt.title("Time Correlation byte %d (iterations: %d, best correlation: %.2f%%)" % plot_args)
     plt.xlabel("Time Samples")
     plt.ylabel("Pearson Correlation")
     plt.legend()
