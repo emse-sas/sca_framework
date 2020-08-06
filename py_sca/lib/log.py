@@ -47,6 +47,7 @@ class Keywords:
     SAMPLES = "samples"
     CODE = "code"
     WEIGHTS = "weights"
+    DELIMITER = b":"
 
     META = [MODE, DIRECTION, SENSORS, TARGET]
     DATA = [KEY, PLAIN, CIPHER, SAMPLES, CODE]
@@ -247,14 +248,13 @@ class Parser:
                 expected = next(keywords)
                 valid = False
                 self.pop()
-        self.meta.offset = self.meta.sensors * self.meta.target
         self.meta.iterations += len(self.leak.traces)
         return self
 
     def _parse_line(self, line, expected):
         if line in (END_ACQ, START_TRACE):
             return False
-        split = line.strip().split(b":")
+        split = line.strip().split(Keywords.DELIMITER)
         try:
             keyword = str(split[0], "ascii").strip()
             data = split[1].strip()
@@ -278,6 +278,9 @@ class Parser:
             self.leak.traces.append(list(map(int, data.split(b","))))
         else:
             return False
+
+        if keyword == Keywords.TARGET:
+            self.meta.offset = self.meta.sensors * self.meta.target
 
         if keyword in (Keywords.CODE, Keywords.WEIGHTS):
             n = self.leak.samples[-1]
