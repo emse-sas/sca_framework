@@ -48,7 +48,7 @@ print(format_timing("processing successful!", t_proc, t_start))
 print("*** creating handler ***")
 t_start = time.perf_counter()
 blocks = np.array([aes.words_to_block(block) for block in data.plains], dtype=np.uint8, copy=False)
-handler = cpa.Handler(blocks, data.keys[0], leak)
+handler = cpa.Handler(blocks, aes.words_to_block(data.keys[0]), leak)
 t_handler = time.perf_counter()
 print(format_timing("handler successfully created!", t_handler, t_start))
 
