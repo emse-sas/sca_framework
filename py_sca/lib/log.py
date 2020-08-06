@@ -7,29 +7,33 @@ START_TRACE = b"\xfe\xfe\xfe\xfe"
 END_ACQ = b"\xff\xff\xff\xff"
 
 
-def read_file(log_path):
-    with open(log_path, "rb") as log_file:
-        s = log_file.read()
-    return s
+class Read:
+    @classmethod
+    def file(cls, log_path):
+        with open(log_path, "rb") as log_file:
+            s = log_file.read()
+        return s
+
+    @classmethod
+    def serial(cls, count, port, hardware=False, mini=True):
+        opts = (" -t %d" % count, " -m" if mini else "", " -h" if hardware else "")
+        with serial.Serial(port, 921_600, parity=serial.PARITY_NONE, xonxoff=False) as ser:
+            ser.flush()
+            ser.write(("sca%s%s%s\n" % opts).encode())
+            s = ser.read_all()
+            while s[-8:].find(END_ACQ) == -1:
+                while ser.in_waiting == 0:
+                    continue
+                while ser.in_waiting != 0:
+                    s += ser.read_all()
+        return s
 
 
-def read_serial(count, port, hardware=False, mini=True):
-    opts = (" -t %d" % count, " -m" if mini else "", " -h" if hardware else "")
-    with serial.Serial(port, 921_600, parity=serial.PARITY_NONE, xonxoff=False) as ser:
-        ser.flush()
-        ser.write(("sca%s%s%s\n" % opts).encode())
-        s = ser.read_all()
-        while s[-8:].find(END_ACQ) == -1:
-            while ser.in_waiting == 0:
-                continue
-            while ser.in_waiting != 0:
-                s += ser.read_all()
-    return s
-
-
-def write_bytes(s, path):
-    with open(path, "wb+") as log_file:
-        log_file.write(s)
+class Write:
+    @classmethod
+    def bytes(cls, s, path):
+        with open(path, "wb+") as log_file:
+            log_file.write(s)
 
 
 class Keywords:

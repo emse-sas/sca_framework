@@ -1,4 +1,4 @@
-from lib import aes, logger, cpa
+from lib import aes, log, cpa
 from lib import traces as tr
 from lib.utils import format_timing
 import numpy as np
@@ -9,7 +9,7 @@ import os
 from itertools import product
 
 t_init = time.perf_counter()
-COUNT_TRACES = 2**17  # count of traces to record from FPGA
+COUNT_TRACES = 2**16  # count of traces to record from FPGA
 MODE_AES = "hw"
 
 FILE_ARGS = (MODE_AES, COUNT_TRACES)
@@ -21,16 +21,16 @@ np.set_printoptions(formatter={"int": hex})
 # read FPGA acquisition csv log file
 print("*** importing traces ***")
 t_start = time.perf_counter()
-leak = logger.Leak.from_csv(os.path.join(DATA_PATH, "trace_%s_%d.csv" % FILE_ARGS))
-data = logger.Data.from_csv(os.path.join(DATA_PATH, "data_%s_%d.csv" % FILE_ARGS))
-parser = logger.Parser(leak, data)
+leak = log.Leak.from_csv(os.path.join(DATA_PATH, "trace_%s_%d.csv" % FILE_ARGS))
+data = log.Data.from_csv(os.path.join(DATA_PATH, "data_%s_%d.csv" % FILE_ARGS))
 t_import = time.perf_counter()
 print(format_timing("%d traces imported successfully!" % leak.size, t_import, t_start))
 
 print("*** processing traces ***")
 t_start = time.perf_counter()
-leak = tr.pad(parser.leak.traces, parser.meta.offset)
+traces = np.array(tr.crop(leak.traces))
 
+"""
 fs = 200_000
 fc = 13_000
 order = 4
@@ -38,17 +38,19 @@ w = fc / (fs / 2)
 # noinspection PyTupleAssignmentBalance
 b, a = signal.butter(order, w, btype="highpass", output="ba")
 
-for trace in leak:
+for trace in traces:
     trace[:] = signal.filtfilt(b, a, trace)
 
-n, m = leak.shape
+n, m = traces.shape
+"""
+n, m = traces.shape
 t_proc = time.perf_counter()
 print(format_timing("processing successful!", t_proc, t_start))
 
 print("*** creating handler ***")
 t_start = time.perf_counter()
-blocks = np.array([aes.words_to_block(block) for block in data.plains], dtype=np.uint8, copy=False)
-handler = cpa.Handler(blocks, aes.words_to_block(data.keys[0]), leak)
+blocks = np.array([aes.words_to_block(block) for block in data.plains], dtype=np.uint8)
+handler = cpa.Handler(blocks, aes.words_to_block(data.keys[0]), traces)
 t_handler = time.perf_counter()
 print(format_timing("handler successfully created!", t_handler, t_start))
 

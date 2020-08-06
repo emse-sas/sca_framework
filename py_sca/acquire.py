@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from lib import logger
+from lib import log
 from lib import traces as tr
 from lib.utils import format_timing, format_sizeof
 import os
@@ -25,10 +25,10 @@ parser = None
 print("*** acquiring bytes ***")
 t_start = time.perf_counter()
 if LOG_SOURCE == "serial":
-    s = logger.read_serial(COUNT_TRACES, "COM5", hardware=MODE_AES == "hw")
-    logger.write_bytes(s, os.path.join(DATA_PATH, "cmd_%s_%d.log" % FILE_ARGS))
+    s = log.Read.serial(COUNT_TRACES, "COM5", hardware=MODE_AES == "hw")
+    log.Write.bytes(s, os.path.join(DATA_PATH, "cmd_%s_%d.log" % FILE_ARGS))
 elif LOG_SOURCE == "file":
-    s = logger.read_file(os.path.join(DATA_PATH, "cmd_%s_%d.log" % FILE_ARGS))
+    s = log.Read.file(os.path.join(DATA_PATH, "cmd_%s_%d.log" % FILE_ARGS))
 else:
     raise RuntimeError("unexpected log source: %s" % LOG_SOURCE)
 t_read = time.perf_counter()
@@ -36,7 +36,7 @@ print(format_timing("%s successfully read!" % format_sizeof(len(s)), t_read, t_s
 
 print("*** parsing bytes ***")
 t_start = time.perf_counter()
-parser = logger.Parser.from_bytes(s)
+parser = log.Parser.from_bytes(s)
 del s
 t_parse = time.perf_counter()
 print(format_timing("%d traces successfully parsed!" % parser.leak.size, t_parse, t_start))
