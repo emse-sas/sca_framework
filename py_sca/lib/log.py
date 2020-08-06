@@ -118,37 +118,52 @@ class Data:
 
 
 class Meta:
-    def __init__(self, mode=None, direction=None, target=0, sensors=0):
+    def __init__(self, mode=None, direction=None, target=0, sensors=0, iterations=0, offset=0):
         self.mode = mode
         self.direction = direction
         self.target = target
         self.sensors = sensors
+        self.iterations = iterations
+        self.offset = offset
 
     def clear(self):
         self.mode = None
         self.direction = None
         self.target = 0
         self.sensors = 0
+        self.iterations = 0
+        self.offset = 0
 
-    @property
-    def offset(self):
-        return self.target * self.sensors
+    def to_csv(self, path):
+        with open(path, "w") as file:
+            writer = csv.writer(file)
+            header = ["mode", "direction", "target", "sensors", "iterations", "offset"]
+            values = [self.mode, self.direction, self.target, self.sensors, self.iterations,
+                      self.offset]
+            writer.writerows([header, values])
+
+    @classmethod
+    def from_csv(cls, path):
+        with open(path, "r") as file:
+            writer = csv.writer(file)
+            next(writer)
+            row = next(writer)
+        return Meta(row[0], row[1], row[2], row[3], row[4], row[5])
 
 
 class Leak:
     def __init__(self, traces=None):
         if traces:
-            self.size = len(traces) or 0
-            self.reads = list(map(len, traces)) if traces else []
+            self.samples = list(map(len, traces)) if traces else []
             self.traces = traces or []
         else:
             self.size = 0
-            self.reads = []
+            self.samples = []
             self.traces = []
 
     def clear(self):
         self.size = 0
-        self.reads.clear()
+        self.samples.clear()
         self.traces.clear()
 
     def to_csv(self, path):
@@ -180,21 +195,22 @@ class Parser:
 
     def pop(self):
         lens = list(map(len, [
-            self.data.keys, self.data.plains, self.data.ciphers, self.leak.reads, self.leak.traces
+            self.data.keys, self.data.plains, self.data.ciphers, self.leak.samples,
+            self.leak.traces
         ]))
         n_min = min(lens)
         n_max = max(lens)
 
         if n_max == n_min:
-            self.leak.reads.pop()
+            self.leak.samples.pop()
             self.leak.traces.pop()
             self.data.keys.pop()
             self.data.plains.pop()
             self.data.ciphers.pop()
             return
 
-        while len(self.leak.reads) != n_min:
-            self.leak.reads.pop()
+        while len(self.leak.samples) != n_min:
+            self.leak.samples.pop()
         while len(self.leak.traces) != n_min:
             self.leak.traces.pop()
         while len(self.data.keys) != n_min:
@@ -217,8 +233,6 @@ class Parser:
         expected = next(keywords)
         valid = True
         lines = s.split(b"\r\n")
-        if self.leak.size != 0:
-            self.clear()
         for idx, line in enumerate(lines):
             if valid is False:
                 valid = line == START_TRACE
@@ -233,8 +247,8 @@ class Parser:
                 expected = next(keywords)
                 valid = False
                 self.pop()
-
-        self.leak = Leak(self.leak.traces)
+        self.meta.offset = self.meta.sensors * self.meta.target
+        self.meta.iterations += len(self.leak.traces)
         return self
 
     def _parse_line(self, line, expected):
@@ -257,7 +271,7 @@ class Parser:
         elif keyword in (Keywords.KEY, Keywords.PLAIN, Keywords.CIPHER):
             getattr(self.data, keyword + "s").append(list(map(format_hex, data.split(b" "))))
         elif keyword == Keywords.SAMPLES:
-            self.leak.reads.append(int(data))
+            self.leak.samples.append(int(data))
         elif keyword == Keywords.CODE:
             self.leak.traces.append(list(map(self.decode_hamming, line[6:])))
         elif keyword == Keywords.WEIGHTS:
@@ -266,7 +280,7 @@ class Parser:
             return False
 
         if keyword in (Keywords.CODE, Keywords.WEIGHTS):
-            n = self.leak.reads[-1]
+            n = self.leak.samples[-1]
             m = len(self.leak.traces[-1])
             if m != n:
                 raise RuntimeError("trace lengths mismatch %d != %d" % (m, n))

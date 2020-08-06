@@ -9,7 +9,7 @@ from scipy import fft
 
 t_init = time.perf_counter()
 
-COUNT_TRACES = 2 ** 17  # count of traces to record from FPGA
+COUNT_TRACES = 2 ** 8  # count of traces to record from FPGA
 TRACES_TO_PLOT = 16  # count of raw traces to plot
 MODE_AES = "hw"
 LOG_SOURCE = "serial"
@@ -46,6 +46,7 @@ print("*** exporting traces ***")
 t_start = time.perf_counter()
 parser.data.to_csv(os.path.join(DATA_PATH, "data_%s_%d.csv" % FILE_ARGS))
 parser.leak.to_csv(os.path.join(DATA_PATH, "trace_%s_%d.csv" % FILE_ARGS))
+parser.meta.to_csv(os.path.join(DATA_PATH, "meta_%s_%d.csv" % FILE_ARGS))
 t_export = time.perf_counter()
 print(format_timing("export successful!", t_export, t_start))
 
@@ -53,7 +54,7 @@ print(format_timing("export successful!", t_export, t_start))
 print("*** processing traces ***")
 t_start = time.perf_counter()
 # traces = tr.pad(parser.leak.traces, parser.meta.offset)
-traces = tr.crop(parser.leak.traces)
+traces = np.array(tr.crop(parser.leak.traces))
 n, m = traces.shape
 mean = np.array(traces).mean(axis=0)
 smoothed = np.convolve(mean, np.ones((m // 11,)) / (m // 11), mode="same")
