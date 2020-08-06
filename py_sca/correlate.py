@@ -9,7 +9,7 @@ import os
 from itertools import product
 
 t_init = time.perf_counter()
-COUNT_TRACES = 2**8  # count of traces to record from FPGA
+COUNT_TRACES = 2**17  # count of traces to record from FPGA
 MODE_AES = "hw"
 
 FILE_ARGS = (MODE_AES, COUNT_TRACES)
@@ -31,7 +31,6 @@ print("*** processing traces ***")
 t_start = time.perf_counter()
 traces = np.array(tr.crop(leak.traces))
 
-"""
 fs = 200_000
 fc = 13_000
 order = 4
@@ -43,7 +42,7 @@ for trace in traces:
     trace[:] = signal.filtfilt(b, a, trace)
 
 n, m = traces.shape
-"""
+
 n, m = traces.shape
 t_proc = time.perf_counter()
 print(format_timing("processing successful!", t_proc, t_start))
