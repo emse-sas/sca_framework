@@ -5,16 +5,14 @@ from scipy import stats
 def crop(traces, end=None):
     m = min(map(len, traces))
     m = min(end or m, m)
-    cropped = [trace[:m] for trace in traces]
-    return np.array(cropped, dtype=np.uint8, copy=False)
+    return [trace[:m] for trace in traces]
 
 
 def pad(traces, fill=0, end=None):
     reads = list(map(len, traces))
     m = max(reads)
     m = max(end or m, m)
-    padded = [trace + [fill] * (m - read) for trace, read in zip(traces, reads)]
-    return np.array(padded, dtype=np.uint8, copy=False)
+    return [trace + [fill] * (m - read) for trace, read in zip(traces, reads)]
 
 
 def sync(traces, step=1, stop=None):
