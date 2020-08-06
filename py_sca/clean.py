@@ -1,13 +1,13 @@
 import os
 from lib import aes
 
-CLEAN_ACQ_CSV = True
+CLEAN_ACQ_LOG = True
 CLEAN_ACQ_IMG = True
 CLEAN_COR_IMG = True
-IMG_ROOT = "media/img"
+IMG_ROOT = "../media/img"
 
-if CLEAN_ACQ_CSV:
-    for dir_path, _, filenames in os.walk("data/acquisition"):
+if CLEAN_ACQ_LOG:
+    for dir_path, _, filenames in os.walk("../data/acquisition"):
         for filename in filenames:
             os.remove(os.path.join(dir_path, filename))
 

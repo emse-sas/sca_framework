@@ -1,6 +1,6 @@
 from lib import aes, logger, cpa
 from lib import traces as tr
-from lib.utils import duration
+from lib.utils import format_timing
 import numpy as np
 from scipy import signal
 import matplotlib.pyplot as plt
@@ -8,9 +8,9 @@ import time
 import os
 from itertools import product
 
-COUNT_TRACES = 50_000  # count of traces to record from FPGA
+t_init = time.perf_counter()
+COUNT_TRACES = 2**17  # count of traces to record from FPGA
 MODE_AES = "hw"
-SYNC_TRACES = False
 
 FILE_ARGS = (MODE_AES, COUNT_TRACES)
 DATA_PATH = os.path.join("..", *["data", "acquisition", MODE_AES])
@@ -21,17 +21,15 @@ np.set_printoptions(formatter={"int": hex})
 # read FPGA acquisition csv log file
 print("*** importing traces ***")
 t_start = time.perf_counter()
-log = logger.Log.from_reports(
-    os.path.join(DATA_PATH, "report_data_%s_%d.csv" % FILE_ARGS),
-    os.path.join(DATA_PATH, "report_traces_%s_%d.csv" % FILE_ARGS))
+leak = logger.Leak.from_csv(os.path.join(DATA_PATH, "trace_%s_%d.csv" % FILE_ARGS))
+data = logger.Data.from_csv(os.path.join(DATA_PATH, "data_%s_%d.csv" % FILE_ARGS))
+parser = logger.Parser(leak, data)
 t_import = time.perf_counter()
-print("import successful!\nelapsed: %s" % str(duration(t_import, t_start)))
+print(format_timing("%d traces imported successfully!" % leak.size, t_import, t_start))
 
 print("*** processing traces ***")
 t_start = time.perf_counter()
-traces = tr.crop(log.traces, 400)
-if SYNC_TRACES:
-    traces = tr.sync(traces, stop=128)
+leak = tr.pad(parser.leak.traces, parser.meta.offset)
 
 fs = 200_000
 fc = 13_000
@@ -40,28 +38,40 @@ w = fc / (fs / 2)
 # noinspection PyTupleAssignmentBalance
 b, a = signal.butter(order, w, btype="highpass", output="ba")
 
-for trace in traces:
+for trace in leak:
     trace[:] = signal.filtfilt(b, a, trace)
 
-n, m = traces.shape
+n, m = leak.shape
 t_proc = time.perf_counter()
-print("processing successful!\nelapsed: %s" % str(duration(t_proc, t_start)))
+print(format_timing("processing successful!", t_proc, t_start))
 
 print("*** creating handler ***")
 t_start = time.perf_counter()
-handler = cpa.Handler.from_log(log, traces)
+blocks = np.array([aes.words_to_block(block) for block in data.plains], dtype=np.uint8, copy=False)
+handler = cpa.Handler(blocks, data.keys[0], leak)
 t_handler = time.perf_counter()
-print("handler successfully created!\nelapsed: %s" %
-      str(duration(t_handler, t_start)))
+print(format_timing("handler successfully created!", t_handler, t_start))
 
 print("*** computing correlation ***")
 t_start = time.perf_counter()
 cor = handler.correlations()
-guess, maxs = handler.guess_stats(cor)
-cor_max, cor_min = handler.guess_envelope(cor)
 key = handler.key
 t_cor = time.perf_counter()
-print(f"correlation successfully computed!\nelapsed: {str(duration(t_cor, t_start))}")
+print("correlation successfully computed!", t_cor, t_start)
+
+print("*** computing guess ***")
+t_start = time.perf_counter()
+guess, maxs, exact = handler.guess_stats(cor)
+cor_max, cor_min = handler.guess_envelope(cor)
+t_cor = time.perf_counter()
+print("key:")
+print(handler.key)
+print("guess:")
+print(guess)
+print("correct guesses: %d/16" % np.count_nonzero(exact))
+print(exact)
+t_guess = time.perf_counter()
+print(format_timing("guess successfully computed!", t_guess, t_start))
 
 print("*** saving plots ***")
 t_start = time.perf_counter()
@@ -84,6 +94,5 @@ for i, j in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN)):
     plt.show()
     plt.close()
 t_plot = time.perf_counter()
-print("traces successfully saved!\nelapsed: %s" % str(duration(t_plot, t_start)))
 
-print("exiting...")
+print(format_timing("exiting correlation...", t_plot, t_init))

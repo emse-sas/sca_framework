@@ -2,17 +2,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 from lib import logger
 from lib import traces as tr
-from lib.utils import duration
+from lib.utils import format_timing, format_sizeof
 import os
 import time
 from scipy import fft
 
-print(os.getcwd())
+t_init = time.perf_counter()
 
-COUNT_TRACES = 50_000  # count of traces to record from FPGA
+COUNT_TRACES = 2 ** 17  # count of traces to record from FPGA
 TRACES_TO_PLOT = 16  # count of raw traces to plot
 MODE_AES = "hw"
-LOG_SOURCE = "reports"
+LOG_SOURCE = "serial"
 SYNC_TRACES = False
 F_SAMPLING = 200e6
 
@@ -21,40 +21,39 @@ DATA_PATH = os.path.join("..", *["data", "acquisition", MODE_AES])
 IMG_PATH = os.path.join("..", *["media", "img", "acquisition", MODE_AES])
 LOG_PATH = os.path.join("..", *["data", "acquisition"])
 
-log = None
-print("*** logging traces ***")
+parser = None
+print("*** acquiring bytes ***")
 t_start = time.perf_counter()
 if LOG_SOURCE == "serial":
-    # connect to FPGA via UART and start SCA acquisition
-    log = logger.Log.from_serial(COUNT_TRACES, "COM5", hardware=MODE_AES == "hw", baud=921600)
+    s = logger.read_serial(COUNT_TRACES, "COM5", hardware=MODE_AES == "hw")
+    logger.write_bytes(s, os.path.join(DATA_PATH, "cmd_%s_%d.log" % FILE_ARGS))
 elif LOG_SOURCE == "file":
-    # read FPGA acquisition command prompt log file
-    log = logger.Log.from_file(os.path.join(LOG_PATH, "cmd.log"))
-elif LOG_SOURCE == "reports":
-    # read FPGA acquisition csv log file
-    log = logger.Log.from_reports(
-        os.path.join(DATA_PATH, "report_data_%s_%d.csv" % FILE_ARGS),
-        os.path.join(DATA_PATH, "report_traces_%s_%d.csv" % FILE_ARGS),
-    )
+    s = logger.read_file(os.path.join(DATA_PATH, "cmd_%s_%d.log" % FILE_ARGS))
 else:
     raise RuntimeError("unexpected log source: %s" % LOG_SOURCE)
-t_log = time.perf_counter()
-print("traces successfully logged!\nelapsed: %s" % str(duration(t_log, t_start)))
+t_read = time.perf_counter()
+print(format_timing("%s successfully read!" % format_sizeof(len(s)), t_read, t_start))
+
+print("*** parsing bytes ***")
+t_start = time.perf_counter()
+parser = logger.Parser.from_bytes(s)
+del s
+t_parse = time.perf_counter()
+print(format_timing("%d traces successfully parsed!" % parser.leak.size, t_parse, t_start))
 
 # log SCA acquisition into CSV reporting files
 print("*** exporting traces ***")
 t_start = time.perf_counter()
-log.report_data(os.path.join(DATA_PATH, "report_data_%s_%d.csv" % FILE_ARGS))
-log.report_traces(os.path.join(DATA_PATH, "report_traces_%s_%d.csv" % FILE_ARGS))
+parser.data.to_csv(os.path.join(DATA_PATH, "data_%s_%d.csv" % FILE_ARGS))
+parser.leak.to_csv(os.path.join(DATA_PATH, "trace_%s_%d.csv" % FILE_ARGS))
 t_export = time.perf_counter()
-print("export successful!\nelapsed: %s" % str(duration(t_export, t_start)))
+print(format_timing("export successful!", t_export, t_start))
 
 # Synchronize trace signals and compute average trace
 print("*** processing traces ***")
 t_start = time.perf_counter()
-traces = tr.crop(log.traces)
-if SYNC_TRACES:
-    traces = tr.sync(traces, stop=128)
+# traces = tr.pad(parser.leak.traces, parser.meta.offset)
+traces = tr.crop(parser.leak.traces)
 n, m = traces.shape
 mean = np.array(traces).mean(axis=0)
 smoothed = np.convolve(mean, np.ones((m // 11,)) / (m // 11), mode="same")
@@ -62,13 +61,14 @@ spectrum = np.absolute(fft.fft(mean - np.mean(mean)))
 freq = np.fft.fftfreq(spectrum.size, 1.0 / F_SAMPLING)[:spectrum.size // 2] / 1e6
 f = np.argsort(freq)
 t_proc = time.perf_counter()
-print("processing successful!\nelapsed: %s" % str(duration(t_proc, t_start)))
+print(format_timing("processing successful!", t_proc, t_start))
 
 print("*** saving plots ***")
 t_start = time.perf_counter()
-plot_args = (n, m, log.sensors)
+plot_args = (n, m, parser.meta.sensors)
 plt.rcParams["figure.figsize"] = (16, 9)
-for d in range(max(0, n - TRACES_TO_PLOT), n):
+
+for d in range(0, TRACES_TO_PLOT):
     plt.plot(traces[d], label="sample %d" % d)
 
 plt.title("Raw power consumptions (traces: %d, samples: %d, sensors: %d)" % plot_args)
@@ -101,6 +101,6 @@ plt.savefig(os.path.join(IMG_PATH, "sca_avg_fft_%s_%d" % FILE_ARGS))
 plt.show()
 plt.close()
 t_plot = time.perf_counter()
-print("traces successfully saved!\nelapsed: %s" % str(duration(t_plot, t_start)))
+print(format_timing("plots successfully saved!", t_plot, t_start))
 
-print("exiting...")
+print(format_timing("exiting acquisition...", t_plot, t_init))
