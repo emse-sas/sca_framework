@@ -12,21 +12,17 @@ class Handler:
         self.blocks = blocks
         self.key = key
         self.hyp = np.empty((COUNT_HYP, COUNT_CLS), dtype=np.uint8)
-        self.lens = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS), dtype=np.int)
-        self.means = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m))
-        self.devs = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m))
-        self.mean = np.empty(m)
-        self.dev = np.empty(m)
+        self.lens = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS), dtype=np.int)
+        self.means = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m))
+        self.devs = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m))
+        self.mean = np.zeros(m)
+        self.dev = np.zeros(m)
 
+        self.accumulate(traces)
         self.init_model()
-        self.reduce_traces(traces)
 
-    def reduce_traces(self, traces):
+    def accumulate(self, traces):
         n, m = traces.shape
-        self.lens.fill(0)
-        self.means.fill(0)
-        self.devs.fill(0)
-
         bt = zip(self.blocks, traces)
         for i, j, (block, trace) in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), bt):
             k = block[i, j]

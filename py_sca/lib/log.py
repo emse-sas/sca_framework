@@ -158,12 +158,10 @@ class Leak:
             self.samples = list(map(len, traces)) if traces else []
             self.traces = traces or []
         else:
-            self.size = 0
             self.samples = []
             self.traces = []
 
     def clear(self):
-        self.size = 0
         self.samples.clear()
         self.traces.clear()
 

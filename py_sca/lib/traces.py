@@ -9,16 +9,15 @@ def crop(traces, end=None):
 
 
 def pad(traces, fill=0, end=None):
-    reads = list(map(len, traces))
-    m = max(reads)
+    samples = list(map(len, traces))
+    m = max(samples)
     m = max(end or m, m)
-    return [trace + [fill] * (m - read) for trace, read in zip(traces, reads)]
+    return [trace + [fill] * (m - read) for trace, read in zip(traces, samples)]
 
 
 def sync(traces, step=1, stop=None):
     ref = traces[0]
-    n = len(traces)
-    m = len(ref)
+    n, m = traces.shape
     strides_pos = ref.strides * 2
     strides_neg = (-strides_pos[0], strides_pos[1])
     shape = (m, m)

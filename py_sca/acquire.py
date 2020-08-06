@@ -9,10 +9,10 @@ from scipy import fft
 
 t_init = time.perf_counter()
 
-COUNT_TRACES = 2 ** 8  # count of traces to record from FPGA
+COUNT_TRACES = 2 ** 17  # count of traces to record from FPGA
 TRACES_TO_PLOT = 16  # count of raw traces to plot
-MODE_AES = "hw"
-LOG_SOURCE = "serial"
+MODE_AES = "sw"
+LOG_SOURCE = "file"
 SYNC_TRACES = False
 F_SAMPLING = 200e6
 
@@ -39,7 +39,7 @@ t_start = time.perf_counter()
 parser = log.Parser.from_bytes(s)
 del s
 t_parse = time.perf_counter()
-print(format_timing("%d traces successfully parsed!" % parser.leak.size, t_parse, t_start))
+print(format_timing("%d traces successfully parsed!" % parser.meta.iterations, t_parse, t_start))
 
 # log SCA acquisition into CSV reporting files
 print("*** exporting traces ***")
@@ -56,7 +56,7 @@ t_start = time.perf_counter()
 # traces = tr.pad(parser.leak.traces, parser.meta.offset)
 traces = np.array(tr.crop(parser.leak.traces))
 n, m = traces.shape
-mean = np.array(traces).mean(axis=0)
+mean = traces.mean(axis=0)
 smoothed = np.convolve(mean, np.ones((m // 11,)) / (m // 11), mode="same")
 spectrum = np.absolute(fft.fft(mean - np.mean(mean)))
 freq = np.fft.fftfreq(spectrum.size, 1.0 / F_SAMPLING)[:spectrum.size // 2] / 1e6
@@ -82,8 +82,6 @@ plt.show()
 plt.close()
 
 plt.plot(mean, color="grey", label="raw data")
-if MODE_AES != "hw":
-    plt.plot(smoothed, color="blue", label="filtered data")
 plt.title("Average power consumption (iterations: %d, samples: %d, sensors: %d)" % plot_args)
 plt.xlabel("Time Samples")
 plt.ylabel("Hamming Weight")
