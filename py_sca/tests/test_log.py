@@ -70,11 +70,20 @@ class LeakTest(unittest.TestCase):
         m_med = m[n // 2]
         m_avg = sum(m) / n
         m_dev = sqrt(sum(m2) / n - m_avg * m_avg)
-        self.assertEqual(sum((i - j for i, j in zip(m, leak.reads))), 0)
-        self.assertEqual(n, leak.size)
+        self.assertEqual(sum((i - j for i, j in zip(m, leak.samples))), 0)
         self.assertAlmostEqual(m_med, m_avg, delta=m_dev)
         self.assertLess(abs(m_max - m_avg), 3 * m_dev)
         self.assertLess(abs(m_min - m_avg), 3 * m_dev)
+
+    def test_write(self):
+        old_data = log.Leak.from_csv(self.leak_path_hw_256)
+        old_data.to_csv("_buffer.csv")
+        new_data = log.Leak.from_csv("_buffer.csv")
+        for new_trace, old_trace in zip(new_data.traces, old_data.traces):
+            diff = sum((abs(new - old) for new, old in zip(new_trace, old_trace)))
+            self.assertEqual(diff, 0)
+
+        os.remove("_buffer.csv")
 
 
 class ParserTest(unittest.TestCase):
@@ -86,11 +95,11 @@ class ParserTest(unittest.TestCase):
         parser = log.Parser.from_bytes(log.Read.file(self.cmd_path_hw_256))
         n = len(parser.leak.traces)
         self.assertEqual(n, len(parser.data.plains), "plains len mismatch")
-        self.assertEqual(n, parser.leak.size, "leak size len mismatch")
+        self.assertEqual(n, parser.meta.iterations, "iterations mismatch")
         self.assertEqual(n, 256, "traces len mismatch")
 
         parser = log.Parser.from_bytes(log.Read.file(self.cmd_path_hw_65536))
         n = len(parser.leak.traces)
         self.assertEqual(n, len(parser.data.plains), "plains len mismatch")
-        self.assertEqual(n, parser.leak.size, "traces len mismatch")
+        self.assertEqual(n, parser.meta.iterations, "iterations mismatch")
         self.assertGreaterEqual(n, 65536 * 0.8, "< 80% of traces retrieved")
