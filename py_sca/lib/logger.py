@@ -1,189 +1,270 @@
 import serial
 import csv
-import random
 from warnings import warn
+from lib.utils import decode_hamming, format_hex
 
 START_TRACE = b"\xfe\xfe\xfe\xfe"
 END_ACQ = b"\xff\xff\xff\xff"
 
 
-def _bytes_to_str(words):
-    return list(map(lambda w: "%08x" % int(w, 16), words))
+def read_file(log_path):
+    with open(log_path, "rb") as log_file:
+        s = log_file.read()
+    return s
 
 
-class ParsingError(Exception):
-    def __init__(self, line, keyword, error):
-        super().__init__()
-        self.line = line
-        self.keyword = keyword
-        self.error = error
+def read_serial(count, port, hardware=False, mini=True):
+    opts = (" -t %d" % count, " -m" if mini else "", " -h" if hardware else "")
+    with serial.Serial(port, 921_600, parity=serial.PARITY_NONE, xonxoff=False) as ser:
+        ser.flush()
+        ser.write(("sca%s%s%s\n" % opts).encode())
+        s = ser.read_all()
+        while s[-8:].find(END_ACQ) == -1:
+            while ser.in_waiting == 0:
+                continue
+            while ser.in_waiting != 0:
+                s += ser.read_all()
+    return s
 
 
-class Log:
-    def __init__(self, plains, ciphers, keys, traces, direction=None, mode=None):
+def write_bytes(s, path):
+    with open(path, "wb+") as log_file:
+        log_file.write(s)
+
+
+class Keywords:
+    MODE = "mode"
+    DIRECTION = "direction"
+    SENSORS = "sensors"
+    TARGET = "target"
+    KEY = "key"
+    PLAIN = "plain"
+    CIPHER = "cipher"
+    SAMPLES = "samples"
+    CODE = "code"
+    WEIGHTS = "weights"
+
+    META = [MODE, DIRECTION, SENSORS, TARGET]
+    DATA = [KEY, PLAIN, CIPHER, SAMPLES, CODE]
+
+    META_LEN = len(META)
+    DATA_LEN = len(DATA)
+
+    def __init__(self, meta=False):
+        self.idx = 0
+        self.meta = meta
+        self.value = Keywords.DATA[0] if meta else Keywords.META[0]
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        current = self.value
+        if self.meta:
+            self.idx = (self.idx + 1) % Keywords.DATA_LEN
+            self.value = Keywords.DATA[self.idx]
+        else:
+            if self.idx < Keywords.META_LEN:
+                self.idx += 1
+            if self.idx == Keywords.META_LEN:
+                self.idx = 0
+                self.meta = True
+                self.value = Keywords.DATA[0]
+            else:
+                self.value = Keywords.META[self.idx]
+
+        return current
+
+
+class Data:
+    def __init__(self, plains=None, ciphers=None, keys=None):
+        self.plains = plains or []
+        self.ciphers = ciphers or []
+        self.keys = keys or []
+
+    def clear(self):
+        self.plains.clear()
+        self.ciphers.clear()
+        self.keys.clear()
+
+    def to_csv(self, path):
+        with open(path, "w") as file:
+            header = ["p0", "p1", "p2", "p3", "c0", "c1", "c2", "c3", "k0", "k1", "k2", "k3"]
+            writer = csv.writer(file)
+            writer.writerow(header)
+            for plain, cipher, key in zip(self.plains, self.ciphers, self.keys):
+                writer.writerow(plain + cipher + key)
+
+    @classmethod
+    def from_csv(cls, path):
+        plains = []
+        ciphers = []
+        keys = []
+        with open(path, "r") as file:
+            reader = csv.reader(file)
+            next(reader)
+            for row in reader:
+                if not row:
+                    continue
+                plains.append(list(row[0:4]))
+                ciphers.append(list(row[4:8]))
+                keys.append(list(row[8:12]))
+
+        return Data(plains, ciphers, keys)
+
+
+class Meta:
+    def __init__(self, mode=None, direction=None, target=0, sensors=0):
         self.mode = mode
         self.direction = direction
+        self.target = target
+        self.sensors = sensors
+
+    def clear(self):
+        self.mode = None
+        self.direction = None
         self.target = 0
         self.sensors = 0
-        self.plains = plains
-        self.ciphers = ciphers
-        self.keys = keys
-        self.reads = []
-        self.samples = 0
-        self.traces = traces
 
     @property
     def offset(self):
         return self.target * self.sensors
 
-    def _pop(self, keyword):
-        if keyword in ("mode", "direction", "sensors", "target"):
-            return
 
-        keywords = ("key", "plain", "cipher", "samples", "code", "weights")
-        if keyword in keywords and self.keys:
-            self.keys.pop()
-        if keyword in keywords[1:] and self.plains:
-            self.plains.pop()
-        if keyword in keywords[2:] and self.ciphers:
-            self.ciphers.pop()
-        if keyword in keywords[3:] and self.reads:
-            self.reads.pop()
-        if keyword in keywords[4:] and self.traces:
-            self.traces.pop()
+class Leak:
+    def __init__(self, traces=None):
+        if traces:
+            self.size = len(traces) or 0
+            self.reads = list(map(len, traces)) if traces else []
+            self.traces = traces or []
+        else:
+            self.size = 0
+            self.reads = []
+            self.traces = []
 
-    def _hamming_to_int(self, s):
-        return int(s - ord("P") + self.offset)
+    def clear(self):
+        self.size = 0
+        self.reads.clear()
+        self.traces.clear()
 
-    def _parse_line(self, line):
-        split = line.strip().split(b":")
-        if len(split) < 2:
-            return
-        try:
-            keyword = str(split[0], "ascii").strip()
-        except UnicodeDecodeError as e:
-            raise ParsingError(line, split[0], e)
-
-        data = split[1].strip()
-        try:
-            if keyword in ("mode", "direction"):
-                setattr(self, keyword, str(data, "ascii"))
-            elif keyword in ("sensors", "target"):
-                setattr(self, keyword, int(data))
-            elif keyword in ("key", "plain", "cipher"):
-                getattr(self, keyword + "s").append(_bytes_to_str(data.split(b" ")))
-            elif keyword == "samples":
-                self.reads.append(int(data))
-            elif keyword == "code":
-                self.traces.append(list(map(self._hamming_to_int, line[6:])))
-            elif keyword == "weights":
-                self.traces.append(list(map(int, data.split(b","))))
-
-            if keyword in ("code", "weights"):
-                m = len(self.traces[-1])
-                if m != self.reads[-1]:
-                    raise RuntimeError("len mismatch %d != %d" %
-                                       (m, self.reads[-1]))
-
-        except (ValueError, UnicodeDecodeError, RuntimeError) as e:
-            raise ParsingError(line, keyword, e)
-
-    def _parse_lines(self, lines):
-        valid = True
-        for idx, line in enumerate(lines):
-            if valid is False:
-                valid = line == END_TRACE
-                continue
-            try:
-                self._parse_line(line)
-            except ParsingError as e:
-                args = (e.keyword, e.error, idx, e.line)
-                warn("parsing error\n\nkeyword: %s\n\nerror: %s\n\nline %d: %s\n" % args)
-
-                if type(e.keyword) != str:
-                    raise RuntimeError("Unable to parse keyword: %s", e.keyword)
-
-                self._pop(e.keyword)
-                valid = False
-
-        self.samples = len(self.traces)
-
-    @classmethod
-    def empty(cls):
-        return Log([], [], [], [])
-
-    @classmethod
-    def from_file(cls, file_path):
-        lines = []
-        ret = cls.empty()
-        with open(file_path, "rb") as log_file:
-            for line in log_file:
-                if len(line) == 0:
-                    continue
-                lines.append(line.replace(b"\r\n", b""))
-
-        ret._parse_lines(lines)
-        return ret
-
-    @classmethod
-    def from_serial(cls, count, port, baud=115200, mini=True, hardware=False):
-        opts = (" -t %d" % count, " -m" if mini else "", " -h" if hardware else "")
-        ser = serial.Serial(
-            port,
-            baud,
-            timeout=None,
-            parity=serial.PARITY_NONE,
-            xonxoff=False
-        )
-        ser.flush()
-        ser.write(("sca%s%s%s\r\n" % opts).encode())
-        s = b""
-        while s[-2:] != b"> ":
-            while ser.in_waiting == 0:
-                continue
-            while ser.in_waiting != 0:
-                s += ser.read_all()
-
-        ser.close()
-
-        ret = cls.empty()
-        lines = s.split(b"\r\n")
-        ret._parse_lines(lines)
-        return ret
-
-    @classmethod
-    def from_reports(cls, data_path, traces_path):
-        ret = cls.empty()
-        with open(data_path, "r") as data_file:
-            reader = csv.reader(data_file)
-            next(reader)
-            for row in reader:
-                if not row:
-                    continue
-                ret.plains.append(list(row[0:4]))
-                ret.ciphers.append(list(row[4:8]))
-                ret.keys.append(list(row[8:12]))
-
-        with open(traces_path, "r") as traces_file:
-            reader = csv.reader(traces_file)
-            for row in reader:
-                if not row:
-                    continue
-                ret.traces.append(list(map(lambda x: int(x), row)))
-
-        ret.samples = len(ret.traces)
-        return ret
-
-    def report_data(self, filepath):
-        with open(filepath, "w") as file:
-            writer = csv.writer(file)
-            writer.writerow(["p0", "p1", "p2", "p3",
-                             "c0", "c1", "c2", "c3",
-                             "k0", "k1", "k2", "k3"])
-            for plain, cipher, key in zip(self.plains, self.ciphers, self.keys):
-                writer.writerow(plain + cipher + key)
-
-    def report_traces(self, filepath):
-        with open(filepath, "w") as file:
+    def to_csv(self, path):
+        with open(path, "w") as file:
             writer = csv.writer(file)
             writer.writerows(self.traces)
+
+    @classmethod
+    def from_csv(cls, path):
+        leaks = []
+        with open(path, "r") as file:
+            reader = csv.reader(file)
+            for row in reader:
+                if not row:
+                    continue
+                leaks.append(list(map(lambda x: int(x), row)))
+        return Leak(leaks)
+
+
+class Parser:
+    def __init__(self, trace=None, data=None, meta=None):
+        self.leak = trace or Leak()
+        self.data = data or Data()
+        self.meta = meta or Meta()
+
+    @classmethod
+    def from_bytes(cls, s):
+        return Parser().parse_bytes(s)
+
+    def pop(self):
+        lens = list(map(len, [
+            self.data.keys, self.data.plains, self.data.ciphers, self.leak.reads, self.leak.traces
+        ]))
+        n_min = min(lens)
+        n_max = max(lens)
+
+        if n_max == n_min:
+            self.leak.reads.pop()
+            self.leak.traces.pop()
+            self.data.keys.pop()
+            self.data.plains.pop()
+            self.data.ciphers.pop()
+            return
+
+        while len(self.leak.reads) != n_min:
+            self.leak.reads.pop()
+        while len(self.leak.traces) != n_min:
+            self.leak.traces.pop()
+        while len(self.data.keys) != n_min:
+            self.data.keys.pop()
+        while len(self.data.plains) != n_min:
+            self.data.plains.pop()
+        while len(self.data.ciphers) != n_min:
+            self.data.ciphers.pop()
+
+    def clear(self):
+        self.leak.clear()
+        self.meta.clear()
+        self.data.clear()
+
+    def decode_hamming(self, c):
+        return decode_hamming(c, self.meta.offset)
+
+    def parse_bytes(self, s):
+        keywords = Keywords()
+        expected = next(keywords)
+        valid = True
+        lines = s.split(b"\r\n")
+        if self.leak.size != 0:
+            self.clear()
+        for idx, line in enumerate(lines):
+            if valid is False:
+                valid = line == START_TRACE
+                continue
+            try:
+                if self._parse_line(line, expected):
+                    expected = next(keywords)
+            except (ValueError, UnicodeDecodeError, RuntimeError) as e:
+                args = (e, len(self.leak.traces), idx, line)
+                warn("parsing error\nerror: %s\niteration: %d\nline %d: %s" % args)
+                keywords = Keywords(keywords.meta)
+                expected = next(keywords)
+                valid = False
+                self.pop()
+
+        self.leak = Leak(self.leak.traces)
+        return self
+
+    def _parse_line(self, line, expected):
+        if line in (END_ACQ, START_TRACE):
+            return False
+        split = line.strip().split(b":")
+        try:
+            keyword = str(split[0], "ascii").strip()
+            data = split[1].strip()
+        except IndexError:
+            return False
+
+        if keyword in Keywords.DATA and keyword != expected:
+            raise RuntimeError("expected %s keyword not %s" % (expected, keyword))
+
+        if keyword in (Keywords.MODE, Keywords.DIRECTION):
+            setattr(self.meta, keyword, str(data, "ascii"))
+        elif keyword in (Keywords.SENSORS, Keywords.TARGET):
+            setattr(self.meta, keyword, int(data))
+        elif keyword in (Keywords.KEY, Keywords.PLAIN, Keywords.CIPHER):
+            getattr(self.data, keyword + "s").append(list(map(format_hex, data.split(b" "))))
+        elif keyword == Keywords.SAMPLES:
+            self.leak.reads.append(int(data))
+        elif keyword == Keywords.CODE:
+            self.leak.traces.append(list(map(self.decode_hamming, line[6:])))
+        elif keyword == Keywords.WEIGHTS:
+            self.leak.traces.append(list(map(int, data.split(b","))))
+        else:
+            return False
+
+        if keyword in (Keywords.CODE, Keywords.WEIGHTS):
+            n = self.leak.reads[-1]
+            m = len(self.leak.traces[-1])
+            if m != n:
+                raise RuntimeError("trace lengths mismatch %d != %d" % (m, n))
+
+        return True
