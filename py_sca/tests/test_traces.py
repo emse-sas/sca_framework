@@ -4,9 +4,10 @@ from lib import traces as tr
 
 
 class TracesTest(unittest.TestCase):
-    x0 = np.sin(np.linspace(0, 2 * np.pi, 256))
-    x1 = np.cos(np.linspace(0, 2 * np.pi, 256))
-    x2 = np.sin(np.linspace(np.pi / 4, 2 * np.pi + np.pi / 2, 320))
+    def setUp(self):
+        self.x0 = np.sin(np.linspace(0, 2 * np.pi, 256))
+        self.x1 = np.cos(np.linspace(0, 2 * np.pi, 256))
+        self.x2 = np.sin(np.linspace(np.pi / 4, 2 * np.pi + np.pi / 2, 320))
 
     def test_crop(self):
         traces = tr.crop([self.x0, self.x2])
