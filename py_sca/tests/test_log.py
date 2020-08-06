@@ -1,25 +1,12 @@
+import os
 import unittest
 from math import sqrt
 
-import numpy as np
 from numpy.linalg import norm
+
 from lib import log, aes
-import os
 
 LOG_PATH = os.path.join("..", *["..", "data", "acquisition"])
-
-
-def check_same_len(test_case, log, tol=None):
-    n_t = len(log.traces)
-    test_case.assertEqual(n_t, len(log.keys))
-    test_case.assertEqual(n_t, len(log.ciphers))
-    test_case.assertEqual(n_t, len(log.plains))
-    test_case.assertEqual(n_t, len(log.traces))
-    if not tol:
-        test_case.assertEqual(n_t, test_case.n)
-        return
-    test_case.assertLessEqual(n_t, test_case.n)
-    test_case.assertGreaterEqual(n_t, tol * test_case.n)
 
 
 class DataTest(unittest.TestCase):
