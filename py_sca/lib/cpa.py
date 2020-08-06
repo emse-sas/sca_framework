@@ -7,50 +7,45 @@ COUNT_CLS = 256
 
 
 class Handler:
-    def __init__(self, blocks, key, lens, mean, means, dev, devs):
+    def __init__(self, blocks, key, traces):
+        n, m = traces.shape
         self.blocks = blocks
         self.key = key
-        self.lens = lens
-        self.mean = mean
-        self.means = means
-        self.dev = dev
-        self.devs = devs
-        self.hyp = np.zeros((COUNT_HYP, COUNT_CLS), dtype=np.uint8)
+        self.hyp = np.empty((COUNT_HYP, COUNT_CLS), dtype=np.uint8)
+        self.lens = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS), dtype=np.int)
+        self.means = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m))
+        self.devs = np.empty((aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m))
+        self.mean = np.empty(m)
+        self.dev = np.empty(m)
+
         self.init_model()
+        self.reduce_traces(traces)
 
-    @classmethod
-    def from_log(cls, log, traces):
+    def reduce_traces(self, traces):
         n, m = traces.shape
+        self.lens.fill(0)
+        self.means.fill(0)
+        self.devs.fill(0)
 
-        key = aes.words_to_block(log.keys[0])
-        blocks = np.empty((n, aes.BLOCK_LEN, aes.BLOCK_LEN), dtype=np.uint8)
-        for block, plain in zip(blocks, log.plains):
-            block[:] = aes.words_to_block(plain)
-
-        shape = (aes.BLOCK_LEN, aes.BLOCK_LEN, COUNT_CLS, m)
-        lens = np.zeros(shape[:-1], dtype=np.int)
-        means = np.zeros(shape)
-        devs = np.zeros(shape)
-        bt = zip(blocks, traces)
+        bt = zip(self.blocks, traces)
         for i, j, (block, trace) in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), bt):
             k = block[i, j]
-            lens[i, j, k] += 1
-            means[i, j, k] += trace
-            devs[i, j, k] += np.square(trace)
+            self.lens[i, j, k] += 1
+            self.means[i, j, k] += trace
+            self.devs[i, j, k] += np.square(trace)
 
         for i, j, k in product(range(aes.BLOCK_LEN), range(aes.BLOCK_LEN), range(COUNT_CLS)):
-            if lens[i, j, k] == 0:
+            if self.lens[i, j, k] == 0:
                 continue
-            means[i, j, k] /= lens[i, j, k]
-            devs[i, j, k] /= lens[i, j, k]
-            devs[i, j, k] -= np.square(means[i, j, k])
-            devs[i, j, k] = np.sqrt(devs[i, j, k])
+            self.means[i, j, k] /= self.lens[i, j, k]
+            self.devs[i, j, k] /= self.lens[i, j, k]
+            self.devs[i, j, k] -= np.square(self.means[i, j, k])
+            self.devs[i, j, k] = np.sqrt(self.devs[i, j, k])
 
-        mean = np.sum(traces, axis=0) / n
-        dev = np.sum(traces * traces, axis=0) / n
-        dev -= np.square(mean)
-        dev = np.sqrt(dev)
-        return Handler(blocks, key, lens, mean, means, dev, devs)
+        self.mean = np.sum(traces, axis=0) / n
+        self.dev = np.sum(traces * traces, axis=0) / n
+        self.dev -= np.square(self.mean)
+        self.dev = np.sqrt(self.dev)
 
     def init_model(self):
         for h, k in product(range(COUNT_HYP), range(COUNT_CLS)):
