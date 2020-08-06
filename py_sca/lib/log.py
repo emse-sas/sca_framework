@@ -92,9 +92,9 @@ class Data:
         self.keys.clear()
 
     def to_csv(self, path):
-        with open(path, "w") as file:
+        with open(path, "w", newline="") as file:
             header = ["p0", "p1", "p2", "p3", "c0", "c1", "c2", "c3", "k0", "k1", "k2", "k3"]
-            writer = csv.writer(file)
+            writer = csv.writer(file, delimiter=";")
             writer.writerow(header)
             for plain, cipher, key in zip(self.plains, self.ciphers, self.keys):
                 writer.writerow(plain + cipher + key)
@@ -104,8 +104,8 @@ class Data:
         plains = []
         ciphers = []
         keys = []
-        with open(path, "r") as file:
-            reader = csv.reader(file)
+        with open(path, "r", newline="") as file:
+            reader = csv.reader(file, delimiter=";")
             next(reader)
             for row in reader:
                 if not row:
@@ -135,8 +135,8 @@ class Meta:
         self.offset = 0
 
     def to_csv(self, path):
-        with open(path, "w") as file:
-            writer = csv.writer(file)
+        with open(path, "w", newline="") as file:
+            writer = csv.writer(file, delimiter=";")
             rows = self.__dict__
             header = list(rows.keys())
             values = list(rows.values())
@@ -144,11 +144,11 @@ class Meta:
 
     @classmethod
     def from_csv(cls, path):
-        with open(path, "r") as file:
-            writer = csv.writer(file)
-            next(writer)
-            row = next(writer)
-        return Meta(row[0], row[1], row[2], row[3], row[4], row[5])
+        with open(path, "r", newline="") as file:
+            reader = csv.reader(file, delimiter=";")
+            next(reader)
+            row = next(reader)
+        return Meta(row[0], row[1], int(row[2]), int(row[3]), int(row[4]), int(row[5]))
 
 
 class Leak:
@@ -167,15 +167,15 @@ class Leak:
         self.traces.clear()
 
     def to_csv(self, path):
-        with open(path, "w") as file:
-            writer = csv.writer(file)
+        with open(path, "w", newline="") as file:
+            writer = csv.writer(file, delimiter=";")
             writer.writerows(self.traces)
 
     @classmethod
     def from_csv(cls, path):
         leaks = []
-        with open(path, "r") as file:
-            reader = csv.reader(file)
+        with open(path, "r", newline="") as file:
+            reader = csv.reader(file, delimiter=";")
             for row in reader:
                 if not row:
                     continue
