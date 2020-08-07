@@ -3,6 +3,7 @@ import argparse
 import app
 
 
+@app.operation_decorator("clean.py", "\nexiting...")
 def main(args):
     if args.log:
         app.remove_logs()
