@@ -72,7 +72,7 @@ def parse(s, count):
 
 @operation_decorator("exporting data", "export successful!")
 def export_log(leak, data, meta, path=None):
-    path = path or DATA_PATH
+    path = path or os.path.join(DATA_PATH, meta.mode)
     data.to_csv(os.path.join(path, f"data_{meta.mode}_{meta.iterations}.csv"))
     leak.to_csv(os.path.join(path, f"leak_{meta.mode}_{meta.iterations}.csv"))
     meta.to_csv(os.path.join(path, f"meta_{meta.mode}_{meta.iterations}.csv"))
@@ -80,11 +80,11 @@ def export_log(leak, data, meta, path=None):
 
 @operation_decorator("importing data", "import successful!")
 def import_log(mode, count, path=None):
-    path = path or DATA_PATH
+    path = path or os.path.join(DATA_PATH, mode)
     data = log.Data.from_csv(os.path.join(path, f"data_{mode}_{count}.csv"))
     leak = log.Leak.from_csv(os.path.join(path, f"leak_{mode}_{count}.csv"))
     meta = log.Meta.from_csv(os.path.join(path, f"meta_{mode}_{count}.csv"))
-    print(f"traces imported: {meta.iterations}")
+    print(f"traces imported: {meta.iterations}/{count}")
     return leak, data, meta
 
 
