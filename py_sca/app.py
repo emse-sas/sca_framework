@@ -165,7 +165,7 @@ def guess_key(handler, cor):
     print(handler.key)
     print("guess:")
     print(guess)
-    print("correct guesses: %d/16" % np.count_nonzero(exact))
+    print(f"correct guesses: {np.count_nonzero(exact):d}/16")
     print(exact)
     return guess, maxs, exact
 
@@ -191,9 +191,9 @@ def plot_correlations(meta, cor, key, stats, envelope, path=None):
         )
         def plot_guess():
             if key[i, j] != guess[i, j]:
-                plt.plot(cor[i, j, key[i, j]], color="b", label="key 0x%02x" % key[i, j])
-                plt.plot(cor[i, j, guess[i, j]], color="c", label="guess 0x%02x" % guess[i, j])
+                plt.plot(cor[i, j, key[i, j]], color="b", label=f"key 0x{key[i, j]:02x}")
+                plt.plot(cor[i, j, guess[i, j]], color="c", label=f"guess 0x{guess[i, j]:02x}")
             else:
-                plt.plot(cor[i, j, key[i, j]], color="r", label="key 0x%02x" % key[i, j])
+                plt.plot(cor[i, j, key[i, j]], color="r", label=f"key 0x{key[i, j]:02x}")
 
         plot_guess()
