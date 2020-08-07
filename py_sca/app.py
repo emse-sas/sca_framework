@@ -199,3 +199,24 @@ def plot_correlations(meta, cor, key, stats, envelope, path=None):
                 plt.plot(cor[i, j, key[i, j]], color="r", label=f"key 0x{key[i, j]:02x}")
 
         plot_guess()
+
+
+def remove_subdir_files(path):
+    for dir_path, _, filenames in os.walk(path):
+        for filename in filenames:
+            os.remove(os.path.join(dir_path, filename))
+
+
+@operation_decorator("removing logs", "remove success!")
+def remove_logs(path=DATA_PATH):
+    remove_subdir_files(path)
+
+
+@operation_decorator("removing acquisition images", "remove success!")
+def remove_acquisition_images(path=IMG_PATH_ACQ):
+    remove_subdir_files(path)
+
+
+@operation_decorator("removing correlation images", "remove success!")
+def remove_correlation_images(path=IMG_PATH_COR):
+    remove_subdir_files(path)

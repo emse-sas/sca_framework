@@ -1,22 +1,20 @@
-import os
-from lib import aes
+import argparse
 
-CLEAN_ACQ_LOG = True
-CLEAN_ACQ_IMG = True
-CLEAN_COR_IMG = True
-IMG_ROOT = "../media/img"
+import app
 
-if CLEAN_ACQ_LOG:
-    for dir_path, _, filenames in os.walk("../data/acquisition"):
-        for filename in filenames:
-            os.remove(os.path.join(dir_path, filename))
 
-if CLEAN_ACQ_IMG:
-    for dir_path, _, filenames in os.walk(os.path.join(IMG_ROOT, "acquisition")):
-        for filename in filenames:
-            os.remove(os.path.join(dir_path, filename))
+def main(args):
+    if args.log:
+        app.remove_logs()
+    if args.acq:
+        app.remove_acquisition_images()
+    if args.cor:
+        app.remove_correlation_images()
 
-if CLEAN_COR_IMG:
-    for dir_path, _, filenames in os.walk(os.path.join(IMG_ROOT, "correlation")):
-        for filename in filenames:
-            os.remove(os.path.join(dir_path, filename))
+
+if __name__ == "__main__":
+    argp = argparse.ArgumentParser(description="sca clean")
+    argp.add_argument("-l", "--log", help="remove log files", action="store_true")
+    argp.add_argument("-a", "--acq", help="remove acquisition images", action="store_true")
+    argp.add_argument("-c", "--cor", help="remove correlation images", action="store_true")
+    main(argp.parse_args())
