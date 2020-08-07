@@ -228,18 +228,18 @@ def create_subdir(path):
 
 
 @operation_decorator("removing logs", "remove success!")
-def remove_logs(path=DATA_PATH_ACQ):
-    remove_subdir_files(path)
+def remove_logs():
+    remove_subdir_files(DATA_PATH_ACQ)
 
 
 @operation_decorator("removing acquisition images", "remove success!")
-def remove_acquisition_images(path=IMG_PATH_ACQ):
-    remove_subdir_files(path)
+def remove_acquisition_images():
+    remove_subdir_files(IMG_PATH_ACQ)
 
 
 @operation_decorator("removing correlation images", "remove success!")
-def remove_correlation_images(path=IMG_PATH_COR):
-    remove_subdir_files(path)
+def remove_correlation_images():
+    remove_subdir_files(IMG_PATH_COR)
 
 
 @operation_decorator("creating log dirs", "create success!")
