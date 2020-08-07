@@ -11,6 +11,8 @@ from scipy import signal
 from lib import log, traces as tr, aes, cpa
 from lib.utils import format_sizeof
 
+MODES = ["hw", "sw"]
+F_SAMPLING = 200e6
 DATA_PATH = os.path.join("..", *["data", "acquisition"])
 IMG_PATH_ACQ = os.path.join("..", *["media", "img", "acquisition"])
 IMG_PATH_COR = os.path.join("..", *["media", "img", "correlation"])
@@ -71,11 +73,12 @@ def parse(s, count):
 
 
 @operation_decorator("exporting data", "export successful!")
-def export_log(leak, data, meta, path=None):
+def export_log(leak, data, meta, iterations=None, path=None):
+    iterations = iterations or meta.iterations
     path = path or os.path.join(DATA_PATH, meta.mode)
-    data.to_csv(os.path.join(path, f"data_{meta.mode}_{meta.iterations}.csv"))
-    leak.to_csv(os.path.join(path, f"leak_{meta.mode}_{meta.iterations}.csv"))
-    meta.to_csv(os.path.join(path, f"meta_{meta.mode}_{meta.iterations}.csv"))
+    data.to_csv(os.path.join(path, f"data_{meta.mode}_{iterations}.csv"))
+    leak.to_csv(os.path.join(path, f"leak_{meta.mode}_{iterations}.csv"))
+    meta.to_csv(os.path.join(path, f"meta_{meta.mode}_{iterations}.csv"))
 
 
 @operation_decorator("importing data", "import successful!")
@@ -89,12 +92,12 @@ def import_log(mode, count, path=None):
 
 
 @operation_decorator("processing traces", "processing successful!")
-def process_acquisition(leak, f_s):
+def process_acquisition(leak):
     # traces = tr.pad(parser.leak.traces, parser.meta.offset)
     traces = np.array(tr.crop(leak.traces))
     mean = traces.mean(axis=0)
     spectrum = np.absolute(fft.fft(mean - np.mean(mean)))
-    freq = np.fft.fftfreq(spectrum.size, 1.0 / f_s)
+    freq = np.fft.fftfreq(spectrum.size, 1.0 / F_SAMPLING)
     return traces, mean, spectrum, freq
 
 
@@ -133,11 +136,11 @@ def plot_acquisition(processed, meta, path=None, limit=None, scale=1e6):
 
 
 @operation_decorator("processing traces", "processing successful!")
-def process_filter(leak, f_s):
+def process_filter(leak):
     traces = np.array(tr.crop(leak.traces))
     f_c = 13e6
     order = 4
-    w = f_c / (f_s / 2)
+    w = f_c / (F_SAMPLING / 2)
     b, a, *_ = signal.butter(order, w, btype="highpass", output="ba")
 
     for trace in traces:
@@ -187,8 +190,7 @@ def plot_correlations(meta, cor, key, stats, envelope, path=None):
             f"Correlation byte {b} (iterations: {meta.iterations}, best correlation: {c:.2f}%)",
             "Time Samples",
             "Pearson Correlation",
-            path, f"sca_cor_{meta.mode}_{meta.iterations}_b{b}"
-        )
+            path, f"sca_cor_{meta.mode}_{meta.iterations}_b{b}")
         def plot_guess():
             if key[i, j] != guess[i, j]:
                 plt.plot(cor[i, j, key[i, j]], color="b", label=f"key 0x{key[i, j]:02x}")
