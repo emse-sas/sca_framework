@@ -1,11 +1,13 @@
 import os
 import time
 from datetime import timedelta
-import numpy as np
-from scipy import signal
 from itertools import product
+
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy import fft
+from scipy import signal
+
 from lib import log, traces as tr, aes, cpa
 from lib.utils import format_sizeof
 
@@ -169,11 +171,10 @@ def guess_key(handler, cor):
 
 
 @operation_decorator("plotting data", "plot successful!")
-def plot_correlation(meta, cor, key, stats, envelope, path=None):
-    path = path or IMG_PATH_COR
+def plot_correlations(meta, cor, key, stats, envelope, path=None):
+    path = path or os.path.join(IMG_PATH_COR, meta.mode)
     guess, maxs, exact = stats
     cor_max, cor_min = envelope
-    n = meta.iterations
     _, _, m = cor_max.shape
     plt.rcParams["figure.figsize"] = (16, 9)
 

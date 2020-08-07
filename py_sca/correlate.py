@@ -1,6 +1,6 @@
-import app
 import numpy as np
 
+import app
 
 COUNT_TRACES = 2 ** 8  # count of traces to record from FPGA
 MODE_AES = "hw"
@@ -15,7 +15,7 @@ def main():
     handler = app.create_handler(data, traces)
     cor = app.correlate(handler)
     stats = app.guess_key(handler, cor)
-    app.plot_correlation(meta, cor, handler.key, stats, handler.guess_envelope(cor))
+    app.plot_correlations(meta, cor, handler.key, stats, handler.guess_envelope(cor))
 
 
 main()
