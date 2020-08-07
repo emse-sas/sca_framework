@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 
 
@@ -19,3 +20,17 @@ def format_sizeof(num, suffix="B"):
             return f"{num:3.1f}{unit}{suffix}"
         num /= 1024.0
     return f"{num:.1f}{'Yi'}{suffix}"
+
+
+def remove_subdir_files(path):
+    for dir_path, _, filenames in os.walk(path):
+        for filename in filenames:
+            os.remove(os.path.join(dir_path, filename))
+
+
+def try_create_dir(path):
+    try:
+        os.mkdir(path)
+    except FileExistsError:
+        print(f"{path} already exists")
+        pass

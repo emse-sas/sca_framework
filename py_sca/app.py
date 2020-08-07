@@ -9,7 +9,7 @@ from scipy import fft
 from scipy import signal
 
 from lib import log, traces as tr, aes, cpa
-from lib.utils import format_sizeof
+from lib.utils import format_sizeof, try_create_dir, remove_subdir_files
 
 MODES = ["hw", "sw"]
 F_SAMPLING = 200e6
@@ -207,51 +207,38 @@ def plot_correlations(meta, cor, key, stats, envelope, path=None):
         plot_guess()
 
 
-def _remove_subdir_files(path):
-    for dir_path, _, filenames in os.walk(path):
-        for filename in filenames:
-            os.remove(os.path.join(dir_path, filename))
-
-
-def _try_create_dir(path):
-    try:
-        os.mkdir(path)
-    except FileExistsError:
-        print(f"{path} already exists")
-        pass
-
-
-def create_subdir(path):
-    _try_create_dir(path)
+def create_subdir(path=None):
+    if path:
+        try_create_dir(path)
     for mode in MODES:
-        _try_create_dir(os.path.join(path, mode))
+        try_create_dir(os.path.join(path, mode))
 
 
 @operation_decorator("removing logs", "remove success!")
 def remove_logs():
-    _remove_subdir_files(DATA_PATH_ACQ)
+    remove_subdir_files(DATA_PATH_ACQ)
 
 
 @operation_decorator("removing acquisition images", "remove success!")
 def remove_acquisition_images():
-    _remove_subdir_files(IMG_PATH_ACQ)
+    remove_subdir_files(IMG_PATH_ACQ)
 
 
 @operation_decorator("removing correlation images", "remove success!")
 def remove_correlation_images():
-    _remove_subdir_files(IMG_PATH_COR)
+    remove_subdir_files(IMG_PATH_COR)
 
 
 @operation_decorator("creating log dirs", "create success!")
 def create_logs_dir():
-    _try_create_dir(DATA_PATH)
+    try_create_dir(DATA_PATH)
     create_subdir(DATA_PATH_ACQ)
     create_subdir(DATA_PATH_COR)
 
 
 @operation_decorator("creating images dirs", "create success!")
 def create_images_dir():
-    _try_create_dir(MEDIA_PATH)
-    _try_create_dir(IMG_PATH)
+    try_create_dir(MEDIA_PATH)
+    try_create_dir(IMG_PATH)
     create_subdir(IMG_PATH_ACQ)
     create_subdir(IMG_PATH_COR)
