@@ -13,9 +13,15 @@ from lib.utils import format_sizeof
 
 MODES = ["hw", "sw"]
 F_SAMPLING = 200e6
-DATA_PATH = os.path.join("..", *["data", "acquisition"])
-IMG_PATH_ACQ = os.path.join("..", *["media", "img", "acquisition"])
-IMG_PATH_COR = os.path.join("..", *["media", "img", "correlation"])
+ACQ_DIR = "acquisition"
+COR_DIR = "correlation"
+DATA_PATH = os.path.join("..", "data")
+MEDIA_PATH = os.path.join("..", "media")
+IMG_PATH = os.path.join(MEDIA_PATH, "img")
+DATA_PATH_ACQ = os.path.join(DATA_PATH, ACQ_DIR)
+DATA_PATH_COR = os.path.join(DATA_PATH, COR_DIR)
+IMG_PATH_ACQ = os.path.join(IMG_PATH, ACQ_DIR)
+IMG_PATH_COR = os.path.join(IMG_PATH, COR_DIR)
 
 
 def operation_decorator(title, message):
@@ -54,7 +60,7 @@ def plot_decorator(title, xlabel, ylabel, path, name):
 
 @operation_decorator("acquiring bytes", "acquisition successful!")
 def acquire(source, mode, count, path=None):
-    path = path or os.path.join(DATA_PATH, mode)
+    path = path or os.path.join(DATA_PATH_ACQ, mode)
     print(f"source: {source}")
     if source[:3] == "COM":
         s = log.Read.serial(count, source, hardware=mode == "hw")
@@ -75,7 +81,7 @@ def parse(s, count):
 @operation_decorator("exporting data", "export successful!")
 def export_log(leak, data, meta, iterations=None, path=None):
     iterations = iterations or meta.iterations
-    path = path or os.path.join(DATA_PATH, meta.mode)
+    path = path or os.path.join(DATA_PATH_ACQ, meta.mode)
     data.to_csv(os.path.join(path, f"data_{meta.mode}_{iterations}.csv"))
     leak.to_csv(os.path.join(path, f"leak_{meta.mode}_{iterations}.csv"))
     meta.to_csv(os.path.join(path, f"meta_{meta.mode}_{iterations}.csv"))
@@ -83,7 +89,7 @@ def export_log(leak, data, meta, iterations=None, path=None):
 
 @operation_decorator("importing data", "import successful!")
 def import_log(mode, count, path=None):
-    path = path or os.path.join(DATA_PATH, mode)
+    path = path or os.path.join(DATA_PATH_ACQ, mode)
     data = log.Data.from_csv(os.path.join(path, f"data_{mode}_{count}.csv"))
     leak = log.Leak.from_csv(os.path.join(path, f"leak_{mode}_{count}.csv"))
     meta = log.Meta.from_csv(os.path.join(path, f"meta_{mode}_{count}.csv"))
@@ -207,8 +213,22 @@ def remove_subdir_files(path):
             os.remove(os.path.join(dir_path, filename))
 
 
+def try_create_dir(path):
+    try:
+        os.mkdir(path)
+    except FileExistsError:
+        print(f"{path} already exists")
+        pass
+
+
+def create_subdir(path):
+    try_create_dir(path)
+    for mode in MODES:
+        try_create_dir(os.path.join(path, mode))
+
+
 @operation_decorator("removing logs", "remove success!")
-def remove_logs(path=DATA_PATH):
+def remove_logs(path=DATA_PATH_ACQ):
     remove_subdir_files(path)
 
 
@@ -220,3 +240,18 @@ def remove_acquisition_images(path=IMG_PATH_ACQ):
 @operation_decorator("removing correlation images", "remove success!")
 def remove_correlation_images(path=IMG_PATH_COR):
     remove_subdir_files(path)
+
+
+@operation_decorator("creating log dirs", "create success!")
+def create_logs_dir():
+    try_create_dir(DATA_PATH)
+    create_subdir(DATA_PATH_ACQ)
+    create_subdir(DATA_PATH_COR)
+
+
+@operation_decorator("creating images dirs", "create success!")
+def create_images_dir():
+    try_create_dir(MEDIA_PATH)
+    try_create_dir(IMG_PATH)
+    create_subdir(IMG_PATH_ACQ)
+    create_subdir(IMG_PATH_COR)
