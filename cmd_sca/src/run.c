@@ -279,7 +279,7 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     uint8_t key8[RUN_AES_BYTES_SIZE], block8[RUN_AES_BYTES_SIZE];
 
     printf("*** start acquisition ***\n");
-    printf("mode: %s\n", hw ? "hardware" : "software");
+    printf("mode: %s\n", hw ? "hw" : "sw");
     printf("direction: %s\n", inv ? "decrypt" : "encrypt");
     printf("sensors: %d\n", TDC_HW_COUNT_TDC);
     printf("target: %d\n", TDC_HW_CALIBRATE_TARGET);
