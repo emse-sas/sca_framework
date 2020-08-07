@@ -207,13 +207,13 @@ def plot_correlations(meta, cor, key, stats, envelope, path=None):
         plot_guess()
 
 
-def remove_subdir_files(path):
+def _remove_subdir_files(path):
     for dir_path, _, filenames in os.walk(path):
         for filename in filenames:
             os.remove(os.path.join(dir_path, filename))
 
 
-def try_create_dir(path):
+def _try_create_dir(path):
     try:
         os.mkdir(path)
     except FileExistsError:
@@ -222,36 +222,36 @@ def try_create_dir(path):
 
 
 def create_subdir(path):
-    try_create_dir(path)
+    _try_create_dir(path)
     for mode in MODES:
-        try_create_dir(os.path.join(path, mode))
+        _try_create_dir(os.path.join(path, mode))
 
 
 @operation_decorator("removing logs", "remove success!")
 def remove_logs():
-    remove_subdir_files(DATA_PATH_ACQ)
+    _remove_subdir_files(DATA_PATH_ACQ)
 
 
 @operation_decorator("removing acquisition images", "remove success!")
 def remove_acquisition_images():
-    remove_subdir_files(IMG_PATH_ACQ)
+    _remove_subdir_files(IMG_PATH_ACQ)
 
 
 @operation_decorator("removing correlation images", "remove success!")
 def remove_correlation_images():
-    remove_subdir_files(IMG_PATH_COR)
+    _remove_subdir_files(IMG_PATH_COR)
 
 
 @operation_decorator("creating log dirs", "create success!")
 def create_logs_dir():
-    try_create_dir(DATA_PATH)
+    _try_create_dir(DATA_PATH)
     create_subdir(DATA_PATH_ACQ)
     create_subdir(DATA_PATH_COR)
 
 
 @operation_decorator("creating images dirs", "create success!")
 def create_images_dir():
-    try_create_dir(MEDIA_PATH)
-    try_create_dir(IMG_PATH)
+    _try_create_dir(MEDIA_PATH)
+    _try_create_dir(IMG_PATH)
     create_subdir(IMG_PATH_ACQ)
     create_subdir(IMG_PATH_COR)
