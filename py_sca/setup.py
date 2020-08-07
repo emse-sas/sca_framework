@@ -1,10 +1,10 @@
-import app
+import core
 
 
-@app.operation_decorator("setup.py", "\nexiting...")
+@core.operation_decorator("setup.py", "\nexiting...")
 def main():
-    app.create_logs_dir()
-    app.create_images_dir()
+    core.create_logs_dir()
+    core.create_images_dir()
 
 
 if __name__ == "__main__":

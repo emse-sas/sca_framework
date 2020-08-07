@@ -1,16 +1,16 @@
 import argparse
 
-import app
+import core
 
 
-@app.operation_decorator("clean.py", "\nexiting...")
+@core.operation_decorator("clean.py", "\nexiting...")
 def main(args):
     if args.log:
-        app.remove_logs()
+        core.remove_logs()
     if args.acq:
-        app.remove_acquisition_images()
+        core.remove_acquisition_images()
     if args.cor:
-        app.remove_correlation_images()
+        core.remove_correlation_images()
 
 
 if __name__ == "__main__":
