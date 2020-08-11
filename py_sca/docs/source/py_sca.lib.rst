@@ -1,15 +1,4 @@
-py\_sca.lib package
-===================
-
-.. automodule:: py_sca.lib
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Submodules
-----------
-
-py\_sca.lib.aes module
+lib.aes module
 ----------------------
 
 .. automodule:: py_sca.lib.aes
@@ -17,7 +6,7 @@ py\_sca.lib.aes module
    :undoc-members:
    :show-inheritance:
 
-py\_sca.lib.cpa module
+lib.cpa module
 ----------------------
 
 .. automodule:: py_sca.lib.cpa
@@ -25,7 +14,7 @@ py\_sca.lib.cpa module
    :undoc-members:
    :show-inheritance:
 
-py\_sca.lib.log module
+lib.log module
 ----------------------
 
 .. automodule:: py_sca.lib.log
@@ -33,7 +22,7 @@ py\_sca.lib.log module
    :undoc-members:
    :show-inheritance:
 
-py\_sca.lib.traces module
+lib.traces module
 -------------------------
 
 .. automodule:: py_sca.lib.traces
@@ -41,7 +30,7 @@ py\_sca.lib.traces module
    :undoc-members:
    :show-inheritance:
 
-py\_sca.lib.utils module
+lib.utils module
 ------------------------
 
 .. automodule:: py_sca.lib.utils

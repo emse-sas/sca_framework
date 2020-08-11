@@ -48,3 +48,5 @@ py_sca/lib/__pycache__/
 py_sca/tests/__pycache__/
 
 py_sca/docs/source/_build
+
+py_sca/venv/

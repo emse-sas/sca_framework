@@ -24,8 +24,9 @@ def main(args):
     core.plot_correlations(meta, cor, handler.key, stats, handler.guess_envelope(cor))
 
 
+argp = argparse.ArgumentParser(description="sca correlation")
+argp.add_argument("-m", "--mode", choices=core.MODES, help="aes source", default="hw")
+argp.add_argument("iterations", type=int, help="count of traces to correlate")
+
 if __name__ == "__main__":
-    argp = argparse.ArgumentParser(description="sca correlation")
-    argp.add_argument("-m", "--mode", choices=core.MODES, help="aes source", default="hw")
-    argp.add_argument("iterations", type=int, help="count of traces to correlate")
     main(argp.parse_args())

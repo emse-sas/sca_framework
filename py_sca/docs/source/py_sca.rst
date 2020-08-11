@@ -1,31 +1,4 @@
-py\_sca package
-===============
-
-.. automodule:: py_sca
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   py_sca.lib
-
-Submodules
-----------
-
-py\_sca.acquire module
-----------------------
-
-.. automodule:: py_sca.acquire
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-py\_sca.clean module
+clean module
 --------------------
 
 .. automodule:: py_sca.clean
@@ -33,15 +6,12 @@ py\_sca.clean module
    :undoc-members:
    :show-inheritance:
 
-py\_sca.correlate module
-------------------------
+.. argparse::
+    :module: py_sca.clean
+    :func: argp
+    :prog: clean.py
 
-.. automodule:: py_sca.correlate
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-py\_sca.setup module
+setup module
 --------------------
 
 .. automodule:: py_sca.setup
@@ -49,7 +19,38 @@ py\_sca.setup module
    :undoc-members:
    :show-inheritance:
 
-py\_sca.core module
+.. argparse::
+    :module: py_sca.setup
+    :func: argp
+    :prog: setup.py
+
+acquire module
+------------------------
+
+.. automodule:: py_sca.acquire
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. argparse::
+    :module: py_sca.acquire
+    :func: argp
+    :prog: acquire.py
+
+correlate module
+------------------------
+
+.. automodule:: py_sca.correlate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. argparse::
+    :module: py_sca.correlate
+    :func: argp
+    :prog: correlate.py
+
+core module
 -------------------
 
 .. automodule:: py_sca.core

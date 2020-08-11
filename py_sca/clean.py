@@ -20,9 +20,10 @@ def main(args):
         core.remove_correlation_images()
 
 
+argp = argparse.ArgumentParser(description="sca clean")
+argp.add_argument("-l", "--log", help="remove log files", action="store_true")
+argp.add_argument("-a", "--acq", help="remove acquisition images", action="store_true")
+argp.add_argument("-c", "--cor", help="remove correlation images", action="store_true")
+
 if __name__ == "__main__":
-    argp = argparse.ArgumentParser(description="sca clean")
-    argp.add_argument("-l", "--log", help="remove log files", action="store_true")
-    argp.add_argument("-a", "--acq", help="remove acquisition images", action="store_true")
-    argp.add_argument("-c", "--cor", help="remove correlation images", action="store_true")
     main(argp.parse_args())
