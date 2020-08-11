@@ -1,14 +1,63 @@
+"""Perform signal processing on power consumption traces
+
+This module is designed to provide fast basic signal processing
+function for power consumption signals
+
+Notes
+-----
+- The module does not provide any filtering features
+
+"""
+
 import numpy as np
 from scipy import stats
 
 
 def crop(traces, end=None):
+    """Crop all the traces signals to have the same duration
+
+    If end parameter is not provided the traces are cropped to have
+    the same duration as the shortest given trace.
+
+    Parameters
+    ----------
+    traces : list[list[int]]
+        2D list of numbers representing the trace signal
+    end : int, optional
+        Index after which the traces are truncated.
+        Must be inferior to the length of the shortest trace
+    Returns
+    -------
+    list[list[int]]
+        Cropped traces
+
+    """
     m = min(map(len, traces))
     m = min(end or m, m)
     return [trace[:m] for trace in traces]
 
 
 def pad(traces, fill=0, end=None):
+    """Pad all the traces signals have the same duration
+
+    If end parameter is not provided the traces are padded to have
+    the same duration as the longest given trace.
+
+    Parameters
+    ----------
+    traces : list[list[int]]
+        2D list of numbers representing the trace signal
+    fill : int, optional
+        Padding value to insert after the end of traces
+    end : int, optional
+        New count of samples of the traces
+        Must be greater than the length of the longest trace
+    Returns
+    -------
+    list[list[int]]
+        Padded traces
+
+    """
     samples = list(map(len, traces))
     m = max(samples)
     m = max(end or m, m)
@@ -16,6 +65,31 @@ def pad(traces, fill=0, end=None):
 
 
 def sync(traces, step=1, stop=None):
+    """Synchronize trace signals by correlating them
+
+    This function implements an algorithm based on Pearson's
+    correlation to synchronize signals peaks.
+
+    More precisely, it compares the traces to a reference trace
+    by rolling theses forward or backward. The algorithm search
+    for the roll value that maximizes pearson correlation
+    
+    Parameters
+    ----------
+    traces : np.ndarray
+        2D numbers array representing cropped or padded traces data
+    step : int, optional
+        Rolling step, if equals n, the trace will be rolled
+        n times in both directions at each rolling iteration
+    stop : int, optional
+        Rolling stop, maximum roll to perform
+
+    Returns
+    -------
+        np.ndarray
+            2D array representing synchronized traces
+
+    """
     ref = traces[0]
     n, m = traces.shape
     strides_pos = ref.strides * 2
