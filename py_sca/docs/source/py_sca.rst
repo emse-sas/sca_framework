@@ -1,6 +1,11 @@
 py\_sca package
 ===============
 
+.. automodule:: py_sca
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -28,14 +33,6 @@ py\_sca.clean module
    :undoc-members:
    :show-inheritance:
 
-py\_sca.core module
--------------------
-
-.. automodule:: py_sca.core
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 py\_sca.correlate module
 ------------------------
 
@@ -52,10 +49,10 @@ py\_sca.setup module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
+py\_sca.core module
+-------------------
 
-.. automodule:: py_sca
+.. automodule:: py_sca.core
    :members:
    :undoc-members:
    :show-inheritance:

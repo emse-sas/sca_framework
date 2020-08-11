@@ -1,6 +1,11 @@
 py\_sca.lib package
 ===================
 
+.. automodule:: py_sca.lib
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -40,14 +45,6 @@ py\_sca.lib.utils module
 ------------------------
 
 .. automodule:: py_sca.lib.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: py_sca.lib
    :members:
    :undoc-members:
    :show-inheritance:

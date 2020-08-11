@@ -9,15 +9,12 @@ The functions of this module provide :
 * Time performance measurement
 * Plotting acquisition and correlation curves
 
-Notes
------
-* In all the API, the filenames are following a precise nomenclature,
-do not modify filenames without respecting it.
 
 """
 
 import os
 import time
+import functools
 from datetime import timedelta
 from itertools import product
 
@@ -60,6 +57,7 @@ def operation_decorator(title, message):
     """
 
     def decorator(function):
+        @functools.wraps(function)
         def wrapper(*args, **kwargs):
             print(f"\n*** {title} ***")
             t_start = time.perf_counter()
@@ -67,7 +65,6 @@ def operation_decorator(title, message):
             t_end = time.perf_counter()
             print(f"{message}\nelapsed: {str(timedelta(seconds=t_end - t_start))}")
             return result
-
         return wrapper
 
     return decorator
@@ -90,12 +87,15 @@ def plot_decorator(title, xlabel, ylabel, path, name):
         Path to save the image plot
     name : str
         Name of the image plot file
+
     Returns
     -------
-
+    function
+        Decorator
     """
 
     def decorator(function):
+        @functools.wraps(function)
         def wrapper(*args, **kwargs):
             result = function(*args, **kwargs)
             plt.title(title)
@@ -108,6 +108,7 @@ def plot_decorator(title, xlabel, ylabel, path, name):
             plt.close()
             return result
 
+        wrapper.__doc__ = function.__doc__
         return wrapper
 
     return decorator
@@ -167,6 +168,7 @@ def parse(s, iterations):
     -------
     Parser
         newly created parser
+
     """
     parser = log.Parser.from_bytes(s)
     print(f"traces parsed: {parser.meta.iterations}/{iterations}")
@@ -219,6 +221,7 @@ def import_log(mode, count, path=None):
     -------
     tuple[log.Leak, log.Data, log.Meta]
         Parsed data
+
     """
     path = path or os.path.join(DATA_PATH_ACQ, mode)
     leak = log.Leak.from_csv(os.path.join(path, f"leak_{mode}_{count}.csv"))
@@ -244,6 +247,7 @@ def process_acquisition(leak):
         - Average trace
         - Spectrum of the average
         - Frequency axis for the spectrum
+
     """
     # traces = tr.pad(parser.leak.traces, parser.meta.offset)
     traces = np.array(tr.crop(leak.traces))
@@ -325,6 +329,7 @@ def process_filter(leak):
         - Filtered traces
         - Filter denominator coefficients
         - Filter numerator coefficients
+
     """
     traces = np.array(tr.crop(leak.traces))
     f_c = 13e6
@@ -353,9 +358,6 @@ def create_handler(data, traces):
     -------
     cpa.Handler
         Handler ready to perform correlation
-    See Also
-    --------
-
 
     """
     blocks = np.array([aes.words_to_block(block) for block in data.plains], dtype=np.uint8)
@@ -391,12 +393,14 @@ def guess_key(handler, cor):
         Initialized handler
     cor : np.ndarray
         Temporal correlations
+
     Returns
     -------
     tuple[np.ndarray, np.ndarray, np.ndarray]
         - Guessed key
         - Maximum temporal correlations
         - Exact guesses matrix
+
     """
     guess, maxs, exact = handler.guess_stats(cor)
     print("key:")
@@ -433,6 +437,7 @@ def plot_correlations(meta, cor, key, stats, envelope, path=None):
     --------
     cpa.guess_envelope : compute guess envelope
     cpa.guess_stats : compute guess statistics
+
     """
     path = path or os.path.join(IMG_PATH_COR, meta.mode)
     guess, maxs, exact = stats
