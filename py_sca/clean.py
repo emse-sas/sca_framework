@@ -1,3 +1,10 @@
+"""Remove all the files created by this software
+
+The goal of this script is to clean all the files
+created during correlation or acquisition.
+
+"""
+
 import argparse
 
 import core

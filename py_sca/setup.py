@@ -1,3 +1,7 @@
+"""Create necessary sub-directories and data for the framework
+
+"""
+
 import core
 
 

@@ -1,3 +1,10 @@
+"""Acquire binary data side-channel data and parse it
+
+This scripts allows to validate the side-channel data
+before correlating it
+
+"""
+
 import argparse
 
 import core

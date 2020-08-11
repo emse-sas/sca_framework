@@ -1,3 +1,11 @@
+"""Correlate parsed acquisition data
+
+This script allows to load CSV acquisition data
+and perform a side-channel which consists on retrieving
+the encryption key.
+
+"""
+
 import argparse
 
 import numpy as np
