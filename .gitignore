@@ -46,3 +46,5 @@ data/
 py_sca/lib/__pycache__/
 
 py_sca/tests/__pycache__/
+
+py_sca/docs/source/_build
