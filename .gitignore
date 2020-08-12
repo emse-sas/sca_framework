@@ -50,3 +50,7 @@ py_sca/tests/__pycache__/
 py_sca/docs/source/_build
 
 py_sca/venv/
+
+docs/cmd_sca/
+
+docs/build/
