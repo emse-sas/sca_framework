@@ -1,15 +1,31 @@
-"""Side channel acquisition data parsing, logging and reporting
+"""Python-agnostic SCA data parsing, logging and reporting module.
 
 This module is designed as a class library providing *entity classes*
 to represent the side channel data acquired from SoC.
 
-The module provides binary data parsing in order to read
+It provides binary data parsing in order to read
 acquisition data from a serial source or a binary file and
 retrieve it in the entity classes.
 
+Examples
+--------
+>>> from lib import log
+>>> s = log.read.serial(256, "com5")
+>>> s = log.read.file("path/to/binary/file")
+>>> parser = log.Parser.from_bytes(s)
+
 All the entity classes of the module provide CSV support
-in order to allow processing acquisition data without parsing.
-Furthermore it allows formatting data in a more human-readable format
+to allow processing acquisition data without parsing.
+It also provides formatting data in a more human-readable format.
+
+Examples
+--------
+>>> from lib import log
+>>> meta = log.Meta.from_csv("path/to/meta.csv")
+>>> leak = log.Leak.from_csv("path/to/leak.csv")
+>>> # some processing on meta
+>>> meta.to_csv("path/to/meta.csv")
+
 """
 
 import csv
@@ -23,54 +39,58 @@ START_TRACE = b"\xfe\xfe\xfe\xfe"  # Start traces tag
 END_ACQ = b"\xff\xff\xff\xff"  # End acquisition tag
 
 
-class Read:
-    """Static class for binary read operations
+class read:
+    """Namespace for binary read operations.
 
     """
 
     @classmethod
     def file(cls, log_path) -> bytes:
-        """Reads binary data from file
+        """Reads binary data from file.
 
         Parameters
         ----------
         log_path : str
-            path to the file to read
+            Path to the file to read.
         Returns
         -------
         bytes
-            binary content of the file
+            Binary content of the file.
         """
         with open(log_path, "rb") as log_file:
             s = log_file.read()
         return s
 
     @classmethod
-    def serial(cls, count, port, hardware=False, mini=True):
-        """Launch acquisition and reads binary data from serial port
+    def serial(cls, iterations, port, hardware=False, mini=True):
+        """Launches acquisition and reads data from serial port.
 
-        This method sends the side channel acquisition command
+        This method sends the side-channel acquisition command
         to the SoC and then reads the serial output.
 
         Parameters
         ----------
-        count : int
-            Count of power consumption traces to acquire
+        iterations : int
+            Requested count of traces.
         port : str
-            Serial port to read
+            Serial port to read.
         hardware : bool
-            If true, the encryption is performed by hardware
+            If true, the encryption is performed by FPGA accelerator.
         mini :
             If true, the traces data will be compressed using
-            hamming weight encoding
+            hamming weight encoding.
 
         Returns
         -------
         bytes
-            binary data read from serial port
+            Binary data from the serial port.
+
+        See Also
+        --------
+        py_sca.lib.utils.decode_hamming : Decode hamming weight.
 
         """
-        opts = (" -t %d" % count, " -m" if mini else "", " -h" if hardware else "")
+        opts = (" -t %d" % iterations, " -m" if mini else "", " -h" if hardware else "")
         with serial.Serial(port, 921_600, parity=serial.PARITY_NONE, xonxoff=False) as ser:
             ser.flush()
             ser.write(("sca%s%s%s\n" % opts).encode())
@@ -83,21 +103,21 @@ class Read:
         return s
 
 
-class Write:
-    """Static class for binary write operations
+class write:
+    """Namespace for binary write operations.
 
     """
 
     @classmethod
     def bytes(cls, s, path):
-        """Write binary data to a file
+        """Writes binary data to a file.
 
         Parameters
         ----------
         s : bytes
-            binary data to write
+            Binary data to write.
         path :
-            path to file
+            Path to file.
 
         """
         with open(path, "wb+") as log_file:
@@ -105,29 +125,27 @@ class Write:
 
 
 class Keywords:
-    """Iterator over the binary log keywords
+    """Iterates over the binary log keywords.
 
     This iterator allows to represent the keywords and
     the order in which they appear in the binary log consistently.
 
-    This feature is useful when browsing log lines in order
-    to avoid parsing a sequence that came in the wrong order.
+    This feature is useful when parsing log lines in order
+    to avoid inserting a sequence that came in the wrong order.
 
     At each iteration the next expected keyword is returned.
 
-    Notes
-    -----
-    - meta attribute allows to avoid try parsing again keywords
-    when an error occurs and the iterator is reset
+    ``meta`` attribute allows to avoid expect again meta keywords
+    when an error occurs and the iterator must be reset.
 
     Attributes
     ----------
     idx: int
-        Current keyword index
+        Current keyword index.
     meta: bool
-        True if the meta-data keyword have already been browsed
+        True if the meta-data keyword have already been browsed.
     value: str
-        Value of the current keyword
+        Value of the current keyword.
 
     """
 
@@ -150,12 +168,13 @@ class Keywords:
     DATA_LEN = len(DATA)
 
     def __init__(self, meta=False):
-        """Construct a new Keyword iterator
+        """Initializes a new keyword iterator.
 
         Parameters
         ----------
         meta : bool
-            If true, meta-data keywords will be ignored
+            If true, meta-data keywords will be ignored.
+
         """
         self.idx = 0
         self.meta = meta
@@ -183,44 +202,43 @@ class Keywords:
 
 
 class Data:
-    """Encryption channel data
+    """Encryption channel data.
 
     This class is designed to represent AES encryption data
     for each trace acquired.
 
-    In order to ease and accelerate parsing
-    each of the AES block data are represented as 4 32-bit
-    hexadecimal string.
+    data are represented as 32-bit hexadecimal strings
+    in order to accelerate IO operations on the encrypted block.
 
     Attributes
     ----------
     plains: list[list[str]]
-        Plains words for each trace
+        Plains words for each trace.
     ciphers: list[list[str]]
-        Cipher words for each trace
+        Cipher words for each trace.
     keys: list[list[str]]
-        Keys words for each trace
+        Keys words for each trace.
 
     Raises
     ------
     ValueError
-        If the three list attributes does not have the same length
+        If the three list attributes does not have the same length.
 
     """
 
     def __init__(self, plains=None, ciphers=None, keys=None):
-        """Construct an object by giving attributes values
+        """Initializes an object by giving attributes values
 
         Parameters
         ----------
         plains: list[list[str]], optional
-            Plains words for each trace
+            Plains words for each trace.
         ciphers: list[list[str]], optional
-            Cipher words for each trace
+            Cipher words for each trace.
         keys: list[list[str]], optional
-        Keys words for each trace
-        """
+            Keys words for each trace.
 
+        """
         self.plains = plains or []
         self.ciphers = ciphers or []
         self.keys = keys or []
@@ -229,7 +247,7 @@ class Data:
             raise ValueError("Plains, ciphers and keys must have the same length")
 
     def clear(self):
-        """Clears all the attributes
+        """Clears all the attributes.
 
         """
         self.plains.clear()
@@ -237,12 +255,12 @@ class Data:
         self.keys.clear()
 
     def to_csv(self, path):
-        """Exports encryption data to a CSV file
+        """Exports encryption data to a CSV file.
 
         Parameters
         ----------
         path : str
-            Path to the CSV file to write
+            Path to the CSV file to write.
 
         """
         with open(path, "w", newline="") as file:
@@ -254,17 +272,17 @@ class Data:
 
     @classmethod
     def from_csv(cls, path):
-        """Imports encryption data from CSV file
+        """Imports encryption data from CSV file.
 
         Parameters
         ----------
         path : str
-            Path to the CSV to read
+            Path to the CSV to read.
 
         Returns
         -------
         Data
-            Imported encryption data
+            Imported encryption data.
         """
         plains = []
         ciphers = []
@@ -283,7 +301,7 @@ class Data:
 
 
 class Meta:
-    """Meta-data of acquisition and encryption channel
+    """Meta-data of acquisition.
 
    This class is designed to represent additional infos
    about the current side-channel acquisition run.
@@ -291,15 +309,15 @@ class Meta:
     Attributes
     ----------
     mode : str
-        Encryption mode
+        Encryption mode.
     direction : str
-        Encryption direction, either encrypt or decrypt
+        Encryption direction, either encrypt or decrypt.
     target : int
-        Sensors calibration target value
+        Sensors calibration target value.
     sensors : int
-        Count of sensors
+        Count of sensors.
     iterations : int
-        Count of traces acquired
+        Requested count of traces.
     offset : int
         If the traces are ASCII encoded, code offset
     """
@@ -310,17 +328,17 @@ class Meta:
         Parameters
         ----------
         mode : str, optional
-            Encryption mode
+            Encryption mode.
         direction : str, optional
-            Encryption direction, either encrypt or decrypt
+            Encryption direction, either encrypt or decrypt.
         target : int, optional
-            Sensors calibration target value
+            Sensors calibration target value.
         sensors : int, optional
-            Count of sensors
+            Count of sensors.
         iterations : int, optional
-            Count of traces acquired
+            Requested count of traces.
         offset : int, optional
-            If the traces are ASCII encoded, code offset
+            If the traces are ASCII encoded, code offset.
         """
         self.mode = mode
         self.direction = direction
@@ -330,7 +348,7 @@ class Meta:
         self.offset = offset
 
     def clear(self):
-        """Resets meta-data
+        """Resets meta-data.
 
         """
         self.mode = None
@@ -341,12 +359,12 @@ class Meta:
         self.offset = 0
 
     def to_csv(self, path):
-        """Export meta-data to a CSV file
+        """Exports meta-data to a CSV file.
 
         Parameters
         ----------
         path : str
-            Path to the CSV file to write
+            Path to the CSV file to write.
 
         """
         with open(path, "w", newline="") as file:
@@ -358,17 +376,17 @@ class Meta:
 
     @classmethod
     def from_csv(cls, path):
-        """Import meta-data from CSV file
+        """Imports meta-data from CSV file.
 
         Parameters
         ----------
         path : str
-            Path to the CSV to read
+            Path to the CSV to read.
 
         Returns
         -------
         Meta
-            Imported meta-data
+            Imported meta-data.
         """
         with open(path, "r", newline="") as file:
             reader = csv.reader(file, delimiter=";")
@@ -378,27 +396,27 @@ class Meta:
 
 
 class Leak:
-    """Side-channel power consumption leakage data
+    """Side-channel leakage data.
 
-    This class represent the power consumption traces
-    acquired during encryption in order to process these
+    This class represents the power consumption traces
+    acquired during encryption in order to process these.
 
     Attributes
     ----------
     samples: list[int]
-        count of samples for each traces
+        Count of samples for each traces.
     traces: list[list[int]]
-        power consumption leakage signal for each acquisition
+        Power consumption leakage signal for each acquisition.
 
     """
 
     def __init__(self, traces=None):
-        """Parse raw traces data
+        """Parses raw traces data.
 
         Parameters
         ----------
         traces : list[list[int]], optional
-            power consumption leakage signal for each acquisition
+            Power consumption leakage signal for each acquisition.
 
         """
         if traces:
@@ -409,19 +427,19 @@ class Leak:
             self.traces = []
 
     def clear(self):
-        """Clears leakage data
+        """Clears leakage data.
 
         """
         self.samples.clear()
         self.traces.clear()
 
     def to_csv(self, path):
-        """Exports leakage data to CSV
+        """Exports leakage data to CSV.
 
         Parameters
         ----------
         path : str
-            Path to the CSV file to write
+            Path to the CSV file to write.
 
         """
         with open(path, "w", newline="") as file:
@@ -430,17 +448,17 @@ class Leak:
 
     @classmethod
     def from_csv(cls, path):
-        """Imports leakage data from CSV
+        """Imports leakage data from CSV.
 
         Parameters
         ----------
         path : str
-            Path to the CSV to read
+            Path to the CSV to read.
 
         Returns
         -------
         Leak
-            Imported leak data
+            Imported leak data.
         """
         leaks = []
         with open(path, "r", newline="") as file:
@@ -453,21 +471,20 @@ class Leak:
 
 
 class Parser:
-    """Binary data parser
+    """Binary data parser.
 
     This class is designed to parse binary acquisition data
     and store parsed data in the entity classes in order
     to later import and export it.
 
-
     Attributes
     ----------
     leak : Leak
-        power leakage data
+        Leakage data.
     data : Data
-        encryption data
+        Encryption data.
     meta : Meta
-        acquisition meta-data
+        Meta-data.
 
     See Also
     --------
@@ -476,16 +493,17 @@ class Parser:
     """
 
     def __init__(self, leak=None, data=None, meta=None):
-        """Construct an object with given attributes
+        """Initializes an object with given attributes
 
         Parameters
         ----------
-        leak : Leak, optional
-            power leakage data
-        data : Data, optional
-            encryption data
-        meta : Meta, optional
-            acquisition meta-data
+        leak : Leak
+            Leakage data.
+        data : Data
+            Encryption data.
+        meta : Meta
+            Meta-data.
+
         """
         self.leak = leak or Leak()
         self.data = data or Data()
@@ -493,22 +511,22 @@ class Parser:
 
     @classmethod
     def from_bytes(cls, s):
-        """Construct an object from given binary data
+        """Initializes an object with binary data.
 
         Parameters
         ----------
         s : bytes
-            binary data
+            Binary data.
 
         Returns
         -------
         Parser
-            Object containing parsed data
+            Parser initialized with data.
         """
         return Parser().parse_bytes(s)
 
     def pop(self):
-        """Pops acquired value while data lengths mismatch
+        """Pops acquired value until data lengths matches.
 
         This method allows to guarantee that the data contained
         in the parser will always have the same length which is
@@ -517,7 +535,7 @@ class Parser:
         Returns
         -------
         Parser
-            reference to self
+            Reference to self.
         """
         lens = list(map(len, [
             self.data.keys, self.data.plains, self.data.ciphers, self.leak.samples,
@@ -548,7 +566,7 @@ class Parser:
         return self
 
     def clear(self):
-        """Clears all the parser data
+        """Clears all the parser data.
 
         """
         self.leak.clear()
@@ -556,17 +574,17 @@ class Parser:
         self.data.clear()
 
     def parse_bytes(self, s):
-        """Parses the given bytes to retrieve acquisition data
+        """Parses the given bytes to retrieve acquisition data.
         
         Parameters
         ----------
         s : bytes
-            binary data
+            Binary data.
 
         Returns
         -------
         Parser
-            reference to self
+            Reference to self.
         """
         keywords = Keywords()
         expected = next(keywords)

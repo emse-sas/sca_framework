@@ -1,20 +1,19 @@
-"""API module to create a side-channel app
+"""High-level API module.
 
-This module provides high-level features to ease the writing
-of an application based on our side channel library.
+This module provides core features to ease the writing
+of an application based on the library :
 
-The functions of this module provide :
-
-* Application status logging
-* Time performance measurement
-* Plotting acquisition and correlation curves
-
+* Display application status
+* Measure timing performance
+* Acquire, import and export data
+* Perform data filtering and plots
+* Perform files creation and deletion routines
 
 """
 
+import functools
 import os
 import time
-import functools
 from datetime import timedelta
 from itertools import product
 
@@ -40,19 +39,19 @@ IMG_PATH_COR = os.path.join(IMG_PATH, COR_DIR)
 
 
 def operation_decorator(title, message):
-    """Decorate a function by printing messages and duration
+    """Executes a function and prints messages and duration
 
     Parameters
     ----------
     title : str
-        Title of the operation to perform, starting message
+        Starting message.
 
     message : str
-        End message on success
+        End message on success.
     Returns
     -------
         function
-            Decorated method
+            Decorated method.
 
     """
 
@@ -65,35 +64,13 @@ def operation_decorator(title, message):
             t_end = time.perf_counter()
             print(f"{message}\nelapsed: {str(timedelta(seconds=t_end - t_start))}")
             return result
+
         return wrapper
 
     return decorator
 
 
-def plot_decorator(title, xlabel, ylabel, path, name):
-    """Decorate a plot homogeneously among the application
-
-    This decorator plots and save figures when called
-
-    Parameters
-    ----------
-    title : str
-        Title of the plot
-    xlabel : str
-        X-axis label
-    ylabel : str
-        Y-axis label
-    path : str
-        Path to save the image plot
-    name : str
-        Name of the image plot file
-
-    Returns
-    -------
-    function
-        Decorator
-    """
-
+def __plot_decorator(title, xlabel, ylabel, path, name):
     def decorator(function):
         @functools.wraps(function)
         def wrapper(*args, **kwargs):
@@ -108,227 +85,162 @@ def plot_decorator(title, xlabel, ylabel, path, name):
             plt.close()
             return result
 
-        wrapper.__doc__ = function.__doc__
         return wrapper
 
     return decorator
 
 
 @operation_decorator("acquiring bytes", "acquisition successful!")
-def acquire(source, mode, count, path=None):
-    """Wrapper for acquisition methods provided in the library
+def acquire_bin(source, mode, iterations, path=None):
+    """Acquires binary data from serial or file.
 
-    This method wraps binary reads from file or serial.
+    If ``source`` is a serial channel such as ``COM1``,
+    the acquired data is write-back to a log file.
+    ``path`` must be the path of the write-back file.
+
+    Otherwise, it reads the file with the prefix given by ``source``.
+    Therefore ``path`` must be the path of the file to read.
+
+    Notes
+    -----
+
+    * The default path is the data path created by ``setup.py``.
 
     Parameters
     ----------
     source : str
-        Source channel our source file prefix
+        Serial channel or file prefix.
     mode : str
-        Encryption source
-    count : int
-        Count of power consumption traces to acquire
+        Encryption mode.
+    iterations : int
+        Requested count of traces.
     path : str, optional
-        If the source is a serial channel, path of the write-back file.
-        Else, path where to read the binary data
+        Export or source path.
 
     Returns
     -------
     bytes
-        Binary data acquired
-
-    See Also
-    --------
-    log.Read : static class for binary reading
+        Binary data string
 
     """
     path = path or os.path.join(DATA_PATH_ACQ, mode)
     print(f"source: {source}")
     if source[:3] == "COM":
-        s = log.Read.serial(count, source, hardware=mode == "hw")
-        log.Write.bytes(s, os.path.join(path, f"cmd_{mode}_{count}.log"))
+        s = log.read.serial(iterations, source, hardware=mode == "hw")
+        log.write.bytes(s, os.path.join(path, f"cmd_{mode}_{iterations}.log"))
     else:
-        s = log.Read.file(os.path.join(path, f"{source}_{mode}_{count}.log"))
+        s = log.read.file(os.path.join(path, f"{source}_{mode}_{iterations}.log"))
     print(f"buffer size: {format_sizeof(len(s))}")
     return s
 
 
 @operation_decorator("parsing bytes", "parsing successful!")
-def parse(s, iterations):
-    """Wrapper for parsing with library methods
+def parse_bin(s, iterations=None):
+    """Parses binary data.
 
     Parameters
     ----------
     s : bytes
-        binary data acquired
-    iterations : int
-        Requested count of power consumption traces acquired
+        Binary data string.
+    iterations : int, optional
+        Requested count of traces.
 
     Returns
     -------
     Parser
-        newly created parser
+        Parser initialized with binary data.
 
     """
     parser = log.Parser.from_bytes(s)
-    print(f"traces parsed: {parser.meta.iterations}/{iterations}")
+    iterations = f"/{iterations}" if iterations else ""
+    print(f"traces parsed: {parser.meta.iterations}{iterations}")
     return parser
 
 
 @operation_decorator("exporting data", "export successful!")
-def export_log(leak, data, meta, iterations=None, path=None):
-    """Wrapper for exporting CSV acquisition data
+def export_csv(iterations, mode, meta=None, leak=None, data=None, path=None):
+    """Exports parser data to CSV files.
 
-    This wrapper allows exporting all the parsed data in a single call
+    If ``iterations`` and ``mode`` are not specified
+    ``meta`` must be given.
+
+    Otherwise these parameters must represent the expected values
+    received by the SoC in order to track unexpected behavior.
 
     Parameters
     ----------
-    leak : log.Leak
-        leakage data
-    data : log.Data
-        Encryption data
-    meta : log.Meta
-        Meta-data
     iterations : int
-        Requested count of power consumption traces acquired
-    path : str
-        Path where to save CSV files
+        Requested count of traces.
+    mode : str
+        Encryption mode.
+    meta : py_sca.lib.log.Meta, optional
+        Meta-data.
+    leak : py_sca.lib.log.Leak, optional
+        Leakage data.
+    data : py_sca.lib.log.Data, optional
+        Encryption data.
+    path : str, optional
+        Path of CSV files.
 
     """
-    iterations = iterations or meta.iterations
-    path = path or os.path.join(DATA_PATH_ACQ, meta.mode)
-    data.to_csv(os.path.join(path, f"data_{meta.mode}_{iterations}.csv"))
-    leak.to_csv(os.path.join(path, f"leak_{meta.mode}_{iterations}.csv"))
-    meta.to_csv(os.path.join(path, f"meta_{meta.mode}_{iterations}.csv"))
+
+    path = path or os.path.join(DATA_PATH_ACQ, mode)
+    if data:
+        data.to_csv(os.path.join(path, f"data_{mode}_{iterations}.csv"))
+    if leak:
+        leak.to_csv(os.path.join(path, f"leak_{mode}_{iterations}.csv"))
+    if meta:
+        meta.to_csv(os.path.join(path, f"meta_{mode}_{iterations}.csv"))
 
 
 @operation_decorator("importing data", "import successful!")
-def import_log(mode, count, path=None):
-    """Wrapper for importing CSV acquisition data
-
-    This method allows reading acquisition data without the need
-    of a parser.
+def import_csv(iterations, mode, path=None):
+    """Imports CSV files and parse data.
 
     Parameters
     ----------
+    iterations : int
+        Requested count of traces.
     mode : str
-        Encryption source
-    count : int
-        Requested count of power consumption traces
+        Encryption mode.
     path : str, optional
-        Path where to load CSV files
+        Path of CSV files.
     Returns
     -------
-    tuple[log.Leak, log.Data, log.Meta]
-        Parsed data
+
+    leak : py_sca.lib.log.Leak
+        Leakage data.
+    data : py_sca.lib.log.Data
+        Encryption data.
+    meta : py_sca.lib.log.Meta
+        Meta-data.
 
     """
     path = path or os.path.join(DATA_PATH_ACQ, mode)
-    leak = log.Leak.from_csv(os.path.join(path, f"leak_{mode}_{count}.csv"))
-    data = log.Data.from_csv(os.path.join(path, f"data_{mode}_{count}.csv"))
-    meta = log.Meta.from_csv(os.path.join(path, f"meta_{mode}_{count}.csv"))
-    print(f"traces imported: {meta.iterations}/{count}")
+    leak = log.Leak.from_csv(os.path.join(path, f"leak_{mode}_{iterations}.csv"))
+    data = log.Data.from_csv(os.path.join(path, f"data_{mode}_{iterations}.csv"))
+    meta = log.Meta.from_csv(os.path.join(path, f"meta_{mode}_{iterations}.csv"))
+    print(f"traces imported: {meta.iterations}/{iterations}")
     return leak, data, meta
 
 
 @operation_decorator("processing traces", "processing successful!")
-def process_acquisition(leak):
-    """Acquisition basic data processing
+def filter_traces(leak):
+    """Filters raw traces to ease correlation.
 
     Parameters
     ----------
-    leak : log.Leak
-        leakage data
+    leak : py_sca.lib.log.Leak
+        Leakage data.
 
     Returns
     -------
-    tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
-        - Cropped traces
-        - Average trace
-        - Spectrum of the average
-        - Frequency axis for the spectrum
-
-    """
-    # traces = tr.pad(parser.leak.traces, parser.meta.offset)
-    traces = np.array(tr.crop(leak.traces))
-    mean = traces.mean(axis=0)
-    spectrum = np.absolute(fft.fft(mean - np.mean(mean)))
-    freq = np.fft.fftfreq(spectrum.size, 1.0 / F_SAMPLING)
-    return traces, mean, spectrum, freq
-
-
-@operation_decorator("plotting data", "plot successful!")
-def plot_acquisition(processed, meta, path=None, limit=None, scale=1e6):
-    """Acquisition data plotting
-
-    Parameters
-    ----------
-    processed : tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
-        - Cropped traces
-        - Average trace
-        - Spectrum of the average
-        - Frequency axis for the spectrum
-    meta : log.Meta
-        Meta-data
-    path : str
-        Path where to save plots
-    limit : int
-        Count of raw acquisition curves to plot
-    scale : int, float
-        Frequency scale for spectrum plot
-
-    See Also
-    --------
-    process_acquisition : process acquisition data
-
-    """
-    traces, mean, spectrum, freq = processed
-    n, m = traces.shape
-    freq = freq[:spectrum.size // 2] / scale
-    f = np.argsort(freq)
-    path = path or os.path.join(IMG_PATH_ACQ, meta.mode)
-    limit = limit or len(traces)
-    suffix = f"(iterations: {meta.iterations}, samples: {m}, sensors: {meta.sensors})"
-
-    @plot_decorator(f"Raw power consumptions {suffix}",
-                    "Time Samples", "Hamming Weights",
-                    path, f"sca_raw_{meta.mode}_{meta.iterations}")
-    def plot_raw():
-        return [plt.plot(traces[d], label=f"sample {d}") for d in range(0, limit)]
-
-    @plot_decorator(f"Average power consumption {suffix}",
-                    "Time Samples", "Hamming Weights",
-                    path, f"sca_avg_{meta.mode}_{meta.iterations}")
-    def plot_mean():
-        return plt.plot(mean, color="grey")
-
-    @plot_decorator(f"Average power consumption FFT {suffix}",
-                    "Frequency (MHz)", "Hamming Weight",
-                    path, f"sca_fft_{meta.mode}_{meta.iterations}")
-    def plot_fft():
-        return plt.plot(freq[f], spectrum[f], color="red")
-
-    plt.rcParams["figure.figsize"] = (16, 9)
-    plot_raw()
-    plot_mean()
-    plot_fft()
-
-
-@operation_decorator("processing traces", "processing successful!")
-def process_filter(leak):
-    """Filters raw traces
-
-    Parameters
-    ----------
-    leak : log.Leak
-        leakage data
-
-    Returns
-    -------
-    tuple[np.ndarray, np.ndarray, np.ndarray]
-        - Filtered traces
-        - Filter denominator coefficients
-        - Filter numerator coefficients
+    traces : np.ndarray
+        Filtered traces matrix.
+    b : np.ndarray
+        Filter's denominator coefficients.
+    a : np.ndarray
+        Filter's numerator coefficients.
 
     """
     traces = np.array(tr.crop(leak.traces))
@@ -344,104 +256,113 @@ def process_filter(leak):
 
 
 @operation_decorator("creating handler", "handler successfully create!")
-def create_handler(data, traces):
-    """Wrapper for the creation of an attack handler
+def init_handler(data, traces):
+    """Creates a correlation handler.
 
     Parameters
     ----------
-    data : log.Data
-        Encryption data
+    data : py_sca.lib.log.Data
+        Encryption data.
     traces : np.ndarray
-        Power consumption traces
+        Traces matrix.
 
     Returns
     -------
-    cpa.Handler
-        Handler ready to perform correlation
+    py_sca.lib.cpa.Handler
+        Handler initialized to perform correlation over ``traces``.
 
     """
     blocks = np.array([aes.words_to_block(block) for block in data.plains], dtype=np.uint8)
     return cpa.Handler(blocks, aes.words_to_block(data.keys[0]), traces)
 
 
-@operation_decorator("computing correlation", "correlation computed!")
-def correlate(handler):
-    """Wrapper for correlation computation
+@operation_decorator("plotting data", "plot successful!")
+def plot_acq(leak, meta, path=None, limit=None, scale=1e6):
+    """Process acquisition data, plots and saves images.
 
     Parameters
     ----------
-    handler : cpa.Handler
-        Initialized handler
+    leak : py_sca.lib.log.Leak
+        Leakage data.
+    meta : py_sca.lib.log.Meta
+        Meta-data.
+    path : str
+        Images saving path.
+    limit : int
+        Count of raw acquisition curves to plot.
+    scale : int, float
+        Frequency scale for spectrum plot.
 
     Returns
     -------
-    np.ndarray
-        Temporal correlations
+    traces : np.ndarray
+        Traces matrix.
+    mean : np.ndarray
+        Average trace.
+    spectrum : np.ndarray
+        Spectrum of the average.
+    freq : np.ndarray
+        Spectrum's frequencies.
 
     """
-    cor = handler.correlations()
-    return cor
 
+    traces = np.array(tr.crop(leak.traces))
+    mean = traces.mean(axis=0)
+    spectrum = np.absolute(fft.fft(mean - np.mean(mean)))
+    freq = np.fft.fftfreq(spectrum.size, 1.0 / F_SAMPLING)
+    n, m = traces.shape
+    freq = freq[:spectrum.size // 2] / scale
+    f = np.argsort(freq)
+    path = path or os.path.join(IMG_PATH_ACQ, meta.mode)
+    limit = limit or len(traces)
+    suffix = f"(iterations: {meta.iterations}, samples: {m}, sensors: {meta.sensors})"
 
-@operation_decorator("computing correlation", "correlation computed!")
-def guess_key(handler, cor):
-    """Wrapper for key guessing
+    @__plot_decorator(f"Raw power consumptions {suffix}",
+                      "Time Samples", "Hamming Weights",
+                      path, f"sca_raw_{meta.mode}_{meta.iterations}")
+    def plot_raw():
+        return [plt.plot(traces[d], label=f"sample {d}") for d in range(0, limit)]
 
-    Parameters
-    ----------
-    handler : cpa.Handler
-        Initialized handler
-    cor : np.ndarray
-        Temporal correlations
+    @__plot_decorator(f"Average power consumption {suffix}",
+                      "Time Samples", "Hamming Weights",
+                      path, f"sca_avg_{meta.mode}_{meta.iterations}")
+    def plot_mean():
+        return plt.plot(mean, color="grey")
 
-    Returns
-    -------
-    tuple[np.ndarray, np.ndarray, np.ndarray]
-        - Guessed key
-        - Maximum temporal correlations
-        - Exact guesses matrix
+    @__plot_decorator(f"Average power consumption FFT {suffix}",
+                      "Frequency (MHz)", "Hamming Weight",
+                      path, f"sca_fft_{meta.mode}_{meta.iterations}")
+    def plot_fft():
+        return plt.plot(freq[f], spectrum[f], color="red")
 
-    """
-    guess, maxs, exact = handler.guess_stats(cor)
-    print("key:")
-    print(handler.key)
-    print("guess:")
-    print(guess)
-    print(f"correct guesses: {np.count_nonzero(exact):d}/16")
-    print(exact)
-    return guess, maxs, exact
+    plt.rcParams["figure.figsize"] = (16, 9)
+    plot_raw()
+    plot_mean()
+    plot_fft()
+
+    return traces, mean, spectrum, freq
 
 
 @operation_decorator("plotting data", "plot successful!")
-def plot_correlations(meta, cor, key, stats, envelope, path=None):
-    """Correlation data plotting
+def plot_cor(handler, meta, path=None):
+    """Plots temporal correlations and save images.
 
     Parameters
     ----------
-    meta : log.Meta
-        Meta-data
-    cor : np.ndarray
-        Temporal correlations
-    key : np.ndarray
-        Key block to guess
-    stats : tuple[np.ndarray, np.ndarray, np.ndarray]
-        - Guessed key
-        - Maximum temporal correlations
-        - Exact guesses matrix
-    envelope : tuple[np.ndarray, np.ndarray]
-        Guess envelope
+    handler : py_sca.lib.cpa.Handler
+        Initialized handler.
+    meta : py_sca.lib.log.Meta
+        Meta-data.
     path : str
-        Path where to save plots
-
-    See Also
-    --------
-    cpa.guess_envelope : compute guess envelope
-    cpa.guess_stats : compute guess statistics
+        Images saving path.
 
     """
+
     path = path or os.path.join(IMG_PATH_COR, meta.mode)
-    guess, maxs, exact = stats
-    cor_max, cor_min = envelope
+    cor = handler.correlations()
+    guess, maxs, exact = handler.guess_stats(cor)
+    cor_max, cor_min = handler.guess_enveloppe(cor)
+    key = handler.key
     _, _, m = cor_max.shape
     plt.rcParams["figure.figsize"] = (16, 9)
 
@@ -450,7 +371,7 @@ def plot_correlations(meta, cor, key, stats, envelope, path=None):
         c = 100 * maxs[i, j, guess[i, j]]
         plt.fill_between(range(m), cor_max[i, j], cor_min[i, j], color="grey")
 
-        @plot_decorator(
+        @__plot_decorator(
             f"Correlation byte {b} (iterations: {meta.iterations}, best correlation: {c:.2f}%)",
             "Time Samples",
             "Pearson Correlation",
@@ -465,24 +386,9 @@ def plot_correlations(meta, cor, key, stats, envelope, path=None):
         plot_guess()
 
 
-def create_subdir(path=None):
-    """Creates a sub dir without failing
-
-    Parameters
-    ----------
-    path : str
-        Path where to create sub-dirs
-
-    """
-    if path:
-        try_create_dir(path)
-    for mode in MODES:
-        try_create_dir(os.path.join(path, mode))
-
-
 @operation_decorator("removing logs", "remove success!")
 def remove_logs():
-    """Remove all the log files, CSV and binary
+    """Removes all the log files, CSV and binary.
 
     """
     remove_subdir_files(DATA_PATH_ACQ)
@@ -490,7 +396,7 @@ def remove_logs():
 
 @operation_decorator("removing acquisition images", "remove success!")
 def remove_acquisition_images():
-    """Remove all the acquisition images
+    """Removes all the acquisition images.
 
     """
     remove_subdir_files(IMG_PATH_ACQ)
@@ -498,7 +404,7 @@ def remove_acquisition_images():
 
 @operation_decorator("removing correlation images", "remove success!")
 def remove_correlation_images():
-    """Remove all the correlations images
+    """Removes all the correlations images.
 
     """
     remove_subdir_files(IMG_PATH_COR)
@@ -506,20 +412,27 @@ def remove_correlation_images():
 
 @operation_decorator("creating log dirs", "create success!")
 def create_logs_dir():
-    """Wrapper for data directories creation
+    """Creates data directories.
 
     """
     try_create_dir(DATA_PATH)
-    create_subdir(DATA_PATH_ACQ)
-    create_subdir(DATA_PATH_COR)
+    __create_subdir(DATA_PATH_ACQ)
+    __create_subdir(DATA_PATH_COR)
 
 
 @operation_decorator("creating images dirs", "create success!")
 def create_images_dir():
-    """Wrapper for images directories creation
+    """Creates images directories.
 
     """
     try_create_dir(MEDIA_PATH)
     try_create_dir(IMG_PATH)
-    create_subdir(IMG_PATH_ACQ)
-    create_subdir(IMG_PATH_COR)
+    __create_subdir(IMG_PATH_ACQ)
+    __create_subdir(IMG_PATH_COR)
+
+
+def __create_subdir(path=None):
+    if path:
+        try_create_dir(path)
+    for mode in MODES:
+        try_create_dir(os.path.join(path, mode))

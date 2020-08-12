@@ -1,10 +1,3 @@
-"""Remove all the files created by this software
-
-The goal of this script is to clean all the files
-created during correlation or acquisition.
-
-"""
-
 import argparse
 
 import core
@@ -20,10 +13,14 @@ def main(args):
         core.remove_correlation_images()
 
 
-argp = argparse.ArgumentParser(description="sca clean")
-argp.add_argument("-l", "--log", help="remove log files", action="store_true")
-argp.add_argument("-a", "--acq", help="remove acquisition images", action="store_true")
-argp.add_argument("-c", "--cor", help="remove correlation images", action="store_true")
+argp = argparse.ArgumentParser(
+    description="Clean the data and the medias produced by the application.")
+argp.add_argument("-l", "--log", action="store_true",
+                  help="Remove log files.")
+argp.add_argument("-a", "--acq", action="store_true",
+                  help="Remove acquisition images.")
+argp.add_argument("-c", "--cor", action="store_true",
+                  help="Remove correlation images.")
 
 if __name__ == "__main__":
     main(argp.parse_args())

@@ -1,5 +1,7 @@
 import unittest
+
 import numpy as np
+
 from lib import aes
 
 
@@ -29,14 +31,14 @@ class HandlerTest(unittest.TestCase):
             [0xd8, 0x30, 0x80, 0x5a]
         ], dtype=np.uint8)
 
-    def test_encrypt(self):
         np.set_printoptions(formatter={"int": hex})
+
+    def test_encrypt(self):
         handler = aes.Handler(self.key)
         block = handler.encrypt(self.plain)
         self.assertEqual(np.linalg.norm(block - self.cipher), 0)
 
     def test_decrypt(self):
-        np.set_printoptions(formatter={"int": hex})
         handler = aes.Handler(self.key)
         block = handler.decrypt(self.cipher)
         self.assertEqual(np.linalg.norm(block - self.plain), 0)

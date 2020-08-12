@@ -1,6 +1,3 @@
-"""Create necessary sub-directories and data for the framework
-
-"""
 import argparse
 
 import core
@@ -12,7 +9,8 @@ def main():
     core.create_images_dir()
 
 
-argp = argparse.ArgumentParser(description="sca setup")
+argp = argparse.ArgumentParser(
+    description="Create directories and data for the application.")
 
 if __name__ == "__main__":
     main()

@@ -1,11 +1,16 @@
-"""Perform signal processing on power consumption traces
+"""Perform signal processing on power consumption traces.
 
-This module is designed to provide fast basic signal processing
-function for power consumption signals
+This module is designed to provide fast signal processing
+function for power consumption signals.
 
-Notes
------
-- The module does not provide any filtering features
+Examples
+--------
+>>> from lib import log, traces as tr
+>>> from numpy import np
+>>> s = log.read.file("path/to/binary/file")
+>>> parser = log.Parser.from_bytes(s)
+>>> traces = np.array(tr.crop(parser.leak.traces))
+>>> traces = np.array(tr.pad(parser.leak.traces))
 
 """
 
@@ -14,22 +19,23 @@ from scipy import stats
 
 
 def crop(traces, end=None):
-    """Crop all the traces signals to have the same duration
+    """Crops all the traces signals to have the same duration.
 
-    If end parameter is not provided the traces are cropped to have
+    If ``end`` parameter is not provided the traces are cropped to have
     the same duration as the shortest given trace.
 
     Parameters
     ----------
     traces : list[list[int]]
-        2D list of numbers representing the trace signal
+        2D list of numbers representing the trace signal.
     end : int, optional
         Index after which the traces are truncated.
-        Must be inferior to the length of the shortest trace
+        Must be inferior to the length of the shortest trace.
+
     Returns
     -------
     list[list[int]]
-        Cropped traces
+        Cropped traces.
 
     """
     m = min(map(len, traces))
@@ -38,24 +44,24 @@ def crop(traces, end=None):
 
 
 def pad(traces, fill=0, end=None):
-    """Pad all the traces signals have the same duration
+    """Pads all the traces signals have the same duration.
 
-    If end parameter is not provided the traces are padded to have
+    If ``end`` parameter is not provided the traces are padded to have
     the same duration as the longest given trace.
 
     Parameters
     ----------
     traces : list[list[int]]
-        2D list of numbers representing the trace signal
+        2D list of numbers representing the trace signal.
     fill : int, optional
-        Padding value to insert after the end of traces
+        Padding value to insert after the end of traces.
     end : int, optional
-        New count of samples of the traces
-        Must be greater than the length of the longest trace
+        New count of samples of the traces.
+        Must be greater than the length of the longest trace.
     Returns
     -------
     list[list[int]]
-        Padded traces
+        Padded traces.
 
     """
     samples = list(map(len, traces))
@@ -72,22 +78,22 @@ def sync(traces, step=1, stop=None):
 
     More precisely, it compares the traces to a reference trace
     by rolling theses forward or backward. The algorithm search
-    for the roll value that maximizes pearson correlation
+    for the roll value that maximizes pearson correlation.
     
     Parameters
     ----------
     traces : np.ndarray
-        2D numbers array representing cropped or padded traces data
+        2D numbers array representing cropped or padded traces data.
     step : int, optional
         Rolling step, if equals n, the trace will be rolled
-        n times in both directions at each rolling iteration
+        n times in both directions at each rolling iteration.
     stop : int, optional
-        Rolling stop, maximum roll to perform
+        Rolling stop, maximum roll to perform.
 
     Returns
     -------
         np.ndarray
-            2D array representing synchronized traces
+            2D array representing synchronized traces.
 
     """
     ref = traces[0]

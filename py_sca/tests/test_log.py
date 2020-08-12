@@ -92,13 +92,13 @@ class ParserTest(unittest.TestCase):
         self.cmd_path_hw_65536 = os.path.join(LOG_PATH, *["hw", "cmd_hw_65536.log"])
 
     def test_parse(self):
-        parser = log.Parser.from_bytes(log.Read.file(self.cmd_path_hw_256))
+        parser = log.Parser.from_bytes(log.read.file(self.cmd_path_hw_256))
         n = len(parser.leak.traces)
         self.assertEqual(n, len(parser.data.plains), "plains len mismatch")
         self.assertEqual(n, parser.meta.iterations, "iterations mismatch")
         self.assertEqual(n, 256, "traces len mismatch")
 
-        parser = log.Parser.from_bytes(log.Read.file(self.cmd_path_hw_65536))
+        parser = log.Parser.from_bytes(log.read.file(self.cmd_path_hw_65536))
         n = len(parser.leak.traces)
         self.assertEqual(n, len(parser.data.plains), "plains len mismatch")
         self.assertEqual(n, parser.meta.iterations, "iterations mismatch")

@@ -1,18 +1,27 @@
-"""Side-channel Python application
+"""Python application and high-level API
 
 This package is a Python application that provides all the needed
 features for side-channel attack from an SoC.
 The application is composed of several scripts that can be launched
 via the command prompt.
 
-The scripts ensure the two following tasks :
+Examples
+--------
+.. code-block:: shell
 
-1. Acquire side-channel data
-2. Attack SoC
+    $ python setup.py
+    $ python acquire.py 256 com5
+    $ python clean.py -c -a
 
-The package also provide an API and a library in order
+The scripts perform the two following tasks :
+
+* Acquire data from SoC using ``acquire.py``
+* Attack the data using ``attack.py``
+
+The package also provides an API in order
 to allow you code your own acquisition and attack scripts.
-All the scripts are compatible with the `help` builtin function and
-can print a usage message.
+
+Scripts's help and usage can be printed using
+the ``help`` builtin function.
 
 """

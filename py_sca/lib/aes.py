@@ -1,28 +1,36 @@
-"""Numpy based AES encryption/decryption for side-channel attacks
+"""Numpy based AES module for side-channel attacks
 
-This module is designed to allow easily build power
-consumption models.
+This module is designed to allow easily build power consumption models.
 
-It provides all the round operations used in the AES algorithm.
-It also provides a handler class used to encapsulate key-expansion and
+It separately provides all the round operations used in the AES algorithm.
+It also features a handler class used to encapsulate key-expansion and
 ease encryption and decryption.
-
-Unlike the AES modules that can be found on pip, this one is slower and
-is designed to keep a full trace of the operations during encryption.
-More precisely, this module stores the value of the message block
-at each round and for each operation within the round.
-
-Furthermore, if you dont want to perform a complete encryption,
-you can still use the round functions provided to compute your
-hypothetical power consumptions.
-
 
 Examples
 --------
 >>> from lib import aes
->>> k = 0x20 # round 0 byte n key value
->>> h = 0x11 # hypothesis for byte n
->>> bin(aes.S_BOX[k ^ h] ^ k).count("1") # hamming distance
+>>> import numpy as np
+>>> key = np.ones((4,4), dtype=np.uint8)
+>>> plain = np.eye(4, dtype=np.uint8)
+>>> ark = aes.add_round_key(plain, key)
+>>> handler = aes.Handler(key)
+>>> cipher = handler.encrypt(plain)
+
+Unlike the usual AES implementation, this one keeps a full trace
+of the intermediate operations during encryption.
+
+More precisely, this module stores the value of the message block
+at each round and for each round operation.
+
+Examples
+--------
+>>> from lib import aes
+>>> import numpy as np
+>>> key = np.ones((4,4), dtype=np.uint8)
+>>> plain = np.eye(4, dtype=np.uint8)
+>>> handler = aes.Handler(key)
+>>> cipher = handler.encrypt(plain)
+>>> ark = handler.blocks[1, aes.Stages.ADD_ROUND_KEY]
 
 """
 
@@ -70,6 +78,7 @@ R_CON = np.array([
     [0x01, 0x00, 0x00, 0x00],
     [0x02, 0x00, 0x00, 0x00],
     [0x04, 0x00, 0x00, 0x00],
+    [0x08, 0x00, 0x00, 0x00],
     [0x10, 0x00, 0x00, 0x00],
     [0x20, 0x00, 0x00, 0x00],
     [0x40, 0x00, 0x00, 0x00],
@@ -98,17 +107,17 @@ def __multiply(x, y):
 
 
 def word_to_col(w):
-    """Splits a hexadecimal string to a bytes column
+    """Splits a hexadecimal string to a bytes column.
 
     Parameters
     ----------
     w : str
-        Hexadecimal 32-bit word
+        Hexadecimal 32-bit word.
 
     Returns
     -------
     list
-        4 bytes column containing integers representing the input string
+        4 bytes column containing integers representing the input string.
 
     """
     x = int(w, 16)
@@ -116,7 +125,7 @@ def word_to_col(w):
 
 
 def col_to_word(c):
-    """Formats a bytes column to a hexadecimal string
+    """Formats a bytes column as a hexadecimal string.
 
 
     Parameters
@@ -140,7 +149,7 @@ def col_to_word(c):
 
 
 def words_to_block(words):
-    """Transform hexadecimal message string into an AES block matrix
+    """Transforms hexadecimal message string into an AES block matrix.
 
     Parameters
     ----------
@@ -150,16 +159,16 @@ def words_to_block(words):
     Returns
     -------
     np.ndarray
-        4x4 matrix row major message block's matrix
+        4x4 matrix column major message block's matrix.
 
     Raises
     ------
     ValueError
-        If the count of words provided differs from 4
+        If the count of words provided differs from 4.
 
     See Also
     --------
-        word_to_col : column conversion from word
+        word_to_col : Column conversion from word.
 
     """
     if len(words) != BLOCK_LEN:
@@ -173,27 +182,27 @@ def words_to_block(words):
 
 
 def block_to_words(block):
-    """Format a state block into an hexadecimal string
+    """Formats a state block into an hexadecimal string.
 
     Parameters
     ----------
     block : np.ndarray
-        4x4 row major block matrix
+        4x4 row major block matrix.
 
     Returns
     -------
     str
-        4 32-bit words string representing the column major block
+        4 32-bit words string representing the column major block.
 
 
     Raises
     ------
     ValueError
-        If count of rows in block provided differs from 4
+        If count of rows in block provided differs from 4.
 
     See Also
     --------
-        col_to_word : column conversion to hexadecimal string
+        col_to_word : column conversion to hexadecimal string.
     """
     if len(block) != BLOCK_LEN:
         raise ValueError("input block must be of length 4")
@@ -201,14 +210,14 @@ def block_to_words(block):
 
 
 def add_round_key(block, key):
-    """Performs a bitwise XOR between a state block and the key
+    """Performs a bitwise XOR between a state block and the key.
 
     Parameters
     ----------
     block : np.ndarray
-        4x4 column major block matrix
+        4x4 column major block matrix.
     key : np.ndarray
-        4x4  column major block matrix
+        4x4  column major block matrix.
 
     Returns
     -------
@@ -220,12 +229,12 @@ def add_round_key(block, key):
 
 
 def sub_bytes(block):
-    """Applies SBOX to a state block
+    """Applies sbox to a state block.
 
     Parameters
     ----------
     block : np.ndarray
-        4x4 column major block matrix
+        4x4 column major block matrix.
 
     Returns
     -------
@@ -242,17 +251,17 @@ def sub_bytes(block):
 
 
 def inv_sub_bytes(block):
-    """Applies inverse SBOX to a state block
+    """Applies inverse sbox to a state block.
 
     Parameters
     ----------
     block : np.ndarray
-        4x4 column major block matrix
+        4x4 column major block matrix.
 
     Returns
     -------
     np.ndarray
-        4x4 result block matrix
+        4x4 result block matrix.
 
     """
     ret = block.copy()
@@ -264,17 +273,17 @@ def inv_sub_bytes(block):
 
 
 def shift_rows(block):
-    """Shifts rows of a state block
+    """Shifts rows of a state block.
 
     Parameters
     ----------
     block : np.ndarray
-        4x4 column major block matrix
+        4x4 column major block matrix.
 
     Returns
     -------
     np.ndarray
-        4x4 result block matrix
+        4x4 result block matrix.
 
     """
     ret = block.copy()
@@ -285,17 +294,17 @@ def shift_rows(block):
 
 
 def inv_shift_rows(block):
-    """Reverses shift rows of a state block
+    """Reverses shift rows of a state block.
 
     Parameters
     ----------
     block : np.ndarray
-        4x4 column major block matrix
+        4x4 column major block matrix.
 
     Returns
     -------
     np.ndarray
-        4x4 result block matrix
+        4x4 result block matrix.
 
     """
     ret = block.copy()
@@ -306,17 +315,17 @@ def inv_shift_rows(block):
 
 
 def mix_columns(block):
-    """Mix columns of a state block
+    """Mix columns of a state block.
 
     Parameters
     ----------
     block : np.ndarray
-        4x4 column major block matrix
+        4x4 column major block matrix.
 
     Returns
     -------
     np.ndarray
-        4x4 result block matrix
+        4x4 result block matrix.
 
     """
     ret = block.copy()
@@ -330,17 +339,17 @@ def mix_columns(block):
 
 
 def inv_mix_columns(block):
-    """Reverses mix columns of a state block
+    """Reverses mix columns of a state block.
 
     Parameters
     ----------
     block : np.ndarray
-        4x4 column major block matrix
+        4x4 column major block matrix.
 
     Returns
     -------
     np.ndarray
-        4x4 result block matrix
+        4x4 result block matrix.
 
     """
     ret = block.copy()
@@ -364,43 +373,43 @@ def inv_mix_columns(block):
 
 
 def sub_word(col):
-    """Applies SBOX to a 4 bytes column
+    """Applies SBOX to a key column.
 
     Parameters
     ----------
     col : np.ndarray
-        4 bytes column
+        4 bytes array.
 
     Returns
     -------
     np.ndarray
-        4 bytes result column
+        Result column.
 
     """
     return np.fromiter(map(lambda b: S_BOX[b], col), dtype=np.uint8)
 
 
 def rot_word(col):
-    """Rotates a 4 bytes column
+    """Rotates a 4 key column.
 
     Parameters
     ----------
     col : np.ndarray
-        4 bytes column
+        4 bytes array.
 
     Returns
     -------
     np.ndarray
-        4 bytes result column
+        Result column.
 
     """
     return np.roll(col, -1)
 
 
 class Stages:
-    """AES round stages enumeration
+    """AES round stages enumeration.
 
-    The index of the stage correspond to its order into the round
+    The index of the stage correspond to its order into the round.
     """
     START = 0
 
@@ -419,30 +428,19 @@ class Stages:
 
 
 class Handler:
-    """AES computations handler
-
-    This class is designed to handle AES encryption operations.
-    It allows to keep a trace of the intermediate stages.
+    """AES computations handler interface.
 
     Attributes
     ----------
     blocks : np.ndarray
-        4x4 block state matrix for each round and round operation
+        4x4 block state matrix for each round and each operation.
     keys : np.ndarray
-        4x4 block key matrix for each round
-
-    Examples
-    --------
-    >>> import numpy as np
-    >>> key = np.ones((4, 4), dtype=np.uint8)
-    >>> block = key.copy()
-    >>> handler = Handler(key)
-    >>> block = handler.encrypt(block)
+        4x4 block key matrix for each round.
 
     """
 
     def __init__(self, key):
-        """Construct object and perform key expansion
+        """Allocates memory and performs key expansion.
 
         Parameters
         ----------
@@ -456,17 +454,17 @@ class Handler:
         self.__key_expansion()
 
     def encrypt(self, block):
-        """Perform AES cipher algorithm on the given block
+        """Performs AES cipher algorithm.
 
         Parameters
         ----------
         block : np.ndarray
-            input message as 4x4 bytes matrix
+            Plain 4x4 column major block matrix.
 
         Returns
         -------
         np.ndarray
-            output cipher as 4x4 bytes matrix
+            Cipher 4x4 column major block matrix.
         """
         cur, key = self.blocks[0], self.keys[0]
         cur[Stages.START] = np.copy(block)
@@ -492,17 +490,18 @@ class Handler:
         return cur[-1].copy()
 
     def decrypt(self, block):
-        """Perform AES inverse cipher algorithm on the given block
+        """Performs AES inverse cipher algorithm.
 
         Parameters
         ----------
         block : np.ndarray
-            input cipher as 4x4 bytes matrix
+            Cipher 4x4 column major block matrix.
 
         Returns
         -------
         np.ndarray
-            output message as 4x4 bytes matrix
+            Plain 4x4 column major block matrix.
+
         """
         cur, key = self.blocks[N_ROUNDS], self.keys[N_ROUNDS]
         cur[Stages.START] = np.copy(block)

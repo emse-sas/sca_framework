@@ -1,16 +1,24 @@
-"""Model hypothesis and compute correlation
+"""Numpy based module for CPA side-channel attacks.
 
-The main goal of this module is to provide classes to handle efficiently
-side channel attacks via power consumption acquisition
+This module is provides abstractions to handle
+side channel attacks via power consumption acquisition.
 
-Thus, this module features a trace accumulator to avoid storing all the
-traces in memory. It also features a fast Pearson correlation algorithm
+It features a trace accumulator to avoid storing all the
+traces in memory. It also implements a fast Pearson correlation algorithm
 to retrieve attack results in a reasonable amount of time.
 
-Notes
------
-- In all that follows, we name a class of trace a set of trace having
-the same message byte value at given block position in message.
+Examples
+--------
+>>> from lib import log, cpa, aes, traces as tr
+>>> import numpy as np
+>>> meta = log.Meta.from_csv("path/to/meta.csv")
+>>> data = log.Data.from_csv("path/to/data.csv")
+>>> leak = log.Leak.from_csv("path/to/leak.csv")
+>>> blocks = np.array([aes.words_to_block(block) for block in data.plains], dtype=np.uint8)
+>>> key = aes.words_to_block(data.keys[0])
+>>> traces = np.array(tr.crop(leak.traces))
+>>> handler = cpa.Handler(blocks, key, traces)
+>>> correlations = handler.correlations()
 
 """
 
@@ -25,39 +33,41 @@ COUNT_CLS = 256  # Traces with the same byte value in a given position
 
 
 class Handler:
-    """Handle traces accumulation and correlation
+    """CPA correlation handler interface.
 
     Attributes
     ----------
     blocks: np.ndarray
-        Encrypted data blocks for each trace
+        Encrypted data blocks for each trace.
     key: np.ndarray
-        Key data block for all the traces
+        Key data block for all the traces.
     hyp: np.ndarray
-        Value of power consumption for each hypothesis and class
+        Value of power consumption for each hypothesis and class.
     lens: np.ndarray
-        Count of traces per class
+        Count of traces per class.
     means: np.ndarray
-        Average trace per class
+        Average trace per class.
     devs: np.ndarray
-        Standard deviation trace per class
+        Standard deviation trace per class.
     mean: np.ndarray
-        Average trace for all classes
+        Average trace for all classes.
     dev: np.ndarray
-        Standard deviation trace for all classes
+        Standard deviation trace for all classes.
+
     """
 
     def __init__(self, blocks, key, traces):
-        """Construct object with given traces to accumulate and data
+        """Allocates memory, accumulates traces and initialize model.
 
         Parameters
         ----------
         blocks : np.ndarray
-            Encrypted data blocks for each trace
+            Encrypted data blocks for each trace.
         key : np.ndarray
-            Key data block for all the traces
+            Key data block for all the traces.
         traces : np.ndarray
-            Power consumption traces
+            Traces matrix.
+
         """
         n, m = traces.shape
         self.blocks = blocks
@@ -72,17 +82,18 @@ class Handler:
         self.accumulate(traces).init_model()
 
     def accumulate(self, traces):
-        """Sort traces by class and compute class statistics
+        """Sorts traces by class and compute means and deviation.
 
         Parameters
         ----------
         traces : np.ndarray
-            Power consumption traces
+            Traces matrix.
 
         Returns
         -------
-        Handler
-            reference to self
+        py_sca.lib.cpa.Handler
+            Reference to self.
+
         """
         n, m = traces.shape
         bt = zip(self.blocks, traces)
@@ -107,25 +118,26 @@ class Handler:
         return self
 
     def init_model(self):
-        """Initialize power consumption model
+        """Initializes power consumption model.
 
         Returns
         -------
-        reference to self
+        py_sca.lib.cpa.Handler
+            Reference to self.
+
         """
         for h, k in product(range(COUNT_HYP), range(COUNT_CLS)):
             self.hyp[h, k] = bin(aes.S_BOX[k ^ h] ^ k).count("1")
         return self
 
     def correlations(self):
-        """Compute Pearson correlation with hypothesis and traces
-
-        This method implements a fast Pearson correlation computation.
+        """Computes Pearson correlation coefficient on current data.
 
         Returns
         -------
         np.ndarray
-            Temporal correlation per block position and hypothesis
+            Temporal correlation per block position and hypothesis.
+
         """
         n = len(self.blocks)
         m = len(self.means[0, 0, 0])
@@ -141,23 +153,26 @@ class Handler:
         return ret
 
     def guess_stats(self, cor):
-        """Compute the guessed key from correlation data
+        """Computes the best guess key from correlation data.
 
         Parameters
         ----------
         cor : np.ndarray
-            Temporal correlation per block position and hypothesis
+            Temporal correlation per block position and hypothesis.
 
         Returns
         -------
-        tuple[np.ndarray, np.ndarray, np.ndarray]
-            - Guessed key block
-            - Maximums of temporal correlation per hypothesis
-            - True if the guess is exact for each byte position
+        guess : np.ndarray
+            Guessed key block.
+        maxs : np.ndarray
+            Maximums of temporal correlation per hypothesis.
+        exact : np.ndarray
+            ``True`` if the guess is exact for each byte position.
 
         See Also
         --------
-        correlations : compute temporal correlation
+        correlations : Compute temporal correlation.
+
         """
         _, _, _, m = self.means.shape
         maxs = np.max(np.abs(cor), axis=3)
@@ -166,24 +181,31 @@ class Handler:
         return guess, maxs, exact
 
     def guess_envelope(self, cor):
-        """Compute the envelope of correlation
+        """Computes the envelope of correlation.
 
         The envelope consists on two curves representing
         respectively the max and min of temporal correlation
         at each instant.
 
-        This feature is mainly useful to plot correlations curve.
+        This feature is mainly useful to plot
+        temporal correlations curve.
 
         Parameters
         ----------
         cor : np.ndarray
-            Temporal correlation per block position and hypothesis
+            Temporal correlation per block position and hypothesis.
 
         Returns
         -------
-        tuple[np.ndarray, np.ndarray]
-            - Curve of maximum correlation at each instant
-            - Curve of minimum correlation at each instant
+        cor_max : np.ndarray
+            Maximum correlation at each instant.
+        cor_min : np.ndarray
+            Minimum correlation at each instant.
+
+        See Also
+        --------
+        correlations : Compute temporal correlation.
+
         """
         _, _, _, m = self.means.shape
         cor_max = np.zeros((aes.BLOCK_LEN, aes.BLOCK_LEN, m))

@@ -1,12 +1,22 @@
-"""Library for py_sca application
+"""Python library
 
-This library provide the basic features to perform a side-channel attack on SoC
-by using the power consumption leakage.
+This library provide the abstractions needed to represent
+the side channel-attack pipeline.
 
-The basic flow to attack a Soc is the following :
+It allows to code your own scripts without using
+the high-level API.
+This can be useful especially if you want to have a behavior
+during acquisition or processing that is not provided by the API.
 
-1. Acquire side-channel data (consumption traces)
-2. Parse and process the data
-3. Compute correlation
-4. Find the maximum of correlation
+The library allows to do the following tasks programmatically :
+
+* Acquire side-channel data
+* Acquire channel data
+* Parse the data
+* Export and import data
+* Apply basic filtering
+* Compute attack models
+* Compute correlation
+* Compute guess and related stats
+
 """

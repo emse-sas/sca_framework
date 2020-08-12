@@ -1,4 +1,4 @@
-"""General utility functions
+"""General utility functions.
 
 """
 
@@ -7,73 +7,73 @@ from datetime import timedelta
 
 
 def decode_hamming(c, offset=0):
-    """Decode ASCII encoded hamming weight
+    """Decodes ASCII encoded hamming weight.
     
     Parameters
     ----------
     c : str
-        Char representing encoded hamming weight
+        Char representing encoded hamming weight.
     offset : int, optional
-        Additional offset value used to encode weight
+        Additional offset value used to encode weight.
 
     Returns
     -------
     int
-        Decoded hamming weight
+        Decoded hamming weight.
     """
     return int(c) - ord("P") + offset
 
 
 def check_hex(w):
-    """Checks if a correct hexadecimal bytes string is given
+    """Checks if a correct hexadecimal bytes string is given.
 
     Parameters
     ----------
     w : str
-        Hexadecimal 32-bit word string
+        Hexadecimal 32-bit word string.
 
     Returns
     -------
-    0 padded hexadecimal string
+    0 padded hexadecimal string.
 
     Raises
     ------
     ValueError
-        Unable to parse integer from given string
+        Unable to parse integer from given string.
 
     """
     return f"{int(w, 16):08x}"
 
 
 def print_timing(message, sec1, sec0):
-    """Prints a message and the duration between the two given instants
+    """Prints a message and the duration between the two given instants.
 
     Parameters
     ----------
     message : str
-        Message to print
+        Message to print.
     sec1 : int
-        Start date as seconds
+        Start date as seconds.
     sec0 : int
-        End date as seconds
+        End date as seconds.
 
     """
     print(f"{message}elapsed: {str(timedelta(seconds=sec1 - sec0))}")
 
 
 def format_sizeof(num, suffix="B"):
-    """Convert and format a number to a file size unit
+    """Converts and format a number to a file size unit.
 
     Parameters
     ----------
     num : int
-        Number to format
+        Number to format.
     suffix : str
-        Unit suffix
+        Unit suffix.
     Returns
     -------
     str
-        Formatted number
+        Formatted number.
     """
     for unit in ["", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"]:
         if abs(num) < 1024.0:
@@ -83,14 +83,14 @@ def format_sizeof(num, suffix="B"):
 
 
 def remove_subdir_files(path):
-    """Remove files in the sub directories at given directory
+    """Removes files in the sub directories at given directory.
 
     Files in the given directory are not deleted.
 
     Parameters
     ----------
     path : str
-        Path where to remove
+        Path where to remove sub directories.
 
     """
     for dir_path, _, filenames in os.walk(path):
@@ -99,12 +99,12 @@ def remove_subdir_files(path):
 
 
 def try_create_dir(path):
-    """Create directory or print a message
+    """Creates directory or print a message
 
     Parameters
     ----------
     path : str
-        Path to the directory to create
+        Path to the directory to create.
 
     """
     try:
