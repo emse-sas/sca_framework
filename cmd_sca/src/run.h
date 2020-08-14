@@ -26,9 +26,9 @@
 
 typedef enum
 {
-    RUN_SUCCESS = -1,
-    RUN_FAILURE = -2
-} RUN_status_t;
+    RUN_ERR_NONE = -1,
+    RUN_ERR_USAGE = -2
+} RUN_err_t;
 
 /**
  * @brief Prints the help message for all commands
@@ -75,14 +75,14 @@ void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq);
  * @param non-optional command
  * @return `RUN_FAILURE` when the operation failed else `RUN_SUCCESS`
  */
-RUN_status_t RUN_aes(const CMD_cmd_t *cmd);
+RUN_err_t RUN_aes(const CMD_cmd_t *cmd);
 
 /**
  * @brief Launches the tdc command
  * @param non-optional command
  * @return `RUN_FAILURE` when the operation failed else `RUN_SUCCESS`
  */
-RUN_status_t RUN_tdc(const CMD_cmd_t *cmd);
+RUN_err_t RUN_tdc(const CMD_cmd_t *cmd);
 
 /**
  * @brief Reads values in FIFO and prints it
@@ -99,19 +99,19 @@ void RUN_fifo_flush();
  * @param non-optional command
  * @return `RUN_FAILURE` when the operation failed else `RUN_SUCCESS`
  */
-RUN_status_t RUN_fifo(const CMD_cmd_t *cmd);
+RUN_err_t RUN_fifo(const CMD_cmd_t *cmd);
 
 /**
  * @brief Launches the fifo command
  * @param non-optional command
  * @return `RUN_FAILURE` when the operation failed else `RUN_SUCCESS`
  */
-RUN_status_t RUN_sca(const CMD_cmd_t *cmd);
+RUN_err_t RUN_sca(const CMD_cmd_t *cmd);
 
 /**
  * @brief Launches the command prompts
  * @return `RUN_FAILURE` when a fatal error occurs else `RUN_SUCCESS`
  */
-RUN_status_t RUN_cmd();
+RUN_err_t RUN_cmd();
 
 #endif //SCA_FRAMEWORK_RUN_H

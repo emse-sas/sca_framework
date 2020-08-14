@@ -4,6 +4,18 @@
 
 #include "run.h"
 
+void RUN_usage(const CMD_type_t type)
+{
+    printf("usage: %-8s", CMD_labels[type]);
+    for (int option_idx = 0; CMD_allowed_options[type][option_idx] != CMD_NULL_OPTION; option_idx++)
+    {
+        printf("-%c %-16s ",
+               CMD_allowed_options[type][option_idx],
+               CMD_opt_type_labels[CMD_allowed_types[type][option_idx]]);
+    }
+    printf("\n");
+}
+
 void RUN_all_help()
 {
     int option_idx = 0;
@@ -15,8 +27,8 @@ void RUN_all_help()
         for (option_idx = 0; CMD_allowed_options[cmd_idx][option_idx] != CMD_NULL_OPTION; option_idx++)
         {
             printf("-%c %-16s ",
-                       CMD_allowed_options[cmd_idx][option_idx],
-                       CMD_opt_type_labels[CMD_allowed_types[cmd_idx][option_idx]]);
+                   CMD_allowed_options[cmd_idx][option_idx],
+                   CMD_opt_type_labels[CMD_allowed_types[cmd_idx][option_idx]]);
         }
         printf("\n");
     }
@@ -31,8 +43,8 @@ void RUN_cmd_help(const CMD_type_t type)
     for (; CMD_allowed_options[type][option_idx] != CMD_NULL_OPTION; option_idx++)
     {
         printf("\n\t-%c %-16s ",
-                   CMD_allowed_options[type][option_idx],
-                   CMD_opt_type_labels[CMD_allowed_types[type][option_idx]]);
+               CMD_allowed_options[type][option_idx],
+               CMD_opt_type_labels[CMD_allowed_types[type][option_idx]]);
     }
     printf("\n");
 }
@@ -135,7 +147,7 @@ void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq)
     printf("%s: %s\n", inv ? "plain" : "cipher", block_str);
 }
 
-RUN_status_t RUN_aes(const CMD_cmd_t *cmd)
+RUN_err_t RUN_aes(const CMD_cmd_t *cmd)
 {
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
     int cipher_idx = CMD_find_option(options_ptr, 'c');
@@ -148,7 +160,7 @@ RUN_status_t RUN_aes(const CMD_cmd_t *cmd)
         CMD_OPT_BOTH_PRESENT(plain_idx, cipher_idx) ||
         key_idx == CMD_ERR_NOT_FOUND)
     {
-        return RUN_FAILURE;
+        return RUN_ERR_USAGE;
     }
 
     int inv = plain_idx == CMD_ERR_NOT_FOUND;
@@ -167,10 +179,10 @@ RUN_status_t RUN_aes(const CMD_cmd_t *cmd)
         HEX_bytes_to_words(block, cmd->options[inv ? cipher_idx : plain_idx]->value.bytes, RUN_AES_BYTES_SIZE);
         RUN_hw_aes(block, key, inv, acq);
     }
-    return RUN_SUCCESS;
+    return RUN_ERR_NONE;
 }
 
-RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
+RUN_err_t RUN_tdc(const CMD_cmd_t *cmd)
 {
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
     int calibrate_idx = CMD_find_option(options_ptr, 'c');
@@ -179,7 +191,7 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
 
     if (CMD_OPT_BOTH_PRESENT(calibrate_idx, delay_idx))
     {
-        return RUN_FAILURE;
+        return RUN_ERR_USAGE;
     }
 
     uint64_t delay;
@@ -192,18 +204,18 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
     if (calibrate_idx != CMD_ERR_NOT_FOUND)
     {
         printf("*** calibration ***\n");
-        delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);  
+        delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);
     }
 
     if (read_idx != CMD_ERR_NOT_FOUND)
     {
         printf("raw: %08x\n", TDC_HW_read(cmd->options[read_idx]->value.integer, TDC_HW_MODE_RAW));
-        return RUN_SUCCESS;
+        return RUN_ERR_NONE;
     }
     printf("value: %08x\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
     printf("delay: 0x%08x%08x\n", (unsigned int)(delay >> 32), (unsigned int)delay);
 
-    return RUN_SUCCESS;
+    return RUN_ERR_NONE;
 }
 
 void RUN_fifo_flush()
@@ -223,7 +235,6 @@ void RUN_fifo_read(int mini)
     {
         weights[i] = OP_sum_weights(weights[i], NULL);
     }
-    
 
     printf("samples: %d\n", len);
     if (len == 0)
@@ -243,7 +254,7 @@ void RUN_fifo_read(int mini)
     }
 }
 
-RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
+RUN_err_t RUN_fifo(const CMD_cmd_t *cmd)
 {
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
     int read_idx = CMD_find_option(options_ptr, 'r');
@@ -253,7 +264,7 @@ RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
     if (CMD_OPT_BOTH_MISSING(read_idx, flush_idx) ||
         CMD_OPT_BOTH_PRESENT(read_idx, flush_idx))
     {
-        return RUN_FAILURE;
+        return RUN_ERR_USAGE;
     }
 
     if (flush_idx != CMD_ERR_NOT_FOUND)
@@ -263,10 +274,10 @@ RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
 
     RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
 
-    return RUN_SUCCESS;
+    return RUN_ERR_NONE;
 }
 
-RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
+RUN_err_t RUN_sca(const CMD_cmd_t *cmd)
 {
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
     int traces_idx = CMD_find_option(options_ptr, 't');
@@ -275,8 +286,9 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     int min_idx = CMD_find_option(options_ptr, 'm');
     if (traces_idx == CMD_ERR_NOT_FOUND)
     {
-        return RUN_FAILURE;
+        return RUN_ERR_USAGE;
     }
+
     int traces_count = cmd->options[traces_idx]->value.integer;
     int inv = inv_idx != CMD_ERR_NOT_FOUND;
     int hw = hw_idx != CMD_ERR_NOT_FOUND;
@@ -293,7 +305,7 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
     HEX_words_to_bytes(key8, key, RUN_AES_BYTES_SIZE);
     for (int idx = 0; idx < traces_count; idx++)
     {
-    	printf("\xfe\xfe\xfe\xfe\n");
+        printf("\xfe\xfe\xfe\xfe\n");
         HEX_random_words(block, idx + 1, RUN_AES_WORDS_SIZE);
         if (hw)
         {
@@ -307,15 +319,15 @@ RUN_status_t RUN_sca(const CMD_cmd_t *cmd)
         RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
     }
     printf("\xff\xff\xff\xff\n");
-    return RUN_SUCCESS;
+    return RUN_ERR_NONE;
 }
 
-RUN_status_t RUN_cmd()
+RUN_err_t RUN_cmd()
 {
     char line[CMD_LINE_SIZE], buffer[CMD_LINE_SIZE];
     CMD_cmd_t cmd;
     CMD_err_t cmd_error;
-    RUN_status_t run_status;
+    RUN_err_t run_status;
     int option_idx;
 
     CMD_init(&cmd);
@@ -327,8 +339,9 @@ RUN_status_t RUN_cmd()
         if (IO_get_line(line, CMD_LINE_SIZE) != IO_SUCCESS)
         {
             fprintf(stderr, "read error: errno=%d\n", errno);
-            return RUN_FAILURE;
+            return RUN_ERR_USAGE;
         }
+
         strcpy(buffer, line);
         switch ((cmd_error = CMD_parse_line(buffer, &cmd)))
         {
@@ -339,7 +352,7 @@ RUN_status_t RUN_cmd()
             continue;
         case CMD_ERR_ALLOC:
             fprintf(stderr, "allocation error: errno=%d\n", errno);
-            return RUN_FAILURE;
+            return RUN_ERR_USAGE;
         case CMD_ERR_FORMAT:
             fprintf(stderr, "invalid format: %s\n", line);
             continue;
@@ -347,12 +360,14 @@ RUN_status_t RUN_cmd()
             fprintf(stderr, "unexpected error: %d\n", cmd_error);
             continue;
         }
+
         if ((option_idx = CMD_check_options(cmd)) != CMD_ERR_NONE)
         {
             fprintf(stderr, "invalid option: %c\n", cmd.options[option_idx]->label);
             continue;
         }
-        run_status = RUN_SUCCESS;
+
+        run_status = RUN_ERR_NONE;
         switch (cmd.type)
         {
         case CMD_TYPE_NONE:
@@ -362,7 +377,7 @@ RUN_status_t RUN_cmd()
             break;
         case CMD_TYPE_QUIT:
             RUN_quit();
-            return RUN_SUCCESS;
+            return RUN_ERR_NONE;
         case CMD_TYPE_AES:
             run_status = RUN_aes(&cmd);
             break;
@@ -377,12 +392,17 @@ RUN_status_t RUN_cmd()
             break;
         default:
             fprintf(stderr, "not implemented: %s\n", strtok(line, " "));
-            break;
-        }
-        if (run_status != RUN_SUCCESS)
-        {
-            fprintf(stderr, "%s failed\n", CMD_labels[cmd.type]);
             continue;
         }
+
+        switch (run_status)
+        {
+        case RUN_ERR_NONE:
+            break;
+        case RUN_ERR_USAGE:
+            RUN_usage(cmd.type);
+            continue;
+        }
+
     } while (1);
 }
