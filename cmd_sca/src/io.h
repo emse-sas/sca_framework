@@ -17,6 +17,15 @@ typedef enum
     IO_FAILURE = -2
 } IO_status_t;
 
+typedef enum
+{
+    IO_KEYCODE_UP_ARROW = 'A',
+    IO_KEYCODE_DOWN_ARROW = 'B',
+    IO_KEYCODE_RIGHT_ARROW = 'C',
+    IO_KEYCODE_LEFT_ARROW = 'D',
+    
+} IO_keycode_t;
+
 /**
  * @brief Clears the first `len` chars of the given buffer by adding '\0' chars
  * @param line buffer to be cleared

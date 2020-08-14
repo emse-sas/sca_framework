@@ -6,9 +6,8 @@
 
 void CMD_init(CMD_cmd_t *command)
 {
-    size_t idx = 0;
     command->type = CMD_TYPE_NONE;
-    for (; idx < CMD_MAX_OPTIONS; idx++)
+    for (size_t idx = 0; idx < CMD_MAX_OPTIONS; idx++)
     {
         command->options[idx] = NULL;
     }
@@ -16,9 +15,8 @@ void CMD_init(CMD_cmd_t *command)
 
 void CMD_clear(CMD_cmd_t *command)
 {
-    size_t idx = 0;
     command->type = CMD_TYPE_NONE;
-    for (; idx < CMD_MAX_OPTIONS; idx++)
+    for (size_t idx = 0; idx < CMD_MAX_OPTIONS; idx++)
     {
         if (command->options[idx] != NULL)
         {
@@ -26,6 +24,21 @@ void CMD_clear(CMD_cmd_t *command)
             command->options[idx] = NULL;
         }
     }
+}
+
+CMD_err_t CMD_copy(const CMD_cmd_t *source, CMD_cmd_t *destination)
+{
+    CMD_clear(destination);
+    destination->type = source->type;
+    for (size_t idx = 0; source->options[idx] != NULL; idx++)
+    {
+        if ((destination->options[idx] = malloc(sizeof(CMD_opt_t))) == NULL)
+            return CMD_ERR_ALLOC;
+        destination->options[idx]->label = source->options[idx]->label;
+        destination->options[idx]->type = source->options[idx]->type;
+        memcpy(destination->options[idx]->value.bytes, source->options[idx]->value.bytes, CMD_LINE_SIZE);
+    }
+    return CMD_ERR_NONE;
 }
 
 void CMD_clear_option(CMD_opt_t **options, size_t idx)

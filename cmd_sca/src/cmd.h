@@ -165,6 +165,11 @@ void CMD_init(CMD_cmd_t *command);
 void CMD_clear(CMD_cmd_t *command);
 
 /**
+ * @brief Copies the source command into destination command
+ */
+CMD_err_t CMD_copy(const CMD_cmd_t *source, CMD_cmd_t *destination);
+
+/**
  * @brief Tries to parse the command type from the given word
  * @param word string without ' '
  * @param type parsed command type

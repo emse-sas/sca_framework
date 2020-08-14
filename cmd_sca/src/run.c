@@ -325,15 +325,17 @@ RUN_err_t RUN_sca(const CMD_cmd_t *cmd)
 RUN_err_t RUN_cmd()
 {
     char line[CMD_LINE_SIZE], buffer[CMD_LINE_SIZE];
-    CMD_cmd_t cmd;
+    CMD_cmd_t cmd, last_cmd;
     CMD_err_t cmd_error;
     RUN_err_t run_status;
     int option_idx;
 
     CMD_init(&cmd);
+    CMD_init(&last_cmd);
     do
     {
         IO_clear_line(line, CMD_LINE_SIZE);
+        CMD_copy(&cmd, &last_cmd);
         CMD_clear(&cmd);
         printf("> ");
         if (IO_get_line(line, CMD_LINE_SIZE) != IO_SUCCESS)
@@ -342,8 +344,22 @@ RUN_err_t RUN_cmd()
             return RUN_ERR_USAGE;
         }
 
-        strcpy(buffer, line);
-        switch ((cmd_error = CMD_parse_line(buffer, &cmd)))
+        if (line[0] == '\033' && line[2] == (char)IO_KEYCODE_UP_ARROW)
+        {
+        	strcpy(line, buffer);
+            CMD_copy(&last_cmd, &cmd);
+        }
+        else if(strlen(line) >= 3)
+        {
+            strcpy(buffer, line);
+            cmd_error = CMD_parse_line(buffer, &cmd);
+        }
+        else
+        {
+            continue;
+        }
+
+        switch (cmd_error)
         {
         case CMD_ERR_NONE:
             break;

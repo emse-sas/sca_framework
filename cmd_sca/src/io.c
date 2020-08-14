@@ -20,9 +20,9 @@ void IO_init_words(char **words, size_t len)
 
 IO_status_t IO_get_line(char *buffer, size_t len)
 {
-    size_t idx = 0;
-
     fflush(stdin);
+
+    size_t idx = 0;
     do
     {
         if ((buffer[idx] = (char)getchar()) == EOF)
