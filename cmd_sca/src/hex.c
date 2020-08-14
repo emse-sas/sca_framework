@@ -19,8 +19,7 @@ void HEX_parse_chars(const char *word, uint8_t *bytes, size_t len)
 void HEX_stringify_bytes(char *str, const uint8_t *bytes, size_t len)
 {
     char *ptr = str;
-    size_t idx = 0;
-    for (; idx < len - 3; idx += 4)
+    for (size_t idx = 0; idx < len - 4; idx += 4)
     {
         sprintf(ptr, "%02x%02x%02x%02x ", bytes[idx], bytes[idx + 1], bytes[idx + 2], bytes[idx + 3]);
         ptr += 9;
@@ -31,8 +30,7 @@ void HEX_stringify_bytes(char *str, const uint8_t *bytes, size_t len)
 void HEX_stringify_words(char *str, const uint32_t *words, size_t len)
 {
     char *ptr = str;
-    size_t idx = 0;
-    for (; idx < len - 1; idx++)
+    for (size_t idx = 0; idx < len - 1; idx++)
     {
         sprintf(ptr, "%08lx ", words[idx]);
         ptr += 9;
