@@ -194,6 +194,12 @@ RUN_status_t RUN_tdc(const CMD_cmd_t *cmd)
         printf("*** calibration ***\n");
         delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);  
     }
+
+    if (read_idx != CMD_ERR_NOT_FOUND)
+    {
+        printf("raw: %08x\n", TDC_HW_read(cmd->options[read_idx]->value.integer, TDC_HW_MODE_RAW));
+        return RUN_SUCCESS;
+    }
     printf("value: %08x\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
     printf("delay: 0x%08x%08x\n", (unsigned int)(delay >> 32), (unsigned int)delay);
 
@@ -249,14 +255,12 @@ RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
     {
         return RUN_FAILURE;
     }
-    if (read_idx != CMD_ERR_NOT_FOUND)
-    {
-        RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
-    }
     if (flush_idx != CMD_ERR_NOT_FOUND)
     {
         RUN_fifo_flush();
     }
+
+    RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
 
     return RUN_SUCCESS;
 }

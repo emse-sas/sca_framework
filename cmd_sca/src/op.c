@@ -27,6 +27,25 @@ unsigned char OP_hamming_distance(unsigned int left, unsigned int right)
     return weight;
 }
 
+int OP_bit_polarity(uint32_t value)
+{
+
+    if (value == UINT32_MAX || value == 0)
+    {
+        return -1;
+    }
+
+    int polarity = ((value & 0x1) == 0);
+    for (; value > 0; value >>= bit_shift)
+    {
+        if (((value & 0x1) == 0) != polarity)
+        {
+            return -2;
+        }
+    }
+    return polarity;
+}
+
 void OP_words_to_hamming(const uint32_t *words, unsigned char *weights, size_t len)
 {
     for (size_t idx = 0; idx < len; idx++)
@@ -68,30 +87,10 @@ void OP_stringify_hamming(char *str, uint32_t *weights, size_t len)
     sprintf(ptr, "%lu", weights[len - 1]);
 }
 
-int OP_bit_polarity(uint32_t value)
-{
-    if (value == UINT32_MAX || value == 0)
-    {
-        return -1;
-    }
-    else if ((value & 0x1) == 0)
-    {
-        return 2;
-    }
-    else if ((value & 0x80000000) == 0)
-    {
-        return 0;
-    }
-    else
-    {
-        return -2;
-    }
-}
-
-char OP_sum_weights(uint32_t weights, int* coefs)
+char OP_sum_weights(uint32_t weights, int *coefs)
 {
     char buffer[] = {weights & 0xff, (weights >> 8) & 0xff, (weights >> 16) & 0xff, (weights >> 24) & 0xff};
-    if (coefs == NULL) 
+    if (coefs == NULL)
     {
         return buffer[0] + buffer[1] + buffer[2] + buffer[3];
     }

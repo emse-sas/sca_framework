@@ -2,16 +2,17 @@
 
 uint32_t TDC_HW_read(int id, TDC_HW_mode_t mode)
 {
-	uint32_t data;
-    switch(mode) {
-        case TDC_HW_MODE_WEIGHT:
-            data = Xil_In32(TDC_HW_ADDR(TDC_HW_WEIGHTS_POS_0));
-            return id != -1 ? TDC_HW_WEIGHT(data, id) : data;
-        case TDC_HW_MODE_RAW:
-            Xil_Out32(TDC_HW_ADDR(TDC_HW_SEL_POS), id);
-            return Xil_In32(TDC_HW_ADDR(TDC_HW_RAW_POS));
-        case TDC_HW_MODE_SUM:
-            return Xil_In32(TDC_HW_ADDR(TDC_HW_SUM_POS));
+    uint32_t data;
+    switch (mode)
+    {
+    case TDC_HW_MODE_WEIGHT:
+        data = Xil_In32(TDC_HW_ADDR(TDC_HW_WEIGHTS_POS_0));
+        return id != -1 ? TDC_HW_WEIGHT(data, id) : data;
+    case TDC_HW_MODE_RAW:
+        Xil_Out32(TDC_HW_ADDR(TDC_HW_SEL_POS), id);
+        return Xil_In32(TDC_HW_ADDR(TDC_HW_RAW_POS));
+    case TDC_HW_MODE_SUM:
+        return Xil_In32(TDC_HW_ADDR(TDC_HW_SUM_POS));
     }
 }
 
@@ -69,7 +70,7 @@ uint64_t TDC_HW_calibrate(int iterations)
                     polarity += OP_bit_polarity(raw);
                 }
                 printf("(%lx, %lx): %5.2f (p: %5.2f)\n\r", fine, coarse, (float)value / iterations, (float)polarity / iterations);
-                if (abs(target - value) < abs(target - best_value) && polarity % 2 == 0)
+                if (abs(target - value) < abs(target - best_value) && polarity > -iterations / 2)
                 {
                     best_value = value;
                     best_fine = fine;
