@@ -1,8 +1,10 @@
 """General utility functions.
 
 """
-
+import functools
 import os
+import time
+import matplotlib.pyplot as plt
 from datetime import timedelta
 
 
@@ -45,22 +47,6 @@ def check_hex(w):
     return f"{int(w, 16):08x}"
 
 
-def print_timing(message, sec1, sec0):
-    """Prints a message and the duration between the two given instants.
-
-    Parameters
-    ----------
-    message : str
-        Message to print.
-    sec1 : int
-        Start date as seconds.
-    sec0 : int
-        End date as seconds.
-
-    """
-    print(f"{message}elapsed: {str(timedelta(seconds=sec1 - sec0))}")
-
-
 def format_sizeof(num, suffix="B"):
     """Converts and format a number to a file size unit.
 
@@ -82,6 +68,13 @@ def format_sizeof(num, suffix="B"):
     return f"{num:.1f}{'Yi'}{suffix}"
 
 
+def create_subdir(names, path=None):
+    if path:
+        try_create_dir(path)
+    for name in names:
+        try_create_dir(os.path.join(path, name))
+
+
 def remove_subdir_files(path):
     """Removes files in the sub directories at given directory.
 
@@ -100,7 +93,7 @@ def remove_subdir_files(path):
 
 def try_create_dir(path):
     """Creates directory or print a message
-
+.
     Parameters
     ----------
     path : str
@@ -112,3 +105,74 @@ def try_create_dir(path):
     except FileExistsError:
         print(f"{path} already exists")
         pass
+
+
+def operation_decorator(title, message):
+    """Executes a function and prints messages and duration.
+
+    Parameters
+    ----------
+    title : str
+        Starting message.
+
+    message : str
+        End message on success.
+    Returns
+    -------
+        function
+            Decorated method.
+
+    """
+
+    def decorator(function):
+        @functools.wraps(function)
+        def wrapper(*args, **kwargs):
+            print(f"\n*** {title} ***")
+            t_start = time.perf_counter()
+            result = function(*args, **kwargs)
+            t_end = time.perf_counter()
+            print(f"{message}\nelapsed: {str(timedelta(seconds=t_end - t_start))}")
+            return result
+
+        return wrapper
+
+    return decorator
+
+
+def plot_decorator(title, xlabel, ylabel, filepath):
+    """Performs plot methods and formatting.
+
+    Parameters
+    ----------
+    title : str
+        Title of the plot.
+    xlabel : str
+        X-axis legend.
+    ylabel : str
+        Y-axis legend.
+    filepath : str
+        Path to save plot image.
+
+    Returns
+    -------
+    function
+        Decorated method.
+    """
+
+    def decorator(function):
+        @functools.wraps(function)
+        def wrapper(*args, **kwargs):
+            result = function(*args, **kwargs)
+            plt.title(title)
+            plt.xlabel(xlabel)
+            plt.ylabel(ylabel)
+            plt.legend()
+            plt.tight_layout()
+            plt.savefig(filepath)
+            plt.show()
+            plt.close()
+            return result
+
+        return wrapper
+
+    return decorator

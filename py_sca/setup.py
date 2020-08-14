@@ -2,8 +2,10 @@ import argparse
 
 import core
 
+from lib.utils import operation_decorator
 
-@core.operation_decorator("setup.py", "\nexiting...")
+
+@operation_decorator("setup.py", "\nexiting...")
 def main():
     core.create_logs_dir()
     core.create_images_dir()

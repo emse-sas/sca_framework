@@ -28,14 +28,16 @@ acquired from the SoC via serial port.
 import argparse
 
 import core
+from lib.utils import operation_decorator
 
 
-@core.operation_decorator("acquire.py", "\nexiting...")
+@operation_decorator("acquire.py", "\nexiting...")
 def main(args):
-    s = core.acquire_bin(args.source, args.mode, args.iterations)
-    parser = core.parse_bin(s, args.iterations)
-    core.export_csv(args.iterations, args.mode, parser.meta, parser.leak, parser.data)
-    core.plot_acq(parser.leak, parser.meta, limit=args.plot)
+    request = core.Request.from_args(args)
+    s = core.acquire_bin(args.source, request)
+    parser = core.parse_bin(s, request)
+    core.export_csv(request, parser.meta, parser.leak, parser.data)
+    core.plot_acq(parser.leak, parser.meta, request)
 
 
 argp = argparse.ArgumentParser(
@@ -48,6 +50,8 @@ argp.add_argument("-m", "--mode", choices=core.MODES, default=core.MODES[0],
                   help="Encryption mode.")
 argp.add_argument("-p", "--plot", type=int, default=16,
                   help="Count of raw traces to plot.")
+argp.add_argument("-i", "--inv", action="store_true",
+                  help="Perform inverse encryption.")
 
 if __name__ == "__main__":
     main(argp.parse_args())

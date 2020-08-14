@@ -10,7 +10,7 @@ retrieve it in the entity classes.
 Examples
 --------
 >>> from lib import log
->>> s = log.read.serial(256, "com5")
+>>> s = log.read.serial("com5", 256, "hw", False)
 >>> s = log.read.file("path/to/binary/file")
 >>> parser = log.Parser.from_bytes(s)
 
@@ -62,7 +62,7 @@ class read:
         return s
 
     @classmethod
-    def serial(cls, iterations, port, hardware=False, mini=True):
+    def serial(cls, port, iterations, mode, inv, mini=True):
         """Launches acquisition and reads data from serial port.
 
         This method sends the side-channel acquisition command
@@ -70,12 +70,14 @@ class read:
 
         Parameters
         ----------
-        iterations : int
-            Requested count of traces.
         port : str
             Serial port to read.
-        hardware : bool
-            If true, the encryption is performed by FPGA accelerator.
+        iterations : int
+            Requested count of traces.
+        mode : str
+            Encryption mode.
+        inv : bool
+            True if encryption direction is decrypt.
         mini :
             If true, the traces data will be compressed using
             hamming weight encoding.
@@ -90,10 +92,14 @@ class read:
         py_sca.lib.utils.decode_hamming : Decode hamming weight.
 
         """
-        opts = (" -t %d" % iterations, " -m" if mini else "", " -h" if hardware else "")
+        opts = (" -t %d" % iterations,
+                " -m" if mini else "",
+                " -h" if mode == "hw" else "",
+                " -i" if inv else ""
+                )
         with serial.Serial(port, 921_600, parity=serial.PARITY_NONE, xonxoff=False) as ser:
             ser.flush()
-            ser.write(("sca%s%s%s\n" % opts).encode())
+            ser.write(("sca%s%s%s%s\n" % opts).encode())
             s = ser.read_all()
             while s[-8:].find(END_ACQ) == -1:
                 while ser.in_waiting == 0:
@@ -144,6 +150,8 @@ class Keywords:
         Current keyword index.
     meta: bool
         True if the meta-data keyword have already been browsed.
+    inv: bool
+        True if the keywords follow the inverse encryption sequence.
     value: str
         Value of the current keyword.
 
@@ -163,21 +171,24 @@ class Keywords:
 
     META = [MODE, DIRECTION, SENSORS, TARGET]
     DATA = [KEY, PLAIN, CIPHER, SAMPLES, CODE]
+    DATA_IV = [KEY, CIPHER, PLAIN, SAMPLES, CODE]
 
     META_LEN = len(META)
     DATA_LEN = len(DATA)
 
-    def __init__(self, meta=False):
+    def __init__(self, meta=False, inv=False):
         """Initializes a new keyword iterator.
 
         Parameters
         ----------
         meta : bool
             If true, meta-data keywords will be ignored.
-
+        inv: bool
+            True if the keywords follow the inverse encryption sequence.
         """
         self.idx = 0
         self.meta = meta
+        self.inv = inv
         self.value = Keywords.DATA[0] if meta else Keywords.META[0]
 
     def __iter__(self):
@@ -187,14 +198,14 @@ class Keywords:
         current = self.value
         if self.meta:
             self.idx = (self.idx + 1) % Keywords.DATA_LEN
-            self.value = Keywords.DATA[self.idx]
+            self.value = Keywords.DATA_IV[self.idx] if self.inv else Keywords.DATA[self.idx]
         else:
             if self.idx < Keywords.META_LEN:
                 self.idx += 1
             if self.idx == Keywords.META_LEN:
                 self.idx = 0
                 self.meta = True
-                self.value = Keywords.DATA[0]
+                self.value = Keywords.DATA_IV[0] if self.inv else Keywords.DATA[0]
             else:
                 self.value = Keywords.META[self.idx]
 
@@ -378,6 +389,8 @@ class Meta:
     def from_csv(cls, path):
         """Imports meta-data from CSV file.
 
+        If the file is empty returns an empty meta data object.
+
         Parameters
         ----------
         path : str
@@ -390,7 +403,10 @@ class Meta:
         """
         with open(path, "r", newline="") as file:
             reader = csv.reader(file, delimiter=";")
-            next(reader)
+            try:
+                next(reader)
+            except StopIteration:
+                return None
             row = next(reader)
         return Meta(row[0], row[1], int(row[2]), int(row[3]), int(row[4]), int(row[5]))
 
@@ -510,20 +526,22 @@ class Parser:
         self.meta = meta or Meta()
 
     @classmethod
-    def from_bytes(cls, s):
+    def from_bytes(cls, s, inv=False):
         """Initializes an object with binary data.
-
+        
         Parameters
         ----------
         s : bytes
             Binary data.
-
+        inv : bool
+            True if encryption direction is decrypt.
         Returns
         -------
         Parser
             Parser initialized with data.
+
         """
-        return Parser().parse_bytes(s)
+        return Parser().parse_bytes(s, inv)
 
     def pop(self):
         """Pops acquired value until data lengths matches.
@@ -573,20 +591,25 @@ class Parser:
         self.meta.clear()
         self.data.clear()
 
-    def parse_bytes(self, s):
+    def parse_bytes(self, s, inv=False):
         """Parses the given bytes to retrieve acquisition data.
-        
+
+        If inv`` is not specified the parser will infer the
+        encryption direction from ``s``.
+
         Parameters
         ----------
         s : bytes
             Binary data.
+        inv : bool
+            True if encryption direction is decrypt.
 
         Returns
         -------
         Parser
             Reference to self.
         """
-        keywords = Keywords()
+        keywords = Keywords(inv=inv)
         expected = next(keywords)
         valid = True
         lines = s.split(b"\r\n")
@@ -600,7 +623,7 @@ class Parser:
             except (ValueError, UnicodeDecodeError, RuntimeError) as e:
                 args = (e, len(self.leak.traces), idx, line)
                 warn("parsing error\nerror: {}\niteration: {:d}\nline {:d}: {}".format(*args))
-                keywords = Keywords(keywords.meta)
+                keywords = Keywords(keywords.meta, inv)
                 expected = next(keywords)
                 valid = False
                 self.pop()

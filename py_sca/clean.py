@@ -2,8 +2,10 @@ import argparse
 
 import core
 
+from lib.utils import operation_decorator
 
-@core.operation_decorator("clean.py", "\nexiting...")
+
+@operation_decorator("clean.py", "\nexiting...")
 def main(args):
     if args.log:
         core.remove_logs()
