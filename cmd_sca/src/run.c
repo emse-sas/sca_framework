@@ -8,13 +8,13 @@ void RUN_all_help()
 {
     int option_idx = 0;
     int cmd_idx = 1;
-    printf("Label\t\tDescription\t\t\tOptions\n");
+    printf("Label   Description\n\n");
     for (; cmd_idx < CMD_COUNT_TYPE; cmd_idx++)
     {
-        printf("%s\t\t%s\t\t", CMD_labels[cmd_idx], CMD_descriptions[cmd_idx]);
+        printf("%-8s%-48s ", CMD_labels[cmd_idx], CMD_descriptions[cmd_idx]);
         for (option_idx = 0; CMD_allowed_options[cmd_idx][option_idx] != CMD_NULL_OPTION; option_idx++)
         {
-            printf("-%c %s ",
+            printf("-%c %-16s ",
                        CMD_allowed_options[cmd_idx][option_idx],
                        CMD_opt_type_labels[CMD_allowed_types[cmd_idx][option_idx]]);
         }
@@ -25,12 +25,12 @@ void RUN_all_help()
 void RUN_cmd_help(const CMD_type_t type)
 {
     size_t option_idx = 0;
-    printf("Label\t\tDescription\t\t\tOptions\n");
-    printf("%s\t\t%s\t\t", CMD_labels[type], CMD_descriptions[type]);
+    printf("Label   Description\n");
+    printf("%-8s%-128s", CMD_labels[type], CMD_descriptions[type]);
 
     for (; CMD_allowed_options[type][option_idx] != CMD_NULL_OPTION; option_idx++)
     {
-        printf("-%c %s ",
+        printf("\n\t-%c %-16s ",
                    CMD_allowed_options[type][option_idx],
                    CMD_opt_type_labels[CMD_allowed_types[type][option_idx]]);
     }
@@ -255,6 +255,7 @@ RUN_status_t RUN_fifo(const CMD_cmd_t *cmd)
     {
         return RUN_FAILURE;
     }
+
     if (flush_idx != CMD_ERR_NOT_FOUND)
     {
         RUN_fifo_flush();
