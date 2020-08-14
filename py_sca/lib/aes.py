@@ -406,6 +406,31 @@ def rot_word(col):
     return np.roll(col, -1)
 
 
+def key_expansion(key):
+    """Performs key expansion.
+
+    Parameters
+    ----------
+    key : np.ndarray
+        4x4 input block key matrix.
+
+    Returns
+    -------
+    np.ndarray
+        4x4 input block key matrices for each round.
+
+    """
+    keys = np.zeros((N_ROUNDS + 1, BLOCK_LEN, BLOCK_LEN), dtype=np.uint8)
+    keys[0] = key.T
+    for cur, prev, con in zip(keys[1:], keys, R_CON):
+        cur[0] = con ^ sub_word(rot_word(prev[3])) ^ prev[0]
+        cur[1] = cur[0] ^ prev[1]
+        cur[2] = cur[1] ^ prev[2]
+        cur[3] = cur[2] ^ prev[3]
+
+    return keys
+
+
 class Stages:
     """AES round stages enumeration.
 
@@ -450,8 +475,7 @@ class Handler:
         """
         self.blocks = np.zeros((N_ROUNDS + 1, 5, BLOCK_LEN, BLOCK_LEN), dtype=np.uint8)
         self.keys = np.zeros((N_ROUNDS + 1, BLOCK_LEN, BLOCK_LEN), dtype=np.uint8)
-        self.keys[0] = key.T
-        self.__key_expansion()
+        self.keys = key_expansion(key)
 
     def encrypt(self, block):
         """Performs AES cipher algorithm.
@@ -525,10 +549,3 @@ class Handler:
         cur[Stages.INV_MIX_COLUMNS] = cur[Stages.INV_ADD_ROUND_KEY].copy()
 
         return cur[-1].copy()
-
-    def __key_expansion(self):
-        for cur, prev, con in zip(self.keys[1:], self.keys, R_CON):
-            cur[0] = con ^ sub_word(rot_word(prev[3])) ^ prev[0]
-            cur[1] = cur[0] ^ prev[1]
-            cur[2] = cur[1] ^ prev[2]
-            cur[3] = cur[2] ^ prev[3]

@@ -32,6 +32,15 @@ COUNT_HYP = 256  # Count of key hypothesis for one byte
 COUNT_CLS = 256  # Traces with the same byte value in a given position
 
 
+class Models:
+    """CPA power consumption models.
+
+    """
+
+    SBOX = 0
+    INV_SBOX = 1
+
+
 class Handler:
     """CPA correlation handler interface.
 
@@ -56,7 +65,7 @@ class Handler:
 
     """
 
-    def __init__(self, blocks, key, traces):
+    def __init__(self, blocks, key, traces, model=Models.SBOX):
         """Allocates memory, accumulates traces and initialize model.
 
         Parameters
@@ -67,6 +76,8 @@ class Handler:
             Key data block for all the traces.
         traces : np.ndarray
             Traces matrix.
+        model : int
+            Model index.
 
         """
         n, m = traces.shape
@@ -79,7 +90,7 @@ class Handler:
         self.mean = np.zeros(m)
         self.dev = np.zeros(m)
 
-        self.accumulate(traces).init_model()
+        self.accumulate(traces).init_model(model)
 
     def accumulate(self, traces):
         """Sorts traces by class and compute means and deviation.
@@ -117,8 +128,13 @@ class Handler:
         self.dev = np.sqrt(self.dev)
         return self
 
-    def init_model(self):
+    def init_model(self, model):
         """Initializes power consumption model.
+
+        Parameters
+        ----------
+        model : int
+            Model index.
 
         Returns
         -------
@@ -127,7 +143,10 @@ class Handler:
 
         """
         for h, k in product(range(COUNT_HYP), range(COUNT_CLS)):
-            self.hyp[h, k] = bin(aes.S_BOX[k ^ h] ^ k).count("1")
+            if model == Models.SBOX:
+                self.hyp[h, k] = bin(aes.S_BOX[k ^ h] ^ k).count("1")
+            elif model == Models.INV_SBOX:
+                self.hyp[h, k] = bin(aes.INV_S_BOX[k ^ h] ^ k).count("1")
         return self
 
     def correlations(self):
