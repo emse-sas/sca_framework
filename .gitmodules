@@ -1,3 +1,6 @@
 [submodule "cmd_sca/tiny-AES-c"]
 	path = cmd_sca/tiny-AES-c
 	url = https://github.com/kokke/tiny-AES-c
+[submodule "cmd_sca/openssl"]
+	path = cmd_sca/openssl
+	url = https://github.com/openssl/openssl
