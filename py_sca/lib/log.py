@@ -62,7 +62,7 @@ class read:
         return s
 
     @classmethod
-    def serial(cls, port, iterations, mode, inv, mini=True):
+    def serial(cls, port, iterations, mode, inv, verbose=False):
         """Launches acquisition and reads data from serial port.
 
         This method sends the side-channel acquisition command
@@ -78,8 +78,8 @@ class read:
             Encryption mode.
         inv : bool
             True if encryption direction is decrypt.
-        mini :
-            If true, the traces data will be compressed using
+        verbose :
+            If false, the traces data will be compressed using
             hamming weight encoding.
 
         Returns
@@ -93,7 +93,7 @@ class read:
 
         """
         opts = (" -t %d" % iterations,
-                " -m" if mini else "",
+                " -v" if verbose else "",
                 " -h" if mode == "hw" else "",
                 " -i" if inv else ""
                 )
