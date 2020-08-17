@@ -149,32 +149,40 @@ RUN_err_t RUN_aes(const CMD_cmd_t *cmd)
     int cipher_idx = CMD_find_option(options_ptr, 'c');
     int plain_idx = CMD_find_option(options_ptr, 'p');
     int key_idx = CMD_find_option(options_ptr, 'k');
-    int hw_idx = CMD_find_option(options_ptr, 'h');
+    int mode_idx = CMD_find_option(options_ptr, 'm');
     int acq_idx = CMD_find_option(options_ptr, 'a');
 
     if (CMD_OPT_BOTH_MISSING(plain_idx, cipher_idx) ||
         CMD_OPT_BOTH_PRESENT(plain_idx, cipher_idx) ||
-        key_idx == CMD_ERR_NOT_FOUND)
+        key_idx == CMD_ERR_NOT_FOUND ||
+        mode_idx == CMD_ERR_NOT_FOUND)
     {
         return RUN_ERR_USAGE;
     }
 
     int inv = plain_idx == CMD_ERR_NOT_FOUND;
     int acq = acq_idx != CMD_ERR_NOT_FOUND;
-    if (hw_idx == CMD_ERR_NOT_FOUND)
+    char* mode = cmd->options[mode_idx]->value.string;
+    printf("mode: %s\n", mode);
+    if (!strcmp(mode, "tiny"))
     {
         uint8_t key[RUN_AES_BYTES_SIZE], block[RUN_AES_BYTES_SIZE];
         memcpy(key, cmd->options[key_idx]->value.bytes, RUN_AES_BYTES_SIZE);
         memcpy(block, cmd->options[inv ? cipher_idx : plain_idx]->value.bytes, RUN_AES_BYTES_SIZE);
         RUN_tiny_aes(block, key, inv, acq);
     }
-    else
+    else if(!strcmp(mode, "hw"))
     {
         uint32_t key[RUN_AES_WORDS_SIZE], block[RUN_AES_WORDS_SIZE];
         HEX_bytes_to_words(key, cmd->options[key_idx]->value.bytes, RUN_AES_BYTES_SIZE);
         HEX_bytes_to_words(block, cmd->options[inv ? cipher_idx : plain_idx]->value.bytes, RUN_AES_BYTES_SIZE);
         RUN_hw_aes(block, key, inv, acq);
     }
+    else
+    {
+        return RUN_ERR_USAGE;
+    }
+    
     return RUN_ERR_NONE;
 }
 

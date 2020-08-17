@@ -130,10 +130,10 @@ const static char CMD_allowed_options[CMD_COUNT_TYPE][CMD_MAX_OPTIONS] = {
     {CMD_NULL_OPTION},
     {'c', CMD_NULL_OPTION},
     {CMD_NULL_OPTION},
-    {'h', 'k', 'p', 'c', 'a', CMD_NULL_OPTION},
+    {'m', 'k', 'p', 'c', 'a', CMD_NULL_OPTION},
     {'c', 'c', 'r', 'd', 'v', CMD_NULL_OPTION},
     {'f', 'v', CMD_NULL_OPTION},
-    {'h', 'i', 't', 'v', CMD_NULL_OPTION}};
+    {'m', 'i', 't', 'v', CMD_NULL_OPTION}};
 
 /**
  * @brief allowed option value types for the given command
@@ -142,10 +142,10 @@ const static CMD_opt_val_type_t CMD_allowed_types[CMD_COUNT_TYPE][CMD_MAX_OPTION
     {},
     {CMD_VAL_TYPE_STRING},
     {},
-    {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_NONE},
+    {CMD_VAL_TYPE_STRING, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_HEXADECIMAL, CMD_VAL_TYPE_NONE},
     {CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_HEXADECIMAL},
     {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_NONE},
-    {CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_NONE},
+    {CMD_VAL_TYPE_STRING, CMD_VAL_TYPE_NONE, CMD_VAL_TYPE_DECIMAL, CMD_VAL_TYPE_NONE},
 };
 
 const static char *CMD_opt_type_labels[CMD_COUNT_VAL_TYPE] = {
