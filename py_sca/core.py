@@ -18,7 +18,7 @@ from itertools import product
 from scipy import fft, signal
 from lib import log, aes, cpa, utils, traces as tr
 
-MODES = ["hw", "sw"]  # available encryption source
+MODES = ["hw", "tiny"]  # available encryption source
 F_SAMPLING = 200e6  # sensors sampling frequency
 ACQ_DIR = "acquisition"  # label for the acquisition directory
 COR_DIR = "correlation"  # label for the correlation  directory

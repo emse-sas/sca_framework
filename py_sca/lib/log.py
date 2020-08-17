@@ -94,7 +94,7 @@ class read:
         """
         opts = (" -t %d" % iterations,
                 " -v" if verbose else "",
-                " -h" if mode == "hw" else "",
+                " -m %s" % mode,
                 " -i" if inv else ""
                 )
         with serial.Serial(port, 921_600, parity=serial.PARITY_NONE, xonxoff=False) as ser:
