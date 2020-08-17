@@ -43,7 +43,7 @@ uint64_t TDC_HW_read_delay(int id)
     return TDC_HW_DELAY_64(fine, coarse);
 }
 
-uint64_t TDC_HW_calibrate(int iterations)
+uint64_t TDC_HW_calibrate(int iterations, int verbose)
 {
     iterations = iterations ? iterations : TDC_HW_DEFAULT_CALIBRATE_IT;
     uint32_t best_fine = 0, best_coarse = 0;
@@ -54,7 +54,10 @@ uint64_t TDC_HW_calibrate(int iterations)
     TDC_HW_write_delay(0, 0, -1);
     for (int id = 0; id < TDC_HW_COUNT_TDC; id++)
     {
-        printf("device: %d\n\r", id);
+        if (verbose)
+        {
+            printf("device: %d\n\r", id);
+        }
         best_value = UINT32_MAX;
         for (uint32_t coarse = 0; coarse <= TDC_HW_COARSE_MAX; coarse++)
         {
@@ -69,7 +72,10 @@ uint64_t TDC_HW_calibrate(int iterations)
                     value += OP_hamming_weight(raw);
                     polarity += OP_bit_polarity(raw);
                 }
-                printf("(%lx, %lx): %5.2f (p: %5.2f)\n\r", fine, coarse, (float)value / iterations, (float)polarity / iterations);
+                if (verbose)
+                {
+                    printf("(%lx, %lx): %5.2f (p: %5.2f)\n\r", fine, coarse, (float)value / iterations, (float)polarity / iterations);
+                }
                 if (abs(target - value) < abs(target - best_value) && polarity > -iterations / 2)
                 {
                     best_value = value;

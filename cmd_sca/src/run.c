@@ -70,8 +70,6 @@ void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
     struct AES_ctx ctx;
     char block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
 
-    printf("*** tiny aes ***\n");
-
     HEX_stringify_bytes(key_str, key, RUN_AES_BYTES_SIZE);
     printf("key: %s\n", key_str);
 
@@ -117,8 +115,6 @@ void RUN_tiny_aes(uint8_t *block, const uint8_t *key, int inv, int acq)
 void RUN_hw_aes(uint32_t *block, const uint32_t *key, int inv, int acq)
 {
     char block_str[9 * RUN_AES_BYTES_SIZE + 3], key_str[9 * RUN_AES_BYTES_SIZE + 3];
-
-    printf("*** hardware aes ***\n");
 
     AES_HW_clear(inv ? AES_HW_DECRYPT : AES_HW_ENCRYPT);
 
@@ -186,34 +182,47 @@ RUN_err_t RUN_tdc(const CMD_cmd_t *cmd)
 {
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
     int calibrate_idx = CMD_find_option(options_ptr, 'c');
-    int read_idx = CMD_find_option(options_ptr, 'r');
+    int raw_idx = CMD_find_option(options_ptr, 'r');
     int delay_idx = CMD_find_option(options_ptr, 'd');
+    int verbose_idx = CMD_find_option(options_ptr, 'v');
 
     if (CMD_OPT_BOTH_PRESENT(calibrate_idx, delay_idx))
     {
         return RUN_ERR_USAGE;
     }
 
-    uint64_t delay;
-    if (delay_idx != CMD_ERR_NOT_FOUND)
+    uint64_t current_delay;
+    int verbose = verbose_idx != CMD_ERR_NOT_FOUND;
+    int calibration = calibrate_idx != CMD_ERR_NOT_FOUND;
+    int delay = delay_idx != CMD_ERR_NOT_FOUND;
+    int raw = raw_idx != CMD_ERR_NOT_FOUND;
+
+    if (delay)
     {
         TDC_HW_write_delay(cmd->options[delay_idx]->value.words[0], cmd->options[delay_idx]->value.words[1], -1);
-        delay = TDC_HW_read_delay(-1);
+        current_delay = TDC_HW_read_delay(-1);
     }
 
-    if (calibrate_idx != CMD_ERR_NOT_FOUND)
+    if (calibration)
     {
-        printf("*** calibration ***\n");
-        delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer);
+    	current_delay = TDC_HW_calibrate(cmd->options[calibrate_idx]->value.integer, verbose);
     }
 
-    if (read_idx != CMD_ERR_NOT_FOUND)
+    if (verbose || calibration)
     {
-        printf("raw: %08x\n", TDC_HW_read(cmd->options[read_idx]->value.integer, TDC_HW_MODE_RAW));
+        printf("delay: 0x%08x%08x\n", (unsigned int)(current_delay >> 32), (unsigned int)current_delay);
+    }
+    
+    if (raw)
+    {
+        int id = cmd->options[raw_idx]->value.integer;
+        printf("raw %d: %08x\n", id, TDC_HW_read(id, TDC_HW_MODE_RAW));
         return RUN_ERR_NONE;
     }
-    printf("value: %08x\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
-    printf("delay: 0x%08x%08x\n", (unsigned int)(delay >> 32), (unsigned int)delay);
+    else 
+    {
+        printf("value: %08x\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
+    }
 
     return RUN_ERR_NONE;
 }
@@ -221,13 +230,10 @@ RUN_err_t RUN_tdc(const CMD_cmd_t *cmd)
 void RUN_fifo_flush()
 {
     FIFO_HW_clear(FIFO_HW_MODE_SW);
-    printf("*** flush successful ***\n");
 }
 
-void RUN_fifo_read(int mini)
+void RUN_fifo_read(int verbose)
 {
-    printf("*** read ***\n");
-
     uint32_t weights[FIFO_HW_STACK_SIZE];
     int len = FIFO_HW_read(weights, FIFO_HW_STACK_SIZE);
 
@@ -242,37 +248,30 @@ void RUN_fifo_read(int mini)
         return;
     }
     char str_weights[4 * FIFO_HW_STACK_SIZE + 1] = "";
-    if (mini)
-    {
-        OP_encode_hamming(str_weights, weights, len, TDC_HW_CALIBRATE_TARGET * TDC_HW_COUNT_TDC);
-        printf("code: %s\n", str_weights);
-    }
-    else
+    if (verbose)
     {
         OP_stringify_hamming(str_weights, weights, len);
         printf("weights: %s\n", str_weights);
+    }
+    else
+    {
+        OP_encode_hamming(str_weights, weights, len, TDC_HW_CALIBRATE_TARGET * TDC_HW_COUNT_TDC);
+        printf("code: %s\n", str_weights);
     }
 }
 
 RUN_err_t RUN_fifo(const CMD_cmd_t *cmd)
 {
     const CMD_opt_t **options_ptr = (const CMD_opt_t **)cmd->options;
-    int read_idx = CMD_find_option(options_ptr, 'r');
     int flush_idx = CMD_find_option(options_ptr, 'f');
-    int min_idx = CMD_find_option(options_ptr, 'm');
-
-    if (CMD_OPT_BOTH_MISSING(read_idx, flush_idx) ||
-        CMD_OPT_BOTH_PRESENT(read_idx, flush_idx))
-    {
-        return RUN_ERR_USAGE;
-    }
+    int verbose_idx = CMD_find_option(options_ptr, 'v');
 
     if (flush_idx != CMD_ERR_NOT_FOUND)
     {
         RUN_fifo_flush();
     }
 
-    RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
+    RUN_fifo_read(verbose_idx != CMD_ERR_NOT_FOUND);
 
     return RUN_ERR_NONE;
 }
@@ -283,7 +282,7 @@ RUN_err_t RUN_sca(const CMD_cmd_t *cmd)
     int traces_idx = CMD_find_option(options_ptr, 't');
     int hw_idx = CMD_find_option(options_ptr, 'h');
     int inv_idx = CMD_find_option(options_ptr, 'i');
-    int min_idx = CMD_find_option(options_ptr, 'm');
+    int verbose_idx = CMD_find_option(options_ptr, 'v');
     if (traces_idx == CMD_ERR_NOT_FOUND)
     {
         return RUN_ERR_USAGE;
@@ -295,7 +294,6 @@ RUN_err_t RUN_sca(const CMD_cmd_t *cmd)
     uint32_t key[RUN_AES_WORDS_SIZE], block[RUN_AES_WORDS_SIZE];
     uint8_t key8[RUN_AES_BYTES_SIZE], block8[RUN_AES_BYTES_SIZE];
 
-    printf("*** start acquisition ***\n");
     printf("mode: %s\n", hw ? "hw" : "sw");
     printf("direction: %s\n", inv ? "decrypt" : "encrypt");
     printf("sensors: %d\n", TDC_HW_COUNT_TDC);
@@ -316,7 +314,7 @@ RUN_err_t RUN_sca(const CMD_cmd_t *cmd)
             HEX_words_to_bytes(block8, block, RUN_AES_BYTES_SIZE);
             RUN_tiny_aes(block8, key8, inv, 1);
         }
-        RUN_fifo_read(min_idx != CMD_ERR_NOT_FOUND);
+        RUN_fifo_read(verbose_idx != CMD_ERR_NOT_FOUND);
     }
     printf("\xff\xff\xff\xff\n");
     return RUN_ERR_NONE;
@@ -344,12 +342,12 @@ RUN_err_t RUN_cmd()
             return RUN_ERR_USAGE;
         }
 
-        if (line[0] == '\033' && line[2] == (char)IO_KEYCODE_UP_ARROW)
+        if (line[0] == '\033' && line[2] == (char)IO_KEYCODE_UP_ARROW && cmd.type != CMD_TYPE_NONE)
         {
-        	strcpy(line, buffer);
+            strcpy(line, buffer);
             CMD_copy(&last_cmd, &cmd);
         }
-        else if(strlen(line) >= 3)
+        else if (strlen(line) >= 3)
         {
             strcpy(buffer, line);
             cmd_error = CMD_parse_line(buffer, &cmd);

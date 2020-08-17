@@ -67,8 +67,9 @@ uint64_t TDC_HW_read_delay(int id);
  * Depending on the value of the average the delay setting is saved or not.
  *   
  * @param iterations count of samples for average
+ * @param true to display calibration log
  * @return chosen calibration delay value
  */
-uint64_t TDC_HW_calibrate(int iterations);
+uint64_t TDC_HW_calibrate(int iterations, int verbose);
 
 #endif //SCA_FRAMEWORK_TDC_HW_H
