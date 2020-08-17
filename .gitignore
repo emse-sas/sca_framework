@@ -54,3 +54,5 @@ py_sca/venv/
 docs/cmd_sca/
 
 docs/build/
+
+cmd_sca_system/_ide/
