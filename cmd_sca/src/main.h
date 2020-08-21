@@ -1,8 +1,7 @@
 
 #include <limits.h>
-#include <cmd/err.h>
 #include <cmd/hex.h>
-#include <cmd/cmd.h>
+#include <cmd/run.h>
 #include "../tiny-AES-c/aes.h"
 #include "aes_hw.h"
 #include "tdc_hw.h"
@@ -132,12 +131,12 @@ CMD_err_t *tdc(const CMD_cmd_t *cmd)
     if (raw)
     {
         int id = cmd->options[raw_idx].value.integer;
-        printf("raw %d: %08x\n", id, TDC_HW_read(id, TDC_HW_MODE_RAW));
+        printf("raw %d: %08lx\n", id, TDC_HW_read(id, TDC_HW_MODE_RAW));
         return NULL;
     }
     else
     {
-        printf("value: %08x\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
+        printf("value: %08lx\n", TDC_HW_read(-1, TDC_HW_MODE_WEIGHT));
     }
 
     return NULL;
@@ -163,18 +162,17 @@ void fifo_read(int verbose)
     {
         return;
     }
-    char init[16] = verbose ? "weights" : "code";
     if (verbose)
     {
         char str[4 * FIFO_HW_STACK_SIZE + 16] = "";
         OP_weights_to_string(str, weights, len);
-        printf("%s: %s\n", init, str);
+        printf("weights: %s\n", str);
     }
     else
     {
         char str[FIFO_HW_STACK_SIZE + 16] = "";
         OP_weights_to_ascii(str, weights, len, TDC_HW_CALIBRATE_TARGET * TDC_HW_COUNT_TDC);
-        printf("%s: %s\n", init, str);
+        printf("code: %s\n", str);
     }
 }
 
