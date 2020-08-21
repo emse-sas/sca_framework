@@ -46,7 +46,7 @@ int OP_bit_polarity(uint32_t value)
     return polarity;
 }
 
-void OP_words_to_hamming(const uint32_t *words, unsigned char *weights, size_t len)
+void OP_words_to_weight(const uint32_t *words, unsigned char *weights, size_t len)
 {
     for (size_t idx = 0; idx < len; idx++)
     {
@@ -54,7 +54,7 @@ void OP_words_to_hamming(const uint32_t *words, unsigned char *weights, size_t l
     }
 }
 
-void OP_encode_hamming(char *str, uint32_t *weights, size_t len, char offset)
+void OP_weights_to_ascii(char *str, uint32_t *weights, size_t len, char offset)
 {
     for (size_t idx = 0; idx < len; idx++)
     {
@@ -63,7 +63,7 @@ void OP_encode_hamming(char *str, uint32_t *weights, size_t len, char offset)
     str[len] = '\0';
 }
 
-void OP_stringify_hamming(char *str, uint32_t *weights, size_t len)
+void OP_weights_to_string(char *str, uint32_t *weights, size_t len)
 {
     if (len == 0)
     {
@@ -74,15 +74,7 @@ void OP_stringify_hamming(char *str, uint32_t *weights, size_t len)
     for (size_t idx = 0; idx < len - 1; idx++)
     {
         sprintf(ptr, "%lu,", weights[idx]);
-        if (weights[idx] > 9)
-        {
-            ptr++;
-        }
-        if (weights[idx] > 99)
-        {
-            ptr++;
-        }
-        ptr += 2;
+        ptr += strlen(ptr);
     }
     sprintf(ptr, "%lu", weights[len - 1]);
 }

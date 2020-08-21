@@ -34,10 +34,10 @@ unsigned char OP_hamming_distance(unsigned int left, unsigned int right);
  * @param weights computed weights
  * @param len length of `words`
  */
-void OP_words_to_hamming(const uint32_t *words, unsigned char *weights, size_t len);
+void OP_words_to_weight(const uint32_t *words, unsigned char *weights, size_t len);
 
 
-void OP_encode_hamming(char* str, uint32_t *weights, size_t len, char offset);
+void OP_weights_to_ascii(char* str, uint32_t *weights, size_t len, char offset);
 
 /**
  * @brief Transforms 32-bit registers Hamming weights into a CSV compliant string
@@ -45,7 +45,7 @@ void OP_encode_hamming(char* str, uint32_t *weights, size_t len, char offset);
  * @param weights Hamming weights to stringify
  * @param length of `weights`
  */
-void OP_stringify_hamming(char* str, uint32_t *weights, size_t len);
+void OP_weights_to_string(char* str, uint32_t *weights, size_t len);
 
 int OP_bit_polarity(uint32_t value);
 

@@ -15,7 +15,8 @@
 #include "xparameters.h"
 #include "xil_io.h"
 
-#define AES_HW_WORD_SIZE 4
+#define AES_HW_WORDS_SIZE 4
+#define AES_HW_BYTES_SIZE 16
 
 #define AES_HW_BASE_ADDR XPAR_SIMPLE_AES_0_S_AXI_BASEADDR
 
@@ -45,7 +46,7 @@
 
 #define AES_HW_STATUS_DONE 1
 
-#define AES_HW_ADDR(pos) (AES_HW_BASE_ADDR + AES_HW_WORD_SIZE * pos)
+#define AES_HW_ADDR(pos) (AES_HW_BASE_ADDR + AES_HW_WORDS_SIZE * pos)
 #define AES_HW_STATUS_SET_1(status, status_reg) (status_reg | status)
 #define AES_HW_STATUS_SET_0(status, status_reg) (status_reg & ~status)
 #define AES_HW_STATUS_GET(status, status_reg) (status_reg & status)

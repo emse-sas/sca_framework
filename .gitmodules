@@ -4,3 +4,6 @@
 [submodule "cmd_sca/openssl"]
 	path = cmd_sca/openssl
 	url = https://github.com/openssl/openssl
+[submodule "cmd_sca/tiny-cmd"]
+	path = cmd_sca/tiny-cmd
+	url = https://github.com/samiBendou/tiny-cmd
