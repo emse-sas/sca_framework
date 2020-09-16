@@ -13,16 +13,6 @@ Overview
 
    overview
 
-Get Started
-===========
-
-.. toctree::
-   :maxdepth: 1
-
-   get_started
-
-
-
 Attack
 =========
 
