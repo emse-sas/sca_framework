@@ -1,7 +1,7 @@
 Goals
 ***************************************************************
 
-This tutorial exposes the acquisition configurations available in the demo.
+This tutorial exposes the power leakage acquisition configurations available in the demo.
 It shows you how to perform a parametrized acquisition with a command :
 
 1. Simple acquisition
@@ -9,13 +9,20 @@ It shows you how to perform a parametrized acquisition with a command :
 3. Crypto-algorithm acquisition
 4. Iterated acquisition
 
-**Note** to denote the value given to an option we will always use the letter designing the option. eg. ``-s`` will be :math:`s`.
+**Notes** 
+
+- To denote the value given to an option we will always use the letter designing the option. eg. ``-s`` will be :math:`s`
+- If you want to know more about the commands available in the demo you can displayed the help by typing ``help``
 
 Requirements
 ***************************************************************
 
 You must have a complete the demo installation tutorial before starting this tutorial.
 It is recommended to have an understanding of our hardware setup before starting the tutorial.
+
+- Any terminal emulator such as PuTTY, TeraTerm or picocom
+- Have a completed the installation tutorial
+- Have an understanding of our hardware setup
 
 Simple acquisition
 ***************************************************************
@@ -125,7 +132,11 @@ If the command executed correctly you should see the following output :
 Conclusion
 ***************************************************************
 
-In this tutorial you have performed a side-channel acquisition of a crypto-algorithm, iterated it in order to latter attack the core and
-cropped the data to diminish acquisition time which can be very long especially with software algorithm acquisition.
+In this tutorial you learn how to launch power leakage acquisition, at an arbitrary instant and during crypto-computing.
+You learn how to iterate this acquisition and how to crop the power leakage.
 
-If you want to know more about the features of the demo you can displayed the help by typing ``help``.
+Keep in mind that the demo application provide is powerful tool to capture leakage and transmit it via UART using our protocol.
+It allows to capture enough traces, that can be crop to diminish acquisition time, in order to perform a successful attack.
+
+You can customize the demo-application to minimize memory usage or change functionally to better meet your needs.
+For example you can change the analyzed crypto-algorithm or the random generation of encryption data.

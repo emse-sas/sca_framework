@@ -1,7 +1,7 @@
 Fundamentals
-============
+***************************************************************
 
-Our approach is based on the CPA. We attempt to infer a cryptographic key 
+Our attack approach is based on the CPA. We attempt to infer a cryptographic key 
 by correlating the **observed power leakage** to the **modeled power leakage** :
 
 1. *Measure* leakage for an arbitrary number of crypto-algorithm runs
@@ -16,14 +16,13 @@ a key exploration in the :math:`2^{128}` possible values of the key.
 
 This attack method can be characterized as a **divide and conquer key inference**.
 
-Targets
-=======
+Victims
+***************************************************************
 
 FPGA based remote-sensors are employed in the framework to eavesdrop the power leakage of 
 a crypto-algorithm running in the SoC.
 
-Therefore, at least **two types of targets** are sensitive to our attack, 
-the *CPU* and the *FPGA accelerators*.
+Therefore, at least **two types of targets** are sensitive to our attack, the *CPU* and the *FPGA accelerators*.
 This allows to implement different attack *modes* considering which target our victim uses :
 
 - **FPGA/FPGA** : FPGA accelerator located on the FPGA fabric
@@ -38,7 +37,7 @@ The complete attack model is illustrated in the figure bellow :
 
 
 Assumptions
-============
+***************************************************************
 
 For the previously described attack to successfully retrieve the key, 
 it is necessary to make the following assumptions :
@@ -50,7 +49,7 @@ d. The attacker is able to synchronously trigger power measurement
 
 
 Attack pipeline
-===============
+***************************************************************
 
 In order to standardize the attack process we defined a procedure called the *attack pipeline*.
 It consists on several steps that will allow to manually or programmatically reproduce this attack.

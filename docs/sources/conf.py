@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath('./tuto'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'sca-framework'
+project = 'scack'
 copyright = '2020, Sami Dahoux'
 author = 'Sami Dahoux'
 

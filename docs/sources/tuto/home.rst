@@ -1,7 +1,9 @@
-This section presents tutorials to launch your first successful attack and latter customize it.
+Welcome to the scack's tutorials !
 
-Before get into any tutorials make sure you are familiar with SCA, our test-bench and already have
-notions in VHDL, C and Python. 
+This section explains how to launch your first successful attack and latter customize it.
+
+Before get into any tutorials make sure you are familiar with side-channel analysis and our test-bench.
+It is better to be confortable with VHDL, C, Python. We also recommend to have notion in FPGA workflows.
 
 Installation
 ***************************************************************

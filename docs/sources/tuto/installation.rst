@@ -17,7 +17,7 @@ Requirements
 - Xilinx SoC with FPGA.
 - Xilinx Vivado 2020.1
 - Xilinx Vitis 2020
-- Any terminal emulator such as PuTTY, TeraTerm or picocom.
+- Any terminal emulator such as PuTTY, TeraTerm or picocom
 - The SCA demo sources available on GitHub
 - The latest SCA IP repo sources available on GitHub
 
@@ -112,11 +112,6 @@ At this point if you click to **Flow Navigator > IP Integrator > Open Block Desi
    :width: 640
    :alt: Block design
    :align: center
-
-This design is only an example of what can be achieved with the framework.
-You can try to customize the IPs already present by right-clicking on it and select Customize IP.
-You can also change the IPs already present with yours if you provide compatible IO.
-Lastly you can adapt this design to your board if you are not using a Zybo-Z7010.
 
 Generate the hardware
 ---------------------------------------------------------------
@@ -284,3 +279,16 @@ The last displayed line must be the one bellow, indicating that the SoC is ready
 .. code-block:: shell
 
     > 
+
+Conclusion
+***************************************************************
+
+In this tutorial you learn how to generate the test-bench block design and a bitstream associated to it.
+Then you used this bitstream to create a hardware specification and integrated it into a demo application for the test-bench.
+
+Keep in mind that mastering this workflow will allow you to customize both the hardware and software of the test-bench.
+The block-design and the demo are only an example of what can be achieved with the framework.
+
+You can try to customize the IPs already present by right-clicking on it and select Customize IP.
+You can also change the IPs already present with different ones.
+You can adapt the block-design to your board if you are not using a Zybo-Z7010.

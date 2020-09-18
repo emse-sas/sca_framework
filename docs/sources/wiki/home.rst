@@ -1,12 +1,16 @@
 Home
-====
+***************************************************************
 
-Welcome to the wiki of SCA Framework ! Here you can get introduced to the features of the framework
-and get a deep understanding of our attack and architecture.
+Welcome to the scack's wiki !
 
+In this section we give an introduction to the side-channel topic,
+explain how the attack works and which technology can be used.
+
+We also provide more theoretical explanations about our test-bench,
+in order to let you get deep-into our attack and technical architecture.
 
 Overview
-========
+***************************************************************
 
 .. toctree::
    :maxdepth: 1
@@ -14,47 +18,25 @@ Overview
    overview
 
 Attack
-=========
+***************************************************************
 
 .. toctree::
    :maxdepth: 1
 
    attack
 
-
 Acquisition
-===========
-
-*******
-Sensors
-*******
+***************************************************************
 
 .. toctree::
    :maxdepth: 1
 
-   sensors_tdc
+   acquisition
 
-
-.. toctree::
-   :maxdepth: 1
-
-   sensors_ro
-
-*****************
-Crypro-Algorithms
-*****************
+Targets
+***************************************************************
 
 .. toctree::
    :maxdepth: 1
 
-   aes_accelerator
-
-
-********
-Sampling
-********
-
-.. toctree::
-   :maxdepth: 1
-
-   fifo
+   targets
