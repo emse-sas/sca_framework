@@ -1,4 +1,4 @@
-Welcome to the scack's tutorials !
+Welcome to the SCABox's tutorials !
 
 This section explains how to launch your first successful attack and latter customize it.
 

@@ -1,7 +1,7 @@
-Welcome to the scack website !
+Welcome to the SCABox website !
 ***************************************************************
 
-scack is an open-source framework that provide tools and documentation to perform side-channel *acquisitions* and *attacks*.
+SCABox is an open-source framework that provide tools and documentation to perform side-channel *acquisitions* and *attacks*.
 It provides software, embedded and hardware features gathered in a *hybrid* test-bench.
 
 Overview
@@ -10,7 +10,7 @@ Overview
 Purposes
 ===============================================================
 
-scack aims at popularizing the side-channel analysis by allowing easy experiment, learning and development
+SCABox aims at popularizing the side-channel analysis by allowing easy experiment, learning and development
 
 - Learn side-channel analysis and co-design development
 - Reproduce the attacks achieved by state of the art
@@ -26,7 +26,7 @@ If you want to get deep into the setup you can go to the technical documentation
 Features
 ===============================================================
 
-The scack test-bench allows to perform various side-channel analysis related tasks.
+The SCABox test-bench allows to perform various side-channel analysis related tasks.
 
 - Hardware or software crypto-computation
 - Power leakage capture based on different sensors
@@ -35,7 +35,7 @@ The scack test-bench allows to perform various side-channel analysis related tas
 - Attack automation CSV to key guess
 - Correlation and leakage visualization
 
-The scack project is built around three main GitHub repository
+The SCABox project is built around three main GitHub repository
 
 - **sca-ip** : IP cores and corresponding drivers
 - **sca-demo-tdc-aes** : Demo embedded acquisition application 

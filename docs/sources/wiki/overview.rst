@@ -51,7 +51,7 @@ We will finally attempt to **retrieve the original encryption key** used by perf
 Project
 ***************************************************************
 
-The scack project aims at providing tools to learn how remote side-channel attacks works and to evaluate the different attack configuration.
+The SCABox project aims at providing tools to learn how remote side-channel attacks works and to evaluate the different attack configuration.
 The project consist on a test-bench that provide various levels of customization, from options configuration, software changes to custom IP integration.
 The project is designed to stimulate the emergence of new attack and defense technology by customizing the available framework.
 

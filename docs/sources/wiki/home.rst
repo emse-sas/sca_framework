@@ -1,7 +1,7 @@
 Home
 ***************************************************************
 
-Welcome to the scack's wiki !
+Welcome to the SCABox's wiki !
 
 In this section we give an introduction to the side-channel topic,
 explain how the attack works and which technology can be used.
