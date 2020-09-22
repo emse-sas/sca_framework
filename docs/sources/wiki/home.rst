@@ -1,5 +1,5 @@
 Home
-***************************************************************
+===============================================================
 
 Welcome to the SCABox's wiki !
 
@@ -9,34 +9,25 @@ explain how the attack works and which technology can be used.
 We also provide more theoretical explanations about our test-bench,
 in order to let you get deep-into our attack and technical architecture.
 
-Overview
-***************************************************************
+Contents
+===============================================================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    overview
 
-Attack
-***************************************************************
-
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    attack
 
-Acquisition
-***************************************************************
-
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    acquisition
 
-Targets
-***************************************************************
-
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    targets

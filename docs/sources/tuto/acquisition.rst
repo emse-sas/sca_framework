@@ -1,3 +1,6 @@
+Acquisition
+===============================================================
+
 Goals
 ***************************************************************
 
@@ -13,6 +16,8 @@ It shows you how to perform a parametrized acquisition with a command :
 
 - To denote the value given to an option we will always use the letter designing the option. eg. ``-s`` will be :math:`s`
 - If you want to know more about the commands available in the demo you can displayed the help by typing ``help``
+
+
 
 Requirements
 ***************************************************************

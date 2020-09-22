@@ -1,3 +1,6 @@
+Installation
+===============================================================
+
 Goals
 ***************************************************************
 
@@ -74,7 +77,7 @@ Generate the block design
 To start the tutorial launch Vivado
 
 Create a new RTL project without any sources
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Click on **File > Project > New**
 2. Select project name and location
@@ -84,7 +87,7 @@ Create a new RTL project without any sources
 6. Create the project
 
 Add the IP repository to the project
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Click on **Flow Navigator > Project Manager > Settings**
 2. Go to **IP > Repository**
@@ -100,7 +103,7 @@ Once it is done you must be able to see the added IPs in the repository list.
 
 
 Launch the design creation script
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Open the Tcl Console tab in Vivado
 2. Go to the tcl scripts location ``cd [demo-root]/tcl``
@@ -119,7 +122,7 @@ Generate the hardware
 At this point, few steps are required to have a working bitstream.
 
 Generate a HDL wrapper
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Go into the **Sources** tab
 2. Right click on **system** under **Design Sources**
@@ -129,7 +132,7 @@ Generate a HDL wrapper
 6. Click on Generate to generate the wrapper
 
 Configure manual sensors placement
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Go into the **Design Runs** tab
 2. Right click on **impl_1** and select Change Run Settings
@@ -146,7 +149,7 @@ Once it is done your Place Design configuration must be the same as follows :
    :align: center
 
 Add constraints
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Go into the **Sources** tab
 2. Click on the add button 
@@ -156,7 +159,7 @@ Add constraints
 **Note** You might have to specify your own constraints if you are not using a Zybo board
 
 Generate bitstream and specification
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Click on **Flow Navigator > Program and Debug > Generate Bitstream**
 2. Wait for the synthesis, implementation and bitstream writing to finish
@@ -188,7 +191,7 @@ Create a new system project
 You must launch Vitis in order to follow the steps bellow.
 
 Create a new platform project
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Click on **File > New > Platform Project**
 2. Name your platform
@@ -198,7 +201,7 @@ Create a new platform project
 **Note** In SDK just launch SDK from Vivado with the hardware project open and the platform project will be created.
 
 Create a new application project
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Click on **File > New > Application Project**
 2. Select the previously added platform
@@ -210,7 +213,7 @@ Create a new application project
 8. Add the .c and .h files in **[demo root]/src**
 
 Add includes to the project
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Right click on the application project previously created on the **Explorer**
 2. Select **C/C++ Build Settings**
@@ -225,7 +228,7 @@ If you correctly imported the includes you must have the following configuration
    :align: center
 
 Generate a linker script
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It is likely that the default linker script will set the heap and stack size to smaller values than what is needed for the demo.
 
@@ -240,7 +243,7 @@ Launch the application
 ---------------------------------------------------------------
 
 Build the project
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Right click on the platform project
 2. Click on **Build Project**
@@ -248,7 +251,7 @@ Build the project
 4. Build the system project
 
 Launch UART communication
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Plug your board and turn it ON
 2. Ensure the mode register is set to JTAG (JP5 on Zybo)
@@ -257,7 +260,7 @@ Launch UART communication
 5. Start a session with the emulator
 
 Run the application
-===============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Right click on the application project
 2. Click on **Run As > Launch on Hardware**
