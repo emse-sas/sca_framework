@@ -9,7 +9,7 @@ Today, in order to improve computational performances, servers can embed FPGA ba
 These are often cryptographic accelerators used for secure communication, providing a better response time to the server.
 Futhermore, is now common for users of a server to *remotely* implement their own FPGA accelerator into the fabric.
 
-.. image:: ../../../img/sca_servers_fpga.png
+.. image:: media/img/sca_servers_fpga.png
    :width: 400
    :alt: SCA Server's FPGA
    :align: center
@@ -32,7 +32,7 @@ This issue can be addressed by forbidding at implementation the logical connecti
 Although logical isolation is easy to performed, the fabric is still connected to the same *Power Delivery Network* (PDN).
 Thus, the instantaneous power in the fabric contain information about what's happening in each user's space.
 
-.. image:: ../../../img/sca_pdn.png
+.. image:: media/img/sca_pdn.png
    :width: 500
    :alt: SCA Server's PDN
    :align: center
