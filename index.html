@@ -160,21 +160,28 @@
 <h1>Welcome to the SCABox website !<a class="headerlink" href="#welcome-to-the-scabox-website" title="Permalink to this headline">¶</a></h1>
 <p>SCABox is an open-source framework that provide tools and documentation to perform side-channel <em>acquisitions</em> and <em>attacks</em>.
 It provides software, embedded and hardware features gathered in a <em>hybrid</em> test-bench.</p>
+<p><em>Only a Zynq-like board is needed. All the side-channel acquisition is performed inside the SoC</em></p>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="purposes">
 <h3>Purposes<a class="headerlink" href="#purposes" title="Permalink to this headline">¶</a></h3>
-<p>SCABox aims at popularizing the side-channel analysis by allowing easy experiment, learning and development</p>
+<p>SCABox aims at popularizing the side-channel analysis by allowing easy experiment, learning and development.
+Furthermore it allows to replace oscilloscope based SCA test-bench with only an FPGA SoC.</p>
 <ul class="simple">
 <li><p>Learn side-channel analysis and co-design development</p></li>
 <li><p>Reproduce the attacks achieved by state of the art</p></li>
-<li><p>Evaluate crypto-algorithms sensitivity</p></li>
-<li><p>Evaluate sensors efficiency</p></li>
+<li><p>Hardware security characterization</p></li>
 </ul>
 <p>The project is thought to be progressive and adapted to both developers and scientists.</p>
 <p>If you are not familiar with SCA we provided a various materials in the wiki to smoothly introduce you to the topic.
 If you are already familiar with SCA we encourage you to take a look at our tutorials.
 If you want to get deep into the setup you can go to the technical documentations of the parts you are interested in.</p>
+</div>
+<div class="section" id="how">
+<h3>How ?<a class="headerlink" href="#how" title="Permalink to this headline">¶</a></h3>
+<p>Our bench is based on sensors that leverage FPGA digital logic blocks available in the FPGA slices to capture the SoC voltage fluctuations.
+These sensors are employed to eavesdrop the power leakage of a crypto-algorithm running in the FPGA or in the CPU.</p>
+<p>To know more about how the bench and the side-channel attacks works take a look at the <a class="reference internal" href="wiki/overview.html#wiki-overview"><span class="std std-ref">Overview</span></a> part of the wiki.</p>
 </div>
 <div class="section" id="features">
 <h3>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
@@ -187,22 +194,32 @@ If you want to get deep into the setup you can go to the technical documentation
 <li><p>Attack automation CSV to key guess</p></li>
 <li><p>Correlation and leakage visualization</p></li>
 </ul>
-<p>The SCABox project is built around three main GitHub repository</p>
+<div class="section" id="documentation">
+<h4>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h4>
+<p>SCABox is an open-source project, all the sources are hosted on GitHub and are organized around various repositories</p>
 <ul class="simple">
-<li><p><strong>sca-ip</strong> : IP cores and corresponding drivers</p></li>
-<li><p><strong>sca-demo-tdc-aes</strong> : Demo embedded acquisition application</p></li>
-<li><p><strong>sca-automation</strong> : Acquisition and attack automation</p></li>
+<li><p><a class="reference external" href="https://github.com/samiBendou/sca-ip/">IP repository</a></p></li>
+<li><p><a class="reference external" href="https://github.com/samiBendou/sca-demo-tdc-aes/">Acquisition demo</a></p></li>
+<li><p><a class="reference external" href="https://github.com/samiBendou/sca-automation/">Attack demo</a></p></li>
+<li><p><a class="reference external" href="https://github.com/samiBendou/sca_framework/">SCABox website</a></p></li>
 </ul>
 <p>Each of these repository is provided with a technical documentation.
-This website provide various documentation around the side-channel topic and the test-bench</p>
+This website provide general documentation around the side-channel topic and the test-bench</p>
 <ul class="simple">
-<li><p>Tutorials to get started, launch attacks and customize the bench</p></li>
+<li><p>Tutorials to install the bench, customize it and launch attacks</p></li>
 <li><p>Wiki to get introduced to the remote side-channel attacks and our setup</p></li>
 </ul>
 <p>This way you can choose to get started with the tutorials and/or the scientific documentation.
 Futhermore, if you want to get deep into the framework, you can do it from the part you are the most comfortable with.</p>
-<p>All the sources for this documentation are available on the
-<a class="reference external" href="https://github.com/samiBendou/sca_framework">GitHub repository</a>.</p>
+</div>
+</div>
+<div class="section" id="authors">
+<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Joseph Gravellier : Hardware security PhD student</p></li>
+<li><p>Sami Dahoux : Software and Hardware engineer</p></li>
+<li><p>Jean Max Dutertre : Head of the hardware security department</p></li>
+</ul>
 </div>
 <div class="section" id="summary">
 <h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>

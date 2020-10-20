@@ -180,42 +180,49 @@
 <div class="section" id="fundamentals">
 <h2>Fundamentals<a class="headerlink" href="#fundamentals" title="Permalink to this headline">¶</a></h2>
 <p>We are interested in side-channel attacks based on the power consumption of an SoC.
-For most of these attacks we can identify common steps :</p>
+Most of these attacks consist on performing a set of common steps :</p>
 <ol class="arabic simple">
 <li><p><em>Acquire</em> the power leakage of crypto-algorithm running</p></li>
 <li><p><em>Model</em> the power leakage for various key <em>hypothesis</em></p></li>
-<li><p><em>Correlate</em> the <em>observed power leakage</em> to the <em>modeled power leakage</em></p></li>
+<li><p><em>Correlate</em> the <em>observed power leakage</em> with the <em>modeled power leakage</em></p></li>
 <li><p><em>Iterate</em> the previous steps until the correlation is significant</p></li>
 </ol>
-<p>The attack is based on a key splitting into bytes or bit groups that can be attacked.
-It can be characterized as a <em>divide and conquer</em> key inference, we divide the key into multiples part easy to guess as shown in the figure <a class="reference internal" href="#sca-aes-guess"><span class="std std-ref">Key splitting for AES128 algorithm</span></a>.</p>
+<p>A key hypothesis consist on fixing the value of several bit groups of the key, supposing that these are the correct.
+The power leakage is modeled for each key hypothesis. The correlation is computed for each power leakage model.</p>
+<p>More precisely, the attack is based on a key splitting into bytes or bit groups that can be attacked.
+It can be characterized as a <em>divide and conquer</em> key inference, we divide the key into multiples part easy to guess by correlation as shown in the figure <a class="reference internal" href="#sca-aes-guess"><span class="std std-ref">Key splitting for AES128 algorithm</span></a>.</p>
 <div class="figure align-center" id="id1">
 <span id="sca-aes-guess"></span><a class="reference internal image-reference" href="../_images/sca_aes_guess.png"><img alt="AES Guess Key" src="../_images/sca_aes_guess.png" style="width: 640px;" /></a>
 <p class="caption"><span class="caption-text">Key splitting for AES128 algorithm</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
-<p>In the case of an AES algorithm on 128 bit data, it leads to a key browsing among <span class="math notranslate nohighlight">\(256 \cdot 16\)</span> possible values.
-In contrast, an explicit brute force attack in the same conditions would require a key exploration in the <span class="math notranslate nohighlight">\(2^{128}\)</span> possible values of the key.</p>
-<p>It is not always possible to retrieve the hole key with a side-channel attack. According to the chosen model, only several bits can be guessed correctly.</p>
-<p>After computing power leakage for the hypothesis, our attack approach is based on the Correlation Power Analysis (CPA).
-We attempt to guess the right key bytes, the correlation is computed using Pearson’s coefficient defined by :</p>
+<p>For example with the AES128 algorithm, it leads to formulating <span class="math notranslate nohighlight">\(256 \cdot 16\)</span> key hypothesis.
+In contrast, an explicit brute force attack in the same conditions would require formulating <span class="math notranslate nohighlight">\(2^{128}\)</span> key hypothesis.</p>
+<p>It is not always possible to retrieve the hole key with a side-channel attack. Depending on the chosen leakage model, only several bits can be guessed correctly.</p>
+<p>After modeling power leakage for the hypothesis, we use the Correlation Power Analysis (CPA) to produce a guess for the key.
+The correlation is computed using Pearson’s coefficient defined by :</p>
 <div class="math notranslate nohighlight">
 \[\rho_{X, Y} = \dfrac{E[X-\mu_X] E[Y-\mu_Y]}{\sigma_X \sigma_Y}\]</div>
-<p>Where <span class="math notranslate nohighlight">\(X\)</span> is the instantaneous observed power leakage random variable and <span class="math notranslate nohighlight">\(Y\)</span> the instantaneous modeled power leakage.
+<p>Where <span class="math notranslate nohighlight">\(X\)</span> is the instantaneous observed power leakage random variable and <span class="math notranslate nohighlight">\(Y\)</span> the modeled power leakage.
 <span class="math notranslate nohighlight">\(\mu\)</span> denotes the sample mean, <span class="math notranslate nohighlight">\(\sigma\)</span> the sample standard deviation and <span class="math notranslate nohighlight">\(E\)</span> the expectation of a random variable.</p>
 <p>The Pearson’s coefficient’s value is in the interval <span class="math notranslate nohighlight">\([-1, 1]\)</span>.
 A negative correlation denotes a inverse linear dependency between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.
 A positive correlation denotes a direct linear dependency and a correlation near zero indicates that the two variables are not linearly correlated.</p>
-<p>The correlation coefficient depends on time <span class="math notranslate nohighlight">\(\rho_{X, Y} = \rho_{X(t), Y(t)}\)</span>.
-It is computed all along the leakage signals and will peak at a distinctive instant if a strong guess is made as shown in the figure <a class="reference internal" href="#sca-pearson"><span class="std std-ref">Example of a successful hardware AES attack</span></a>.</p>
+<p>The correlation coefficient depends on time <span class="math notranslate nohighlight">\(\rho_{X, Y} = \rho_{X(t), Y}\)</span>.
+It is computed all along the leakage signals and will peak at a distinctive instant if a strong guess is made as shown in the figure <a class="reference internal" href="#sca-pearson"><span class="std std-ref">Example of a successful hardware AES128 attack</span></a>.</p>
 <div class="figure align-center" id="id2">
 <span id="sca-pearson"></span><a class="reference internal image-reference" href="../_images/sca_pearson.png"><img alt="Pearson coefficient" src="../_images/sca_pearson.png" style="width: 640px;" /></a>
-<p class="caption"><span class="caption-text">Example of a successful hardware AES attack</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Example of a successful hardware AES128 attack</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>We consider that the correlation coefficient indicates how good our key hypothesis was.
 More precisely, we state that if the best absolute value of the coefficient is <span class="math notranslate nohighlight">\(N\)</span> times greater than the second best absolute correlation,
-the key has been guessed. The value <span class="math notranslate nohighlight">\(N\)</span> is arbitrary.</p>
-<p>Otherwise, we acquire more power leakage data in order to obtain a better correlation.
-A significant amount of power leakage data is necessary to obtain a satisfying correlation.</p>
+the key has been guessed, <span class="math notranslate nohighlight">\(N\)</span> being arbitrary.
+Otherwise, we acquire more power leakage data in order to obtain a better correlation.</p>
+<p>The success condition can be express with the formula below :</p>
+<div class="math notranslate nohighlight">
+\[P^* &gt; N P^{**}\]</div>
+<p>Where we defined :</p>
+<div class="math notranslate nohighlight">
+\[P^* = \max{|\rho|}\]</div>
 </div>
 <div class="section" id="victims">
 <h2>Victims<a class="headerlink" href="#victims" title="Permalink to this headline">¶</a></h2>
@@ -233,7 +240,6 @@ a crypto-algorithm running in the SoC.</p>
 the information on the crypto-algorithms running.</p>
 <p>In the second case, the power leakage of the fabric is leveraged, This leakage is much more significant because the electrical activity
 is more intense than CPU’s one when crypto-algorithms are running.</p>
-<p>The complete attack model is illustrated in the figure bellow :</p>
 </div>
 <div class="section" id="assumptions">
 <h2>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h2>
@@ -258,7 +264,6 @@ The procedure works for all targets under the assumptions provided above :</p>
 <li><p>Wait until crypto-algorithm end</p></li>
 <li><p>Stop sensors acquisition</p></li>
 <li><p>Send data via serial port</p></li>
-<li><p>Acquire data</p></li>
 <li><p>Correlate data</p></li>
 <li><p>Guess the key</p></li>
 </ol>
