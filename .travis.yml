@@ -1,6 +1,6 @@
 language: python
 python:
-- 3.6
+- 3.8
 install:
 - pip install sphinx sphinx_rtd_theme sphinx-argparse recommonmark
 
@@ -15,3 +15,13 @@ scripts:
 - cd ../build/all/html
 - touch .nojekyll
 - cd ../../../../
+
+deploy:
+  provider: pages:git
+  email: sami@dahoux.net
+  deploy_key: deploy_sca
+  local_dir: docs/build/all/html
+  keep_history: true
+  edge: true
+  on:
+    branch: master
