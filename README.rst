@@ -1,12 +1,10 @@
-SCABox : SCA evaluation framework
+SCABox Evaluation Framework
 ***************************************************************
 
-Welcome to the SCABox documentation  !
+SCABox is a framework that provide *tools* and *materials* to perform side-channel analysis.
+It provides software, embedded and hardware features gathered in a *hybrid* test-bench that performs *acquisitions* and *attacks*.
 
-SCABox is an open-source framework that provide *tools* and *materials* to perform side-channel *acquisitions* and *attacks*.
-It provides software, embedded and hardware features gathered in a *hybrid* test-bench.
-
-*Only a Zynq-like board is needed. All the side-channel acquisition is performed inside the SoC.*
+*Only a Zynq-like board is needed. All the SCA acquisition is performed inside the SoC.*
 
 Overview
 ---------------------------------------------------------------
@@ -14,10 +12,10 @@ Overview
 Purposes
 ===============================================================
 
-SCABox aims at popularizing the side-channel analysis by allowing easy experiment and development.
+SCABox aims at popularizing the SCA analysis by allowing easy experiment and development.
 Furthermore it allows to replace oscilloscope based SCA test-bench with only an FPGA SoC.
 
-- **Learn** side-channel analysis and co-design development
+- **Learn** SCA analysis and co-design development
 - **Reproduce** the attacks achieved by state of the art
 - **Characterize** the hardware security of your devices and software
 
@@ -35,13 +33,13 @@ How ?
 Our test-bench is based on sensors that leverage FPGA digital logic blocks available in the FPGA slices to capture the SoC voltage fluctuations.
 These sensors are employed to eavesdrop the power leakage of a crypto-algorithm running in the FPGA or in the CPU.
 
-*To know more about how the bench and the side-channel attacks works take a look at the wiki.*
+*To know more about how the bench and the SCA attacks works take a look at the wiki.*
 
 Features
 ===============================================================
 
 The SCABox test-bench is meant to perform attack simulations on an SoC.
-It allows to perform various side-channel analysis related tasks.
+It allows to perform various SCA analysis related tasks.
 
 - **Compute** crypto-algorithm runs using software and hardware
 - **Capture** electrical power leakage with FPGA sensors
@@ -65,10 +63,10 @@ SCABox is an open-source project, all the sources are hosted on GitHub and organ
 - `SCABox website  <https://github.com/samiBendou/sca_framework/>`_
 
 Each repository is provided with a technical documentation.
-This website provide general documentation around the side-channel topic and the test-bench
+This website provide general documentation around the SCA topic and the test-bench
 
 - Tutorials to install the bench, customize it and launch attacks
-- Wiki to get introduced to the remote side-channel attacks and the bench architecture
+- Wiki to get introduced to the remote SCA and the bench architecture
 
 *This way you can choose to get started with the part you are the most confortable with.*
 
@@ -79,18 +77,34 @@ Authors
 - Sami Dahoux : Software and Hardware engineer
 - Jean Max Dutertre : Head of the hardware security department
 
-Contributing
+More
 ===============================================================
+
+SCABox is a project on the topic of side-channel analysis.
+The goal of SCABox is to provide a cheap and efficient test-bench for side-channel analysis.
+
+To know more about SCABox please visit our `website <https://samibendou.github.io/sca_framework/>`_.
+It provides a tutorials and a wiki about side-channel analysis.
+
+SCABox is an open-source project, all the sources are hosted on GitHub
+
+- `IP repository <https://github.com/samiBendou/sca-ip/>`_
+- `Acquisition demo <https://github.com/samiBendou/sca-demo-tdc-aes/>`_
+- `Attack demo <https://github.com/samiBendou/sca-automation/>`_
+- `SCABox website  <https://github.com/samiBendou/sca_framework/>`_
+
+Contributing
+---------------------------------------------------------------
 
 Please feel free to take part into SCABox project, all kind of contributions are welcomed.
 
 The project aims at gathering a significant number of IP cores, crypto-algorithms and attack models 
-in order to provide an exhaustive view of today's remote side-channel threat.
+in order to provide an exhaustive view of today's remote SCA threat.
 
 Software and embedded improvements are also greatly welcomed. Since the project is quite vast and invovles
 a very heterogeneous technical stack, it is difficult to maintain the quality with a reduced size team.  
 
 License
-===============================================================
+---------------------------------------------------------------
 
-All the contents of this project are protected under the open-source license [LICENSE]
+All the contents of the SCABox project are licensed under the `MIT license <https://choosealicense.com/licenses/mit/>` provided in each GitHub repository.
