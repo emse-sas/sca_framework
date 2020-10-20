@@ -1,6 +1,15 @@
 SCABox Evaluation Framework
 ***************************************************************
 
+.. image:: https://img.shields.io/github/license/samiBendou/sca_framework
+    :target: https://choosealicense.com/licenses/mit/
+    :alt: license
+
+
+.. image:: https://img.shields.io/github/deployments/samiBendou/sca_framework/github-pages
+    :target: https://samibendou.github.io/sca_framework/
+    :alt: pages
+
 SCABox is a framework that provide *tools* and *materials* to perform side-channel analysis.
 It provides software, embedded and hardware features gathered in a *hybrid* test-bench that performs *acquisitions* and *attacks*.
 
@@ -107,4 +116,4 @@ a very heterogeneous technical stack, it is difficult to maintain the quality wi
 License
 ---------------------------------------------------------------
 
-All the contents of the SCABox project are licensed under the `MIT license <https://choosealicense.com/licenses/mit/>` provided in each GitHub repository.
+All the contents of the SCABox project are licensed under the `MIT license <https://choosealicense.com/licenses/mit/>`_ provided in each GitHub repository.
