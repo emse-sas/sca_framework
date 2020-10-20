@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; SCABox 1.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Acquisition" href="acquisition.html" />
+    <link rel="prev" title="Home" href="home.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> SCABox
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="home.html">Home</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="home.html#contents">Contents</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#emulator-setup">Emulator setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-the-hardware">Install the Hardware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generate-the-block-design">Generate the block design</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generate-the-hardware">Generate the hardware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#install-the-software">Install the Software</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-new-system-project">Create a new system project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#launch-the-application">Launch the application</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="acquisition.html">Acquisition</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Wiki</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../wiki/home.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wiki/home.html#contents">Contents</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SCABox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="home.html">Home</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tuto/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
+<p>The goal of this installation tutorial is to setup the framework demo
+in the SoC. This can be done in two steps :</p>
+<ol class="arabic simple">
+<li><p>Install the hardware</p></li>
+<li><p>Install the software</p></li>
+</ol>
+<p>The first step is optional if you are already provided with a hardware specification file .xsa (Vitis) or
+a Board Support Package (SDK).
+It is mainly useful to go this way when you want to customize the test-bench by changing sensors, crypto-cores or change the board…</p>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Xilinx SoC with FPGA.</p></li>
+<li><p>Xilinx Vivado 2020.1</p></li>
+<li><p>Xilinx Vitis 2020</p></li>
+<li><p>Any terminal emulator such as PuTTY, TeraTerm or picocom</p></li>
+<li><p>The SCA demo sources available on GitHub</p></li>
+<li><p>The latest SCA IP repo sources available on GitHub</p></li>
+</ul>
+<p><strong>Notes</strong></p>
+<ul class="simple">
+<li><p>All Xilinx boards should be compatible with the test-bench but it has been especially designed for Zybo-Z7010</p></li>
+<li><p>If you use older version of Vivado or Vitis/SDK you might have to modify the provided .tcl scripts to correct the version.</p></li>
+</ul>
+</div>
+<div class="section" id="emulator-setup">
+<h2>Emulator setup<a class="headerlink" href="#emulator-setup" title="Permalink to this headline">¶</a></h2>
+<p>The terminal emulator allows to communicate via UART with the SoC.
+It must be configured properly in order to work and allow command typing.
+Bellow is given the emulator configuration used :</p>
+<ul class="simple">
+<li><p>port is        : /dev/ttyUSBx</p></li>
+<li><p>flowcontrol    : none</p></li>
+<li><p>baudrate is    : 921600</p></li>
+<li><p>parity is      : none</p></li>
+<li><p>databits are   : 8</p></li>
+<li><p>stopbits are   : 1</p></li>
+<li><p>local echo is  : yes</p></li>
+<li><p>noinit is      : no</p></li>
+<li><p>noreset is     : no</p></li>
+<li><p>hangup is      : no</p></li>
+<li><p>nolock is      : no</p></li>
+<li><p>send_cmd is    : sz -vv</p></li>
+<li><p>receive_cmd is : rz -vv -E</p></li>
+<li><p>imap is        :</p></li>
+<li><p>omap is        :</p></li>
+<li><p>emap is        : crcrlf,delbs,</p></li>
+<li><p>logfile is     : none</p></li>
+<li><p>initstring     : none</p></li>
+<li><p>exit_after is  : not set</p></li>
+<li><p>exit is        : no</p></li>
+</ul>
+<p><strong>Notes</strong></p>
+<ul class="simple">
+<li><p>If your terminal provide it, you can also use the local line edit.</p></li>
+<li><p>Port name can vary according to your OS, eg. on windows its COMx</p></li>
+</ul>
+</div>
+<div class="section" id="install-the-hardware">
+<h2>Install the Hardware<a class="headerlink" href="#install-the-hardware" title="Permalink to this headline">¶</a></h2>
+<p>In this step we explain how to :</p>
+<ol class="arabic simple">
+<li><p>Generate the block design from the demo .tcl</p></li>
+<li><p>Generate the hardware specification or BSP</p></li>
+</ol>
+<div class="section" id="generate-the-block-design">
+<h3>Generate the block design<a class="headerlink" href="#generate-the-block-design" title="Permalink to this headline">¶</a></h3>
+<p>To start the tutorial launch Vivado</p>
+<div class="section" id="create-a-new-rtl-project-without-any-sources">
+<h4>Create a new RTL project without any sources<a class="headerlink" href="#create-a-new-rtl-project-without-any-sources" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Click on <strong>File &gt; Project &gt; New</strong></p></li>
+<li><p>Select project name and location</p></li>
+<li><p>Choose RTL project</p></li>
+<li><p>Do not add any sources</p></li>
+<li><p>Select the part/board you are using</p></li>
+<li><p>Create the project</p></li>
+</ol>
+</div>
+<div class="section" id="add-the-ip-repository-to-the-project">
+<h4>Add the IP repository to the project<a class="headerlink" href="#add-the-ip-repository-to-the-project" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Click on <strong>Flow Navigator &gt; Project Manager &gt; Settings</strong></p></li>
+<li><p>Go to <strong>IP &gt; Repository</strong></p></li>
+<li><p>Click on the add button</p></li>
+<li><p>Add each IP directory located in <strong>[sca-ip root]/ip-repo/</strong></p></li>
+</ol>
+<p>Once it is done you must be able to see the added IPs in the repository list.</p>
+<a class="reference internal image-reference" href="../_images/install_ip_repo.png"><img alt="Repositories list" class="align-center" src="../_images/install_ip_repo.png" style="width: 640px;" /></a>
+</div>
+<div class="section" id="launch-the-design-creation-script">
+<h4>Launch the design creation script<a class="headerlink" href="#launch-the-design-creation-script" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Open the Tcl Console tab in Vivado</p></li>
+<li><p>Go to the tcl scripts location <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">[demo-root]/tcl</span></code></p></li>
+<li><p>Launch the design creation script <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">system.tcl</span></code></p></li>
+</ol>
+<p>At this point if you click to <strong>Flow Navigator &gt; IP Integrator &gt; Open Block Design</strong> you must see the following block design :</p>
+<a class="reference internal image-reference" href="../_images/install_system.png"><img alt="Block design" class="align-center" src="../_images/install_system.png" style="width: 640px;" /></a>
+</div>
+</div>
+<div class="section" id="generate-the-hardware">
+<h3>Generate the hardware<a class="headerlink" href="#generate-the-hardware" title="Permalink to this headline">¶</a></h3>
+<p>At this point, few steps are required to have a working bitstream.</p>
+<div class="section" id="generate-a-hdl-wrapper">
+<h4>Generate a HDL wrapper<a class="headerlink" href="#generate-a-hdl-wrapper" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Go into the <strong>Sources</strong> tab</p></li>
+<li><p>Right click on <strong>system</strong> under <strong>Design Sources</strong></p></li>
+<li><p>Select Create a HDL wrapper</p></li>
+<li><p>Let Vivado manage the wrapper</p></li>
+<li><p>Click on <strong>Flow Navigator &gt; IP Integrator &gt; Generate Block Design</strong></p></li>
+<li><p>Click on Generate to generate the wrapper</p></li>
+</ol>
+</div>
+<div class="section" id="configure-manual-sensors-placement">
+<h4>Configure manual sensors placement<a class="headerlink" href="#configure-manual-sensors-placement" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Go into the <strong>Design Runs</strong> tab</p></li>
+<li><p>Right click on <strong>impl_1</strong> and select Change Run Settings</p></li>
+<li><p>Go to the <strong>Place Design</strong> section in the list</p></li>
+<li><p>Change the <strong>tcl.pre</strong> property by clicking the browse button</p></li>
+<li><p>Select new script and browse for the file <strong>[demo root]/tcl/place.tcl</strong></p></li>
+<li><p>Avoid copying sources into the project and click Ok</p></li>
+</ol>
+<p>Once it is done your Place Design configuration must be the same as follows :</p>
+<a class="reference internal image-reference" href="../_images/install_place.png"><img alt="Place configuration" class="align-center" src="../_images/install_place.png" style="width: 640px;" /></a>
+</div>
+<div class="section" id="add-constraints">
+<h4>Add constraints<a class="headerlink" href="#add-constraints" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Go into the <strong>Sources</strong> tab</p></li>
+<li><p>Click on the add button</p></li>
+<li><p>Select Add or create constraints</p></li>
+<li><p>Add the constraint file <strong>[demo root]/xdc/zybo_cst.xdc</strong></p></li>
+</ol>
+<p><strong>Note</strong> You might have to specify your own constraints if you are not using a Zybo board</p>
+</div>
+<div class="section" id="generate-bitstream-and-specification">
+<h4>Generate bitstream and specification<a class="headerlink" href="#generate-bitstream-and-specification" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Click on <strong>Flow Navigator &gt; Program and Debug &gt; Generate Bitstream</strong></p></li>
+<li><p>Wait for the synthesis, implementation and bitstream writing to finish</p></li>
+<li><p>Click on <strong>File &gt; Export &gt; Export Hardware</strong></p></li>
+<li><p>Select Fixed</p></li>
+<li><p>Select Include bitstream</p></li>
+<li><p>Name your file .xsa and select location</p></li>
+<li><p>Click on finish to generate the specification</p></li>
+</ol>
+<p>At this point Vivado must have created a file .xsa at the location you gave.
+This file will later be used by Vitis to generate a platform project that will handle
+all our hardware and drivers for the design we created.</p>
+<p><strong>Note</strong> If you are using SDK instead of Vitis, you do not have hardware specification.
+Instead just launch SDK via Vivado and a BSP will automatically be created with the corresponding hardware.</p>
+</div>
+</div>
+</div>
+<div class="section" id="install-the-software">
+<h2>Install the Software<a class="headerlink" href="#install-the-software" title="Permalink to this headline">¶</a></h2>
+<p>If you completed the previous steps or if you are already provided with a BSP or a hardware specification
+you are now able to bind the hardware with the demo project. To do so :</p>
+<ol class="arabic simple">
+<li><p>Create a new system project</p></li>
+<li><p>Launch the application</p></li>
+</ol>
+<div class="section" id="create-a-new-system-project">
+<h3>Create a new system project<a class="headerlink" href="#create-a-new-system-project" title="Permalink to this headline">¶</a></h3>
+<p>You must launch Vitis in order to follow the steps bellow.</p>
+<div class="section" id="create-a-new-platform-project">
+<h4>Create a new platform project<a class="headerlink" href="#create-a-new-platform-project" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Click on <strong>File &gt; New &gt; Platform Project</strong></p></li>
+<li><p>Name your platform</p></li>
+<li><p>Browse for your .xsa file</p></li>
+<li><p>Click on Finish to create the platform</p></li>
+</ol>
+<p><strong>Note</strong> In SDK just launch SDK from Vivado with the hardware project open and the platform project will be created.</p>
+</div>
+<div class="section" id="create-a-new-application-project">
+<h4>Create a new application project<a class="headerlink" href="#create-a-new-application-project" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Click on <strong>File &gt; New &gt; Application Project</strong></p></li>
+<li><p>Select the previously added platform</p></li>
+<li><p>Name the project and let default values for other parameters</p></li>
+<li><p>Ensure the standalone domain is selected</p></li>
+<li><p>Select the <strong>Empty Application</strong> template</p></li>
+<li><p>Right click on the application project in the <strong>Explorer</strong></p></li>
+<li><p>Click on <strong>Import Sources</strong></p></li>
+<li><p>Add the .c and .h files in <strong>[demo root]/src</strong></p></li>
+</ol>
+</div>
+<div class="section" id="add-includes-to-the-project">
+<h4>Add includes to the project<a class="headerlink" href="#add-includes-to-the-project" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Right click on the application project previously created on the <strong>Explorer</strong></p></li>
+<li><p>Select <strong>C/C++ Build Settings</strong></p></li>
+<li><p>In the <strong>Tool Settings</strong> tab go to <strong>ARM v7 gcc compiler &gt; Directories</strong></p></li>
+<li><p>Add each directory in the <strong>[demo root]/modules</strong> as <strong>Include Paths</strong></p></li>
+</ol>
+<p>If you correctly imported the includes you must have the following configuration :</p>
+<a class="reference internal image-reference" href="../_images/install_includes.png"><img alt="Application includes" class="align-center" src="../_images/install_includes.png" style="width: 640px;" /></a>
+</div>
+<div class="section" id="generate-a-linker-script">
+<h4>Generate a linker script<a class="headerlink" href="#generate-a-linker-script" title="Permalink to this headline">¶</a></h4>
+<p>It is likely that the default linker script will set the heap and stack size to smaller values than what is needed for the demo.</p>
+<ol class="arabic simple">
+<li><p>Right click on the application project previously created on the <strong>Explorer</strong></p></li>
+<li><p>Select <strong>Generate linker script</strong></p></li>
+<li><p>Modify the <strong>Heap Size</strong> to 32KB</p></li>
+<li><p>Modify the <strong>Stack Size</strong> to 32KB</p></li>
+</ol>
+<p><strong>Note</strong> These values are arbitrary and might not be optimal be guarantee that the demo do not overflows.</p>
+</div>
+</div>
+<div class="section" id="launch-the-application">
+<h3>Launch the application<a class="headerlink" href="#launch-the-application" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="build-the-project">
+<h4>Build the project<a class="headerlink" href="#build-the-project" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Right click on the platform project</p></li>
+<li><p>Click on <strong>Build Project</strong></p></li>
+<li><p>Do the same for the application project</p></li>
+<li><p>Build the system project</p></li>
+</ol>
+</div>
+<div class="section" id="launch-uart-communication">
+<h4>Launch UART communication<a class="headerlink" href="#launch-uart-communication" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Plug your board and turn it ON</p></li>
+<li><p>Ensure the mode register is set to JTAG (JP5 on Zybo)</p></li>
+<li><p>Launch your terminal emulator</p></li>
+<li><p>Configure a serial connection as shown above</p></li>
+<li><p>Start a session with the emulator</p></li>
+</ol>
+</div>
+<div class="section" id="run-the-application">
+<h4>Run the application<a class="headerlink" href="#run-the-application" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Right click on the application project</p></li>
+<li><p>Click on <strong>Run As &gt; Launch on Hardware</strong></p></li>
+<li><p>Switch to the terminal session</p></li>
+<li><p>Ensure local echo is on for the session.</p></li>
+<li><p>Into the terminal type the command <code class="docutils literal notranslate"><span class="pre">tdc</span></code></p></li>
+<li><p>Press Enter</p></li>
+</ol>
+<p>If everything went well, you should see an output similar to the following obtained with picocom :</p>
+<a class="reference internal image-reference" href="../_images/install_app.png"><img alt="Application output" class="align-center" src="../_images/install_app.png" style="width: 640px;" /></a>
+<p>The value displayed by the command is the current sensors value.
+The last displayed line must be the one bellow, indicating that the SoC is ready to receive commands.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>In this tutorial you learn how to generate the test-bench block design and a bitstream associated to it.
+Then you used this bitstream to create a hardware specification and integrated it into a demo application for the test-bench.</p>
+<p>Keep in mind that mastering this workflow will allow you to customize both the hardware and software of the test-bench.
+The block-design and the demo are only an example of what can be achieved with the framework.</p>
+<p>You can try to customize the IPs already present by right-clicking on it and select Customize IP.
+You can also change the IPs already present with different ones.
+You can adapt the block-design to your board if you are not using a Zybo-Z7010.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="acquisition.html" class="btn btn-neutral float-right" title="Acquisition" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="home.html" class="btn btn-neutral float-left" title="Home" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Sami Dahoux
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
