@@ -2,7 +2,7 @@
 name: Help request
 about: Create a report to have explanations
 title: ''
-labels: help
+labels:
 assignees: emse-sas
 
 ---
