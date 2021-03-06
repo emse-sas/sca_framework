@@ -84,9 +84,7 @@ This website provide general documentation around the SCA topic and the test-ben
 Authors
 ===============================================================
 
-- Joseph Gravellier : Hardware security PhD student 
-- Sami Dahoux : Software and Hardware engineer
-- Jean Max Dutertre : Head of the hardware security department
+Anonymous
 
 More
 ===============================================================
