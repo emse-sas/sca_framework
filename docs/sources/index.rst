@@ -12,7 +12,7 @@ SCAbox aims at popularizing hardware security by enabling  SCA  experiments at l
 
 For more information please check out our paper introducing SCAbox: PAPER_PATH
 
-.. figure:: media/img/SCAbox_setup.png
+.. figure:: media/img/SCAbox_setup.PNG
    :width: 400
    :alt: SCAbox setup
    :align: center
