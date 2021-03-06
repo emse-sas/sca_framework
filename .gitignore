@@ -5,3 +5,4 @@ docs/build
 deploy_sca
 deploy_sca.pub
 docs/sources/tuto_windows.txt
+build/
