@@ -87,7 +87,7 @@
               <p class="caption"><span class="caption-text">Tutorials</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="home.html#content">Content</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="home.html#tutorials">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="test.html">Tuto #0 - Run the Pre-Built Demo</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Tuto #1 - Install the Framework</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
@@ -186,32 +186,23 @@
             
   <div class="section" id="tuto-1-install-the-framework">
 <h1>Tuto #1 - Install the Framework<a class="headerlink" href="#tuto-1-install-the-framework" title="Permalink to this headline">¶</a></h1>
+<p><strong>Duration:</strong> 1-2 hours (more if you need to download the Xilinx tools)</p>
 <div class="section" id="goals">
 <h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
-<p>The goal of this installation tutorial is to setup the framework demo
-in the SoC. This can be done in two steps :</p>
+<p>The goal of this installation tutorial is to setup the SCAbox framework. This can be done in two steps :</p>
 <ol class="arabic simple">
-<li><p>Install the hardware</p></li>
-<li><p>Install the software</p></li>
+<li><p>Install the hardware (Xilinx Vivado)</p></li>
+<li><p>Install the software (Xilinx Vitis)</p></li>
 </ol>
-<p>The first step is optional if you are already provided with a hardware specification file .xsa (Vitis) or
-a Board Support Package (SDK).
-It is mainly useful to go this way when you want to customize the test-bench by changing sensors, crypto-cores or change the board…</p>
+<p>It is mainly useful to go this way when you want to customize the framework by adding sensors, crypto-cores or use another development board.</p>
 </div>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Xilinx SoC with FPGA.</p></li>
-<li><p>Xilinx Vivado 2020.1</p></li>
-<li><p>Xilinx Vitis 2020</p></li>
+<li><p>A Xilinx Zynq-7000 SoC development board.</p></li>
+<li><p>Xilinx Vivado</p></li>
+<li><p>Xilinx Vitis</p></li>
 <li><p>Any terminal emulator such as PuTTY, TeraTerm or picocom</p></li>
-<li><p>The SCA demo sources available on GitHub</p></li>
-<li><p>The latest SCA IP repo sources available on GitHub</p></li>
-</ul>
-<p><strong>Notes</strong></p>
-<ul class="simple">
-<li><p>All Xilinx boards should be compatible with the test-bench but it has been especially designed for Zybo-Z7010</p></li>
-<li><p>If you use older version of Vivado or Vitis/SDK you might have to modify the provided .tcl scripts to correct the version.</p></li>
 </ul>
 </div>
 <div class="section" id="emulator-setup">
@@ -227,25 +218,14 @@ Bellow is given the emulator configuration used :</p>
 <li><p>databits are   : 8</p></li>
 <li><p>stopbits are   : 1</p></li>
 <li><p>local echo is  : yes</p></li>
-<li><p>noinit is      : no</p></li>
-<li><p>noreset is     : no</p></li>
-<li><p>hangup is      : no</p></li>
-<li><p>nolock is      : no</p></li>
-<li><p>send_cmd is    : sz -vv</p></li>
-<li><p>receive_cmd is : rz -vv -E</p></li>
-<li><p>imap is        :</p></li>
-<li><p>omap is        :</p></li>
-<li><p>emap is        : crcrlf,delbs,</p></li>
-<li><p>logfile is     : none</p></li>
-<li><p>initstring     : none</p></li>
-<li><p>exit_after is  : not set</p></li>
-<li><p>exit is        : no</p></li>
 </ul>
-<p><strong>Notes</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>If your terminal provide it, you can also use the local line edit.</p></li>
 <li><p>Port name can vary according to your OS, eg. on windows its COMx</p></li>
 </ul>
+</div>
 </div>
 <div class="section" id="install-the-hardware">
 <h2>Install the Hardware<a class="headerlink" href="#install-the-hardware" title="Permalink to this headline">¶</a></h2>

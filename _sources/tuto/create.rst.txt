@@ -65,33 +65,33 @@ Now we have to interface the CRYPTON module with AXI peripheral. First, we need 
 
 7. Modify the Crypton_v1_0 vhdl source file by adding **keysize** parameter and **clock**, **done** and **start** signals 
 
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\hdl\CRYPTON_v1_0.vhd
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/hdl/crypton_v1_0.vhd
    :language: vhdl
    :lines: 5-21
    :emphasize-lines: 4,13-15
 
 8. On the same file, Add the parameters to the AXI component and port map.
 
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\hdl\CRYPTON_v1_0.vhd
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/hdl/crypton_v1_0.vhd
    :language: vhdl
    :lines: 50-61
    :emphasize-lines: 4,9-11
    
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\hdl\CRYPTON_v1_0.vhd
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/hdl/crypton_v1_0.vhd
    :language: vhdl
    :lines: 88-99
    :emphasize-lines: 4,9-11
    
 9. Now, on the CRYPTON_v1_0_S00_AXI vhdl source file, we need to modify the entity according to the new IOs.
 
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\hdl\CRYPTON_v1_0_S_AXI.vhd
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/hdl/crypton_v1_0_S_AXI.vhd
    :language: vhdl
    :lines: 5-23
    :emphasize-lines: 4,15-17
    
 10. Then we add the crypton module to our AXI peripheral
 
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\hdl\CRYPTON_v1_0_S_AXI.vhd
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/hdl/crypton_v1_0_S_AXI.vhd
    :language: vhdl
    :lines: 91-100
    :emphasize-lines: 1-10
@@ -100,35 +100,35 @@ Now we have to interface the CRYPTON module with AXI peripheral. First, we need 
 
 11. First we need to create the signals that will serve as interface.
 
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\hdl\CRYPTON_v1_0_S_AXI.vhd
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/hdl/crypton_v1_0_S_AXI.vhd
    :language: vhdl
    :lines: 121-131
    :emphasize-lines: 3-11
 
 12. The signals flowing from the FPGA to the CPU are **done** and **ciphertext**. We connect them to any AXI register that is not use for reads.
 
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\hdl\CRYPTON_v1_0_S_AXI.vhd
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/hdl/crypton_v1_0_S_AXI.vhd
    :language: vhdl
    :lines: 504-546
    :emphasize-lines: 20,22,34-35,1
 
 12. The signals flowing from the CPU to the FPGA are **key**, **plaintext** and **start**. We connect them to any AXI register that is not use for writes.
 
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\hdl\CRYPTON_v1_0_S_AXI.vhd
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/hdl/crypton_v1_0_S_AXI.vhd
    :language: vhdl
    :lines: 605-609
    :emphasize-lines: 1-5
    
 13. To detect the end of the encryption we use a process that generates the done signal when the number of encryption clock cycle is reached
 
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\hdl\CRYPTON_v1_0_S_AXI.vhd
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/hdl/crypton_v1_0_S_AXI.vhd
    :language: vhdl
    :lines: 567-603
    :emphasize-lines: 1-37
 
 14. Finally, we add the port map of the CRYPTON module to establish the final connection
 
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\hdl\crypton_v1_0_S_AXI.vhd
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/hdl/crypton_v1_0_S_AXI.vhd
    :language: vhdl
    :lines: 611-620
    :emphasize-lines: 1-9
@@ -156,7 +156,7 @@ You should have  Makefile, xcrypton.c, xcrypton.h, xcrypton_hw.h, crypton.tcl, c
 
 8. Now, open each file and replace AES and aes occurence with CRYPTON and crypton occurences. (you can use ctrl+r on vivado to replace words, use match case for caps lock)
 
-.. literalinclude:: C:\Users\10055748\Documents\These\SCAbox\sca-ip\ip_repo\CRYPTON_1.0\drivers\crypton_1.0\src\xcrypton_hw.h
+.. rli:: https://github.com/emse-sas/sca-ip/blob/master/ip_repo/crypton_1.0/drivers/crypton_v1_0/src/xcrypton_hw.h
    :language: C
    
 9. Package the IP and click on close project.

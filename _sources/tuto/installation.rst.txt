@@ -1,34 +1,25 @@
 Tuto #1 - Install the Framework
 ===============================================================
 
+**Duration:** 1-2 hours (more if you need to download the Xilinx tools)
+
 Goals
 ***************************************************************
 
-The goal of this installation tutorial is to setup the framework demo 
-in the SoC. This can be done in two steps :
+The goal of this installation tutorial is to setup the SCAbox framework. This can be done in two steps :
 
-1. Install the hardware
-2. Install the software
+1. Install the hardware (Xilinx Vivado)
+2. Install the software (Xilinx Vitis)
 
-The first step is optional if you are already provided with a hardware specification file .xsa (Vitis) or  
-a Board Support Package (SDK). 
-It is mainly useful to go this way when you want to customize the test-bench by changing sensors, crypto-cores or change the board...
+It is mainly useful to go this way when you want to customize the framework by adding sensors, crypto-cores or use another development board.
 
 Requirements
 ***************************************************************
 
-- Xilinx SoC with FPGA.
-- Xilinx Vivado 2020.1
-- Xilinx Vitis 2020
+- A Xilinx Zynq-7000 SoC development board.
+- Xilinx Vivado 
+- Xilinx Vitis 
 - Any terminal emulator such as PuTTY, TeraTerm or picocom
-- The SCA demo sources available on GitHub
-- The latest SCA IP repo sources available on GitHub
-
-**Notes**
-
-- All Xilinx boards should be compatible with the test-bench but it has been especially designed for Zybo-Z7010
-- If you use older version of Vivado or Vitis/SDK you might have to modify the provided .tcl scripts to correct the version.  
-
 
 Emulator setup
 ***************************************************************
@@ -44,24 +35,10 @@ Bellow is given the emulator configuration used :
 - databits are   : 8
 - stopbits are   : 1
 - local echo is  : yes
-- noinit is      : no
-- noreset is     : no
-- hangup is      : no
-- nolock is      : no
-- send_cmd is    : sz -vv
-- receive_cmd is : rz -vv -E
-- imap is        : 
-- omap is        : 
-- emap is        : crcrlf,delbs,
-- logfile is     : none
-- initstring     : none
-- exit_after is  : not set
-- exit is        : no
 
-**Notes**
-
-- If your terminal provide it, you can also use the local line edit.
-- Port name can vary according to your OS, eg. on windows its COMx 
+.. note::
+   - If your terminal provide it, you can also use the local line edit.
+   - Port name can vary according to your OS, eg. on windows its COMx 
 
 Install the Hardware
 ***************************************************************
