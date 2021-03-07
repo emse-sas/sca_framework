@@ -40,6 +40,9 @@ Bellow is given the emulator configuration used :
    - If your terminal provide it, you can also use the local line edit.
    - Port name can vary according to your OS, eg. on windows its COMx 
 
+Tutorial 
+***************************************************************
+
 Install the Hardware
 ***************************************************************
 
