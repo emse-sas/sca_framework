@@ -250,31 +250,224 @@ It is recommended to have an understanding of our hardware setup before starting
 <ol class="arabic simple" start="7">
 <li><p>Modify the Crypton_v1_0 vhdl source file by adding <strong>keysize</strong> parameter and <strong>clock</strong>, <strong>done</strong> and <strong>start</strong> signals</p></li>
 </ol>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="k">entity</span> <span class="nc">CRYPTON_v1_0</span> <span class="k">is</span>
+	<span class="k">generic</span> <span class="p">(</span>
+		<span class="c1">-- Users to add parameters here</span>
+		<span class="c1">-- User parameters ends</span>
+		<span class="c1">-- Do not modify the parameters beyond this line</span>
+		<span class="c1">-- Parameters of Axi Slave Bus Interface S00_AXI</span>
+		<span class="n">C_S00_AXI_DATA_WIDTH</span>	<span class="o">:</span> <span class="kt">integer</span>	<span class="o">:=</span> <span class="mi">32</span><span class="p">;</span>
+		<span class="n">C_S00_AXI_ADDR_WIDTH</span>	<span class="o">:</span> <span class="kt">integer</span>	<span class="o">:=</span> <span class="mi">6</span>
+	<span class="p">);</span>
+	<span class="k">port</span> <span class="p">(</span>
+		<span class="c1">-- Users to add ports here</span>
+<span class="hll">		<span class="n">clock_i</span> <span class="o">:</span> <span class="k">in</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">		<span class="n">start_o</span> <span class="o">:</span> <span class="k">out</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">		<span class="n">done_o</span>  <span class="o">:</span> <span class="k">out</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span>		<span class="c1">-- User ports ends</span>
+		<span class="c1">-- Do not modify the ports beyond this line</span>
+		
+</pre></div>
+</div>
 <ol class="arabic simple" start="8">
 <li><p>On the same file, Add the parameters to the AXI component and port map.</p></li>
 </ol>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>	<span class="k">component</span> <span class="nc">CRYPTON_v1_0_S00_AXI</span> <span class="k">is</span>
+		<span class="k">generic</span> <span class="p">(</span>
+            <span class="n">C_S_AXI_DATA_WIDTH</span>	<span class="o">:</span> <span class="kt">integer</span>	<span class="o">:=</span> <span class="mi">32</span><span class="p">;</span>
+            <span class="n">C_S_AXI_ADDR_WIDTH</span>	<span class="o">:</span> <span class="kt">integer</span>	<span class="o">:=</span> <span class="mi">6</span>
+		<span class="p">);</span>
+		<span class="k">port</span> <span class="p">(</span>
+<span class="hll">            <span class="n">clock_i</span>       <span class="o">:</span> <span class="k">in</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">            <span class="n">start_o</span>       <span class="o">:</span> <span class="k">out</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">            <span class="n">done_o</span>        <span class="o">:</span> <span class="k">out</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span>            <span class="c1">-- ETC</span>
+            <span class="n">S_AXI_ACLK</span>	<span class="o">:</span> <span class="k">in</span> <span class="kt">std_logic</span><span class="p">;</span>
+            <span class="n">S_AXI_ARESETN</span>	<span class="o">:</span> <span class="k">in</span> <span class="kt">std_logic</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>	<span class="k">generic</span> <span class="k">map</span> <span class="p">(</span>
+        <span class="n">C_S_AXI_DATA_WIDTH</span>	<span class="o">=&gt;</span> <span class="n">C_S00_AXI_DATA_WIDTH</span><span class="p">,</span>
+        <span class="n">C_S_AXI_ADDR_WIDTH</span>	<span class="o">=&gt;</span> <span class="n">C_S00_AXI_ADDR_WIDTH</span>
+	<span class="p">)</span>
+	<span class="k">port</span> <span class="k">map</span> <span class="p">(</span>
+<span class="hll">        <span class="n">clock_i</span>       <span class="o">=&gt;</span> <span class="n">clock_i</span><span class="p">,</span>
+</span><span class="hll">        <span class="n">start_o</span>       <span class="o">=&gt;</span> <span class="n">start_o</span><span class="p">,</span>
+</span><span class="hll">        <span class="n">done_o</span>        <span class="o">=&gt;</span> <span class="n">done_o</span><span class="p">,</span>
+</span>        <span class="c1">--ETC</span>
+        <span class="n">S_AXI_ACLK</span>	<span class="o">=&gt;</span> <span class="n">s00_axi_aclk</span><span class="p">,</span>
+        <span class="n">S_AXI_ARESETN</span>	<span class="o">=&gt;</span> <span class="n">s00_axi_aresetn</span><span class="p">,</span>
+        <span class="n">S_AXI_AWADDR</span>	<span class="o">=&gt;</span> <span class="n">s00_axi_awaddr</span><span class="p">,</span>
+</pre></div>
+</div>
 <ol class="arabic simple" start="9">
 <li><p>Now, on the CRYPTON_v1_0_S00_AXI vhdl source file, we need to modify the entity according to the new IOs.</p></li>
 </ol>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="k">entity</span> <span class="nc">CRYPTON_v1_0_S00_AXI</span> <span class="k">is</span>
+	<span class="k">generic</span> <span class="p">(</span>
+        <span class="c1">-- Users to add parameters here</span>
+        <span class="c1">-- User parameters ends</span>
+        <span class="c1">-- Do not modify the parameters beyond this line</span>
+        
+        <span class="c1">-- Width of S_AXI data bus</span>
+        <span class="n">C_S_AXI_DATA_WIDTH</span>	<span class="o">:</span> <span class="kt">integer</span>	<span class="o">:=</span> <span class="mi">32</span><span class="p">;</span>
+        <span class="c1">-- Width of S_AXI address bus</span>
+        <span class="n">C_S_AXI_ADDR_WIDTH</span>	<span class="o">:</span> <span class="kt">integer</span>	<span class="o">:=</span> <span class="mi">6</span>
+	<span class="p">);</span>
+	<span class="k">port</span> <span class="p">(</span>
+        <span class="c1">-- Users to add ports here</span>
+<span class="hll">        <span class="n">clock_i</span> <span class="o">:</span> <span class="k">in</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">        <span class="n">start_o</span> <span class="o">:</span> <span class="k">out</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">        <span class="n">done_o</span>  <span class="o">:</span> <span class="k">out</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span>        <span class="c1">-- User ports ends            </span>
+        <span class="c1">-- Do not modify the ports beyond this line</span>
+</pre></div>
+</div>
 <ol class="arabic simple" start="10">
 <li><p>Then we add the crypton module to our AXI peripheral</p></li>
 </ol>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="hll">        <span class="k">generic</span><span class="p">(</span><span class="n">k</span><span class="o">:</span> <span class="n">key_enum</span> <span class="o">:=</span> <span class="n">K_128</span><span class="p">);</span>
+</span><span class="hll">        <span class="k">port</span><span class="p">(</span>
+</span><span class="hll">             <span class="n">plaintext</span><span class="o">:</span>  <span class="k">in</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">63</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class="hll">             <span class="n">key</span><span class="o">:</span>        <span class="k">in</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="n">key_bits</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class="hll">             <span class="n">clk</span><span class="o">:</span>        <span class="k">in</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">             <span class="n">reset</span><span class="o">:</span>      <span class="k">in</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">             <span class="n">ciphertext</span><span class="o">:</span> <span class="k">out</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">63</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class="hll">        <span class="p">);</span>
+</span><span class="hll">    <span class="k">end</span> <span class="k">component</span><span class="p">;</span>
+</span>    
+</pre></div>
+</div>
 <p><strong>Plaintext, ciphertext, key, done, start and reset</strong> signals are read or written by the processor. We need to interface them using AXI registers</p>
 <ol class="arabic simple" start="11">
 <li><p>First we need to create the signals that will serve as interface.</p></li>
 </ol>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>	<span class="c1">---- Signals for user logic register space example</span>
+<span class="hll">    <span class="k">constant</span> <span class="n">active_cycles</span><span class="o">:</span> <span class="kt">natural</span> <span class="o">:=</span> <span class="mi">14</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">signal</span> <span class="n">data_is</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">63</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class="hll">    <span class="k">signal</span> <span class="n">data_os</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">63</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class="hll">    <span class="k">signal</span> <span class="n">ip_ciphertext</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">63</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class="hll">    <span class="k">signal</span> <span class="n">key_s</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">127</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class="hll">    <span class="k">signal</span> <span class="n">reset_s</span> <span class="o">:</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">signal</span> <span class="n">start_s</span> <span class="o">:</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">signal</span> <span class="n">done_s</span> <span class="o">:</span> <span class="kt">std_logic</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">signal</span> <span class="n">counter</span><span class="o">:</span> <span class="kt">natural</span> <span class="k">range</span> <span class="mi">0</span> <span class="k">to</span> <span class="mi">64</span><span class="p">;</span>
+</span>	<span class="c1">--------------------------------------------------</span>
+</pre></div>
+</div>
 <ol class="arabic simple" start="12">
 <li><p>The signals flowing from the FPGA to the CPU are <strong>done</strong> and <strong>ciphertext</strong>. We connect them to any AXI register that is not use for reads.</p></li>
 </ol>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span>	<span class="k">variable</span> <span class="n">loc_addr</span> <span class="o">:</span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="n">OPT_MEM_ADDR_BITS</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="k">begin</span>
+	    <span class="c1">-- Address decoding for reading registers</span>
+	    <span class="n">loc_addr</span> <span class="o">:=</span> <span class="n">axi_araddr</span><span class="p">(</span><span class="n">ADDR_LSB</span> <span class="o">+</span> <span class="n">OPT_MEM_ADDR_BITS</span> <span class="k">downto</span> <span class="n">ADDR_LSB</span><span class="p">);</span>
+	    <span class="k">case</span> <span class="n">loc_addr</span> <span class="k">is</span>
+	      <span class="k">when</span> <span class="mb">b&quot;0000&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg0</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;0001&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg1</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;0010&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg2</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;0011&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg3</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;0100&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg4</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;0101&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg5</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;0110&quot;</span> <span class="o">=&gt;</span>
+<span class="hll">	           <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">data_os</span><span class="p">(</span><span class="mi">63</span> <span class="k">downto</span> <span class="mi">32</span><span class="p">);</span>
+</span>	      <span class="k">when</span> <span class="mb">b&quot;0111&quot;</span> <span class="o">=&gt;</span>
+<span class="hll">	           <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">data_os</span><span class="p">(</span><span class="mi">31</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+</span>	      <span class="k">when</span> <span class="mb">b&quot;1000&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg8</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;1001&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg9</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;1010&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg10</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;1011&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg11</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;1100&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg12</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;1101&quot;</span> <span class="o">=&gt;</span>
+<span class="hll">              <span class="n">reg_data_out</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">done_s</span><span class="p">;</span>
+</span><span class="hll">              <span class="n">reg_data_out</span><span class="p">(</span><span class="n">C_S_AXI_DATA_WIDTH</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">downto</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="k">others</span> <span class="o">=&gt;</span> <span class="sc">&#39;0&#39;</span><span class="p">);</span>
+</span>	      <span class="k">when</span> <span class="mb">b&quot;1110&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg14</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="mb">b&quot;1111&quot;</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span> <span class="o">&lt;=</span> <span class="n">slv_reg15</span><span class="p">;</span>
+	      <span class="k">when</span> <span class="k">others</span> <span class="o">=&gt;</span>
+	        <span class="n">reg_data_out</span>  <span class="o">&lt;=</span> <span class="p">(</span><span class="k">others</span> <span class="o">=&gt;</span> <span class="sc">&#39;0&#39;</span><span class="p">);</span>
+	    <span class="k">end</span> <span class="k">case</span><span class="p">;</span>
+	<span class="k">end</span> <span class="k">process</span><span class="p">;</span> 
+</pre></div>
+</div>
 <ol class="arabic simple" start="12">
 <li><p>The signals flowing from the CPU to the FPGA are <strong>key</strong>, <strong>plaintext</strong> and <strong>start</strong>. We connect them to any AXI register that is not use for writes.</p></li>
 </ol>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="hll">    <span class="n">data_is</span> <span class="o">&lt;=</span> <span class="n">slv_reg0</span> <span class="o">&amp;</span> <span class="n">slv_reg1</span><span class="p">;</span>
+</span><span class="hll">    <span class="n">key_s</span> <span class="o">&lt;=</span>  <span class="n">slv_reg8</span> <span class="o">&amp;</span> <span class="n">slv_reg9</span> <span class="o">&amp;</span> <span class="n">slv_reg10</span> <span class="o">&amp;</span> <span class="n">slv_reg11</span><span class="p">;</span>
+</span><span class="hll">    <span class="n">reset_s</span> <span class="o">&lt;=</span> <span class="k">not</span> <span class="n">start_s</span><span class="p">;</span>
+</span><span class="hll">    <span class="n">start_o</span> <span class="o">&lt;=</span> <span class="n">start_s</span><span class="p">;</span>
+</span>    
+</pre></div>
+</div>
 <ol class="arabic simple" start="13">
 <li><p>To detect the end of the encryption we use a process that generates the done signal when the number of encryption clock cycle is reached</p></li>
 </ol>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="hll">    <span class="k">process</span><span class="p">(</span><span class="n">clock_i</span><span class="p">,</span><span class="n">S_AXI_ARESETN</span><span class="p">)</span> <span class="k">is</span>
+</span><span class="hll">    <span class="k">begin</span>
+</span><span class="hll">        <span class="k">if</span><span class="p">(</span><span class="n">S_AXI_ARESETN</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="k">then</span>    
+</span><span class="hll">           <span class="n">data_os</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="k">others</span><span class="o">=&gt;</span><span class="sc">&#39;0&#39;</span><span class="p">);</span>
+</span><span class="hll">           <span class="n">done_s</span> <span class="o">&lt;=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+</span><span class="hll">           <span class="n">counter</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">else</span>   
+</span><span class="hll">            <span class="k">if</span> <span class="p">(</span><span class="n">rising_edge</span> <span class="p">(</span><span class="n">clock_i</span><span class="p">))</span> <span class="k">then</span>
+</span><span class="hll">                
+</span><span class="hll">                <span class="k">if</span> <span class="p">(</span> <span class="n">start_s</span> <span class="o">=</span> <span class="sc">&#39;1&#39;</span> <span class="k">and</span> <span class="n">done_s</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span> <span class="p">)</span> <span class="k">then</span> 
+</span><span class="hll">                
+</span><span class="hll">                    <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">=</span> <span class="n">active_cycles</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
+</span><span class="hll">                        <span class="n">done_s</span> <span class="o">&lt;=</span> <span class="sc">&#39;1&#39;</span><span class="p">;</span>
+</span><span class="hll">                        <span class="n">data_os</span><span class="p">(</span><span class="mi">63</span> <span class="k">downto</span> <span class="mi">32</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">ip_ciphertext</span><span class="p">(</span><span class="mi">63</span> <span class="k">downto</span> <span class="mi">32</span><span class="p">);</span>
+</span><span class="hll">                        <span class="n">data_os</span><span class="p">(</span><span class="mi">31</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">ip_ciphertext</span><span class="p">(</span><span class="mi">31</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span> 
+</span><span class="hll">                        <span class="n">counter</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="hll">                    <span class="k">else</span>
+</span><span class="hll">                        <span class="n">counter</span> <span class="o">&lt;=</span> <span class="n">counter</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">                    <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+</span><span class="hll">                    
+</span><span class="hll">                <span class="k">elsif</span><span class="p">(</span><span class="n">start_s</span> <span class="o">=</span> <span class="sc">&#39;1&#39;</span> <span class="k">and</span> <span class="n">done_s</span><span class="o">=</span><span class="sc">&#39;1&#39;</span><span class="p">)</span> <span class="k">then</span>
+</span><span class="hll">                
+</span><span class="hll">                <span class="c1">--do nothing  </span>
+</span><span class="hll">                               
+</span><span class="hll">                <span class="k">else</span>
+</span><span class="hll">                
+</span><span class="hll">                <span class="n">done_s</span> <span class="o">&lt;=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+</span><span class="hll">                
+</span><span class="hll">                <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+</span><span class="hll">                   
+</span><span class="hll">            <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+</span><span class="hll">       
+</span><span class="hll">    <span class="k">end</span> <span class="k">process</span><span class="p">;</span>
+</span><span class="hll">    
+</span><span class="hll">    <span class="n">done_o</span> <span class="o">&lt;=</span> <span class="n">done_s</span><span class="p">;</span>
+</span>    
+</pre></div>
+</div>
 <ol class="arabic simple" start="14">
 <li><p>Finally, we add the port map of the CRYPTON module to establish the final connection</p></li>
 </ol>
+<div class="highlight-vhdl notranslate"><div class="highlight"><pre><span></span><span class="hll">     <span class="k">generic</span> <span class="k">map</span><span class="p">(</span><span class="n">k</span> <span class="o">=&gt;</span> <span class="n">K_128</span><span class="p">)</span>
+</span><span class="hll">        <span class="k">port</span> <span class="k">map</span><span class="p">(</span>
+</span><span class="hll">            <span class="n">plaintext</span>  <span class="o">=&gt;</span> <span class="n">data_is</span><span class="p">,</span>
+</span><span class="hll">            <span class="n">key</span>   <span class="o">=&gt;</span> <span class="n">key_s</span><span class="p">,</span>
+</span><span class="hll">            <span class="n">clk</span> <span class="o">=&gt;</span> <span class="n">clock_i</span><span class="p">,</span>
+</span><span class="hll">            <span class="n">reset</span> <span class="o">=&gt;</span> <span class="n">reset_s</span><span class="p">,</span>
+</span><span class="hll">            <span class="n">ciphertext</span>  <span class="o">=&gt;</span> <span class="n">ip_ciphertext</span>
+</span><span class="hll">        <span class="p">);</span>
+</span>    <span class="c1">-- User logic ends</span>
+</pre></div>
+</div>
 <p>The IP is ready to be synthetized and packaged.</p>
 </div>
 <div class="section" id="package-the-axi-ip-core">
@@ -298,6 +491,46 @@ These files will be used as software driver to control the CRYPTON IP from the p
 <ol class="arabic simple" start="8">
 <li><p>Now, open each file and replace AES and aes occurence with CRYPTON and crypton occurences. (you can use ctrl+r on vivado to replace words, use match case for caps lock)</p></li>
 </ol>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">#define XCRYPTON_WORDS_SIZE 4</span>
+<span class="cp">#define XCRYPTON_BYTES_SIZE 16</span>
+
+<span class="cp">#define XCRYPTON_DATA_IN0_OFFSET 0x00</span>
+<span class="cp">#define XCRYPTON_DATA_IN1_OFFSET 0x04</span>
+<span class="cp">#define XCRYPTON_DATA_IN2_OFFSET 0x08</span>
+<span class="cp">#define XCRYPTON_DATA_IN3_OFFSET 0x0C</span>
+
+<span class="cp">#define XCRYPTON_DATA_OUT0_OFFSET 0x10</span>
+<span class="cp">#define XCRYPTON_DATA_OUT1_OFFSET 0x14</span>
+<span class="cp">#define XCRYPTON_DATA_OUT2_OFFSET 0x18</span>
+<span class="cp">#define XCRYPTON_DATA_OUT3_OFFSET 0x1C</span>
+
+<span class="cp">#define XCRYPTON_DATA_KEY0_OFFSET 0x20</span>
+<span class="cp">#define XCRYPTON_DATA_KEY1_OFFSET 0x24</span>
+<span class="cp">#define XCRYPTON_DATA_KEY2_OFFSET 0x28</span>
+<span class="cp">#define XCRYPTON_DATA_KEY3_OFFSET 0x2c</span>
+
+<span class="cp">#define XCRYPTON_STATUS_WR_OFFSET 0x30</span>
+<span class="cp">#define XCRYPTON_STATUS_RD_OFFSET 0x34</span>
+
+<span class="cp">#define XCRYPTON_STATUS_NULL_MASK 0x0</span>
+<span class="cp">#define XCRYPTON_STATUS_RESET_MASK 0x1</span>
+<span class="cp">#define XCRYPTON_STATUS_START_MASK 0x2</span>
+<span class="cp">#define XCRYPTON_STATUS_INV_MASK 0x4</span>
+<span class="cp">#define XCRYPTON_STATUS_DONE_MASK 0x1</span>
+
+<span class="cp">#define XCRYPTON_SetStatus1(status, reg) \</span>
+<span class="cp">    (reg | status)</span>
+<span class="cp">#define XCRYPTON_SetStatus0(status, reg) \</span>
+<span class="cp">    (reg &amp; ~status)</span>
+<span class="cp">#define XCRYPTON_GetStatus(status, reg) \</span>
+<span class="cp">    (reg &amp; status)</span>
+
+<span class="cp">#define XCRYPTON_ReadReg(addr, offset) \</span>
+<span class="cp">    Xil_In32((addr) + (offset))</span>
+<span class="cp">#define XCRYPTON_WriteReg(addr, offset, data) \</span>
+<span class="cp">    Xil_Out32((addr) + (offset), (data))</span>
+</pre></div>
+</div>
 <ol class="arabic simple" start="9">
 <li><p>Package the IP and click on close project.</p></li>
 </ol>
