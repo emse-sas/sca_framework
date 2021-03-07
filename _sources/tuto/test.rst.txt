@@ -81,7 +81,7 @@ The tutorial starts here
 5. Start the serial communication with the parameters given in the **Emulator setup** section at the beginning of this tutorial
 6. Press the "PS-SRST" button, the following welcome message should appear
 
-.. image:: media/img/SCA_putty.png
+.. image:: media/img/SCA_Putty1.png
    :width: 500
    :alt: FIFO output simple
    :align: center
@@ -113,7 +113,7 @@ To facilitate the data acquisition and visualisation SCAbox comes with a simple 
 
 The following view should appear:
 
-.. image:: media/img/SCA_automation.png
+.. image:: media/img/SCA_Automation1.png
    :width: 800
    :alt: FIFO output simple
    :align: center
@@ -132,7 +132,7 @@ This will launch 500*20 = 10000 AES acquisitions and compute CPA on the last rou
 The AES leakage can be easily recognized thanks to its ten characteristic rounds that create high power consumption spikes. The magnitude spectrum
 plotted in the bottom indicates the leakage amplitude at each frequency. 
 
-.. image:: media/img/SCA_leakage.png
+.. image:: media/img/SCA_Leakage1.png
    :width: 800
    :alt: AES Leakage results
    :align: center
@@ -141,7 +141,7 @@ plotted in the bottom indicates the leakage amplitude at each frequency.
 
 Two plots illustrate the CPA attack results for a specific key byte (here byte 1). On the top, we can see the correct key candidate (in red) emerging from the other candidates (in gray) after less than 100 acquisitions. On the bottom the temporal representation indicates that the key leaks around the sample 300. The actual implementation of the LastRound CPA works only on the 4 first bytes of the AES. 
 
-.. image:: media/img/SCA_results.png
+.. image:: media/img/SCA_Results1.png
    :width: 800
    :alt: CPA results
    :align: center

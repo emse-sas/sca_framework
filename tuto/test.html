@@ -258,7 +258,7 @@ Bellow is given the emulator configuration used :</p>
 <li><p>Start the serial communication with the parameters given in the <strong>Emulator setup</strong> section at the beginning of this tutorial</p></li>
 <li><p>Press the “PS-SRST” button, the following welcome message should appear</p></li>
 </ol>
-<a class="reference internal image-reference" href="tuto/media/img/SCA_putty.png"><img alt="FIFO output simple" class="align-center" src="tuto/media/img/SCA_putty.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="../_images/SCA_Putty1.png"><img alt="FIFO output simple" class="align-center" src="../_images/SCA_Putty1.png" style="width: 500px;" /></a>
 <p>You can now use the available serial commands to perform AES encryptions, side-channel acquisitions, etc. If you want to learn more about available commands please follow the <a class="reference external" href="linkhttps://emse-sas.github.io/sca_framework/tuto/acquisition.html">Use the Framework</a> tutorial.</p>
 </div>
 <div class="section" id="collect-the-aes-leakage">
@@ -284,7 +284,7 @@ $ sudo python3 main.py -t /dev/ttyUSB1
 </pre></div>
 </div>
 <p>The following view should appear:</p>
-<a class="reference internal image-reference" href="tuto/media/img/SCA_automation.png"><img alt="FIFO output simple" class="align-center" src="tuto/media/img/SCA_automation.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../_images/SCA_Automation1.png"><img alt="FIFO output simple" class="align-center" src="../_images/SCA_Automation1.png" style="width: 800px;" /></a>
 <ol class="arabic simple" start="3">
 <li><p>Select the following parameters</p></li>
 </ol>
@@ -300,12 +300,12 @@ $ sudo python3 main.py -t /dev/ttyUSB1
 </ol>
 <p>The AES leakage can be easily recognized thanks to its ten characteristic rounds that create high power consumption spikes. The magnitude spectrum
 plotted in the bottom indicates the leakage amplitude at each frequency.</p>
-<a class="reference internal image-reference" href="tuto/media/img/SCA_leakage.png"><img alt="AES Leakage results" class="align-center" src="tuto/media/img/SCA_leakage.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../_images/SCA_Leakage1.png"><img alt="AES Leakage results" class="align-center" src="../_images/SCA_Leakage1.png" style="width: 800px;" /></a>
 <ol class="arabic simple" start="5">
 <li><p>Select Correlation</p></li>
 </ol>
 <p>Two plots illustrate the CPA attack results for a specific key byte (here byte 1). On the top, we can see the correct key candidate (in red) emerging from the other candidates (in gray) after less than 100 acquisitions. On the bottom the temporal representation indicates that the key leaks around the sample 300. The actual implementation of the LastRound CPA works only on the 4 first bytes of the AES.</p>
-<a class="reference internal image-reference" href="tuto/media/img/SCA_results.png"><img alt="CPA results" class="align-center" src="tuto/media/img/SCA_results.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../_images/SCA_Results1.png"><img alt="CPA results" class="align-center" src="../_images/SCA_Results1.png" style="width: 800px;" /></a>
 </div>
 </div>
 <div class="section" id="conclusion">
