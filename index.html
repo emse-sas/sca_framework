@@ -159,7 +159,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="welcome-to-scabox-s-documentation">
+  <div class="align-center figure">
+<a class="reference internal image-reference" href="_images/SCAbox_logo.png"><img alt="SCAbox logo" src="_images/SCAbox_logo.png" style="width: 250px;" /></a>
+</div>
+<div class="section" id="welcome-to-scabox-s-documentation">
 <h1>Welcome to SCAbox’s documentation !<a class="headerlink" href="#welcome-to-scabox-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>SCAbox is an FPGA-based side-channel analysis framework dedicated to research and educational purposes.</p>
 <p>SCAbox aims at popularizing hardware security by enabling  SCA  experiments at low-cost using software-based hardware attacks. With the SCAbox framework you will be able to:</p>
@@ -170,9 +173,9 @@
 <li><p>Characterize  the  SCA  leakage  of  your  hardware  andsoftware algorithm implementation</p></li>
 </ul>
 <p>For more information please check out our paper introducing SCAbox: PAPER_PATH</p>
-<div class="align-center figure" id="id6">
+<div class="align-center figure" id="id1">
 <a class="reference internal image-reference" href="_images/SCAbox_Setup1.png"><img alt="SCAbox setup" src="_images/SCAbox_Setup1.png" style="width: 400px;" /></a>
-<p class="caption"><span class="caption-text">SCAbox setup</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">SCAbox setup</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
@@ -202,102 +205,6 @@
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="section" id="scabox-evaluation-framework">
-<h1>SCABox Evaluation Framework<a class="headerlink" href="#scabox-evaluation-framework" title="Permalink to this headline">¶</a></h1>
-<a class="reference external image-reference" href="https://choosealicense.com/licenses/mit/"><img alt="license" src="https://img.shields.io/github/license/emse-sas/sca_framework" /></a>
-<a class="reference external image-reference" href="https://emse-sas.github.io/sca_framework/"><img alt="pages" src="https://img.shields.io/github/deployments/emse-sas/sca_framework/github-pages" /></a>
-<p><a class="reference external" href="https://emse-sas.github.io/sca_framework/">Website</a></p>
-<p>SCABox is a framework that provide <em>tools</em> and <em>materials</em> to perform side-channel analysis.
-It provides software, embedded and hardware features gathered in a <em>hybrid</em> test-bench that performs <em>acquisitions</em> and <em>attacks</em>.</p>
-<p><em>Only a Zynq-like board is needed. All the SCA acquisition is performed inside the SoC.</em></p>
-<div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="purposes">
-<h3>Purposes<a class="headerlink" href="#purposes" title="Permalink to this headline">¶</a></h3>
-<p>SCABox aims at popularizing the SCA analysis by allowing easy experiment and development.
-Furthermore it allows to replace oscilloscope based SCA test-bench with only an FPGA SoC.</p>
-<ul class="simple">
-<li><p><strong>Learn</strong> SCA analysis and co-design development</p></li>
-<li><p><strong>Reproduce</strong> the attacks achieved by state of the art</p></li>
-<li><p><strong>Characterize</strong> the hardware security of your devices and software</p></li>
-</ul>
-<p><em>The project is thought to be progressive and adapted to the needs of both developers and scientists.</em></p>
-<p>If you are not familiar with SCA we provided a various materials in the wiki to smoothly introduce you to the topic.</p>
-<p>If you are already familiar with SCA we encourage you to take a look at our tutorials.</p>
-<p>If you want to get deep into the setup you can go to the technical documentations of the parts you are interested in.</p>
-</div>
-<div class="section" id="how">
-<h3>How ?<a class="headerlink" href="#how" title="Permalink to this headline">¶</a></h3>
-<p>Our test-bench is based on sensors that leverage FPGA digital logic blocks available in the FPGA slices to capture the SoC voltage fluctuations.
-These sensors are employed to eavesdrop the power leakage of a crypto-algorithm running in the FPGA or in the CPU.</p>
-<p><em>To know more about how the bench and the SCA attacks works take a look at the wiki.</em></p>
-</div>
-<div class="section" id="features">
-<h3>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
-<p>The SCABox test-bench is meant to perform attack simulations on an SoC.
-It allows to perform various SCA analysis related tasks.</p>
-<ul class="simple">
-<li><p><strong>Compute</strong> crypto-algorithm runs using software and hardware</p></li>
-<li><p><strong>Capture</strong> electrical power leakage with FPGA sensors</p></li>
-<li><p><strong>Transfer</strong> leakage data via serial port</p></li>
-<li><p><strong>Export</strong> leakage data to CSV</p></li>
-<li><p><strong>Attack</strong> from serial port to key guess</p></li>
-<li><p><strong>Visualize</strong> correlation and acquisition</p></li>
-<li><p><strong>Automate</strong> attack and export using the GUI</p></li>
-<li><p><strong>Customize</strong> the bench by integrating your own code</p></li>
-</ul>
-<p><em>Take a look at the repositories linked below to get an overview of the contents.</em></p>
-<div class="section" id="documentation">
-<h4>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h4>
-<p>SCABox is an open-source project, all the sources are hosted on GitHub and organized around various repositories</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/emse-sas/sca-ip/">IP repository</a></p></li>
-<li><p><a class="reference external" href="https://github.com/emse-sas/sca-demo-tdc-aes/">Acquisition demo</a></p></li>
-<li><p><a class="reference external" href="https://github.com/emse-sas/sca-automation/">Attack demo</a></p></li>
-<li><p><a class="reference external" href="https://github.com/emse-sas/sca_framework/">SCABox website</a></p></li>
-</ul>
-<p>Each repository is provided with a technical documentation.
-This website provide general documentation around the SCA topic and the test-bench</p>
-<ul class="simple">
-<li><p>Tutorials to install the bench, customize it and launch attacks</p></li>
-<li><p>Wiki to get introduced to the remote SCA and the bench architecture</p></li>
-</ul>
-<p><em>This way you can choose to get started with the part you are the most confortable with.</em></p>
-</div>
-</div>
-<div class="section" id="authors">
-<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h3>
-<p>Anonymous</p>
-</div>
-<div class="section" id="more">
-<h3>More<a class="headerlink" href="#more" title="Permalink to this headline">¶</a></h3>
-<p>SCABox is a project on the topic of side-channel analysis.
-The goal of SCABox is to provide a cheap and efficient test-bench for side-channel analysis.</p>
-<p>To know more about SCABox please visit our <a class="reference external" href="https://emse-sas.github.io/sca_framework/">website</a>.
-It provides a tutorials and a wiki about side-channel analysis.</p>
-<p>SCABox is an open-source project, all the sources are hosted on GitHub</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/emse-sas/sca-ip/">IP repository</a></p></li>
-<li><p><a class="reference external" href="https://github.com/emse-sas/sca-demo-tdc-aes/">Acquisition demo</a></p></li>
-<li><p><a class="reference external" href="https://github.com/emse-sas/sca-automation/">Attack demo</a></p></li>
-<li><p><a class="reference external" href="https://github.com/emse-sas/sca_framework/">SCABox website</a></p></li>
-</ul>
-</div>
-</div>
-<div class="section" id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
-<p>Please feel free to take part into SCABox project, all kind of contributions are welcomed.</p>
-<p>The project aims at gathering a significant number of IP cores, crypto-algorithms and attack models
-in order to provide an exhaustive view of today’s remote SCA threat.</p>
-<p>Software and embedded improvements are also greatly welcomed. Since the project is quite vast and invovles
-a very heterogeneous technical stack, it is difficult to maintain the quality with a reduced size team.</p>
-</div>
-<div class="section" id="license">
-<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
-<p>All the contents of the SCABox project are licensed under the <a class="reference external" href="https://choosealicense.com/licenses/mit/">MIT license</a> provided in each GitHub repository.</p>
-<p>Copyright (c) 2020 Anonymous</p>
 </div>
 </div>
 
