@@ -1,3 +1,10 @@
+.. figure:: media/img/SCAbox_logo.png
+   :width: 250
+   :alt: SCAbox logo
+   :align: center
+   :figclass: align-center
+
+
 Welcome to SCAbox's documentation !
 ***************************************************************
 
@@ -36,5 +43,5 @@ Summary
 
    wiki/home
 
-.. include:: ../../README.rst
+
 

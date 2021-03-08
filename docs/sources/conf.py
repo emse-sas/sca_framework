@@ -37,7 +37,6 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinxarg.ext",
     "recommonmark",
-    "sphinxext.remoteliteralinclude"
 ]
 
 # Add any paths that contain templates here, relative to this directory.
