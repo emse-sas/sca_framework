@@ -268,7 +268,7 @@ Bellow is given the emulator configuration used :</p>
 <li><p>Press the <strong>+</strong> button and search for <strong>ZYNQ7 Processing System</strong>. double click to add it.</p></li>
 <li><p>Press the <strong>+</strong> button and search for <strong>FIFO Controller and FIFO</strong>. double click to add it.</p></li>
 <li><p>Press the <strong>+</strong> button and search for <strong>Time to Digital Converter (TDC)</strong>. double click to add it.</p></li>
-<li><p>Press the <strong>+</strong> button and search for <strong>Advanced Encryption Standard (AES)</strong>. double click to add it.</p></li>
+<li><p>Press the <strong>+</strong> button and search for <strong>Basic Advanced Encryption Standard (AES)</strong>. double click to add it.</p></li>
 </ol>
 <p>You should see the following IPs in your block design</p>
 <a class="reference internal image-reference" href="tuto/media/img/ip_block_design.png"><img alt="IP block design" class="align-center" src="tuto/media/img/ip_block_design.png" style="width: 640px;" /></a>
@@ -281,7 +281,7 @@ Bellow is given the emulator configuration used :</p>
 <a class="reference internal image-reference" href="tuto/media/img/block_automation.png"><img alt="IP block design" class="align-center" src="tuto/media/img/block_automation.png" style="width: 640px;" /></a>
 <ol class="arabic simple" start="2">
 <li><p>Double click on the <strong>ZYNQ7 processing system</strong> block and select <strong>Clock Configuration</strong></p></li>
-<li><p>In the PL Fabric clock arborescence check <strong>FCLK_CLK0</strong> and set its frequency to <strong>50MHz</strong> (AXI clock), check <strong>FCLK_CLK1</strong> and set its frequency to <strong>200MHz</strong> (sensor clock), check <strong>FCLK_CLK2</strong> and set its frequency to <strong>10MHz</strong> (target clock)</p></li>
+<li><p>In the PL Fabric clock arborescence check <strong>FCLK_CLK0</strong> and set its frequency to <strong>50MHz</strong> (AXI clock), check <strong>FCLK_CLK1</strong> and set its frequency to <strong>200MHz</strong> (sensor clock), check <strong>FCLK_CLK2</strong> and set its frequency to <strong>10MHz</strong> (target clock). Press <strong>Ok</strong> to apply the modifications.</p></li>
 </ol>
 <a class="reference internal image-reference" href="tuto/media/img/zynq_clock.png"><img alt="IP block design" class="align-center" src="tuto/media/img/zynq_clock.png" style="width: 640px;" /></a>
 <ol class="arabic simple" start="4">
@@ -303,6 +303,9 @@ Bellow is given the emulator configuration used :</p>
 <li><p>Select <strong>Run Connection Automation</strong> in the designer assistance (green message in the diagram view). Check <strong>All Automation</strong> and press <strong>OK</strong></p></li>
 </ol>
 <p>Vivado automatically adds interconnect and reset AXI blocks. The design is ready.</p>
+<ol class="arabic simple" start="10">
+<li><p>Save the design by pressing <strong>ctrl+S</strong></p></li>
+</ol>
 <a class="reference internal image-reference" href="tuto/media/img/connected_axi_design.png"><img alt="IP block design" class="align-center" src="tuto/media/img/connected_axi_design.png" style="width: 640px;" /></a>
 </div>
 </div>
@@ -313,14 +316,17 @@ Bellow is given the emulator configuration used :</p>
 <h4>1. Generate a HDL wrapper<a class="headerlink" href="#generate-a-hdl-wrapper" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
 <li><p>Go into the <strong>Sources</strong> tab</p></li>
+</ol>
+<a class="reference internal image-reference" href="tuto/media/img/source_tab.png"><img alt="IP block design" class="align-center" src="tuto/media/img/source_tab.png" style="width: 300px;" /></a>
+<ol class="arabic simple" start="2">
 <li><p>Right click on <strong>SCAbox</strong> under <strong>Design Sources</strong></p></li>
 <li><p>Select Create a HDL wrapper</p></li>
 <li><p>Let Vivado manage the wrapper</p></li>
 </ol>
-<a class="reference internal image-reference" href="tuto/media/img/wrapper.png"><img alt="IP block design" class="align-center" src="tuto/media/img/wrapper.png" style="width: 300px;" /></a>
+<a class="reference internal image-reference" href="tuto/media/img/wrapper.pngs"><img alt="IP block design" class="align-center" src="tuto/media/img/wrapper.pngs" style="width: 300px;" /></a>
 <ol class="arabic simple" start="5">
 <li><p>Click on <strong>Flow Navigator &gt; IP Integrator &gt; Generate Block Design</strong></p></li>
-<li><p>Click on Generate to generate the wrapper</p></li>
+<li><p>Click on <strong>Generate</strong> to generate the wrapper</p></li>
 </ol>
 </div>
 <div class="section" id="configure-manual-sensors-placement">

@@ -43,6 +43,7 @@ Bellow is given the emulator configuration used :
    - If your terminal provide it, you can also use the local line edit.
    - Port name can vary according to your OS, eg. on windows its COMx 
 
+
 Tutorial 
 ***************************************************************
 
@@ -94,7 +95,7 @@ Now IPs can be added to the design
 3. Press the **+** button and search for **ZYNQ7 Processing System**. double click to add it.
 4. Press the **+** button and search for **FIFO Controller and FIFO**. double click to add it.
 5. Press the **+** button and search for **Time to Digital Converter (TDC)**. double click to add it.
-6. Press the **+** button and search for **Advanced Encryption Standard (AES)**. double click to add it.
+6. Press the **+** button and search for **Basic Advanced Encryption Standard (AES)**. double click to add it.
 
 You should see the following IPs in your block design
 
@@ -115,12 +116,13 @@ You should see the following IPs in your block design
 
 2. Double click on the **ZYNQ7 processing system** block and select **Clock Configuration**
 
-3. In the PL Fabric clock arborescence check **FCLK_CLK0** and set its frequency to **50MHz** (AXI clock), check **FCLK_CLK1** and set its frequency to **200MHz** (sensor clock), check **FCLK_CLK2** and set its frequency to **10MHz** (target clock)
+3. In the PL Fabric clock arborescence check **FCLK_CLK0** and set its frequency to **50MHz** (AXI clock), check **FCLK_CLK1** and set its frequency to **200MHz** (sensor clock), check **FCLK_CLK2** and set its frequency to **10MHz** (target clock). Press **Ok** to apply the modifications. 
 
 .. image:: media/img/zynq_clock.png
    :width: 640
    :alt: IP block design
    :align: center
+
 
 4. Connect each clock signal according to the screenshot below.
 
@@ -151,6 +153,8 @@ At this point, the design should look like this
 
 Vivado automatically adds interconnect and reset AXI blocks. The design is ready.
 
+10. Save the design by pressing **ctrl+S**
+
 .. image:: media/img/connected_axi_design.png
    :width: 640
    :alt: IP block design
@@ -166,17 +170,23 @@ At this point, few steps are required to have a working bitstream.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Go into the **Sources** tab
+
+.. image:: media/img/source_tab.png
+   :width: 300
+   :alt: IP block design
+   :align: center
+
 2. Right click on **SCAbox** under **Design Sources**
 3. Select Create a HDL wrapper
 4. Let Vivado manage the wrapper
 
-.. image:: media/img/wrapper.png
+.. image:: media/img/wrapper.pngs
    :width: 300
    :alt: IP block design
    :align: center
 
 5. Click on **Flow Navigator > IP Integrator > Generate Block Design**
-6. Click on Generate to generate the wrapper
+6. Click on **Generate** to generate the wrapper
 
 2. Configure manual sensors placement
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
