@@ -1,4 +1,4 @@
-Tuto #0 - Run the Pre-Built Demo
+#1 - Run the Pre-Built Demo
 ===============================================================
 
 **Duration:** 20-30 min
@@ -21,6 +21,7 @@ Requirements
 - A micro SD card
 - A micro USB cable 
 - Any terminal emulator such as PuTTY, TeraTerm or picocom
+- Python version :math:`\geq` 3.8
 
 .. note::
 	Because it uses pre-built images, this tutorial is board dependent. 
@@ -55,38 +56,43 @@ Tutorial
 
 The tutorial starts here
 
-1. Download the Application Image
+1. Load the boot image inside the SD card
 ---------------------------------------------------------------
 
-1. Download the boot image that matches your board reference in `here <link https://github.com/emse-sas/sca-demo-tdc-aes/image>`_  
-2. Insert the SD card in your computer and format it. You can follow these `instructions <link https://dzone.com/articles/create-a-bootbin-program-an-sd-card-and-boot-a-zc7>`_ to format the card
-3. Once formatted, copy and paste the BOOT.bin file into the SD card and eject it.
+1. **Insert** the SD card into your computer
+2. **Format** the SD card. 
+3. **Copy** the BOOT.bin image that matches your board reference
+4. **Eject** the SD card
+
+.. note::
+   The folder containing the images is located in **your_path/SCAbox/sca_demo_tdc_aes/image**
 
 2. Launch the Demo
 ---------------------------------------------------------------
 
-1. Insert the SD card into the Zybo board slot.
-2. Place the jumper 5 in SD boot position
-3. Connect the Zybo to your computer using a USB cable 
-4. Power on the Zybo and wait for the green led "DONE" to illuminate, the board is ready.
+1. Insert the SD card into the Zybo board card slot.
+2. Place the jumper 5 in **SD** boot position
+3. Connect the Zybo to your computer using the **micro USB cable**
+4. Power on the Zybo and wait for the green led "**DONE**" to illuminate.
 
 .. note::
 	If the "DONE" led is off, press the "PS-SRST" button. If it remains off the image is probably not compatible with your board, or the SD card is not supported. Please check the requirement section at the beginning of this tutorial.
 
 .. image:: media/img/zybo_programmed.jpg
-   :width: 400px
+   :width: 400
    :alt: Zybo programmed
    :align: center
 
 5. Start the serial communication with the parameters given in the **Emulator setup** section at the beginning of this tutorial
+
 6. Press the "PS-SRST" button, the following welcome message should appear
 
 .. image:: media/img/SCA_Putty1.png
-   :width: 500
+   :width: 400
    :alt: FIFO output simple
    :align: center
 
-You can now use the available serial commands to perform AES encryptions, side-channel acquisitions, etc. If you want to learn more about available commands please follow the `Use the Framework <link https://emse-sas.github.io/sca_framework/tuto/acquisition.html>`_ tutorial.
+You can now use the available serial commands to perform AES encryptions, side-channel acquisitions, etc. If you want to learn more about available commands please follow the `Tuto #3 <acquisition.html>`_.
 
 3. Collect the AES Leakage
 ---------------------------------------------------------------
@@ -104,7 +110,7 @@ To facilitate the data acquisition and visualisation SCAbox comes with a simple 
 	$ cd sca-automation
 	$ pip3 install -r requirements.txt
 
-2. Then launch the main.py python with your board serial port in argument.
+2. Then launch the **main.py** python file with your board serial port as an argument.
 
 .. code-block:: shell
 
@@ -120,14 +126,14 @@ The following view should appear:
 
 3. Select the following parameters   
 
-- Iteration: 500
-- Chunk: 20
-- Mode: HW
-- Model: Inv Sbox R10
+- **Iteration**: 500
+- **Chunk**: 20
+- **Mode**: HW
+- **Model**: Inv Sbox R10
 
 This will launch 500*20 = 10000 AES acquisitions and compute CPA on the last round. 
 
-4. Press Launch
+4. Press **Launch**
 
 The AES leakage can be easily recognized thanks to its ten characteristic rounds that create high power consumption spikes. The magnitude spectrum
 plotted in the bottom indicates the leakage amplitude at each frequency. 
@@ -137,7 +143,7 @@ plotted in the bottom indicates the leakage amplitude at each frequency.
    :alt: AES Leakage results
    :align: center
 
-5. Select Correlation
+5. Select **Correlation**
 
 Two plots illustrate the CPA attack results for a specific key byte (here byte 1). On the top, we can see the correct key candidate (in red) emerging from the other candidates (in gray) after less than 100 acquisitions. On the bottom the temporal representation indicates that the key leaks around the sample 300. The actual implementation of the LastRound CPA works only on the 4 first bytes of the AES. 
 
@@ -150,3 +156,6 @@ Conclusion
 ***************************************************************
 
 You did it ! It was your first FPGA-based side-channel attack experience on SCAbox. Now you may be interested in creating your own designs. That's the topic addressed in the following tutorials.
+
+Click **Next** to start the `Tuto#2 <installation.html>`_: Install the Framework.
+

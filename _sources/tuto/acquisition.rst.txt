@@ -1,50 +1,55 @@
-Tuto #2 - Use the Framework
+#3 - Use SCAbox
 ===============================================================
 
 Goals
 ***************************************************************
 
-This tutorial exposes the power leakage acquisition configurations available in the demo.
-It shows you how to perform a parametrized acquisition with a command :
+This tutorial exposes the power leakage acquisition configurations available in the demonstration. We use the project built in `Tuto #2 <installation.html>`_ to conduct the acquistions.
+
+
+This tutorial will help you in performing acquisition with a serial command:
 
 1. Simple acquisition
 2. Cropped acquisition
 3. Crypto-algorithm acquisition
 4. Iterated acquisition
 
-**Notes** 
+.. note::
 
-- To denote the value given to an option we will always use the letter designing the option. eg. ``-s`` will be :math:`s`
-- If you want to know more about the commands available in the demo you can displayed the help by typing ``help``
+  - To denote the value given to an option we will always use the letter designing the option. eg. ``-s`` will be :math:`s`
+  - If you want to learn more about the commands available in the demo you can displayed the help by typing ``man``
 
 
 
 Requirements
 ***************************************************************
 
-You must have a complete the demo installation tutorial before starting this tutorial.
-It is recommended to have an understanding of our hardware setup before starting the tutorial.
+- Have completed the `Tuto #2 <installation.html>`_ 
 
-- Any terminal emulator such as PuTTY, TeraTerm or picocom
-- Have a completed the installation tutorial
-- Have an understanding of our hardware setup
 
-Simple acquisition
+Tutorial 
 ***************************************************************
 
-A simple acquisition consist on acquiring the sensors a constant frequency at an arbitrary instant and storing the values a hardware FIFO.
-The latter is then read by the demo and the acquired values are sent via UART.
+The tutorial starts here !
 
-To perform a simple acquisition type the following command :
+
+1. Simple acquisition
+---------------------------------------------------------------
+
+A simple acquisition consists in acquiring the sensor state and storing it into the storage FIFO. The hardware repeats this operation until the FIFO is full. 
+
+The latter is then read by the C program and the acquired values are exported through UART.
+
+To perform a simple acquisition type the following command:
 
 .. code-block:: shell
 
     > fifo -a
 
-If the command executed successfully you should have an output similar to bellow in your terminal emulator :
+If the command executed successfully you should have an output similar to the one below in your serial terminal:
 
-.. image:: media/img/acquisition_fifo.png
-   :width: 640
+.. image:: media/img/testfifo.png
+   :width: 400
    :alt: FIFO output simple
    :align: center
 
@@ -54,12 +59,18 @@ if you want the sensor output to be printed in number instead of char code use t
 
     > fifo -a -v
 
+.. note::
+  This command prints all the FIFO content. The default SCAbox FIFO depth is **8192**.
 
-Cropped acquisition
-***************************************************************
+.. note::
+  With sensors running @200 Mhz we can monitor the leakage for a duration of 40µs. You can increase the FIFO depth and reduce the sensor sampling frequency to increase the acquisition duration.
+
+
+2. Cropped acquisition
+---------------------------------------------------------------
 
 A cropped acquisition is a simple acquisition where the data is cropped at its start and end.
-The resulting data will contain :math:`s - e` samples excluding the e-th one. 
+The resulting data will contain :math:`e - s` samples excluding the e-th one. 
 
 To perform a cropped acquisition type the following command
 
@@ -69,44 +80,65 @@ To perform a cropped acquisition type the following command
 
 If the command executed successfully you should have an output similar to bellow in your terminal emulator :
 
-.. image:: media/img/acquisition_crop.png
-   :width: 640
+.. image:: media/img/testfifocropped.png
+   :width: 400
    :alt: FIFO output cropped
    :align: center
 
 
-Crypto-algorithm acquisition
-***************************************************************
+3. Crypto-algorithm acquisition
+---------------------------------------------------------------
 
-A crypto-algorithm acquisition consist on acquiring the sensors at constant frequency during the cryptographic computation
-and storing the values a hardware FIFO.
+A crypto-algorithm acquisition consists in acquiring the sensor state  during a cryptographic computation and storing these values into the FIFO.
 The FIFO is then read by the demo and the acquired values are sent via UART.
 
-To acquire a simple run of crypto-algorithm for example, a simple AES encryption. Type the following command :
+To acquire a simple run of crypto-algorithm for instance a simple AES encryption. 
 
 .. code-block:: shell
 
-    > aes -d [data] -k [key]
+    > aes -m [mode] -d [data] -k [key]
+
+In this demo, the **mode** argument can be either:
+- ``hw`` for VHDL hardware AES
+- ``tiny`` for C tiny AES
+- ``ssl`` for C OpenSSL AES
+- ``dhuertas`` for C dhuertas AES
+
+The **data** argument is the plaintext in hexadecimal.
+The **key** argument is the secret key in hexadecimal.
+
+For instance, type the following command:
+
+.. code-block:: shell
+
+    > aes -m hw -d 00112233445566778899aabbccddeeff -k 000102030405060708090a0b0c0d0e0f
 
 If the command executed successfully you should have an output similar to bellow in your terminal emulator :
 
-.. image:: media/img/acquisition_aes.png
-   :width: 640
+.. image:: media/img/testaes.png
+   :width: 400
    :alt: AES output
    :align: center
 
-Note that no sensor value is displayed but the FIFO has effectively been fill.
-To retrieve the acquired values, you must read the FIFO :
+Note that no sensor value is displayed but the FIFO has effectively been filled. To retrieve the acquired values, you must read the FIFO :
 
 .. code-block:: shell
 
-    > fifo [-v]
+    > fifo 
 
-You can perform a cropped acquisition of crypto-algorithm : 
+.. image:: media/img/testaesfifo.png
+   :width: 400
+   :alt: AES output
+   :align: center
+
+.. note::
+    As you can see in the above picture, some Ascii caracters cannot be displayed properly using the PuTTY interface. However, they will be correctly saved in a log file.
+
+**You can perform a cropped acquisition of crypto-algorithm:**
 
 .. code-block:: shell
 
-    > aes -d [data] -k [key] -e [end]
+    > aes -m [mode] -d [data] -k [key] -e [end]
 
 This way the hardware will stop to fill the FIFO once :math:`e` values are acquired.
 You can similarly retrieve the acquired values :
@@ -115,33 +147,33 @@ You can similarly retrieve the acquired values :
 
     > fifo [-v] -s [start] -e [end]
 
-Iterated acquisition
-***************************************************************
+4. Iterated acquisition
+---------------------------------------------------------------
 
-In order to perform multiple crypto-algorithms run and capture their leakage, the demo provide a simple command that will iterate the crypto-algorithm acquisition :
+In order to perform multiple crypto-algorithms runs and capture their leakage, the demo provide a simple command that will iterate the crypto-algorithm acquisition :
 
 .. code-block:: shell
 
-    > sca [-v] -t [iterations] -s [start] -e [end]
+    > sca  -m [mode] -t [iterations] -s [start] -e [end] [-v]
 
 This command will run cryptographic computation using random data and read the FIFO at once.
 This process is repeated :math:`t` times.
 
 If the command executed correctly you should see the following output :
 
-.. image:: media/img/acquisition_sca.png
-   :width: 640
+.. image:: media/img/testsca.png
+   :width: 400
    :alt: SCA output
    :align: center
 
 Conclusion
 ***************************************************************
 
-In this tutorial you learn how to launch power leakage acquisition, at an arbitrary instant and during crypto-computing.
-You learn how to iterate this acquisition and how to crop the power leakage.
+In this tutorial you learned how to launch sensor's power leakage acquisition during a cryptographic encryption.
+You learned how to iterate this acquisition and how to crop the power leakage.
 
-Keep in mind that the demo application provide is powerful tool to capture leakage and transmit it via UART using our protocol.
-It allows to capture enough traces, that can be crop to diminish acquisition time, in order to perform a successful attack.
+Keep in mind that the SCA automation python tool presented in `Tuto #1 <test.html>`_ provides a powerful way to capture leakage and transmit it via UART using our protocol. It allows to capture enough traces, that can be crop to diminish acquisition time, in order to perform a successful attack.
 
-You can customize the demo-application to minimize memory usage or change functionally to better meet your needs.
-For example you can change the analyzed crypto-algorithm or the random generation of encryption data.
+You can customize the demo-application to change any functionally to better meet your needs. For example you can change the analyzed crypto-algorithm or the random generation of encryption data. To do this follow the `Tuto #4 <create.html>`_.
+
+Click **Next** to start the `Tuto #4 <create.html>`_: Build your Own Designs.

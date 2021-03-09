@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Tuto #0 - Run the Pre-Built Demo &mdash; SCAbox 1.1.0 documentation</title>
+  <title>#1 - Run the Pre-Built Demo &mdash; SCAbox 1.1.0 documentation</title>
   
 
   
@@ -32,14 +32,15 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tuto #1 - Install the Framework" href="installation.html" />
-    <link rel="prev" title="Home" href="home.html" /> 
+    <link rel="next" title="#2 - Install SCAbox" href="installation.html" />
+    <link rel="prev" title="#0 - Download SCAbox" href="download.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,12 +89,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="home.html">Home</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="home.html#tutorials">Tutorials</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tuto #0 - Run the Pre-Built Demo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="download.html">#0 - Download SCAbox</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">#1 - Run the Pre-Built Demo</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#emulator-setup">Emulator setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tutorial">Tutorial</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#download-the-application-image">1. Download the Application Image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#load-the-boot-image-inside-the-sd-card">1. Load the boot image inside the SD card</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#launch-the-demo">2. Launch the Demo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#collect-the-aes-leakage">3. Collect the AES Leakage</a></li>
 </ul>
@@ -101,9 +103,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html">Tuto #1 - Install the Framework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="acquisition.html">Tuto #2 - Use the Framework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="create.html">Tuto #3 - Build your Own Designs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html">#2 - Install SCAbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acquisition.html">#3 - Use SCAbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html">#4 - Build your Own Designs</a></li>
 </ul>
 </li>
 </ul>
@@ -161,7 +163,7 @@
         
           <li><a href="home.html">Home</a> &raquo;</li>
         
-      <li>Tuto #0 - Run the Pre-Built Demo</li>
+      <li>#1 - Run the Pre-Built Demo</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -180,8 +182,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="tuto-0-run-the-pre-built-demo">
-<h1>Tuto #0 - Run the Pre-Built Demo<a class="headerlink" href="#tuto-0-run-the-pre-built-demo" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="run-the-pre-built-demo">
+<h1>#1 - Run the Pre-Built Demo<a class="headerlink" href="#run-the-pre-built-demo" title="Permalink to this headline">¶</a></h1>
 <p><strong>Duration:</strong> 20-30 min</p>
 <div class="section" id="goals">
 <h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
@@ -200,6 +202,7 @@
 <li><p>A micro SD card</p></li>
 <li><p>A micro USB cable</p></li>
 <li><p>Any terminal emulator such as PuTTY, TeraTerm or picocom</p></li>
+<li><p>Python version <span class="math notranslate nohighlight">\(\geq\)</span> 3.8</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -233,21 +236,26 @@ Bellow is given the emulator configuration used :</p>
 <div class="section" id="tutorial">
 <h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
 <p>The tutorial starts here</p>
-<div class="section" id="download-the-application-image">
-<h3>1. Download the Application Image<a class="headerlink" href="#download-the-application-image" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="load-the-boot-image-inside-the-sd-card">
+<h3>1. Load the boot image inside the SD card<a class="headerlink" href="#load-the-boot-image-inside-the-sd-card" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li><p>Download the boot image that matches your board reference in <a class="reference external" href="linkhttps://github.com/emse-sas/sca-demo-tdc-aes/image">here</a></p></li>
-<li><p>Insert the SD card in your computer and format it. You can follow these <a class="reference external" href="linkhttps://dzone.com/articles/create-a-bootbin-program-an-sd-card-and-boot-a-zc7">instructions</a> to format the card</p></li>
-<li><p>Once formatted, copy and paste the BOOT.bin file into the SD card and eject it.</p></li>
+<li><p><strong>Insert</strong> the SD card into your computer</p></li>
+<li><p><strong>Format</strong> the SD card.</p></li>
+<li><p><strong>Copy</strong> the BOOT.bin image that matches your board reference</p></li>
+<li><p><strong>Eject</strong> the SD card</p></li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The folder containing the images is located in <strong>your_path/SCAbox/sca_demo_tdc_aes/image</strong></p>
+</div>
 </div>
 <div class="section" id="launch-the-demo">
 <h3>2. Launch the Demo<a class="headerlink" href="#launch-the-demo" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li><p>Insert the SD card into the Zybo board slot.</p></li>
-<li><p>Place the jumper 5 in SD boot position</p></li>
-<li><p>Connect the Zybo to your computer using a USB cable</p></li>
-<li><p>Power on the Zybo and wait for the green led “DONE” to illuminate, the board is ready.</p></li>
+<li><p>Insert the SD card into the Zybo board card slot.</p></li>
+<li><p>Place the jumper 5 in <strong>SD</strong> boot position</p></li>
+<li><p>Connect the Zybo to your computer using the <strong>micro USB cable</strong></p></li>
+<li><p>Power on the Zybo and wait for the green led “<strong>DONE</strong>” to illuminate.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -258,8 +266,8 @@ Bellow is given the emulator configuration used :</p>
 <li><p>Start the serial communication with the parameters given in the <strong>Emulator setup</strong> section at the beginning of this tutorial</p></li>
 <li><p>Press the “PS-SRST” button, the following welcome message should appear</p></li>
 </ol>
-<a class="reference internal image-reference" href="../_images/SCA_Putty1.png"><img alt="FIFO output simple" class="align-center" src="../_images/SCA_Putty1.png" style="width: 500px;" /></a>
-<p>You can now use the available serial commands to perform AES encryptions, side-channel acquisitions, etc. If you want to learn more about available commands please follow the <a class="reference external" href="linkhttps://emse-sas.github.io/sca_framework/tuto/acquisition.html">Use the Framework</a> tutorial.</p>
+<a class="reference internal image-reference" href="../_images/SCA_Putty1.png"><img alt="FIFO output simple" class="align-center" src="../_images/SCA_Putty1.png" style="width: 400px;" /></a>
+<p>You can now use the available serial commands to perform AES encryptions, side-channel acquisitions, etc. If you want to learn more about available commands please follow the <a class="reference external" href="acquisition.html">Tuto #3</a>.</p>
 </div>
 <div class="section" id="collect-the-aes-leakage">
 <h3>3. Collect the AES Leakage<a class="headerlink" href="#collect-the-aes-leakage" title="Permalink to this headline">¶</a></h3>
@@ -277,7 +285,7 @@ $ pip3 install -r requirements.txt
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>Then launch the main.py python with your board serial port in argument.</p></li>
+<li><p>Then launch the <strong>main.py</strong> python file with your board serial port as an argument.</p></li>
 </ol>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> sca-automation/app
 $ sudo python3 main.py -t /dev/ttyUSB1
@@ -289,20 +297,20 @@ $ sudo python3 main.py -t /dev/ttyUSB1
 <li><p>Select the following parameters</p></li>
 </ol>
 <ul class="simple">
-<li><p>Iteration: 500</p></li>
-<li><p>Chunk: 20</p></li>
-<li><p>Mode: HW</p></li>
-<li><p>Model: Inv Sbox R10</p></li>
+<li><p><strong>Iteration</strong>: 500</p></li>
+<li><p><strong>Chunk</strong>: 20</p></li>
+<li><p><strong>Mode</strong>: HW</p></li>
+<li><p><strong>Model</strong>: Inv Sbox R10</p></li>
 </ul>
 <p>This will launch 500*20 = 10000 AES acquisitions and compute CPA on the last round.</p>
 <ol class="arabic simple" start="4">
-<li><p>Press Launch</p></li>
+<li><p>Press <strong>Launch</strong></p></li>
 </ol>
 <p>The AES leakage can be easily recognized thanks to its ten characteristic rounds that create high power consumption spikes. The magnitude spectrum
 plotted in the bottom indicates the leakage amplitude at each frequency.</p>
 <a class="reference internal image-reference" href="../_images/SCA_Leakage1.png"><img alt="AES Leakage results" class="align-center" src="../_images/SCA_Leakage1.png" style="width: 800px;" /></a>
 <ol class="arabic simple" start="5">
-<li><p>Select Correlation</p></li>
+<li><p>Select <strong>Correlation</strong></p></li>
 </ol>
 <p>Two plots illustrate the CPA attack results for a specific key byte (here byte 1). On the top, we can see the correct key candidate (in red) emerging from the other candidates (in gray) after less than 100 acquisitions. On the bottom the temporal representation indicates that the key leaks around the sample 300. The actual implementation of the LastRound CPA works only on the 4 first bytes of the AES.</p>
 <a class="reference internal image-reference" href="../_images/SCA_Results1.png"><img alt="CPA results" class="align-center" src="../_images/SCA_Results1.png" style="width: 800px;" /></a>
@@ -311,6 +319,7 @@ plotted in the bottom indicates the leakage amplitude at each frequency.</p>
 <div class="section" id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
 <p>You did it ! It was your first FPGA-based side-channel attack experience on SCAbox. Now you may be interested in creating your own designs. That’s the topic addressed in the following tutorials.</p>
+<p>Click <strong>Next</strong> to start the <a class="reference external" href="installation.html">Tuto#2</a>: Install the Framework.</p>
 </div>
 </div>
 
@@ -320,8 +329,8 @@ plotted in the bottom indicates the leakage amplitude at each frequency.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="installation.html" class="btn btn-neutral float-right" title="Tuto #1 - Install the Framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="home.html" class="btn btn-neutral float-left" title="Home" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="#2 - Install SCAbox" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="download.html" class="btn btn-neutral float-left" title="#0 - Download SCAbox" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
