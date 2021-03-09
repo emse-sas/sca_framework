@@ -180,7 +180,7 @@ At this point, few steps are required to have a working bitstream.
 3. Select Create a HDL wrapper
 4. Let Vivado manage the wrapper
 
-.. image:: media/img/wrapper.png
+.. image:: media/img/wrapper.pngs
    :width: 300
    :alt: IP block design
    :align: center
