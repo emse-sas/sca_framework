@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('./'))
 sys.path.insert(0, os.path.abspath('./tuto'))
 
 # -- Project information -----------------------------------------------------
-
+master_doc = 'index'
 project = 'SCAbox'
 copyright = '2020, Anonymous'
 author = 'Anonymous'
