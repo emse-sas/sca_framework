@@ -18,7 +18,7 @@ Requirements
 ***************************************************************
 
 - A Zynq board
-- A micro SDHC card.
+- A micro SD card
 - A micro USB cable 
 - Any terminal emulator such as PuTTY, TeraTerm or picocom
 

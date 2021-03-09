@@ -93,14 +93,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#goals">Goals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#emulator-setup">Emulator setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tutorial">Tutorial</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#install-the-hardware">Install the Hardware</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#generate-the-block-design">Generate the block design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tutorial">Tutorial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#install-the-hardware">Install the Hardware</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#generate-the-hardware">Generate the hardware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#install-the-software">Install the Software</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#create-a-new-system-project">Create a new system project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-the-software">Install the Software</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#launch-the-application">Launch the application</a></li>
 </ul>
 </li>
@@ -190,7 +186,8 @@
 <p><strong>Duration:</strong> 1-2 hours (more if you need to download the Xilinx tools)</p>
 <div class="section" id="goals">
 <h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
-<p>The goal of this installation tutorial is to setup the SCAbox framework. This can be done in two steps :</p>
+<p>The goal of this installation tutorial is to setup the SCAbox framework. At the end of this tutorial you will able to run your own synthetized and compiled version of the Tuto#0.</p>
+<p>This can be done in two steps :</p>
 <ol class="arabic simple">
 <li><p>Install the hardware (Xilinx Vivado)</p></li>
 <li><p>Install the software (Xilinx Vitis)</p></li>
@@ -200,9 +197,10 @@
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>A Xilinx Zynq-7000 SoC development board.</p></li>
-<li><p>Xilinx Vivado</p></li>
-<li><p>Xilinx Vitis</p></li>
+<li><p>A Xilinx Zynq-7000 SoC development board</p></li>
+<li><p>A micro USB cable</p></li>
+<li><p>Xilinx Vivado IDE</p></li>
+<li><p>Xilinx Vitis SDK</p></li>
 <li><p>Any terminal emulator such as PuTTY, TeraTerm or picocom</p></li>
 </ul>
 </div>
@@ -214,7 +212,7 @@ Bellow is given the emulator configuration used :</p>
 <ul class="simple">
 <li><p>port is        : /dev/ttyUSBx</p></li>
 <li><p>flowcontrol    : none</p></li>
-<li><p>baudrate is    : 921600</p></li>
+<li><p>baudrate is    : 115200</p></li>
 <li><p>parity is      : none</p></li>
 <li><p>databits are   : 8</p></li>
 <li><p>stopbits are   : 1</p></li>
@@ -230,117 +228,153 @@ Bellow is given the emulator configuration used :</p>
 </div>
 <div class="section" id="tutorial">
 <h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="install-the-hardware">
-<h2>Install the Hardware<a class="headerlink" href="#install-the-hardware" title="Permalink to this headline">¶</a></h2>
+<h3>Install the Hardware<a class="headerlink" href="#install-the-hardware" title="Permalink to this headline">¶</a></h3>
 <p>In this step we explain how to :</p>
-<ol class="arabic simple">
-<li><p>Generate the block design from the demo .tcl</p></li>
-<li><p>Generate the hardware specification or BSP</p></li>
-</ol>
-<div class="section" id="generate-the-block-design">
-<h3>Generate the block design<a class="headerlink" href="#generate-the-block-design" title="Permalink to this headline">¶</a></h3>
-<p>To start the tutorial launch Vivado</p>
-<div class="section" id="create-a-new-rtl-project-without-any-sources">
-<h4>Create a new RTL project without any sources<a class="headerlink" href="#create-a-new-rtl-project-without-any-sources" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Create the SCAbox block design from an empty new vivado project</p></li>
+<li><p>Generate the hardware specification file and bitstream</p></li>
+</ul>
+<div class="section" id="create-a-new-rtl-project">
+<h4>1. Create a new RTL project<a class="headerlink" href="#create-a-new-rtl-project" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
 <li><p>Click on <strong>File &gt; Project &gt; New</strong></p></li>
 <li><p>Select project name and location</p></li>
 <li><p>Choose RTL project</p></li>
-<li><p>Do not add any sources</p></li>
-<li><p>Select the part/board you are using</p></li>
+<li><p>Do not add any sources/constraints</p></li>
+<li><p>Select the part/board you are using (you can follow <a class="reference external" href="https://reference.digilentinc.com/reference/software/vivado/board-files">this</a> digilent tutorial if your board reference does not appear)</p></li>
 <li><p>Create the project</p></li>
 </ol>
+<a class="reference internal image-reference" href="tuto/media/img/summary_project.png"><img alt="IP repo" class="align-center" src="tuto/media/img/summary_project.png" style="width: 640px;" /></a>
 </div>
 <div class="section" id="add-the-ip-repository-to-the-project">
-<h4>Add the IP repository to the project<a class="headerlink" href="#add-the-ip-repository-to-the-project" title="Permalink to this headline">¶</a></h4>
+<h4>2. Add the IP repository to the project<a class="headerlink" href="#add-the-ip-repository-to-the-project" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
-<li><p>Click on <strong>Flow Navigator &gt; Project Manager &gt; Settings</strong></p></li>
-<li><p>Go to <strong>IP &gt; Repository</strong></p></li>
-<li><p>Click on the add button</p></li>
-<li><p>Add each IP directory located in <strong>[sca-ip root]/ip-repo/</strong></p></li>
+<li><p>Click on <strong>Flow Navigator &gt; Project Manager &gt; IP Catalog</strong></p></li>
+<li><p>Right click on <strong>Vivado Repository</strong> and select <strong>Add Repository</strong></p></li>
+<li><p>Select the <strong>your_path/sca-ip/ip_repo</strong> folder</p></li>
 </ol>
 <p>Once it is done you must be able to see the added IPs in the repository list.</p>
-<a class="reference internal image-reference" href="../_images/install_ip_repo.png"><img alt="Repositories list" class="align-center" src="../_images/install_ip_repo.png" style="width: 640px;" /></a>
+<a class="reference internal image-reference" href="tuto/media/img/ip_repo.png"><img alt="IP repo" class="align-center" src="tuto/media/img/ip_repo.png" style="width: 640px;" /></a>
 </div>
-<div class="section" id="launch-the-design-creation-script">
-<h4>Launch the design creation script<a class="headerlink" href="#launch-the-design-creation-script" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="create-the-block-design">
+<h4>3. Create the block design<a class="headerlink" href="#create-the-block-design" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
-<li><p>Open the Tcl Console tab in Vivado</p></li>
-<li><p>Go to the tcl scripts location <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">[demo-root]/tcl</span></code></p></li>
-<li><p>Launch the design creation script <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">system.tcl</span></code></p></li>
+<li><p>Click on <strong>Flow Navigator &gt; IP integrator &gt; Create Block Design</strong></p></li>
+<li><p>Call it “<strong>SCAbox</strong>” and press <strong>OK</strong></p></li>
 </ol>
-<p>At this point if you click to <strong>Flow Navigator &gt; IP Integrator &gt; Open Block Design</strong> you must see the following block design :</p>
-<a class="reference internal image-reference" href="../_images/install_system.png"><img alt="Block design" class="align-center" src="../_images/install_system.png" style="width: 640px;" /></a>
+<p>Now IPs can be added to the design</p>
+<ol class="arabic simple" start="3">
+<li><p>Press the <strong>+</strong> button and search for <strong>ZYNQ7 Processing System</strong>. double click to add it.</p></li>
+<li><p>Press the <strong>+</strong> button and search for <strong>FIFO Controller and FIFO</strong>. double click to add it.</p></li>
+<li><p>Press the <strong>+</strong> button and search for <strong>Time to Digital Converter (TDC)</strong>. double click to add it.</p></li>
+<li><p>Press the <strong>+</strong> button and search for <strong>Advanced Encryption Standard (AES)</strong>. double click to add it.</p></li>
+</ol>
+<p>You should see the following IPs in your block design</p>
+<a class="reference internal image-reference" href="tuto/media/img/ip_block_design.png"><img alt="IP block design" class="align-center" src="tuto/media/img/ip_block_design.png" style="width: 640px;" /></a>
+</div>
+<div class="section" id="connect-the-ip-cores">
+<h4>4. Connect the IP cores<a class="headerlink" href="#connect-the-ip-cores" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Select <strong>Run Block Automation</strong> in the designer assistance (green message in the diagram view). Make sure <strong>apply board preset</strong> is checked and press ok</p></li>
+</ol>
+<a class="reference internal image-reference" href="tuto/media/img/block_automation.png"><img alt="IP block design" class="align-center" src="tuto/media/img/block_automation.png" style="width: 640px;" /></a>
+<ol class="arabic simple" start="2">
+<li><p>Double click on the <strong>ZYNQ7 processing system</strong> block and select <strong>Clock Configuration</strong></p></li>
+<li><p>In the PL Fabric clock arborescence check <strong>FCLK_CLK0</strong> and set its frequency to <strong>50MHz</strong> (AXI clock), check <strong>FCLK_CLK1</strong> and set its frequency to <strong>200MHz</strong> (sensor clock), check <strong>FCLK_CLK2</strong> and set its frequency to <strong>10MHz</strong> (target clock)</p></li>
+</ol>
+<a class="reference internal image-reference" href="tuto/media/img/zynq_clock.png"><img alt="IP block design" class="align-center" src="tuto/media/img/zynq_clock.png" style="width: 640px;" /></a>
+<ol class="arabic simple" start="4">
+<li><p>Connect each clock signal according to the screenshot below.</p></li>
+</ol>
+<a class="reference internal image-reference" href="tuto/media/img/connect_clock.png"><img alt="IP block design" class="align-center" src="tuto/media/img/connect_clock.png" style="width: 640px;" /></a>
+<ol class="arabic simple" start="5">
+<li><p>Double click on the <strong>Time to Digital Converter IP</strong> block and set <strong>Depth</strong> to 8 (resolution), <strong>Count</strong> to 8 (number of sensor), <strong>Width</strong> to 32 (data width for storage).</p></li>
+</ol>
+<a class="reference internal image-reference" href="tuto/media/img/tdc_param.png"><img alt="IP block design" class="align-center" src="tuto/media/img/tdc_param.png" style="width: 400px;" /></a>
+<ol class="arabic simple" start="6">
+<li><p>connect <strong>TDC data_o[31:0]</strong> to FIFO <strong>data_i[31:0]</strong></p></li>
+<li><p>connect <strong>AES start_o</strong> to FIFO <strong>start_i</strong></p></li>
+<li><p>connect <strong>AES done_o</strong> to FIFO <strong>done_i</strong></p></li>
+</ol>
+<p>At this point, the design should look like this</p>
+<a class="reference internal image-reference" href="tuto/media/img/connected_design.png"><img alt="IP block design" class="align-center" src="tuto/media/img/connected_design.png" style="width: 640px;" /></a>
+<ol class="arabic simple" start="9">
+<li><p>Select <strong>Run Connection Automation</strong> in the designer assistance (green message in the diagram view). Check <strong>All Automation</strong> and press <strong>OK</strong></p></li>
+</ol>
+<p>Vivado automatically adds interconnect and reset AXI blocks. The design is ready.</p>
+<a class="reference internal image-reference" href="tuto/media/img/connected_axi_design.png"><img alt="IP block design" class="align-center" src="tuto/media/img/connected_axi_design.png" style="width: 640px;" /></a>
 </div>
 </div>
 <div class="section" id="generate-the-hardware">
 <h3>Generate the hardware<a class="headerlink" href="#generate-the-hardware" title="Permalink to this headline">¶</a></h3>
 <p>At this point, few steps are required to have a working bitstream.</p>
 <div class="section" id="generate-a-hdl-wrapper">
-<h4>Generate a HDL wrapper<a class="headerlink" href="#generate-a-hdl-wrapper" title="Permalink to this headline">¶</a></h4>
+<h4>1. Generate a HDL wrapper<a class="headerlink" href="#generate-a-hdl-wrapper" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
 <li><p>Go into the <strong>Sources</strong> tab</p></li>
-<li><p>Right click on <strong>system</strong> under <strong>Design Sources</strong></p></li>
+<li><p>Right click on <strong>SCAbox</strong> under <strong>Design Sources</strong></p></li>
 <li><p>Select Create a HDL wrapper</p></li>
 <li><p>Let Vivado manage the wrapper</p></li>
+</ol>
+<a class="reference internal image-reference" href="tuto/media/img/wrapper.png"><img alt="IP block design" class="align-center" src="tuto/media/img/wrapper.png" style="width: 300px;" /></a>
+<ol class="arabic simple" start="5">
 <li><p>Click on <strong>Flow Navigator &gt; IP Integrator &gt; Generate Block Design</strong></p></li>
 <li><p>Click on Generate to generate the wrapper</p></li>
 </ol>
 </div>
 <div class="section" id="configure-manual-sensors-placement">
-<h4>Configure manual sensors placement<a class="headerlink" href="#configure-manual-sensors-placement" title="Permalink to this headline">¶</a></h4>
+<h4>2. Configure manual sensors placement<a class="headerlink" href="#configure-manual-sensors-placement" title="Permalink to this headline">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We manually set the TDC sensor placement within the FPGA in order to obtain better side-channel results during the acquisition phase.</p>
+</div>
 <ol class="arabic simple">
 <li><p>Go into the <strong>Design Runs</strong> tab</p></li>
-<li><p>Right click on <strong>impl_1</strong> and select Change Run Settings</p></li>
+</ol>
+<a class="reference internal image-reference" href="tuto/media/img/design_run.png"><img alt="IP block design" class="align-center" src="tuto/media/img/design_run.png" style="width: 640px;" /></a>
+<ol class="arabic simple" start="2">
+<li><p>Right click on <strong>impl_1</strong> and select <strong>Change Run Settings</strong></p></li>
 <li><p>Go to the <strong>Place Design</strong> section in the list</p></li>
 <li><p>Change the <strong>tcl.pre</strong> property by clicking the browse button</p></li>
-<li><p>Select new script and browse for the file <strong>[demo root]/tcl/place.tcl</strong></p></li>
-<li><p>Avoid copying sources into the project and click Ok</p></li>
+<li><p>Select new script and browse for the file <strong>your_path/sca-demo-tdc-aes/tcl/place.tcl</strong></p></li>
+<li><p>Avoid copying sources into the project and click <strong>Ok</strong></p></li>
 </ol>
-<p>Once it is done your Place Design configuration must be the same as follows :</p>
-<a class="reference internal image-reference" href="../_images/install_place.png"><img alt="Place configuration" class="align-center" src="../_images/install_place.png" style="width: 640px;" /></a>
-</div>
-<div class="section" id="add-constraints">
-<h4>Add constraints<a class="headerlink" href="#add-constraints" title="Permalink to this headline">¶</a></h4>
-<ol class="arabic simple">
-<li><p>Go into the <strong>Sources</strong> tab</p></li>
-<li><p>Click on the add button</p></li>
-<li><p>Select Add or create constraints</p></li>
-<li><p>Add the constraint file <strong>[demo root]/xdc/zybo_cst.xdc</strong></p></li>
-</ol>
-<p><strong>Note</strong> You might have to specify your own constraints if you are not using a Zybo board</p>
 </div>
 <div class="section" id="generate-bitstream-and-specification">
-<h4>Generate bitstream and specification<a class="headerlink" href="#generate-bitstream-and-specification" title="Permalink to this headline">¶</a></h4>
+<h4>3. Generate bitstream and specification<a class="headerlink" href="#generate-bitstream-and-specification" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
 <li><p>Click on <strong>Flow Navigator &gt; Program and Debug &gt; Generate Bitstream</strong></p></li>
 <li><p>Wait for the synthesis, implementation and bitstream writing to finish</p></li>
-<li><p>Click on <strong>File &gt; Export &gt; Export Hardware</strong></p></li>
-<li><p>Select Fixed</p></li>
-<li><p>Select Include bitstream</p></li>
-<li><p>Name your file .xsa and select location</p></li>
-<li><p>Click on finish to generate the specification</p></li>
 </ol>
-<p>At this point Vivado must have created a file .xsa at the location you gave.
+<a class="reference internal image-reference" href="tuto/media/img/bitstream.png"><img alt="bitstream success" class="align-center" src="tuto/media/img/bitstream.png" style="width: 300px;" /></a>
+<ol class="arabic simple" start="3">
+<li><p>Click on <strong>File &gt; Export &gt; Export Hardware</strong></p></li>
+</ol>
+<p>4. Select <strong>Fixed</strong> (on vivado 2020)
+4. Select <strong>Include bitstream</strong> and click <strong>Ok</strong></p>
+<a class="reference internal image-reference" href="tuto/media/img/export_hw.png"><img alt="export hw" class="align-center" src="tuto/media/img/export_hw.png" style="width: 300px;" /></a>
+<p>At this point Vivado must have created a .xsa file at the location you gave.
 This file will later be used by Vitis to generate a platform project that will handle
 all our hardware and drivers for the design we created.</p>
-<p><strong>Note</strong> If you are using SDK instead of Vitis, you do not have hardware specification.
-Instead just launch SDK via Vivado and a BSP will automatically be created with the corresponding hardware.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using SDK instead of Vitis, you do not have a .xsa file but a .hdf file (hardware definition).</p>
 </div>
 </div>
 </div>
 <div class="section" id="install-the-software">
-<h2>Install the Software<a class="headerlink" href="#install-the-software" title="Permalink to this headline">¶</a></h2>
+<h3>Install the Software<a class="headerlink" href="#install-the-software" title="Permalink to this headline">¶</a></h3>
 <p>If you completed the previous steps or if you are already provided with a BSP or a hardware specification
 you are now able to bind the hardware with the demo project. To do so :</p>
 <ol class="arabic simple">
-<li><p>Create a new system project</p></li>
+<li><p>From vivado select <strong>File &gt; Launch SDK</strong>.</p></li>
 <li><p>Launch the application</p></li>
 </ol>
 <div class="section" id="create-a-new-system-project">
-<h3>Create a new system project<a class="headerlink" href="#create-a-new-system-project" title="Permalink to this headline">¶</a></h3>
+<h4>Create a new system project<a class="headerlink" href="#create-a-new-system-project" title="Permalink to this headline">¶</a></h4>
 <p>You must launch Vitis in order to follow the steps bellow.</p>
+</div>
 <div class="section" id="create-a-new-platform-project">
 <h4>Create a new platform project<a class="headerlink" href="#create-a-new-platform-project" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
